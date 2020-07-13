@@ -1,8 +1,8 @@
 # Site settings
 title: Hi! My name is Richard.
 description: 'I am an aspiring data scientist and machine learning practitioner.'
-url: 'richardcsuwandi.github.io'
-baseurl: '/home'
+url: 'richardcsuwandi.github.io/'
+baseurl: ''
 # google_analytics: 'UA-XXXXXX-X'
 # disqus_shortname: 'your-disqus-name'
 
