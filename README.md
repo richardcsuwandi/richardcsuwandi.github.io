@@ -1,4 +1,4 @@
-# My Portfolio
+# richardcsuwandi.github.io
 Repository containing portfolio of my projects completed for academic, self-learning, and hobby purposes. 
 
 Link to the GitHub Pages: https://richardcsuwandi.github.io
