@@ -1,8 +1,8 @@
 # Site settings
 title: Richard's Portfolio
 description: 'Jekyll-Uno - a minimal, responsive theme for Jekyll'
-url: 'richardcsuwandi.github.io/my-website'
-baseurl: '/home'
+url: 'richardcsuwandi.github.io'
+baseurl: '/my-website'
 # google_analytics: 'UA-XXXXXX-X'
 # disqus_shortname: 'your-disqus-name'
 
