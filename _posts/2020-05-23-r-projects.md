@@ -14,7 +14,7 @@ A series of Data Science projects implemented in R.
 
 Perform data anaylsis and visualizations on the Nobel Prize winners dataset to draw insights from the data.
 
-![Nobel Prize by Gender](https://github.com/richardcsuwandi/my-portfolio/blob/master/images/nobel-prize-gender.png?raw=true)
+![Nobel Prize by Gender](https://github.com/richardcsuwandi/richardcsuwandi.github.io/blob/master/images/nobel-prize-gender.png?raw=true)
 
 ## Golf Weather Forecast Shiny App
 [![View on GitHub](https://img.shields.io/badge/GitHub-View_on_GitHub-blue?logo=GitHub)](https://github.com/richardcsuwandi/r-projects/tree/master/Golf%20Weather%20Forecast%20Shiny%20App)
