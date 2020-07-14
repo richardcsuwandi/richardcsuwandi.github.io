@@ -1,7 +1,7 @@
 ---
 title: "R Projects"
 date: 2020-05-23
-tags: [R, Data Science]
+tags: [Data Science, Machine Learning, R, Shiny]
 header:
   image: "/images/code-cut.jpg"
 excerpt: "A series of Data Science projects implemented in R."
