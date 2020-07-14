@@ -1,7 +1,7 @@
 ---
 title: "ML Mini Projects"
 date: 2020-05-22
-tags: [Data Science, Machine Learning]
+tags: [Data Science, Machine Learning, Python]
 header:
   image: "/images/code-cut.jpg"
 excerpt: "A series of Machine Learning mini projects."
