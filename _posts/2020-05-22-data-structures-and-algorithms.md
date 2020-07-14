@@ -1,7 +1,7 @@
 ---
 title: "Data Structures and Algorithms"
 date: 2020-05-22
-tags: [Data Structures, Algorithms]
+tags: [Data Structures, Algorithms, Python]
 header:
   image: "/images/code-cut.jpg"
 excerpt: "A collection of powerful data structures and algorithms implemented using Python."
