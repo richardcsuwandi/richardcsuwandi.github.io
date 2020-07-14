@@ -1,7 +1,7 @@
 ---
 title: "ML and Data-Driven Web Apps"
 date: 2020-06-19
-tags: [Machine Learning, Data Science, Python, Streamlit]
+tags: [Data Science, Machine Learning, Python, Streamlit]
 header:
   image: "/images/code-cut.jpg"
 excerpt: "A collection of machine learning and data-driven web apps made using Streamlit."
