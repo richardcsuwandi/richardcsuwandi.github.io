@@ -1,7 +1,7 @@
 ---
 title: "Deep Learning Projects"
 date: 2020-06-08
-tags: [Deep Learning, Neural Networks]
+tags: [Deep Learning, Neural Networks, Python]
 header:
   image: "/images/code-cut.jpg"
 excerpt: "A series of Deep Learning projects implemented using Keras and TensorFlow."
