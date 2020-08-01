@@ -8,7 +8,9 @@ excerpt: "A Chinese calligraphy classifier built using fast.ai."
 mathjax: "true"
 ---
 
-[![View on GitHub](https://img.shields.io/badge/GitHub-View_on_GitHub-blue?logo=GitHub)](https://github.com/richardcsuwandi/img-enhancer-and-detector)
+[![View on GitHub](https://img.shields.io/badge/GitHub-View_on_GitHub-blue?logo=GitHub)](https://github.com/richardcsuwandi/chinese-calligraphy-classifier)
+
+Check out the tutorial for this project on [Medium](https://towardsdatascience.com/i-taught-my-computer-to-classify-chinese-calligraphy-styles-4d0160478ce1). 
 
 ## Motivation
 As an international student studying in China, I’ve always been fascinated by the diversity of Chinese culture and history.
