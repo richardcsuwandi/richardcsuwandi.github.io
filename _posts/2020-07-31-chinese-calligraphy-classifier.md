@@ -1,7 +1,7 @@
 ---
 title: "Chinese Calligraphy Classifier"
 date: 2020-07-31
-tags: [Data Science, Machine Learning, Deep Learning, Neural Networks]
+tags: [Deep Learning, Machine Learning, Neural Networks]
 header:
   image: "/images/code-cut.jpg"
 excerpt: "A Chinese calligraphy classifier built using fast.ai."
@@ -52,7 +52,7 @@ Observation: The dataset is rather ‘dirty’. Some of the images are not well-
 ## Model Building
 For the model, I use the [ResNet-50](https://arxiv.org/abs/1512.03385)
 model architecture with the pre-trained weights on the [ImageNet](http://www.image-net.org/) dataset.
-To train the layers, I use the `fit_one_cycle` method based on the '[*1 Cycle Policy*](https://sgugger.github.io/the-1cycle-policy.html)',
+To train the layers, I use the `fit_one_cycle` method based on the [*1 Cycle Policy*](https://sgugger.github.io/the-1cycle-policy.html),
 which basically changes the learning rate over time to achieve better results.
 
 ![Initial](https://github.com/richardcsuwandi/chinese-calligraphy-classifier/blob/master/images/initial.png?raw=true)
