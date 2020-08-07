@@ -25,6 +25,7 @@ A data-driven web app that visualizes various sentiment and exploratory analysis
 ![Demo 2](https://github.com/richardcsuwandi/airline-sentiment/blob/master/demos/demo2.gif?raw=true)
 View this app in action [here](https://airline-sentiment.herokuapp.com)
 
+<!--
 ## COVID-19 Time Series Analysis
 [![View on GitHub](https://img.shields.io/badge/GitHub-View_on_GitHub-blue?logo=GitHub)](https://github.com/richardcsuwandi/covid19-time-series)
 
@@ -32,3 +33,4 @@ Time series visualizations on the number of confirmed cases, deaths, and recover
 
 ![Demo](https://github.com/richardcsuwandi/covid19-time-series/blob/master/demo.gif?raw=true)
 View this app in action [here](https://covid19-time-series.herokuapp.com)
+-->
