@@ -12,7 +12,7 @@ A series of Data Science projects implemented in R.
 ## Data Analysis and Visualizations on Noble Prize Winners Dataset
 [![View on GitHub](https://img.shields.io/badge/GitHub-View_on_GitHub-blue?logo=GitHub)](https://github.com/richardcsuwandi/r-projects/blob/master/Data%20Analysis%20and%20Visualizations%20on%20Noble%20Prize%20Winners%20Dataset/nobel-prize.md)
 
-Perform data anaylsis and visualizations on the Nobel Prize winners dataset to draw insights from the data.
+Data anaylsis and visualizations on the Nobel Prize winners dataset to draw insights from the data.
 
 ![Nobel Prize by Gender](https://github.com/richardcsuwandi/richardcsuwandi.github.io/blob/master/images/nobel-prize-gender.png?raw=true)
 
