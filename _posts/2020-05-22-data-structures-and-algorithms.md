@@ -12,7 +12,7 @@ A collection of powerful data structures and algorithms implemented using Python
 ## Tower of Hanoi Using Stack
 [![View on GitHub](https://img.shields.io/badge/GitHub-View_on_GitHub-blue?logo=GitHub)](https://github.com/richardcsuwandi/data-structures-and-algorithms/blob/master/Stack/Tower%20of%20Hanoi%20Using%20Stack.ipynb)
 
-Using stack to implement a non-recursive function for solving a Tower of Hanoi with n disks.
+A non-recursive function for solving a Tower of Hanoi with n disks implemented using stack.
 
 ![Tower of Hanoi](https://github.com/richardcsuwandi/data-structures-and-algorithms/blob/master/images/tower-of-hanoi.png?raw=true)
 
