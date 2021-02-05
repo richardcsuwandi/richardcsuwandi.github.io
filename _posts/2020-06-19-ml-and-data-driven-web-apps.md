@@ -14,7 +14,7 @@ A collection of machine learning and data-driven web apps made using Streamlit.
 
  An exploratory analysis tool that provides various summaries and visualizations on the uploaded data.
 
-![Demo 1](https://github.com/richardcsuwandi/eda-tool/blob/master/demos/demo1.gif?raw=true)
+![Demo 1](https://github.com/richardcsuwandi/eda-tool/blob/master/demos/eda-demo1.gif?raw=true)
 
 ## Sentiment Analysis on Tweets about US Airlines
 [![View on GitHub](https://img.shields.io/badge/GitHub-View_on_GitHub-blue?logo=GitHub)](https://github.com/richardcsuwandi/airline-sentiment)
