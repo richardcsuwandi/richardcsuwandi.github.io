@@ -10,6 +10,8 @@ mathjax: "true"
 
 [![View on GitHub](https://img.shields.io/badge/GitHub-View_on_GitHub-blue?logo=GitHub)](https://github.com/richardcsuwandi/linkedin-network-analysis)
 
+Check out the tutorial for this project on [Medium](https://towardsdatascience.com/analyzing-my-own-linkedin-data-24df63a9dc28).
+
 ## Motivation
 As an active user on [LinkedIn](https://www.linkedin.com/in/richardcsuwandi/) with more than 1000 connections, I was curious about the statistics of my network. 
 In particular, I was wondering about these questions:
