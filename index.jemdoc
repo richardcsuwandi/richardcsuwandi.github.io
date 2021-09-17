@@ -25,7 +25,8 @@ design for Gaussian processes.
 	
 == Recent News
 - /June, 2021/: The paper \"Demystifying Model Averaging for Communication-Efficient Federated Matrix Factorization\" is accepted 
-at *[https://www.2021.ieeeicassp.org/ IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP) 2021]*. [https://ieeexplore.ieee.org/document/9413927 IEEE Xplore].
+at *[https://www.2021.ieeeicassp.org/ IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP) 2021]*. 
+Check out the paper on [https://ieeexplore.ieee.org/document/9413927 IEEE Xplore].
 
 ~~~
 {}{img_center}{fedmf.png}{}{300}{220}{}
