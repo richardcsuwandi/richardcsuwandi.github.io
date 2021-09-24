@@ -19,13 +19,12 @@ I also manage my own [https://richardcsuwandi.github.io/blog blog], where I regu
 == About Me
 I am a third-year undergraduate student majoring in data science at [https://cuhk.edu.cn/en/ The Chinese University of Hong Kong, Shenzhen (CUHK-Shenzhen)].
 I am also affiliated with the [https://sse.cuhk.edu.cn/en/ School of Science and Engineering] of CUHK-Shenzhen as a research assistant. 
+Currently, I am working with [https://sse.cuhk.edu.cn/en/teacher/355 Zhidi Lin] and [https://sse.cuhk.edu.cn/en/faculty/yinfeng Prof. Feng Yin] on spectral kernel 
+design for Gaussian processes.
 My main research interests include:
 - Federated learning
 - Gaussian processes
 - Signal processing
-
-Currently, I am working with [https://sse.cuhk.edu.cn/en/teacher/355 Zhidi Lin] and [https://sse.cuhk.edu.cn/en/faculty/yinfeng Prof. Feng Yin] on spectral kernel 
-design for Gaussian processes.
 	
 == Recent News
 - /June, 2021/: The paper \"Demystifying Model Averaging for Communication-Efficient Federated Matrix Factorization\" (with [https://sse.cuhk.edu.cn/en/teacher/215 Shuai Wang] and [https://myweb.cuhk.edu.cn/changtsunghui/Home/Index Prof. Tsung-Hui Chang]) is accepted 
