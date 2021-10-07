@@ -153,4 +153,4 @@ In particular, I plot the confusion matrix to see where the model seems to be 'c
 &lt;p>From the confusion matrix, it can be seen that the model does pretty well in classifying the 'zhuanshu' style.
 This is probably due to its unique stroke arrangements.
 To wrap up, I also plotted the ground truth vs. predictions by calling the &lt;code>learn.show_results&lt;/code> method.&lt;/p>
-&lt;p>&lt;img src="https://github.com/richardcsuwandi/chinese-calligraphy-classifier/blob/master/images/predictions.PNG?raw=true" alt="Predictions">&lt;/p></description></item></channel></rss>
+&lt;p>&lt;img src="https://github.com/richardcsuwandi/chinese-calligraphy-classifier/blob/master/images/predictions.PNG?raw=true" alt="Predictions">&lt;/p></description></item><item><title>Deep Learning Projects</title><link>https://richardcsuwandi.github.io/project/dl-projects/</link><pubDate>Mon, 27 Jul 2020 00:00:00 +0000</pubDate><guid>https://richardcsuwandi.github.io/project/dl-projects/</guid><description/></item></channel></rss>
