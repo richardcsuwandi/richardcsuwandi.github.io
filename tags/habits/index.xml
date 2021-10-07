@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Habits on Richard Cornelius Suwandi</title><link>https://richardcsuwandi.github.io/tags/habits/</link><description>Recent content in Habits on Richard Cornelius Suwandi</description><generator>Source Themes academia (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>&amp;copy; {year} Richard Cornelius Suwandi. All rights reserved.</copyright><lastBuildDate>Wed, 22 Jul 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://richardcsuwandi.github.io/tags/habits/index.xml" rel="self" type="application/rss+xml"/><item><title>7 Habits of an Effective Data Scientist</title><link>https://richardcsuwandi.github.io/post/7-habits/</link><pubDate>Wed, 22 Jul 2020 00:00:00 +0000</pubDate><guid>https://richardcsuwandi.github.io/post/7-habits/</guid><description>&lt;blockquote>
+&lt;p>&amp;ldquo;What you do every day = who you are.&amp;rdquo;&lt;/p>
+&lt;/blockquote>
+&lt;p>As an aspiring data scientist, I realized the importance of the habits that we do every day, both consciously and unconsciously. During that period of realization, I found one of the best self-mastery books — &lt;strong>&amp;quot;The 7 Habits of Highly Effective People&amp;quot;&lt;/strong> by Stephen R. Covey. As the title suggests, the book elaborates on the 7 habits of the planet's highly effective people. It's a powerful book to read for me and I'm still working on implementing these habits in my daily routine. In this blog post, I want to share with you my take on the 7 habits, seen through my lens of data science.&lt;/p>
+&lt;h3 id="1-be-proactive">1. Be proactive&lt;/h3>
+&lt;p>&lt;img src="https://miro.medium.com/max/1050/1*mE0zZ-CQ7PG5wJaoIjvN-A.jpeg" alt="">&lt;/p>
+&lt;p>Nobody understands the data better than you do. An effective data scientist should advise on how the data can be utilized as other people may not be aware of the power of data. Focus on what value the data can bring and take initiative for the greater good.&lt;/p>
+&lt;blockquote>
+&lt;p>&amp;ldquo;Reactive people are driven by feelings, by circumstances, by conditions, by their environment. Proactive people are driven by values — carefully thought about, selected and internalized values.&amp;rdquo; — Stephen Covey&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="2-begin-with-the-end-in-mind">2. Begin with the end in mind&lt;/h3>
+&lt;p>&lt;img src="https://miro.medium.com/max/1050/0*g974zjSLwd-Pd5ne" alt="">&lt;/p>
+&lt;p>Data science isn't about reaching your goal, it's about finding the best path to your goal. An effective data scientist should have a clear idea of how the project should be carried out. Depending on the project, the best practices may vary, but without it, no project can be well-planned and well-executed. Start by figuring out what's the best output and how to do it.&lt;/p>
+&lt;blockquote>
+&lt;p>&amp;ldquo;To begin with the end in mind means to start with a clear understanding of your destination. It means to know where you're going so that you better understand where you are now and so that the steps you take are always in the right direction.&amp;rdquo; — Stephen Covey&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="3-put-first-things-first">3. Put first things first&lt;/h3>
+&lt;p>&lt;img src="https://miro.medium.com/max/1050/0*ZEO2vC4u2ffiPJ2A" alt="">&lt;/p>
+&lt;p>Data science can sometimes be overwhelming, especially when you're working on the bigger and important projects. Hence, priority must be given to tackling the most important and urgent problem. An effective data scientist understands what should have been done first. Being able to measure what's important and what's urgent, then sticking to the highest priority will pay off in the long run.&lt;/p>
+&lt;blockquote>
+&lt;p>&amp;ldquo;The key is not to prioritize what's on your schedule, but to schedule your priorities.&amp;rdquo; — Stephen Covey&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="4-think-win-win">4. Think win-win&lt;/h3>
+&lt;p>&lt;img src="https://miro.medium.com/max/1050/0*AAAuTS39pGfC6xI1" alt="">&lt;/p>
+&lt;p>A great data scientist is always a person with a win-win approach. Thinking about how both sides can win is crucial to building trust and ensuring long-term success. An effective data scientist knows that everybody can win! Always focus on solutions that aren't one-sided.&lt;/p>
+&lt;blockquote>
+&lt;p>&amp;ldquo;It's not your way or my way; it's a better way, a higher way.&amp;rdquo; — Stephen Covey&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="5-seek-first-to-understand-then-to-be-understood">5. Seek first to understand, then to be understood&lt;/h3>
+&lt;p>&lt;img src="https://miro.medium.com/max/1050/0*3svadjLCsSLr9SwP" alt="">&lt;/p>
+&lt;p>The ability to communicate clearly is also essential for a data scientist. To do so, you must endeavor to understand your audience before attempting to make yourself understood. Empathy and open-mindedness are the keys to attaining a full understanding of people. An effective data scientist should first understand before making any assumptions. And often, seeking a different point of view could open up another better possibility.&lt;/p>
+&lt;blockquote>
+&lt;p>&amp;ldquo;Most people do not listen with the intent to understand; they listen with the intent to reply.&amp;rdquo; — Stephen Covey&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="6-synergize">6. Synergize&lt;/h3>
+&lt;p>&lt;img src="https://miro.medium.com/max/1050/0*o5bBYa36ds_yjzyT" alt="">&lt;/p>
+&lt;p>Data science is not about your solo work. Teamwork is vital for a well-constructed plan to be executed with perfection, as every individual may give different and better alternatives. An effective data scientist must be able to work in sync with others. In fact, great things generally happen when people work together.&lt;/p>
+&lt;blockquote>
+&lt;p>&amp;ldquo;Synergy is better than my way or your way. It's our way.&amp;rdquo; — Stephen Covey&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="7-sharpen-the-saw">7. Sharpen the saw&lt;/h3>
+&lt;p>&lt;img src="https://miro.medium.com/max/1050/0*jU0bBGqANQNPFjSD" alt="">&lt;/p>
+&lt;p>Data science is a huge and rapidly evolving field. A deeper understanding of data science can only be gained through continuous learning. An effective data scientist must always be ready to solve upcoming problems. Always strive for more knowledge and adapt to new challenges.&lt;/p>
+&lt;blockquote>
+&lt;p>&amp;ldquo;Unless you're continually improving your skills, you're quickly becoming irrelevant.&amp;rdquo; — Stephen Covey&lt;/p>
+&lt;/blockquote>
+&lt;p>Adapting to a new habit can be challenging at first, as it requires you to get out of your comfort zone. But, instead of worrying about things you can't control, concentrate on getting control over yourself first. Remember, one step at a time!&lt;/p>
+&lt;blockquote>
+&lt;p>&amp;ldquo;Start small, make a promise and keep it. Then, make larger promises and keep them.&amp;rdquo; — Stephen Covey&lt;/p>
+&lt;/blockquote></description></item></channel></rss>

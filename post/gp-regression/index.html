@@ -1,0 +1,375 @@
+<!doctype html><html lang=en-us>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=generator content="Source Themes Academia 4.3.1">
+<meta name=generator content="Hugo 0.88.1">
+<meta name=author content="Richard Cornelius Suwandi">
+<meta name=description content="Building a scalable and flexible GP model using GPyTorch">
+<link rel=alternate hreflang=en-us href=https://richardcsuwandi.github.io/post/gp-regression/>
+<meta name=theme-color content="hsl(339, 90%, 68%)">
+<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin=anonymous>
+<link rel=stylesheet href=https://use.fontawesome.com/releases/v5.6.0/css/all.css integrity=sha384-aOkxzJ5uQz7WBObEZcHvV5JvRW3TUc2rNPA7pe3AwnsUohiw1Vj2Rgx2KSOkF5+h crossorigin=anonymous>
+<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css integrity="sha256-ygkqlh3CYSUri3LhQxzdcm0n1EQvH2Y+U5S2idbLtxs=" crossorigin=anonymous>
+<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css crossorigin=anonymous title=hl-light disabled>
+<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/dracula.min.css crossorigin=anonymous title=hl-dark>
+<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.css integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ==" crossorigin=anonymous>
+<link rel=stylesheet href="https://fonts.googleapis.com/css?family=Lato:400,700|Open+Sans|Roboto+Mono&display=swap">
+<link rel=stylesheet href=/css/academia.min.025a4ab6e3ba3661216d65ca23d48a25.css>
+<link rel=manifest href=/site.webmanifest>
+<link rel=icon type=image/png href=/img/icon.png>
+<link rel=apple-touch-icon type=image/png href=/img/icon-192.png>
+<link rel=canonical href=https://richardcsuwandi.github.io/post/gp-regression/>
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:site" content="@richardcsuwandi">
+<meta property="twitter:creator" content="@richardcsuwandi">
+<meta property="og:site_name" content="Richard Cornelius Suwandi">
+<meta property="og:url" content="https://richardcsuwandi.github.io/post/gp-regression/">
+<meta property="og:title" content="Gaussian Process Regression using GPyTorch | Richard Cornelius Suwandi">
+<meta property="og:description" content="Building a scalable and flexible GP model using GPyTorch"><meta property="og:image" content="https://richardcsuwandi.github.io/post/gp-regression/featured.png">
+<meta property="twitter:image" content="https://richardcsuwandi.github.io/post/gp-regression/featured.png"><meta property="og:locale" content="en-us">
+<meta property="article:published_time" content="2021-09-21T00:00:00+00:00">
+<meta property="article:modified_time" content="2021-09-21T00:00:00+00:00">
+<title>Gaussian Process Regression using GPyTorch | Richard Cornelius Suwandi</title>
+</head>
+<body id=top data-spy=scroll data-target=#TableOfContents data-offset=71 class=dark>
+<aside class=search-results id=search>
+<div class=container>
+<section class=search-header>
+<div class="row no-gutters justify-content-between mb-3">
+<div class=col-6>
+<h1>Search</h1>
+</div>
+<div class="col-6 col-search-close">
+<a class=js-search href=#><i class="fas fa-times-circle text-muted" aria-hidden=true></i></a>
+</div>
+</div>
+<div id=search-box>
+</div>
+</section>
+<section class=section-search-results>
+<div id=search-hits>
+</div>
+</section>
+</div>
+</aside>
+<nav class="navbar navbar-light fixed-top navbar-expand-lg py-0" id=navbar-main>
+<div class=container>
+<a class=navbar-brand href=/>Richard Cornelius Suwandi</a>
+<button type=button class=navbar-toggler data-toggle=collapse data-target=#navbar aria-controls=navbar aria-expanded=false aria-label="Toggle navigation"><span><i class="fas fa-bars"></i></span>
+</button>
+<div class="collapse navbar-collapse" id=navbar>
+<ul class="navbar-nav ml-auto">
+<li class=nav-item>
+<a class=nav-link href=/#about><span>Home</span></a>
+</li>
+<li class=nav-item>
+<a class=nav-link href=/#projects><span>Projects</span></a>
+</li>
+<li class=nav-item>
+<a class=nav-link href=/#publications><span>Publications</span></a>
+</li>
+<li class=nav-item>
+<a class=nav-link href=/#talks><span>Talks</span></a>
+</li>
+<li class=nav-item>
+<a class=nav-link href=/#posts><span>Posts</span></a>
+</li>
+<li class=nav-item>
+<a class=nav-link href=/files/cv.pdf><span>CV</span></a>
+</li>
+<li class=nav-item>
+<a class="nav-link js-dark-toggle" href=#><i class="fas fa-moon" aria-hidden=true></i></a>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+<article class="article py-5" itemscope itemtype=http://schema.org/Article>
+<div class="container split-header">
+<div class="row justify-content-center">
+<div class=col-lg-8>
+<h1 itemprop=name>Gaussian Process Regression using GPyTorch</h1>
+<meta content="2021-09-21 00:00:00 +0000 UTC" itemprop=datePublished>
+<meta content="2021-09-21 00:00:00 +0000 UTC" itemprop=dateModified>
+<div class=article-metadata>
+<span class=article-date>
+<time>Sep 21, 2021</time>
+</span>
+<span class=middot-divider></span>
+<span class=article-reading-time>
+7 min read
+</span>
+<span class=middot-divider></span>
+<a href=/post/gp-regression/#disqus_thread></a>
+<div class=share-box aria-hidden=true>
+<ul class=share>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class=article-container>
+<div class=article-style itemprop=articleBody>
+<p><strong>Gaussian Process</strong>, or GP for short, is an underappreciated yet powerful algorithm for machine learning tasks. It is a non-parametric, Bayesian approach to machine learning that can be applied to supervised learning problems like regression and classification. Compared to other supervised learning algorithms, GP has several practical advantages: it can work well on small datasets and has the ability to provide uncertainty measurements on the predictions.</p>
+<p>In this tutorial, I am going to demonstrate how to perform GP regression using GPyTorch. <strong>GPyTorch</strong> is a Gaussian process library implemented using PyTorch that is designed for creating scalable and flexible GP models. You can learn more about GPyTorch on their <a href=https://gpytorch.ai/>official website</a>.</p>
+<blockquote>
+<p><strong>Note:</strong> This tutorial is not necessarily intended to teach the mathematical background of GP, but rather how to build one using GPyTorch. I highly recommend reading the Chapter 2 of <a href=http://www.gaussianprocess.org/gpml/chapters/RW2.pdf><em>Gaussian Processes for Machine Learning</em></a> for a very thorough introduction to GP regression.</p>
+</blockquote>
+<h3 id=setup>Setup</h3>
+<p>Before we start, we first need to install the <code>gpytorch</code> library. You can do this either by pip or conda using the following command:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#75715e># Install using pip</span>
+pip install gpytorch
+<span style=color:#75715e># Install using conda</span>
+conda install gpytorch -c gpytorch
+</code></pre></div><p>You can also check the requirements and installation instructions on their website <a href=https://gpytorch.ai/#install>here</a>.</p>
+<blockquote>
+<p><strong>Note:</strong> If you want to follow along with this tutorial, you can find the notebook of this tutorial <a href=https://github.com/richardcsuwandi/gp/blob/main/GP%20Regression%20using%20GPyTorch.ipynb>here</a>.</p>
+</blockquote>
+<p>Generating the data
+Next, we need to generate a training data for our model. We will be modeling the following function:</p>
+<p>$$y = \sin{(2 \pi x)} + \epsilon, \enspace \epsilon \sim \mathcal{N}(0, 0.04)$$</p>
+<p>The above function is the true function for our GP model, which is a sine function with Gaussian noise. We will evaluate this function on 15 equally-spaced points from [0,1]. The generated training data is depicted in the following plot:</p>
+<p><img src=https://miro.medium.com/max/579/1*Ynk7E-SkgDmONEeuU3_ydQ.png alt></p>
+<h3 id=building-the-model>Building the model</h3>
+<p>Now that we have generated our training data, we can start building our GP model. GPyTorch offers a <strong>flexible</strong> way for us to build GP models, by constructing the components of the model by ourselves. This is analogous to building neural networks in the standard PyTorch library. For most GP regression models, you will need to construct the following components:</p>
+<ol>
+<li><strong>A GP Model:</strong> For exact (i.e. non-variational) GP models we will use <code>gpytorch.models.ExactGP</code>.</li>
+<li><strong>A likelihood function:</strong> The likelihood function for GP regression, we commonly use <code>gpytorch.likelihoods.GaussianLikelihood</code>.</li>
+<li><strong>A mean function:</strong> The prior mean of the GP. If you don’t know which mean function to use, <code>gpytorch.means.ConstantMean()</code> is usually a good place to start.</li>
+<li><strong>A kernel function:</strong> The prior covariance of the GP. We’ll use the Spectral Mixture (SM) kernel (<code>gpytorch.kernels.SpectralMixtureKernels()</code>) for this tutorial.</li>
+<li><strong>A multivariate normal distribution:</strong> The multivariate normal distribution in GP (<code>gpytorch.distributions.MultivariateNormal</code>)</li>
+</ol>
+<p>We can build our GP model by constructing the above components as follows:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>SpectralMixtureGP</span>(gpytorch<span style=color:#f92672>.</span>models<span style=color:#f92672>.</span>ExactGP):
+    <span style=color:#66d9ef>def</span> __init__(self, x_train, y_train, likelihood):
+        super(SpectralMixtureGP, self)<span style=color:#f92672>.</span>__init__(x_train, y_train, likelihood)
+        self<span style=color:#f92672>.</span>mean <span style=color:#f92672>=</span> gpytorch<span style=color:#f92672>.</span>means<span style=color:#f92672>.</span>ConstantMean() <span style=color:#75715e># Construct the mean function</span>
+        self<span style=color:#f92672>.</span>cov <span style=color:#f92672>=</span> gpytorch<span style=color:#f92672>.</span>kernels<span style=color:#f92672>.</span>SpectralMixtureKernel(num_mixtures<span style=color:#f92672>=</span><span style=color:#ae81ff>4</span>) <span style=color:#75715e># Construct the kernel function</span>
+        self<span style=color:#f92672>.</span>cov<span style=color:#f92672>.</span>initialize_from_data(x_train, y_train) <span style=color:#75715e># Initialize the hyperparameters from data</span>
+        
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>forward</span>(self, x):
+        <span style=color:#75715e># Evaluate the mean and kernel function at x</span>
+        mean_x <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>mean(x)
+        cov_x <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>cov(x)
+        <span style=color:#75715e># Return the multivariate normal distribution using the evaluated mean and kernel function</span>
+        <span style=color:#66d9ef>return</span> gpytorch<span style=color:#f92672>.</span>distributions<span style=color:#f92672>.</span>MultivariateNormal(mean_x, cov_x) 
+
+<span style=color:#75715e># Initialize the likelihood and model</span>
+likelihood <span style=color:#f92672>=</span> gpytorch<span style=color:#f92672>.</span>likelihoods<span style=color:#f92672>.</span>GaussianLikelihood()
+model <span style=color:#f92672>=</span> SpectralMixtureGP(x_train, y_train, likelihood)
+</code></pre></div><p>Let me breakdown the above code line-by-line:</p>
+<ul>
+<li>The above GP model has two main components: the <code>__init__</code> and <code>forward</code> method.</li>
+<li>The <code>__init__</code> method takes the training data and a likelihood as the inputs and constructs whatever objects are necessary for the model’s forward method. This will most commonly include objects like a mean function and a kernel function.</li>
+<li>The <code>forward</code> method takes in the data <code>x</code> and returns a multivariate normal distribution with the prior mean and covariance evaluated at <code>x</code>.</li>
+<li>Finally, we initialize the likelihood function for the GP model. Here, we use the Gaussian likelihood, which is the simplest likelihood function that assumes a homoskedastic noise model (i.e. all inputs have the same noise).</li>
+</ul>
+<h3 id=training-the-model>Training the model</h3>
+<p>Now that we have built the model, we can train the model to find the optimal hyperparameters. Training a GP model in GPyTorch is also analogous to training a neural network in the standard PyTorch library. The training loop mainly consists of the following steps:</p>
+<ol>
+<li>Setting all the parameter gradients to zero</li>
+<li>Calling the model and computing the loss</li>
+<li>Calling backward on the loss to fill in gradients</li>
+<li>Taking a step on the optimizer</li>
+</ol>
+<blockquote>
+<p><strong>Note:</strong> By defining our custom training loop, we can have greater flexibility in training our model. For example, it is easy to save the parameters at each step of training or use different learning rates for different parameters.</p>
+</blockquote>
+<p>The code for the training loop is given below:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#75715e># Put the model into training mode</span>
+model<span style=color:#f92672>.</span>train()
+likelihood<span style=color:#f92672>.</span>train()
+
+<span style=color:#75715e># Use the Adam optimizer, with learning rate set to 0.1</span>
+optimizer <span style=color:#f92672>=</span> torch<span style=color:#f92672>.</span>optim<span style=color:#f92672>.</span>Adam(model<span style=color:#f92672>.</span>parameters(), lr<span style=color:#f92672>=</span><span style=color:#ae81ff>0.1</span>)
+
+<span style=color:#75715e># Use the negative marginal log-likelihood as the loss function</span>
+mll <span style=color:#f92672>=</span> gpytorch<span style=color:#f92672>.</span>mlls<span style=color:#f92672>.</span>ExactMarginalLogLikelihood(likelihood, model)
+
+<span style=color:#75715e># Set the number of training iterations</span>
+n_iter <span style=color:#f92672>=</span> <span style=color:#ae81ff>50</span>
+
+<span style=color:#66d9ef>for</span> i <span style=color:#f92672>in</span> range(n_iter):
+    <span style=color:#75715e># Set the gradients from previous iteration to zero</span>
+    optimizer<span style=color:#f92672>.</span>zero_grad()
+    <span style=color:#75715e># Output from model</span>
+    output <span style=color:#f92672>=</span> model(x_train)
+    <span style=color:#75715e># Compute loss and backprop gradients</span>
+    loss <span style=color:#f92672>=</span> <span style=color:#f92672>-</span>mll(output, y_train)
+    loss<span style=color:#f92672>.</span>backward()
+    print(<span style=color:#e6db74>&#39;Iter </span><span style=color:#e6db74>%d</span><span style=color:#e6db74>/</span><span style=color:#e6db74>%d</span><span style=color:#e6db74> - Loss: </span><span style=color:#e6db74>%.3f</span><span style=color:#e6db74>&#39;</span> <span style=color:#f92672>%</span> (i <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>, n_iter, loss<span style=color:#f92672>.</span>item()))
+    optimizer<span style=color:#f92672>.</span>step()
+</code></pre></div><p>In the above code, we first put our model into training mode by calling <code>model.train()</code> and <code>likelihood.train()</code>. Then, we define the loss function and optimizer that we want to use in the training process. Here, we use the negative marginal log-likelihood as the loss function and Adam as the optimizer. We also need to set the number of iterations for the training loop, say 50 iterations.</p>
+<h3 id=making-predictions-with-the-model>Making predictions with the model</h3>
+<p>Finally, we can make predictions using the trained model. The basic routine of evaluating the model and making predictions is given in the following code:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#75715e># The test data is 50 equally-spaced points from [0,5]</span>
+x_test <span style=color:#f92672>=</span> torch<span style=color:#f92672>.</span>linspace(<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>5</span>, <span style=color:#ae81ff>50</span>)
+
+<span style=color:#75715e># Put the model into evaluation mode</span>
+model<span style=color:#f92672>.</span>eval()
+likelihood<span style=color:#f92672>.</span>eval()
+
+<span style=color:#75715e># The gpytorch.settings.fast_pred_var flag activates LOVE (for fast variances)</span>
+<span style=color:#75715e># See https://arxiv.org/abs/1803.06058</span>
+<span style=color:#66d9ef>with</span> torch<span style=color:#f92672>.</span>no_grad(), gpytorch<span style=color:#f92672>.</span>settings<span style=color:#f92672>.</span>fast_pred_var():
+    <span style=color:#75715e># Obtain the predictive mean and covariance matrix</span>
+    f_preds <span style=color:#f92672>=</span> model(x_test)
+    f_mean <span style=color:#f92672>=</span> f_preds<span style=color:#f92672>.</span>mean
+    f_cov <span style=color:#f92672>=</span> f_preds<span style=color:#f92672>.</span>covariance_matrix
+    
+    <span style=color:#75715e># Make predictions by feeding model through likelihood</span>
+    observed_pred <span style=color:#f92672>=</span> likelihood(model(x_test))
+    
+    <span style=color:#75715e># Initialize plot</span>
+    f, ax <span style=color:#f92672>=</span> plt<span style=color:#f92672>.</span>subplots(<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>1</span>, figsize<span style=color:#f92672>=</span>(<span style=color:#ae81ff>8</span>, <span style=color:#ae81ff>6</span>))
+    <span style=color:#75715e># Get upper and lower confidence bounds</span>
+    lower, upper <span style=color:#f92672>=</span> observed_pred<span style=color:#f92672>.</span>confidence_region()
+    <span style=color:#75715e># Plot training data as black stars</span>
+    ax<span style=color:#f92672>.</span>plot(x_train<span style=color:#f92672>.</span>numpy(), y_train<span style=color:#f92672>.</span>numpy(), <span style=color:#e6db74>&#39;k*&#39;</span>)
+    <span style=color:#75715e># Plot predictive means as blue line</span>
+    ax<span style=color:#f92672>.</span>plot(x_test<span style=color:#f92672>.</span>numpy(), observed_pred<span style=color:#f92672>.</span>mean<span style=color:#f92672>.</span>numpy(), <span style=color:#e6db74>&#39;b&#39;</span>)
+    <span style=color:#75715e># Shade between the lower and upper confidence bounds</span>
+    ax<span style=color:#f92672>.</span>fill_between(x_test<span style=color:#f92672>.</span>numpy(), lower<span style=color:#f92672>.</span>numpy(), upper<span style=color:#f92672>.</span>numpy(), alpha<span style=color:#f92672>=</span><span style=color:#ae81ff>0.5</span>)
+    ax<span style=color:#f92672>.</span>set_ylim([<span style=color:#f92672>-</span><span style=color:#ae81ff>3</span>, <span style=color:#ae81ff>3</span>])
+    ax<span style=color:#f92672>.</span>legend([<span style=color:#e6db74>&#39;Observed Data&#39;</span>, <span style=color:#e6db74>&#39;Mean&#39;</span>, <span style=color:#e6db74>&#39;Confidence&#39;</span>])
+</code></pre></div><p>There are a few things going on in the above code:</p>
+<ul>
+<li>We first generate the test data using 50 equally-spaced points from [0, 5].</li>
+<li>We put the model into evaluation mode by calling <code>model.eval()</code> and <code>likelihood.eval()</code>.</li>
+<li>We use <code>gpytorch.settings.fast_pred_var()</code> to get faster predictive distributions using <a href=https://arxiv.org/abs/1803.06058>LOVE</a>.</li>
+<li>When put into the eval mode, the trained GP model returns a <code>MultivariateNormal</code> containing the posterior mean and covariance. Thus, we can obtain the predictive mean and covariance matrix from the multivariate normal distribution.</li>
+<li>Finally, we plot the mean and confidence region of the fitted GP model. The <code>confidence_region()</code> method is a helper method that returns 2 standard deviations above and below the mean.</li>
+</ul>
+<p>The resulting plot is depicted below:</p>
+<p><img src=https://miro.medium.com/max/723/1*UsYQWBOmpquZN52nT9s7cA.png alt></p>
+<p>The black stars in the above plot represent the training (observed) data, while the blue line and the shaded area represent the mean and the confidence bounds respectively. Notice how the uncertainty is reduced close to the observed points. If more data points were added, we would see the mean function adjust itself to pass through these points and the uncertainty would reduce close to the observations.</p>
+<h3 id=takeaways>Takeaways</h3>
+<p>In this tutorial, we have learned how to build a scalable and flexible GP model using GPyTorch. Like any other libraries, there are still <a href=https://docs.gpytorch.ai/en/latest/>a lot of cool things</a> that you can do with GPyTorch which I didn’t cover in this tutorial. For example, you can utilize a GPU to accelerate your model training when implementing state-of-the-art algorithms like <a href=https://arxiv.org/pdf/1705.08933.pdf>Deep GP</a> or <a href=https://arxiv.org/pdf/1611.00336.pdf>stochastic variational</a> <a href=http://proceedings.mlr.press/v51/wilson16.pdf>deep kernel learning</a>.</p>
+</div>
+<div class=article-tags>
+<a class="badge badge-light" href=/tags/gaussian-process/>gaussian-process</a>
+<a class="badge badge-light" href=/tags/machine-learning/>Machine Learning</a>
+<a class="badge badge-light" href=/tags/data-science/>Data Science</a>
+</div>
+<div class="media author-card" itemscope itemtype=http://schema.org/Person>
+<div class=media-body>
+<h5 class=card-title itemprop=name><a href=https://richardcsuwandi.github.io>Richard Cornelius Suwandi</a></h5>
+<h6 class=card-subtitle>Research Assistant</h6>
+<p class=card-text itemprop=description>Currently studying data science at CUHK-Shenzhen.</p>
+<ul class=network-icon aria-hidden=true>
+<li>
+<a itemprop=sameAs href="https://scholar.google.com/citations?user=28o0CkgAAAAJ&hl=en" target=_blank rel=noopener>
+<i class="ai ai-google-scholar"></i>
+</a>
+</li>
+<li>
+<a itemprop=sameAs href=https://github.com/richardcsuwandi target=_blank rel=noopener>
+<i class="fab fa-github"></i>
+</a>
+</li>
+<li>
+<a itemprop=sameAs href=https://linkedin.com/in/richardcsuwandi target=_blank rel=noopener>
+<i class="fab fa-linkedin"></i>
+</a>
+</li>
+<li>
+<a itemprop=sameAs href=https://twitter.com/richardcsuwandi target=_blank rel=noopener>
+<i class="fab fa-twitter"></i>
+</a>
+</li>
+<li>
+<a itemprop=sameAs href=https://richardcsuwandi.medium.com target=_blank rel=noopener>
+<i class="fab fa-medium"></i>
+</a>
+</li>
+<li>
+<a itemprop=sameAs href=mailto:richardsuwandi@link.cuhk.edu.cn>
+<i class="fas fa-envelope"></i>
+</a>
+</li>
+</ul>
+</div>
+</div>
+<div class=article-widget>
+<div class=hr-light></div>
+<h3>Related</h3>
+<ul>
+<li><a href=/post/lego/>Data is the New Lego</a></li>
+<li><a href=/post/5-reasons/>5 Reasons Why Data Science Is Like Cooking</a></li>
+<li><a href=/talk/pandas/>Data Analysis with Pandas</a></li>
+<li><a href=/post/federated-learning/>Why the Future of AI is Federated</a></li>
+<li><a href=/project/linkedin-analysis/>LinkedIn Network Analysis</a></li>
+</ul>
+</div>
+<section id=comments>
+<div id=disqus_thread></div>
+<script type=application/javascript>var disqus_config=function(){};(function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById('disqus_thread').innerHTML='Disqus comments not available by default when the website is previewed locally.';return}var b=document,a=b.createElement('script');a.async=!0,a.src='//richardcsuwandi.disqus.com/embed.js',a.setAttribute('data-timestamp',+new Date),(b.head||b.body).appendChild(a)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+<a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
+</section>
+</div>
+</article>
+<script src=/js/mathjax-config.js></script>
+<script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin=anonymous></script>
+<script src=https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin=anonymous></script>
+<script src=https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin=anonymous></script>
+<script src=https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js integrity="sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M=" crossorigin=anonymous></script>
+<script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js integrity="sha256-aYTdUrn6Ow1DDgh5JTc3aDGnnju48y/1c8s1dgkYPQ8=" crossorigin=anonymous></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_CHTML-full" integrity="sha256-GhM+5JHb6QUzOQPXSJLEWP7R73CbkisjzK5Eyij4U9w=" crossorigin=anonymous async></script>
+<script src=https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.js integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log==" crossorigin=anonymous></script>
+<script id=dsq-count-scr src=//richardcsuwandi.disqus.com/count.js async></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<script src=/js/academia.min.6b5ef1defaba396582a0072fe411caca.js></script>
+<div class=container>
+<footer class=site-footer>
+<div class=container>
+<div class="row align-items-center">
+<div class="col-md-6 mb-4 mb-md-0">
+<p class=mb-0>
+© 2021 Richard Cornelius Suwandi. All rights reserved.
+</p>
+</div>
+<div class=col-md-6>
+<ul class="list-inline network-icon text-right mb-0">
+<li class=list-inline-item>
+<a href=https://twitter.com/richardcsuwandi target=_blank rel=noopener title="Follow me"><i class="fab fa-twitter" aria-hidden=true></i></a>
+</li>
+<li class=list-inline-item>
+<a href=https://linkedin.com/in/richardcsuwandi target=_blank rel=noopener title="Connect with me"><i class="fab fa-linkedin" aria-hidden=true></i></a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div id=modal class="modal fade" role=dialog>
+<div class=modal-dialog>
+<div class=modal-content>
+<div class=modal-header>
+<h5 class=modal-title>Cite</h5>
+<button type=button class=close data-dismiss=modal aria-label=Close>
+<span aria-hidden=true>&#215;</span>
+</button>
+</div>
+<div class=modal-body>
+<pre><code class="tex hljs"></code></pre>
+</div>
+<div class=modal-footer>
+<a class="btn btn-outline-primary my-1 js-copy-cite" href=# target=_blank>
+<i class="fas fa-copy"></i> Copy
+</a>
+<a class="btn btn-outline-primary my-1 js-download-cite" href=# target=_blank>
+<i class="fas fa-download"></i> Download
+</a>
+<div id=modal-error></div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Data Science on Richard Cornelius Suwandi</title><link>https://richardcsuwandi.github.io/tags/data-science/</link><description>Recent content in Data Science on Richard Cornelius Suwandi</description><generator>Source Themes academia (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>&amp;copy; {year} Richard Cornelius Suwandi. All rights reserved.</copyright><lastBuildDate>Tue, 21 Sep 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://richardcsuwandi.github.io/tags/data-science/index.xml" rel="self" type="application/rss+xml"/><item><title>Gaussian Process Regression using GPyTorch</title><link>https://richardcsuwandi.github.io/post/gp-regression/</link><pubDate>Tue, 21 Sep 2021 00:00:00 +0000</pubDate><guid>https://richardcsuwandi.github.io/post/gp-regression/</guid><description>&lt;p>&lt;strong>Gaussian Process&lt;/strong>, or GP for short, is an underappreciated yet powerful algorithm for machine learning tasks. It is a non-parametric, Bayesian approach to machine learning that can be applied to supervised learning problems like regression and classification. Compared to other supervised learning algorithms, GP has several practical advantages: it can work well on small datasets and has the ability to provide uncertainty measurements on the predictions.&lt;/p>
+&lt;p>In this tutorial, I am going to demonstrate how to perform GP regression using GPyTorch. &lt;strong>GPyTorch&lt;/strong> is a Gaussian process library implemented using PyTorch that is designed for creating scalable and flexible GP models. You can learn more about GPyTorch on their &lt;a href="https://gpytorch.ai/">official website&lt;/a>.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Note:&lt;/strong> This tutorial is not necessarily intended to teach the mathematical background of GP, but rather how to build one using GPyTorch. I highly recommend reading the Chapter 2 of &lt;a href="http://www.gaussianprocess.org/gpml/chapters/RW2.pdf">&lt;em>Gaussian Processes for Machine Learning&lt;/em>&lt;/a> for a very thorough introduction to GP regression.&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="setup">Setup&lt;/h3>
+&lt;p>Before we start, we first need to install the &lt;code>gpytorch&lt;/code> library. You can do this either by pip or conda using the following command:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#75715e"># Install using pip&lt;/span>
+pip install gpytorch
+&lt;span style="color:#75715e"># Install using conda&lt;/span>
+conda install gpytorch -c gpytorch
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>You can also check the requirements and installation instructions on their website &lt;a href="https://gpytorch.ai/#install">here&lt;/a>.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Note:&lt;/strong> If you want to follow along with this tutorial, you can find the notebook of this tutorial &lt;a href="https://github.com/richardcsuwandi/gp/blob/main/GP%20Regression%20using%20GPyTorch.ipynb">here&lt;/a>.&lt;/p>
+&lt;/blockquote>
+&lt;p>Generating the data
+Next, we need to generate a training data for our model. We will be modeling the following function:&lt;/p>
+&lt;p>$$y = \sin{(2 \pi x)} + \epsilon, \enspace \epsilon \sim \mathcal{N}(0, 0.04)$$&lt;/p>
+&lt;p>The above function is the true function for our GP model, which is a sine function with Gaussian noise. We will evaluate this function on 15 equally-spaced points from [0,1]. The generated training data is depicted in the following plot:&lt;/p>
+&lt;p>&lt;img src="https://miro.medium.com/max/579/1*Ynk7E-SkgDmONEeuU3_ydQ.png" alt="">&lt;/p>
+&lt;h3 id="building-the-model">Building the model&lt;/h3>
+&lt;p>Now that we have generated our training data, we can start building our GP model. GPyTorch offers a &lt;strong>flexible&lt;/strong> way for us to build GP models, by constructing the components of the model by ourselves. This is analogous to building neural networks in the standard PyTorch library. For most GP regression models, you will need to construct the following components:&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>A GP Model:&lt;/strong> For exact (i.e. non-variational) GP models we will use &lt;code>gpytorch.models.ExactGP&lt;/code>.&lt;/li>
+&lt;li>&lt;strong>A likelihood function:&lt;/strong> The likelihood function for GP regression, we commonly use &lt;code>gpytorch.likelihoods.GaussianLikelihood&lt;/code>.&lt;/li>
+&lt;li>&lt;strong>A mean function:&lt;/strong> The prior mean of the GP. If you don’t know which mean function to use, &lt;code>gpytorch.means.ConstantMean()&lt;/code> is usually a good place to start.&lt;/li>
+&lt;li>&lt;strong>A kernel function:&lt;/strong> The prior covariance of the GP. We’ll use the Spectral Mixture (SM) kernel (&lt;code>gpytorch.kernels.SpectralMixtureKernels()&lt;/code>) for this tutorial.&lt;/li>
+&lt;li>&lt;strong>A multivariate normal distribution:&lt;/strong> The multivariate normal distribution in GP (&lt;code>gpytorch.distributions.MultivariateNormal&lt;/code>)&lt;/li>
+&lt;/ol>
+&lt;p>We can build our GP model by constructing the above components as follows:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">SpectralMixtureGP&lt;/span>(gpytorch&lt;span style="color:#f92672">.&lt;/span>models&lt;span style="color:#f92672">.&lt;/span>ExactGP):
+&lt;span style="color:#66d9ef">def&lt;/span> __init__(self, x_train, y_train, likelihood):
+super(SpectralMixtureGP, self)&lt;span style="color:#f92672">.&lt;/span>__init__(x_train, y_train, likelihood)
+self&lt;span style="color:#f92672">.&lt;/span>mean &lt;span style="color:#f92672">=&lt;/span> gpytorch&lt;span style="color:#f92672">.&lt;/span>means&lt;span style="color:#f92672">.&lt;/span>ConstantMean() &lt;span style="color:#75715e"># Construct the mean function&lt;/span>
+self&lt;span style="color:#f92672">.&lt;/span>cov &lt;span style="color:#f92672">=&lt;/span> gpytorch&lt;span style="color:#f92672">.&lt;/span>kernels&lt;span style="color:#f92672">.&lt;/span>SpectralMixtureKernel(num_mixtures&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">4&lt;/span>) &lt;span style="color:#75715e"># Construct the kernel function&lt;/span>
+self&lt;span style="color:#f92672">.&lt;/span>cov&lt;span style="color:#f92672">.&lt;/span>initialize_from_data(x_train, y_train) &lt;span style="color:#75715e"># Initialize the hyperparameters from data&lt;/span>
+&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">forward&lt;/span>(self, x):
+&lt;span style="color:#75715e"># Evaluate the mean and kernel function at x&lt;/span>
+mean_x &lt;span style="color:#f92672">=&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>mean(x)
+cov_x &lt;span style="color:#f92672">=&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>cov(x)
+&lt;span style="color:#75715e"># Return the multivariate normal distribution using the evaluated mean and kernel function&lt;/span>
+&lt;span style="color:#66d9ef">return&lt;/span> gpytorch&lt;span style="color:#f92672">.&lt;/span>distributions&lt;span style="color:#f92672">.&lt;/span>MultivariateNormal(mean_x, cov_x)
+&lt;span style="color:#75715e"># Initialize the likelihood and model&lt;/span>
+likelihood &lt;span style="color:#f92672">=&lt;/span> gpytorch&lt;span style="color:#f92672">.&lt;/span>likelihoods&lt;span style="color:#f92672">.&lt;/span>GaussianLikelihood()
+model &lt;span style="color:#f92672">=&lt;/span> SpectralMixtureGP(x_train, y_train, likelihood)
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Let me breakdown the above code line-by-line:&lt;/p>
+&lt;ul>
+&lt;li>The above GP model has two main components: the &lt;code>__init__&lt;/code> and &lt;code>forward&lt;/code> method.&lt;/li>
+&lt;li>The &lt;code>__init__&lt;/code> method takes the training data and a likelihood as the inputs and constructs whatever objects are necessary for the model’s forward method. This will most commonly include objects like a mean function and a kernel function.&lt;/li>
+&lt;li>The &lt;code>forward&lt;/code> method takes in the data &lt;code>x&lt;/code> and returns a multivariate normal distribution with the prior mean and covariance evaluated at &lt;code>x&lt;/code>.&lt;/li>
+&lt;li>Finally, we initialize the likelihood function for the GP model. Here, we use the Gaussian likelihood, which is the simplest likelihood function that assumes a homoskedastic noise model (i.e. all inputs have the same noise).&lt;/li>
+&lt;/ul>
+&lt;h3 id="training-the-model">Training the model&lt;/h3>
+&lt;p>Now that we have built the model, we can train the model to find the optimal hyperparameters. Training a GP model in GPyTorch is also analogous to training a neural network in the standard PyTorch library. The training loop mainly consists of the following steps:&lt;/p>
+&lt;ol>
+&lt;li>Setting all the parameter gradients to zero&lt;/li>
+&lt;li>Calling the model and computing the loss&lt;/li>
+&lt;li>Calling backward on the loss to fill in gradients&lt;/li>
+&lt;li>Taking a step on the optimizer&lt;/li>
+&lt;/ol>
+&lt;blockquote>
+&lt;p>&lt;strong>Note:&lt;/strong> By defining our custom training loop, we can have greater flexibility in training our model. For example, it is easy to save the parameters at each step of training or use different learning rates for different parameters.&lt;/p>
+&lt;/blockquote>
+&lt;p>The code for the training loop is given below:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#75715e"># Put the model into training mode&lt;/span>
+model&lt;span style="color:#f92672">.&lt;/span>train()
+likelihood&lt;span style="color:#f92672">.&lt;/span>train()
+&lt;span style="color:#75715e"># Use the Adam optimizer, with learning rate set to 0.1&lt;/span>
+optimizer &lt;span style="color:#f92672">=&lt;/span> torch&lt;span style="color:#f92672">.&lt;/span>optim&lt;span style="color:#f92672">.&lt;/span>Adam(model&lt;span style="color:#f92672">.&lt;/span>parameters(), lr&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">0.1&lt;/span>)
+&lt;span style="color:#75715e"># Use the negative marginal log-likelihood as the loss function&lt;/span>
+mll &lt;span style="color:#f92672">=&lt;/span> gpytorch&lt;span style="color:#f92672">.&lt;/span>mlls&lt;span style="color:#f92672">.&lt;/span>ExactMarginalLogLikelihood(likelihood, model)
+&lt;span style="color:#75715e"># Set the number of training iterations&lt;/span>
+n_iter &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">50&lt;/span>
+&lt;span style="color:#66d9ef">for&lt;/span> i &lt;span style="color:#f92672">in&lt;/span> range(n_iter):
+&lt;span style="color:#75715e"># Set the gradients from previous iteration to zero&lt;/span>
+optimizer&lt;span style="color:#f92672">.&lt;/span>zero_grad()
+&lt;span style="color:#75715e"># Output from model&lt;/span>
+output &lt;span style="color:#f92672">=&lt;/span> model(x_train)
+&lt;span style="color:#75715e"># Compute loss and backprop gradients&lt;/span>
+loss &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#f92672">-&lt;/span>mll(output, y_train)
+loss&lt;span style="color:#f92672">.&lt;/span>backward()
+print(&lt;span style="color:#e6db74">&amp;#39;Iter &lt;/span>&lt;span style="color:#e6db74">%d&lt;/span>&lt;span style="color:#e6db74">/&lt;/span>&lt;span style="color:#e6db74">%d&lt;/span>&lt;span style="color:#e6db74"> - Loss: &lt;/span>&lt;span style="color:#e6db74">%.3f&lt;/span>&lt;span style="color:#e6db74">&amp;#39;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> (i &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span>, n_iter, loss&lt;span style="color:#f92672">.&lt;/span>item()))
+optimizer&lt;span style="color:#f92672">.&lt;/span>step()
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>In the above code, we first put our model into training mode by calling &lt;code>model.train()&lt;/code> and &lt;code>likelihood.train()&lt;/code>. Then, we define the loss function and optimizer that we want to use in the training process. Here, we use the negative marginal log-likelihood as the loss function and Adam as the optimizer. We also need to set the number of iterations for the training loop, say 50 iterations.&lt;/p>
+&lt;h3 id="making-predictions-with-the-model">Making predictions with the model&lt;/h3>
+&lt;p>Finally, we can make predictions using the trained model. The basic routine of evaluating the model and making predictions is given in the following code:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#75715e"># The test data is 50 equally-spaced points from [0,5]&lt;/span>
+x_test &lt;span style="color:#f92672">=&lt;/span> torch&lt;span style="color:#f92672">.&lt;/span>linspace(&lt;span style="color:#ae81ff">0&lt;/span>, &lt;span style="color:#ae81ff">5&lt;/span>, &lt;span style="color:#ae81ff">50&lt;/span>)
+&lt;span style="color:#75715e"># Put the model into evaluation mode&lt;/span>
+model&lt;span style="color:#f92672">.&lt;/span>eval()
+likelihood&lt;span style="color:#f92672">.&lt;/span>eval()
+&lt;span style="color:#75715e"># The gpytorch.settings.fast_pred_var flag activates LOVE (for fast variances)&lt;/span>
+&lt;span style="color:#75715e"># See https://arxiv.org/abs/1803.06058&lt;/span>
+&lt;span style="color:#66d9ef">with&lt;/span> torch&lt;span style="color:#f92672">.&lt;/span>no_grad(), gpytorch&lt;span style="color:#f92672">.&lt;/span>settings&lt;span style="color:#f92672">.&lt;/span>fast_pred_var():
+&lt;span style="color:#75715e"># Obtain the predictive mean and covariance matrix&lt;/span>
+f_preds &lt;span style="color:#f92672">=&lt;/span> model(x_test)
+f_mean &lt;span style="color:#f92672">=&lt;/span> f_preds&lt;span style="color:#f92672">.&lt;/span>mean
+f_cov &lt;span style="color:#f92672">=&lt;/span> f_preds&lt;span style="color:#f92672">.&lt;/span>covariance_matrix
+&lt;span style="color:#75715e"># Make predictions by feeding model through likelihood&lt;/span>
+observed_pred &lt;span style="color:#f92672">=&lt;/span> likelihood(model(x_test))
+&lt;span style="color:#75715e"># Initialize plot&lt;/span>
+f, ax &lt;span style="color:#f92672">=&lt;/span> plt&lt;span style="color:#f92672">.&lt;/span>subplots(&lt;span style="color:#ae81ff">1&lt;/span>, &lt;span style="color:#ae81ff">1&lt;/span>, figsize&lt;span style="color:#f92672">=&lt;/span>(&lt;span style="color:#ae81ff">8&lt;/span>, &lt;span style="color:#ae81ff">6&lt;/span>))
+&lt;span style="color:#75715e"># Get upper and lower confidence bounds&lt;/span>
+lower, upper &lt;span style="color:#f92672">=&lt;/span> observed_pred&lt;span style="color:#f92672">.&lt;/span>confidence_region()
+&lt;span style="color:#75715e"># Plot training data as black stars&lt;/span>
+ax&lt;span style="color:#f92672">.&lt;/span>plot(x_train&lt;span style="color:#f92672">.&lt;/span>numpy(), y_train&lt;span style="color:#f92672">.&lt;/span>numpy(), &lt;span style="color:#e6db74">&amp;#39;k*&amp;#39;&lt;/span>)
+&lt;span style="color:#75715e"># Plot predictive means as blue line&lt;/span>
+ax&lt;span style="color:#f92672">.&lt;/span>plot(x_test&lt;span style="color:#f92672">.&lt;/span>numpy(), observed_pred&lt;span style="color:#f92672">.&lt;/span>mean&lt;span style="color:#f92672">.&lt;/span>numpy(), &lt;span style="color:#e6db74">&amp;#39;b&amp;#39;&lt;/span>)
+&lt;span style="color:#75715e"># Shade between the lower and upper confidence bounds&lt;/span>
+ax&lt;span style="color:#f92672">.&lt;/span>fill_between(x_test&lt;span style="color:#f92672">.&lt;/span>numpy(), lower&lt;span style="color:#f92672">.&lt;/span>numpy(), upper&lt;span style="color:#f92672">.&lt;/span>numpy(), alpha&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">0.5&lt;/span>)
+ax&lt;span style="color:#f92672">.&lt;/span>set_ylim([&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">3&lt;/span>, &lt;span style="color:#ae81ff">3&lt;/span>])
+ax&lt;span style="color:#f92672">.&lt;/span>legend([&lt;span style="color:#e6db74">&amp;#39;Observed Data&amp;#39;&lt;/span>, &lt;span style="color:#e6db74">&amp;#39;Mean&amp;#39;&lt;/span>, &lt;span style="color:#e6db74">&amp;#39;Confidence&amp;#39;&lt;/span>])
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>There are a few things going on in the above code:&lt;/p>
+&lt;ul>
+&lt;li>We first generate the test data using 50 equally-spaced points from [0, 5].&lt;/li>
+&lt;li>We put the model into evaluation mode by calling &lt;code>model.eval()&lt;/code> and &lt;code>likelihood.eval()&lt;/code>.&lt;/li>
+&lt;li>We use &lt;code>gpytorch.settings.fast_pred_var()&lt;/code> to get faster predictive distributions using &lt;a href="https://arxiv.org/abs/1803.06058">LOVE&lt;/a>.&lt;/li>
+&lt;li>When put into the eval mode, the trained GP model returns a &lt;code>MultivariateNormal&lt;/code> containing the posterior mean and covariance. Thus, we can obtain the predictive mean and covariance matrix from the multivariate normal distribution.&lt;/li>
+&lt;li>Finally, we plot the mean and confidence region of the fitted GP model. The &lt;code>confidence_region()&lt;/code> method is a helper method that returns 2 standard deviations above and below the mean.&lt;/li>
+&lt;/ul>
+&lt;p>The resulting plot is depicted below:&lt;/p>
+&lt;p>&lt;img src="https://miro.medium.com/max/723/1*UsYQWBOmpquZN52nT9s7cA.png" alt="">&lt;/p>
+&lt;p>The black stars in the above plot represent the training (observed) data, while the blue line and the shaded area represent the mean and the confidence bounds respectively. Notice how the uncertainty is reduced close to the observed points. If more data points were added, we would see the mean function adjust itself to pass through these points and the uncertainty would reduce close to the observations.&lt;/p>
+&lt;h3 id="takeaways">Takeaways&lt;/h3>
+&lt;p>In this tutorial, we have learned how to build a scalable and flexible GP model using GPyTorch. Like any other libraries, there are still &lt;a href="https://docs.gpytorch.ai/en/latest/">a lot of cool things&lt;/a> that you can do with GPyTorch which I didn’t cover in this tutorial. For example, you can utilize a GPU to accelerate your model training when implementing state-of-the-art algorithms like &lt;a href="https://arxiv.org/pdf/1705.08933.pdf">Deep GP&lt;/a> or &lt;a href="https://arxiv.org/pdf/1611.00336.pdf">stochastic variational&lt;/a> &lt;a href="http://proceedings.mlr.press/v51/wilson16.pdf">deep kernel learning&lt;/a>.&lt;/p></description></item><item><title>LinkedIn Network Analysis</title><link>https://richardcsuwandi.github.io/project/linkedin-analysis/</link><pubDate>Tue, 27 Apr 2021 00:00:00 +0000</pubDate><guid>https://richardcsuwandi.github.io/project/linkedin-analysis/</guid><description/></item><item><title>Analyzing My Own LinkedIn Data</title><link>https://richardcsuwandi.github.io/post/linkedin-analysis/</link><pubDate>Wed, 24 Feb 2021 00:00:00 +0000</pubDate><guid>https://richardcsuwandi.github.io/post/linkedin-analysis/</guid><description>&lt;h2 id="motivation">Motivation&lt;/h2>
+&lt;p>As an active user on &lt;a href="https://www.linkedin.com/in/richardcsuwandi/">LinkedIn&lt;/a> with more than 1000 connections, I was curious about the statistics of my network.
+In particular, I was wondering about these questions:&lt;/p>
+&lt;blockquote>
+&lt;p>What are the segments of people in my network?&lt;/p>
+&lt;/blockquote>
+&lt;blockquote>
+&lt;p>Do most of the people in my network work in data science related field?&lt;/p>
+&lt;/blockquote>
+&lt;p>In this blog post, I will go through how I utilized exploratory analysis and data visualizations to answer these questions and gain insights from my own LinkedIn data.
+The notebook of this project can be found &lt;a href="https://nbviewer.jupyter.org/github/richardcsuwandi/linkedin-network-analysis/blob/master/linkedin-network-analysis.ipynb">here&lt;/a>&lt;/p>
+&lt;h2 id="data">Data&lt;/h2>
+&lt;p>To analyze and visualize my network, the first step that I need to do is to get my LinkedIn data.
+All I need to do is just select which data I want to get and it will be downloaded as a CSV file.
+&lt;img src="https://github.com/richardcsuwandi/linkedin-network-analysis/blob/master/images/data.png?raw=true" alt="LinkedIn Data">&lt;/p>
+&lt;p>Here are the first few rows from the &lt;code>Connections.csv&lt;/code> file that I&amp;rsquo;ve downloaded:
+&lt;img src="https://github.com/richardcsuwandi/linkedin-network-analysis/blob/master/images/df.png?raw=true" alt="DataFrame">&lt;/p>
+&lt;p>The &lt;code>DataFrame&lt;/code> above contains data about the current positions and companies of people in my network as well as when the date I connect to that person.&lt;/p>
+&lt;h2 id="key-findings">Key Findings&lt;/h2>
+&lt;h3 id="number-of-connections-on-a-given-date">Number of Connections on a Given Date&lt;/h3>
+&lt;blockquote>
+&lt;p>How many connections did I make in a given date?&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="https://github.com/richardcsuwandi/linkedin-network-analysis/blob/master/images/date_connected.png?raw=true" alt="Date Connected">
+From the line plot above, we can see that there is a peak in the number of connections per day on 26 August 2020. It also seems that August 2020 is the period when I was the most active on LinkedIn.&lt;/p>
+&lt;h3 id="top-companiesorganizations-in-my-network">Top Companies/Organizations in my Network&lt;/h3>
+&lt;blockquote>
+&lt;p>Which companies/organizations do the people in my network mainly come from?&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="https://github.com/richardcsuwandi/linkedin-network-analysis/blob/master/images/company_bar.png?raw=true" alt="Company Bar Plot">
+&lt;img src="https://github.com/richardcsuwandi/linkedin-network-analysis/blob/master/images/company_treemap.png?raw=true" alt="Company Treemap">
+Using the treemap above, it is easier to compare the proportion of one company/organization to the others. It looks like the largest proportion of my network are from my university.&lt;/p>
+&lt;h3 id="top-positions-in-my-network">Top Positions in my Network&lt;/h3>
+&lt;blockquote>
+&lt;p>What are the top common positions of people in my network?&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="https://github.com/richardcsuwandi/linkedin-network-analysis/blob/master/images/position_bar.png?raw=true" alt="Position Bar Plot">
+&lt;img src="https://github.com/richardcsuwandi/linkedin-network-analysis/blob/master/images/position_treemap.png?raw=true" alt="Position Treemap">
+The top position in my network is data scientists, followed by machine learning engineers and data analysts. It is great to know that the top common positions in my network are my target group for networking.&lt;/p></description></item><item><title>Data is the New Lego</title><link>https://richardcsuwandi.github.io/post/lego/</link><pubDate>Wed, 05 Aug 2020 00:00:00 +0000</pubDate><guid>https://richardcsuwandi.github.io/post/lego/</guid><description>&lt;p>When I was a kid, I used to love playing with Lego. My brother and I built almost all kinds of stuff with Lego — animals, cars, houses, and even spaceships. As time went on, our creations became more ambitious and realistic. There were also times when we could each have insisted that our Lego was our own, till we realized that pooling resources would eventually help us went further. We were growing up too, and as our playing became more sophisticated, we learned how to make better models.&lt;/p>
+&lt;p>As an aspiring data scientist, I realized that working with data is surprisingly a lot like my childhood Lego memories. In this blog post, I want to share some of the memories I've had that show how playing with Lego and working with data are closer than you think.&lt;/p>
+&lt;h3 id="exploration-is-the-most-fun-part-of-the-process">Exploration is the most fun part of the process&lt;/h3>
+&lt;p>&lt;img src="https://miro.medium.com/max/1050/0*cGkpXEp2VYoZvrFV" alt="">&lt;/p>
+&lt;p>When I was a kid, I liked to put all my Lego bricks together in a giant tub because a lot of fun in building something was searching through a sea of bricks and trying out new patterns that I didn't think about before.
+Anyone who deals with data knows that as much as 80% of the process is cleaning up the data and doing exploratory analysis. Personally, that's what I love about working with data — that's where I let my creativity and imagination run wild. Jumping straight into the dataset and exploring various visualizations and correlations, in search of patterns, brings me back to a childhood spent digging through a pile of Lego.&lt;/p>
+&lt;h3 id="to-build-something-useful-you-need-lots-of-resources">To build something useful you need lots of resources&lt;/h3>
+&lt;p>&lt;img src="https://miro.medium.com/max/1050/0*HL_ExhOiHt0ckMeV" alt="">&lt;/p>
+&lt;p>If you don't have enough Lego bricks, chances are the things you're building aren't realistic. The model is crude, the colors don't match, and there are gaps. The same goes for machine learning models. If you don't have enough data, your models are poor, and you will encounter lots of errors.&lt;/p>
+&lt;p>However, sometimes, I might not have the right pieces to build a model exactly the way I wanted it, so I had to search for alternatives or reconsider how to build my Lego model. Hence, I learned a new way of using what I had. Similarly, as long as you are creative about where you look, there are always insights to be gained from even the most limited data.&lt;/p>
+&lt;h3 id="a-good-quality-model-needs-a-diversity-of-resources">A good quality model needs a diversity of resources&lt;/h3>
+&lt;p>&lt;img src="https://miro.medium.com/max/1050/0*IW1KILauQAHnvnjQ" alt="">&lt;/p>
+&lt;p>To build a good quality Lego model, you also need a diversity of bricks. Models built with only the basic 2x4 bricks are rough and inaccurate. This is where it was so useful to get Lego from friends and family. As our family and friends gave us more Lego bricks, we got more diverse bricks that helped us create more accurate models.&lt;/p>
+&lt;p>This may also be a harsh childhood truth, that the children with the most Lego, the best pieces, and the most time to play create the best models. The same harsh truth applies to any machine learning projects. Projects with the biggest data volumes, the most diverse data, and the best teams to use the data would create the most accurate models.&lt;/p>
+&lt;h3 id="both-require-iterative-thinking">Both require iterative thinking&lt;/h3>
+&lt;p>&lt;img src="https://miro.medium.com/max/1050/0*bZ26Vb6nFbsmJluA" alt="">&lt;/p>
+&lt;p>The beauty of Lego is that you're not limited to what's on the box. Rebuilding something and refining it each time requires iterative thinking. When it comes to working with data, there are also plenty of opportunities to iterate.&lt;/p>
+&lt;p>When I get a &amp;ldquo;decent enough&amp;rdquo; solution, whether it's a dashboard or a Python script, I still find time to break it, repair it, and keep improving. It may seem to get the job done at first, but I'm likely to be able to redesign it into something more effective and scalable.&lt;/p>
+&lt;h3 id="you-get-better-as-you-build-more">You get better as you build more&lt;/h3>
+&lt;p>&lt;img src="https://miro.medium.com/max/1050/0*IdllVw-WBLMTMePM" alt="">&lt;/p>
+&lt;p>Young children make rough Lego models, the colors don't match and the shapes are wrong. On the other hand, older children build models with careful color and shape planning.&lt;/p>
+&lt;p>The same also happens with data and algorithms. As you get to know your data and algorithms, you get to understand their limitations and strive to build something better. And as the amount of data is growing, you may need to fix and adjust your models to get better and better. In other words, the same learning curve applies to Lego building and machine learning modeling.&lt;/p>
+&lt;h3 id="design-is-important">Design is important&lt;/h3>
+&lt;p>&lt;img src="https://miro.medium.com/max/1050/0*7l23DpkRdyXCnxnW" alt="">&lt;/p>
+&lt;p>The name Lego is derived from the Danish phrase &amp;lsquo;leg godt&amp;rsquo;, which means &amp;lsquo;play well&amp;rsquo;. Before I start building something with Lego, I will first decide if it's something I want to display, or something I want to play with. For display-only models, I could get away with a simpler architecture, but if it was something I wanted to play with, I knew I had to make it extra robust. After all, it would be very disappointing if the wings of my spaceship fell off while I was swooshing it around the room.&lt;/p>
+&lt;p>When it comes to making a dashboard, Python script, or even a report, I often start by asking myself if this is something people will actually use (i.e. play with), or if it's something they want to see once and never again. From there, I plan and build accordingly.&lt;/p>
+&lt;p>&lt;img src="https://miro.medium.com/max/1050/0*kc3iv8iUrm6dBWen" alt="">&lt;/p>
+&lt;p>Lego has taught me a lot about data and building models. Just like Lego:&lt;/p>
+&lt;blockquote>
+&lt;p>&amp;ldquo;To build something useful you need lots of resources, diversity, and the knowledge to build the right models in the right way.&amp;rdquo;&lt;/p>
+&lt;/blockquote></description></item><item><title>5 Reasons Why Data Science Is Like Cooking</title><link>https://richardcsuwandi.github.io/post/5-reasons/</link><pubDate>Thu, 23 Jul 2020 00:00:00 +0000</pubDate><guid>https://richardcsuwandi.github.io/post/5-reasons/</guid><description>&lt;p>Data science is a lot like cooking. Although raw ingredients may be fascinating at first, the fun doesn't start until you're actually able to start slicing, dicing, and eventually serving up something delicious to devour. Most of the time, you'll end up with a dish, but in the data science world, we call it data insights. In this blog post, I want to share 5 analogies of data science to cooking which helped me understand the field better.&lt;/p>
+&lt;h3 id="1-without-good-ingredients-you-cant-cook-a-good-dish">1. Without good ingredients, you can't cook a good dish&lt;/h3>
+&lt;p>&lt;img src="https://miro.medium.com/max/1050/1*fjzxzVVUxF57MZkF_StH_A.jpeg" alt="">&lt;/p>
+&lt;p>Just like ingredients, data are the raw materials. And as the saying goes, &amp;quot;garbage in, garbage out&amp;quot;. Good data is key to a successful data science project. The output of your machine learning model is just as good as what you put inside it. Hence, it is important to make sure that your data contains enough relevant features and not too many irrelevant ones. Without relevant and quality data, you can't really do any useful data science.&lt;/p>
+&lt;blockquote>
+&lt;p>&amp;ldquo;Data are becoming the new raw material of business.&amp;rdquo; — Craig Mundie&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="2-most-time-and-effort-are-spent-on-cleaning-and-preparing-the-ingredients">2. Most time and effort are spent on cleaning and preparing the ingredients&lt;/h3>
+&lt;p>&lt;img src="https://miro.medium.com/max/1050/1*E5Z3zJHwBsdEghHLkSNYrg.jpeg" alt="">&lt;/p>
+&lt;p>The fact that most time and effort in cooking are spent cleaning and preparing the ingredients will resonate with anyone who's had a helping hand in the kitchen. This is also true for data science. But instead of slicing, dicing, and marinating; we have feature engineering, data cleaning, and normalization. Cleaning and preparing the data is required before delivering insightful visualizations and analytics that can eventually drive data-informed business decisions.&lt;/p>
+&lt;blockquote>
+&lt;p>&amp;ldquo;Data science is 80% preparing data, 20% complaining about preparing data.&amp;rdquo;&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="3-different-tools-and-techniques-are-needed-for-different-recipes">3. Different tools and techniques are needed for different recipes&lt;/h3>
+&lt;p>&lt;img src="https://miro.medium.com/max/1050/0*q7qRgojbYOs9Mhhw" alt="">&lt;/p>
+&lt;p>A cozy meal for two requires different tools compared to catering for 2,000. Similarly, processing 1,000 rows of data may run on a laptop, but processing a billion rows may require specialized distributed systems and servers. Choosing the right techniques is also important for both of these tasks. No one likes an undercooked or overcooked dish, just like underfitting and overfitting in data science.&lt;/p>
+&lt;blockquote>
+&lt;p>&amp;ldquo;There is no super algorithm that will work perfectly for all datasets.&amp;rdquo; — No Free Lunch Theorem&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="4-cooking-is-both-a-science-and-an-art">4. Cooking is both a science and an art&lt;/h3>
+&lt;p>&lt;img src="https://miro.medium.com/max/1050/0*OigrY3TrJ6G9nVjr" alt="">&lt;/p>
+&lt;p>Just like cooking, you need certain tools and techniques, but you also need creativity and intuition. Data science doesn't exist in a vacuum, it must relate to other areas for it to have the greatest impact. Packaging the numbers creatively in a way that can be interpreted by others is crucial to getting them to see the whole picture and therefore finding the best solution. When you approach data science in a creative way, the results are often astonishing.&lt;/p>
+&lt;blockquote>
+&lt;p>&amp;ldquo;Talented data scientists leverage data that everybody sees; visionary data scientists leverage data that nobody sees.&amp;rdquo; — Vincent Granville&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="5-you-cant-become-a-great-cook-overnight">5. You can't become a great cook overnight&lt;/h3>
+&lt;p>&lt;img src="https://miro.medium.com/max/1050/0*Oqm2iJ_OtDHz-clz" alt="">&lt;/p>
+&lt;p>You can cook something by watching a video or reading the recipe from a blog. But, it doesn't really make you a great cook. Similarly, you can do some data analysis or modeling by copying code, but that won't make you a great data scientist. Likewise, completing a course or earning a certificate won't make you a great chef, and it won't make you a great data scientist either. It takes years of dedication, effort, and practice. Data science is a journey, not a destination.&lt;/p>
+&lt;blockquote>
+&lt;p>&amp;ldquo;Learning data science is like going to the gym, you only benefit if you do it consistently.&amp;rdquo; — Moez Ali, Creator of PyCaret&lt;/p>
+&lt;/blockquote></description></item><item><title>7 Habits of an Effective Data Scientist</title><link>https://richardcsuwandi.github.io/post/7-habits/</link><pubDate>Wed, 22 Jul 2020 00:00:00 +0000</pubDate><guid>https://richardcsuwandi.github.io/post/7-habits/</guid><description>&lt;blockquote>
+&lt;p>&amp;ldquo;What you do every day = who you are.&amp;rdquo;&lt;/p>
+&lt;/blockquote>
+&lt;p>As an aspiring data scientist, I realized the importance of the habits that we do every day, both consciously and unconsciously. During that period of realization, I found one of the best self-mastery books — &lt;strong>&amp;quot;The 7 Habits of Highly Effective People&amp;quot;&lt;/strong> by Stephen R. Covey. As the title suggests, the book elaborates on the 7 habits of the planet's highly effective people. It's a powerful book to read for me and I'm still working on implementing these habits in my daily routine. In this blog post, I want to share with you my take on the 7 habits, seen through my lens of data science.&lt;/p>
+&lt;h3 id="1-be-proactive">1. Be proactive&lt;/h3>
+&lt;p>&lt;img src="https://miro.medium.com/max/1050/1*mE0zZ-CQ7PG5wJaoIjvN-A.jpeg" alt="">&lt;/p>
+&lt;p>Nobody understands the data better than you do. An effective data scientist should advise on how the data can be utilized as other people may not be aware of the power of data. Focus on what value the data can bring and take initiative for the greater good.&lt;/p>
+&lt;blockquote>
+&lt;p>&amp;ldquo;Reactive people are driven by feelings, by circumstances, by conditions, by their environment. Proactive people are driven by values — carefully thought about, selected and internalized values.&amp;rdquo; — Stephen Covey&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="2-begin-with-the-end-in-mind">2. Begin with the end in mind&lt;/h3>
+&lt;p>&lt;img src="https://miro.medium.com/max/1050/0*g974zjSLwd-Pd5ne" alt="">&lt;/p>
+&lt;p>Data science isn't about reaching your goal, it's about finding the best path to your goal. An effective data scientist should have a clear idea of how the project should be carried out. Depending on the project, the best practices may vary, but without it, no project can be well-planned and well-executed. Start by figuring out what's the best output and how to do it.&lt;/p>
+&lt;blockquote>
+&lt;p>&amp;ldquo;To begin with the end in mind means to start with a clear understanding of your destination. It means to know where you're going so that you better understand where you are now and so that the steps you take are always in the right direction.&amp;rdquo; — Stephen Covey&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="3-put-first-things-first">3. Put first things first&lt;/h3>
+&lt;p>&lt;img src="https://miro.medium.com/max/1050/0*ZEO2vC4u2ffiPJ2A" alt="">&lt;/p>
+&lt;p>Data science can sometimes be overwhelming, especially when you're working on the bigger and important projects. Hence, priority must be given to tackling the most important and urgent problem. An effective data scientist understands what should have been done first. Being able to measure what's important and what's urgent, then sticking to the highest priority will pay off in the long run.&lt;/p>
+&lt;blockquote>
+&lt;p>&amp;ldquo;The key is not to prioritize what's on your schedule, but to schedule your priorities.&amp;rdquo; — Stephen Covey&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="4-think-win-win">4. Think win-win&lt;/h3>
+&lt;p>&lt;img src="https://miro.medium.com/max/1050/0*AAAuTS39pGfC6xI1" alt="">&lt;/p>
+&lt;p>A great data scientist is always a person with a win-win approach. Thinking about how both sides can win is crucial to building trust and ensuring long-term success. An effective data scientist knows that everybody can win! Always focus on solutions that aren't one-sided.&lt;/p>
+&lt;blockquote>
+&lt;p>&amp;ldquo;It's not your way or my way; it's a better way, a higher way.&amp;rdquo; — Stephen Covey&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="5-seek-first-to-understand-then-to-be-understood">5. Seek first to understand, then to be understood&lt;/h3>
+&lt;p>&lt;img src="https://miro.medium.com/max/1050/0*3svadjLCsSLr9SwP" alt="">&lt;/p>
+&lt;p>The ability to communicate clearly is also essential for a data scientist. To do so, you must endeavor to understand your audience before attempting to make yourself understood. Empathy and open-mindedness are the keys to attaining a full understanding of people. An effective data scientist should first understand before making any assumptions. And often, seeking a different point of view could open up another better possibility.&lt;/p>
+&lt;blockquote>
+&lt;p>&amp;ldquo;Most people do not listen with the intent to understand; they listen with the intent to reply.&amp;rdquo; — Stephen Covey&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="6-synergize">6. Synergize&lt;/h3>
+&lt;p>&lt;img src="https://miro.medium.com/max/1050/0*o5bBYa36ds_yjzyT" alt="">&lt;/p>
+&lt;p>Data science is not about your solo work. Teamwork is vital for a well-constructed plan to be executed with perfection, as every individual may give different and better alternatives. An effective data scientist must be able to work in sync with others. In fact, great things generally happen when people work together.&lt;/p>
+&lt;blockquote>
+&lt;p>&amp;ldquo;Synergy is better than my way or your way. It's our way.&amp;rdquo; — Stephen Covey&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="7-sharpen-the-saw">7. Sharpen the saw&lt;/h3>
+&lt;p>&lt;img src="https://miro.medium.com/max/1050/0*jU0bBGqANQNPFjSD" alt="">&lt;/p>
+&lt;p>Data science is a huge and rapidly evolving field. A deeper understanding of data science can only be gained through continuous learning. An effective data scientist must always be ready to solve upcoming problems. Always strive for more knowledge and adapt to new challenges.&lt;/p>
+&lt;blockquote>
+&lt;p>&amp;ldquo;Unless you're continually improving your skills, you're quickly becoming irrelevant.&amp;rdquo; — Stephen Covey&lt;/p>
+&lt;/blockquote>
+&lt;p>Adapting to a new habit can be challenging at first, as it requires you to get out of your comfort zone. But, instead of worrying about things you can't control, concentrate on getting control over yourself first. Remember, one step at a time!&lt;/p>
+&lt;blockquote>
+&lt;p>&amp;ldquo;Start small, make a promise and keep it. Then, make larger promises and keep them.&amp;rdquo; — Stephen Covey&lt;/p>
+&lt;/blockquote></description></item><item><title>Sentiment Analysis on Tweets about US Airlines</title><link>https://richardcsuwandi.github.io/project/airline-sentiment/</link><pubDate>Sat, 27 Jun 2020 00:00:00 +0000</pubDate><guid>https://richardcsuwandi.github.io/project/airline-sentiment/</guid><description/></item><item><title>Data Analysis with Pandas</title><link>https://richardcsuwandi.github.io/talk/pandas/</link><pubDate>Wed, 01 Jan 2020 13:00:00 +0000</pubDate><guid>https://richardcsuwandi.github.io/talk/pandas/</guid><description>&lt;h3 id="references">References&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a href="https://pandas.pydata.org/pandas-docs/stable/getting_started/index.html">https://pandas.pydata.org/pandas-docs/stable/getting_started/index.html&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.kaggle.com/learn/pandas">https://www.kaggle.com/learn/pandas&lt;/a>&lt;/li>
+&lt;/ul></description></item></channel></rss>

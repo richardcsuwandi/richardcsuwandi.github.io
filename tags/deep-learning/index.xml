@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Deep Learning on Richard Cornelius Suwandi</title><link>https://richardcsuwandi.github.io/tags/deep-learning/</link><description>Recent content in Deep Learning on Richard Cornelius Suwandi</description><generator>Source Themes academia (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>&amp;copy; {year} Richard Cornelius Suwandi. All rights reserved.</copyright><lastBuildDate>Fri, 31 Jul 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://richardcsuwandi.github.io/tags/deep-learning/index.xml" rel="self" type="application/rss+xml"/><item><title>I Taught My Computer to Classify Chinese Calligraphy Styles</title><link>https://richardcsuwandi.github.io/post/chinese-calligraphy/</link><pubDate>Fri, 31 Jul 2020 00:00:00 +0000</pubDate><guid>https://richardcsuwandi.github.io/post/chinese-calligraphy/</guid><description>&lt;h3 id="motivation">Motivation&lt;/h3>
+&lt;p>As an international student studying in China, I’ve always been fascinated by the diversity of Chinese culture and history.
+This motivated me to build a &lt;a href="https://github.com/richardcsuwandi/chinese-calligraphy-classifier">Chinese calligraphy classifier&lt;/a>.&lt;/p>
+&lt;p>There are multiple styles of calligraphy, which mainly belong to different dynasties. Each of them has its way of shaping and arranging the character.
+For this project, I picked four styles:&lt;/p>
+&lt;ol>
+&lt;li>Seal Script (篆書 zhuanshu)&lt;/li>
+&lt;li>Cursive Script (草書 caoshu)&lt;/li>
+&lt;li>Clerical Script (隸書 lishu)&lt;/li>
+&lt;li>Standard Script (楷書 kaishu)&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://github.com/richardcsuwandi/chinese-calligraphy-classifier/blob/master/images/4_styles.jpg?raw=true" alt="4 Styles">&lt;/p>
+&lt;p>If you&amp;rsquo;re interested, you can read more about these different styles &lt;a href="https://en.wikipedia.org/wiki/Chinese_script_styles">here&lt;/a>.&lt;/p>
+&lt;h3 id="collecting-the-data">Collecting the data&lt;/h3>
+&lt;p>To build a calligraphy classifier, we&amp;rsquo;re going to need some examples of each style.
+However, I did some online search and could not find a decently made dataset for various calligraphy styles.
+So, I decided to create the dataset myself.
+Fortunately, creating my own dataset isn’t that hard, thanks to Google Images’ search functionality and some JavaScript snippets.
+Here’s how I did it:
+&lt;img src="https://github.com/richardcsuwandi/chinese-calligraphy-classifier/blob/master/images/scraping.png?raw=true" alt="Scraping">&lt;/p>
+&lt;ul>
+&lt;li>I searched the images on Google Images and used this keyword format (style + “字帖網格&amp;quot;) to get the most relevant results.&lt;/li>
+&lt;li>I used this &lt;a href="https://gist.github.com/richardcsuwandi/ca7387d01407366b5b62d9b364e07765">JavaScript code&lt;/a> to retrieve the URLs of each of the images.&lt;/li>
+&lt;li>I downloaded the images using fast.ai’s &lt;a href="https://gist.github.com/richardcsuwandi/88281f8a006290e947483b8a8103fca4">download_images function&lt;/a>&lt;/li>
+&lt;li>Alternatively, I tried using this &lt;a href="https://gist.github.com/richardcsuwandi/f006b144801e2b5b2aef77ef3166d870">snippet&lt;/a> to automatically download the images from Baidu Images.&lt;/li>
+&lt;/ul>
+&lt;h3 id="preprocessing-the-data">Preprocessing the data&lt;/h3>
+&lt;p>After importing the data, I split the data into training and validation set with an 80:20 ratio.
+The images are also resized to 224 pixels, which is usually a good value for image recognition tasks.
+Here&amp;rsquo;s some of the images in the dataset:&lt;/p>
+&lt;p>&lt;img src="https://github.com/richardcsuwandi/chinese-calligraphy-classifier/blob/master/images/show_img.png?raw=true" alt="Show Batch">&lt;/p>
+&lt;p>Observation: The dataset is rather ‘dirty’. Some of the images are not well-aligned and not properly cropped.&lt;/p>
+&lt;h3 id="building-the-model">Building the model&lt;/h3>
+&lt;p>For the model, I use the &lt;a href="https://arxiv.org/abs/1512.03385">ResNet-50&lt;/a>
+model architecture with the pre-trained weights on the &lt;a href="http://www.image-net.org/">ImageNet&lt;/a> dataset.
+To train the layers, I use the &lt;code>fit_one_cycle&lt;/code> method based on the &amp;lsquo;&lt;a href="https://sgugger.github.io/the-1cycle-policy.html">&lt;em>1 Cycle Policy&lt;/em>&lt;/a>&amp;rsquo;,
+which basically changes the learning rate over time to achieve better results.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">learn&lt;span style="color:#f92672">.&lt;/span>fit_one_cycle(&lt;span style="color:#ae81ff">3&lt;/span>)
+&lt;/code>&lt;/pre>&lt;/div>&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>epoch&lt;/th>
+&lt;th>train_loss&lt;/th>
+&lt;th>valid_loss&lt;/th>
+&lt;th>accuracy&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>0&lt;/td>
+&lt;td>1.469915&lt;/td>
+&lt;td>0.927739&lt;/td>
+&lt;td>0.737500&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>1&lt;/td>
+&lt;td>1.075304&lt;/td>
+&lt;td>0.637498&lt;/td>
+&lt;td>0.790000&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>2&lt;/td>
+&lt;td>0.820588&lt;/td>
+&lt;td>0.574865&lt;/td>
+&lt;td>0.822500&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>After 3 epochs of &lt;code>fit_one_cycle&lt;/code>, I managed to achieve an accuracy of 82% on the validation set.&lt;/p>
+&lt;h3 id="tuning-the-model">Tuning the model&lt;/h3>
+&lt;p>By default, the model’s initial layers are frozen to prevent modifying the pre-trained weights.
+I tried unfreezing all the layers and train the model again for another 2 epochs.
+To find the perfect learning rate, I used the lr_find and recorder.plot methods to create the learning rate plot.&lt;/p>
+&lt;p>&lt;img src="https://github.com/richardcsuwandi/chinese-calligraphy-classifier/blob/master/images/lr_plot.png?raw=true" alt="LR Plot">&lt;/p>
+&lt;p>The red dot on the graph indicates the point where the gradient is the steepest.
+I used that point as the first guess for the learning rate and train the model for another 2 epochs.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">min_grad_lr &lt;span style="color:#f92672">=&lt;/span> learn&lt;span style="color:#f92672">.&lt;/span>recorder&lt;span style="color:#f92672">.&lt;/span>min_grad_lr
+learn&lt;span style="color:#f92672">.&lt;/span>fit_one_cycle(&lt;span style="color:#ae81ff">2&lt;/span>, min_grad_lr)
+&lt;/code>&lt;/pre>&lt;/div>&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>epoch&lt;/th>
+&lt;th>train_loss&lt;/th>
+&lt;th>valid_loss&lt;/th>
+&lt;th>accuracy&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>0&lt;/td>
+&lt;td>0.484713&lt;/td>
+&lt;td>0.273136&lt;/td>
+&lt;td>0.885609&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>1&lt;/td>
+&lt;td>0.491012&lt;/td>
+&lt;td>0.287252&lt;/td>
+&lt;td>0.878229&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="cleaning-the-data">Cleaning the data&lt;/h3>
+&lt;p>fast.ai also provides a nice functionality for cleaning your data using Jupyter widgets.
+The &lt;code>ImageCleaner&lt;/code> class displays images for re-labeling or deletion.
+&lt;img src="https://github.com/richardcsuwandi/chinese-calligraphy-classifier/blob/master/images/cleaning.png?raw=true" alt="Cleaning">&lt;/p>
+&lt;p>The results of the cleaning are saved as a CSV file which I then used to load the data.
+I applied the same training steps as above but using the cleaned data.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">min_grad_lr &lt;span style="color:#f92672">=&lt;/span> learn&lt;span style="color:#f92672">.&lt;/span>recorder&lt;span style="color:#f92672">.&lt;/span>min_grad_lr
+learn&lt;span style="color:#f92672">.&lt;/span>fit_one_cycle(&lt;span style="color:#ae81ff">4&lt;/span>, min_grad_lr)
+&lt;/code>&lt;/pre>&lt;/div>&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>epoch&lt;/th>
+&lt;th>train_loss&lt;/th>
+&lt;th>valid_loss&lt;/th>
+&lt;th>accuracy&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>0&lt;/td>
+&lt;td>0.428563&lt;/td>
+&lt;td>0.235304&lt;/td>
+&lt;td>0.922509&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>1&lt;/td>
+&lt;td>0.398285&lt;/td>
+&lt;td>0.289792&lt;/td>
+&lt;td>0.892989&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>2&lt;/td>
+&lt;td>0.422449&lt;/td>
+&lt;td>0.230904&lt;/td>
+&lt;td>0.926199&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>3&lt;/td>
+&lt;td>0.436341&lt;/td>
+&lt;td>0.261377&lt;/td>
+&lt;td>0.915129&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>With only very few lines of code and very minimum efforts for data collection, I managed to achieve an accuracy of 92%.
+I believe with more and better-quality data, I can achieve a state-of-the-art result.&lt;/p>
+&lt;h3 id="interpreting-the-results">Interpreting the results&lt;/h3>
+&lt;p>I used fast.ai’s &lt;code>ClassificationInterpretation&lt;/code> class to interpret the results.
+In particular, I plot the confusion matrix to see where the model seems to be 'confused'.&lt;/p>
+&lt;p>&lt;img src="https://github.com/richardcsuwandi/chinese-calligraphy-classifier/blob/master/images/conf_mat.png?raw=true" alt="Confusion Matrix">&lt;/p>
+&lt;p>From the confusion matrix, it can be seen that the model does pretty well in classifying the 'zhuanshu' style.
+This is probably due to its unique stroke arrangements.
+To wrap up, I also plotted the ground truth vs. predictions by calling the &lt;code>learn.show_results&lt;/code> method.&lt;/p>
+&lt;p>&lt;img src="https://github.com/richardcsuwandi/chinese-calligraphy-classifier/blob/master/images/predictions.PNG?raw=true" alt="Predictions">&lt;/p></description></item><item><title>Chinese Calligraphy Classifier</title><link>https://richardcsuwandi.github.io/project/chinese-calligraphy/</link><pubDate>Sat, 27 Jun 2020 00:00:00 +0000</pubDate><guid>https://richardcsuwandi.github.io/project/chinese-calligraphy/</guid><description/></item></channel></rss>

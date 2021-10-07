@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Data Analysis on Richard Cornelius Suwandi</title><link>https://richardcsuwandi.github.io/tags/data-analysis/</link><description>Recent content in Data Analysis on Richard Cornelius Suwandi</description><generator>Source Themes academia (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>&amp;copy; {year} Richard Cornelius Suwandi. All rights reserved.</copyright><lastBuildDate>Tue, 27 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://richardcsuwandi.github.io/tags/data-analysis/index.xml" rel="self" type="application/rss+xml"/><item><title>LinkedIn Network Analysis</title><link>https://richardcsuwandi.github.io/project/linkedin-analysis/</link><pubDate>Tue, 27 Apr 2021 00:00:00 +0000</pubDate><guid>https://richardcsuwandi.github.io/project/linkedin-analysis/</guid><description/></item><item><title>Analyzing My Own LinkedIn Data</title><link>https://richardcsuwandi.github.io/post/linkedin-analysis/</link><pubDate>Wed, 24 Feb 2021 00:00:00 +0000</pubDate><guid>https://richardcsuwandi.github.io/post/linkedin-analysis/</guid><description>&lt;h2 id="motivation">Motivation&lt;/h2>
+&lt;p>As an active user on &lt;a href="https://www.linkedin.com/in/richardcsuwandi/">LinkedIn&lt;/a> with more than 1000 connections, I was curious about the statistics of my network.
+In particular, I was wondering about these questions:&lt;/p>
+&lt;blockquote>
+&lt;p>What are the segments of people in my network?&lt;/p>
+&lt;/blockquote>
+&lt;blockquote>
+&lt;p>Do most of the people in my network work in data science related field?&lt;/p>
+&lt;/blockquote>
+&lt;p>In this blog post, I will go through how I utilized exploratory analysis and data visualizations to answer these questions and gain insights from my own LinkedIn data.
+The notebook of this project can be found &lt;a href="https://nbviewer.jupyter.org/github/richardcsuwandi/linkedin-network-analysis/blob/master/linkedin-network-analysis.ipynb">here&lt;/a>&lt;/p>
+&lt;h2 id="data">Data&lt;/h2>
+&lt;p>To analyze and visualize my network, the first step that I need to do is to get my LinkedIn data.
+All I need to do is just select which data I want to get and it will be downloaded as a CSV file.
+&lt;img src="https://github.com/richardcsuwandi/linkedin-network-analysis/blob/master/images/data.png?raw=true" alt="LinkedIn Data">&lt;/p>
+&lt;p>Here are the first few rows from the &lt;code>Connections.csv&lt;/code> file that I&amp;rsquo;ve downloaded:
+&lt;img src="https://github.com/richardcsuwandi/linkedin-network-analysis/blob/master/images/df.png?raw=true" alt="DataFrame">&lt;/p>
+&lt;p>The &lt;code>DataFrame&lt;/code> above contains data about the current positions and companies of people in my network as well as when the date I connect to that person.&lt;/p>
+&lt;h2 id="key-findings">Key Findings&lt;/h2>
+&lt;h3 id="number-of-connections-on-a-given-date">Number of Connections on a Given Date&lt;/h3>
+&lt;blockquote>
+&lt;p>How many connections did I make in a given date?&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="https://github.com/richardcsuwandi/linkedin-network-analysis/blob/master/images/date_connected.png?raw=true" alt="Date Connected">
+From the line plot above, we can see that there is a peak in the number of connections per day on 26 August 2020. It also seems that August 2020 is the period when I was the most active on LinkedIn.&lt;/p>
+&lt;h3 id="top-companiesorganizations-in-my-network">Top Companies/Organizations in my Network&lt;/h3>
+&lt;blockquote>
+&lt;p>Which companies/organizations do the people in my network mainly come from?&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="https://github.com/richardcsuwandi/linkedin-network-analysis/blob/master/images/company_bar.png?raw=true" alt="Company Bar Plot">
+&lt;img src="https://github.com/richardcsuwandi/linkedin-network-analysis/blob/master/images/company_treemap.png?raw=true" alt="Company Treemap">
+Using the treemap above, it is easier to compare the proportion of one company/organization to the others. It looks like the largest proportion of my network are from my university.&lt;/p>
+&lt;h3 id="top-positions-in-my-network">Top Positions in my Network&lt;/h3>
+&lt;blockquote>
+&lt;p>What are the top common positions of people in my network?&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="https://github.com/richardcsuwandi/linkedin-network-analysis/blob/master/images/position_bar.png?raw=true" alt="Position Bar Plot">
+&lt;img src="https://github.com/richardcsuwandi/linkedin-network-analysis/blob/master/images/position_treemap.png?raw=true" alt="Position Treemap">
+The top position in my network is data scientists, followed by machine learning engineers and data analysts. It is great to know that the top common positions in my network are my target group for networking.&lt;/p></description></item><item><title>5 Reasons Why Data Science Is Like Cooking</title><link>https://richardcsuwandi.github.io/post/5-reasons/</link><pubDate>Thu, 23 Jul 2020 00:00:00 +0000</pubDate><guid>https://richardcsuwandi.github.io/post/5-reasons/</guid><description>&lt;p>Data science is a lot like cooking. Although raw ingredients may be fascinating at first, the fun doesn't start until you're actually able to start slicing, dicing, and eventually serving up something delicious to devour. Most of the time, you'll end up with a dish, but in the data science world, we call it data insights. In this blog post, I want to share 5 analogies of data science to cooking which helped me understand the field better.&lt;/p>
+&lt;h3 id="1-without-good-ingredients-you-cant-cook-a-good-dish">1. Without good ingredients, you can't cook a good dish&lt;/h3>
+&lt;p>&lt;img src="https://miro.medium.com/max/1050/1*fjzxzVVUxF57MZkF_StH_A.jpeg" alt="">&lt;/p>
+&lt;p>Just like ingredients, data are the raw materials. And as the saying goes, &amp;quot;garbage in, garbage out&amp;quot;. Good data is key to a successful data science project. The output of your machine learning model is just as good as what you put inside it. Hence, it is important to make sure that your data contains enough relevant features and not too many irrelevant ones. Without relevant and quality data, you can't really do any useful data science.&lt;/p>
+&lt;blockquote>
+&lt;p>&amp;ldquo;Data are becoming the new raw material of business.&amp;rdquo; — Craig Mundie&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="2-most-time-and-effort-are-spent-on-cleaning-and-preparing-the-ingredients">2. Most time and effort are spent on cleaning and preparing the ingredients&lt;/h3>
+&lt;p>&lt;img src="https://miro.medium.com/max/1050/1*E5Z3zJHwBsdEghHLkSNYrg.jpeg" alt="">&lt;/p>
+&lt;p>The fact that most time and effort in cooking are spent cleaning and preparing the ingredients will resonate with anyone who's had a helping hand in the kitchen. This is also true for data science. But instead of slicing, dicing, and marinating; we have feature engineering, data cleaning, and normalization. Cleaning and preparing the data is required before delivering insightful visualizations and analytics that can eventually drive data-informed business decisions.&lt;/p>
+&lt;blockquote>
+&lt;p>&amp;ldquo;Data science is 80% preparing data, 20% complaining about preparing data.&amp;rdquo;&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="3-different-tools-and-techniques-are-needed-for-different-recipes">3. Different tools and techniques are needed for different recipes&lt;/h3>
+&lt;p>&lt;img src="https://miro.medium.com/max/1050/0*q7qRgojbYOs9Mhhw" alt="">&lt;/p>
+&lt;p>A cozy meal for two requires different tools compared to catering for 2,000. Similarly, processing 1,000 rows of data may run on a laptop, but processing a billion rows may require specialized distributed systems and servers. Choosing the right techniques is also important for both of these tasks. No one likes an undercooked or overcooked dish, just like underfitting and overfitting in data science.&lt;/p>
+&lt;blockquote>
+&lt;p>&amp;ldquo;There is no super algorithm that will work perfectly for all datasets.&amp;rdquo; — No Free Lunch Theorem&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="4-cooking-is-both-a-science-and-an-art">4. Cooking is both a science and an art&lt;/h3>
+&lt;p>&lt;img src="https://miro.medium.com/max/1050/0*OigrY3TrJ6G9nVjr" alt="">&lt;/p>
+&lt;p>Just like cooking, you need certain tools and techniques, but you also need creativity and intuition. Data science doesn't exist in a vacuum, it must relate to other areas for it to have the greatest impact. Packaging the numbers creatively in a way that can be interpreted by others is crucial to getting them to see the whole picture and therefore finding the best solution. When you approach data science in a creative way, the results are often astonishing.&lt;/p>
+&lt;blockquote>
+&lt;p>&amp;ldquo;Talented data scientists leverage data that everybody sees; visionary data scientists leverage data that nobody sees.&amp;rdquo; — Vincent Granville&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="5-you-cant-become-a-great-cook-overnight">5. You can't become a great cook overnight&lt;/h3>
+&lt;p>&lt;img src="https://miro.medium.com/max/1050/0*Oqm2iJ_OtDHz-clz" alt="">&lt;/p>
+&lt;p>You can cook something by watching a video or reading the recipe from a blog. But, it doesn't really make you a great cook. Similarly, you can do some data analysis or modeling by copying code, but that won't make you a great data scientist. Likewise, completing a course or earning a certificate won't make you a great chef, and it won't make you a great data scientist either. It takes years of dedication, effort, and practice. Data science is a journey, not a destination.&lt;/p>
+&lt;blockquote>
+&lt;p>&amp;ldquo;Learning data science is like going to the gym, you only benefit if you do it consistently.&amp;rdquo; — Moez Ali, Creator of PyCaret&lt;/p>
+&lt;/blockquote></description></item><item><title>Chinese Calligraphy Classifier</title><link>https://richardcsuwandi.github.io/project/chinese-calligraphy/</link><pubDate>Sat, 27 Jun 2020 00:00:00 +0000</pubDate><guid>https://richardcsuwandi.github.io/project/chinese-calligraphy/</guid><description/></item><item><title>Sentiment Analysis on Tweets about US Airlines</title><link>https://richardcsuwandi.github.io/project/airline-sentiment/</link><pubDate>Sat, 27 Jun 2020 00:00:00 +0000</pubDate><guid>https://richardcsuwandi.github.io/project/airline-sentiment/</guid><description/></item></channel></rss>
