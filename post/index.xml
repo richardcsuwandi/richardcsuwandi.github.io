@@ -289,7 +289,7 @@ Here&amp;rsquo;s some of the images in the dataset:&lt;/p>
 &lt;h3 id="building-the-model">Building the model&lt;/h3>
 &lt;p>For the model, I use the &lt;a href="https://arxiv.org/abs/1512.03385">ResNet-50&lt;/a>
 model architecture with the pre-trained weights on the &lt;a href="http://www.image-net.org/">ImageNet&lt;/a> dataset.
-To train the layers, I use the &lt;code>fit_one_cycle&lt;/code> method based on the &amp;lsquo;&lt;a href="https://sgugger.github.io/the-1cycle-policy.html">&lt;em>1 Cycle Policy&lt;/em>&lt;/a>&amp;rsquo;,
+To train the layers, I use the &lt;code>fit_one_cycle&lt;/code> method based on the &amp;lsquo;&lt;a href="https://sgugger.github.io/the-1cycle-policy.html">1 Cycle Policy&lt;/a>&amp;rsquo;,
 which basically changes the learning rate over time to achieve better results.&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">learn&lt;span style="color:#f92672">.&lt;/span>fit_one_cycle(&lt;span style="color:#ae81ff">3&lt;/span>)
 &lt;/code>&lt;/pre>&lt;/div>&lt;table>

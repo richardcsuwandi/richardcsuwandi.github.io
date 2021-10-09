@@ -147,7 +147,7 @@ Here&rsquo;s some of the images in the dataset:</p>
 <h3 id=building-the-model>Building the model</h3>
 <p>For the model, I use the <a href=https://arxiv.org/abs/1512.03385>ResNet-50</a>
 model architecture with the pre-trained weights on the <a href=http://www.image-net.org/>ImageNet</a> dataset.
-To train the layers, I use the <code>fit_one_cycle</code> method based on the &lsquo;<a href=https://sgugger.github.io/the-1cycle-policy.html><em>1 Cycle Policy</em></a>&rsquo;,
+To train the layers, I use the <code>fit_one_cycle</code> method based on the &lsquo;<a href=https://sgugger.github.io/the-1cycle-policy.html>1 Cycle Policy</a>&rsquo;,
 which basically changes the learning rate over time to achieve better results.</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>learn<span style=color:#f92672>.</span>fit_one_cycle(<span style=color:#ae81ff>3</span>)
 </code></pre></div><table>
