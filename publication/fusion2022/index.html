@@ -6,8 +6,8 @@
 <meta name=generator content="Source Themes Academia 4.3.1">
 <meta name=generator content="Hugo 0.88.1">
 <meta name=author content="Richard Cornelius Suwandi">
-<meta name=description content="Undergraduate Student & Research Assistant">
-<link rel=alternate hreflang=en-us href=https://richardcsuwandi.github.io/publication/>
+<meta name=description content="Kernel design for Gaussian processes (GPs) along with the associated hyper-parameter optimization is a challenging problem. In this paper, we propose a novel grid spectral mixture (GSM) kernel design for GPs that can automatically fit multidimensional data with affordable model complexity and superior modeling capability. {To alleviate the computational complexity due to the curse of dimensionality}, we leverage a multicore computing environment to optimize the kernel hyper-parameters in a distributed manner. We further propose a doubly distributed learning algorithm based on the alternating direction method of multipliers (ADMM) which enables multiple agents to learn the kernel hyper-parameters collaboratively. The doubly distributed learning algorithm is shown to be effective in reducing the overall computational complexity while preserving data privacy during the learning process. Experiments on various one-dimensional and multidimensional data sets demonstrate that the proposed kernel design yields superior training and prediction performance compared to its competitors.">
+<link rel=alternate hreflang=en-us href=https://richardcsuwandi.github.io/publication/fusion2022/>
 <meta name=theme-color content="#E71D36">
 <link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin=anonymous>
 <link rel=stylesheet href=https://use.fontawesome.com/releases/v5.6.0/css/all.css integrity=sha384-aOkxzJ5uQz7WBObEZcHvV5JvRW3TUc2rNPA7pe3AwnsUohiw1Vj2Rgx2KSOkF5+h crossorigin=anonymous>
@@ -17,22 +17,21 @@
 <link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.css integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ==" crossorigin=anonymous>
 <link rel=stylesheet href="https://fonts.googleapis.com/css?family=Lato:400,700|Open+Sans|Roboto+Mono&display=swap">
 <link rel=stylesheet href=/css/academia.min.b128b026b303671dafd057a7aeac4f29.css>
-<link rel=alternate href=/publication/index.xml type=application/rss+xml title="Richard Cornelius Suwandi">
-<link rel=feed href=/publication/index.xml type=application/rss+xml title="Richard Cornelius Suwandi">
 <link rel=manifest href=/site.webmanifest>
 <link rel=icon type=image/png href=/img/icon.png>
 <link rel=apple-touch-icon type=image/png href=/img/icon-192.png>
-<link rel=canonical href=https://richardcsuwandi.github.io/publication/>
-<meta property="twitter:card" content="summary">
+<link rel=canonical href=https://richardcsuwandi.github.io/publication/fusion2022/>
+<meta property="twitter:card" content="summary_large_image">
 <meta property="twitter:site" content="@richardcsuwandi">
 <meta property="twitter:creator" content="@richardcsuwandi">
 <meta property="og:site_name" content="Richard Cornelius Suwandi">
-<meta property="og:url" content="https://richardcsuwandi.github.io/publication/">
-<meta property="og:title" content="Publications | Richard Cornelius Suwandi">
-<meta property="og:description" content="Undergraduate Student & Research Assistant"><meta property="og:image" content="https://richardcsuwandi.github.io/img/icon-192.png">
-<meta property="twitter:image" content="https://richardcsuwandi.github.io/img/icon-192.png"><meta property="og:locale" content="en-us">
-<meta property="og:updated_time" content="2022-07-07T00:00:00+00:00">
-<title>Publications | Richard Cornelius Suwandi</title>
+<meta property="og:url" content="https://richardcsuwandi.github.io/publication/fusion2022/">
+<meta property="og:title" content="Gaussian Process Regression with Grid Spectral Mixture Kernel: Distributed Learning for Multidimensional Data | Richard Cornelius Suwandi">
+<meta property="og:description" content="Kernel design for Gaussian processes (GPs) along with the associated hyper-parameter optimization is a challenging problem. In this paper, we propose a novel grid spectral mixture (GSM) kernel design for GPs that can automatically fit multidimensional data with affordable model complexity and superior modeling capability. {To alleviate the computational complexity due to the curse of dimensionality}, we leverage a multicore computing environment to optimize the kernel hyper-parameters in a distributed manner. We further propose a doubly distributed learning algorithm based on the alternating direction method of multipliers (ADMM) which enables multiple agents to learn the kernel hyper-parameters collaboratively. The doubly distributed learning algorithm is shown to be effective in reducing the overall computational complexity while preserving data privacy during the learning process. Experiments on various one-dimensional and multidimensional data sets demonstrate that the proposed kernel design yields superior training and prediction performance compared to its competitors."><meta property="og:image" content="https://richardcsuwandi.github.io/publication/fusion2022/featured.png">
+<meta property="twitter:image" content="https://richardcsuwandi.github.io/publication/fusion2022/featured.png"><meta property="og:locale" content="en-us">
+<meta property="article:published_time" content="2017-01-01T00:00:00+00:00">
+<meta property="article:modified_time" content="2022-07-07T00:00:00+00:00">
+<title>Gaussian Process Regression with Grid Spectral Mixture Kernel: Distributed Learning for Multidimensional Data | Richard Cornelius Suwandi</title>
 </head>
 <body id=top data-spy=scroll data-target=#TableOfContents data-offset=71>
 <aside class=search-results id=search>
@@ -87,41 +86,9 @@
 </div>
 </div>
 </nav>
-<div class="universal-wrapper py-3">
-<h1 itemprop=name>Publications</h1>
-</div>
-</div>
-</div>
-<div class=universal-wrapper>
-<div class=row>
-<div class=col-lg-12>
-<div class="form-row mb-4">
-<div class=col-auto>
-<input type=search class=filter-search placeholder=Search... autocapitalize=off autocomplete=off autocorrect=off role=textbox spellcheck=false>
-</div>
-<div class=col-auto>
-<select class="pub-filters pubtype-select form-control form-control-sm" data-filter-group=pubtype><option value=*>Type</option><option value=.pubtype-1>
-Conference paper
-</option></select>
-</div>
-<div class=col-auto>
-<select class="pub-filters form-control form-control-sm" data-filter-group=year><option value=*>Date</option><option value=.year-2022>
-2022
-</option><option value=.year-2021>
-2021
-</option></select>
-</div>
-</div>
-<div id=container-publications>
-<div class="grid-sizer col-lg-12 isotope-item pubtype-1 year-2022">
-<div class=card-simple itemscope itemtype=http://schema.org/ScholarlyArticle>
-<a href=/publication/fusion2022/>
-<img src=/publication/fusion2022/featured_hu7bb777364439d19a10d7349cf63f3bf2_49084_918x517_fill_q90_lanczos_smart1_3.png class=article-banner itemprop=image alt>
-</a>
-<div class=card-body>
-<h3 class="article-title mb-1 mt-0" itemprop=name>
-<a href=/publication/fusion2022/ itemprop=url>Gaussian Process Regression with Grid Spectral Mixture Kernel: Distributed Learning for Multidimensional Data</a>
-</h3>
+<div class=pub itemscope itemtype=http://schema.org/CreativeWork>
+<div class="article-container py-3">
+<h1 itemprop=name>Gaussian Process Regression with Grid Spectral Mixture Kernel: Distributed Learning for Multidimensional Data</h1>
 <meta content="2022-07-07 00:00:00 +0000 UTC" itemprop=datePublished>
 <meta content="2022-07-07 00:00:00 +0000 UTC" itemprop=dateModified>
 <div class=article-metadata>
@@ -131,62 +98,60 @@ Conference paper
 <span class=article-date>
 <time>July 2022</time>
 </span>
-<span class=middot-divider></span>
-<span class=pub-publication>
-FUSION 2022
-</span>
+<div class=share-box aria-hidden=true>
+<ul class=share>
+</ul>
 </div>
-<div class=article-style itemprop=articleBody>
-Kernel design for Gaussian processes (GPs) along with the associated hyper-parameter optimization is a challenging problem. In this paper, we propose a novel grid spectral mixture (GSM) kernel design for GPs that can automatically fit multidimensional data with affordable model complexity and superior modeling capability. {To alleviate the computational complexity due to the curse of dimensionality}, we leverage a multicore computing environment to optimize the kernel hyper-parameters in a distributed manner. We further propose a doubly distributed learning algorithm based on the alternating direction method of multipliers (ADMM) which enables multiple agents to learn the kernel hyper-parameters collaboratively. The doubly distributed learning algorithm is shown to be effective in reducing the overall computational complexity while preserving data privacy during the learning process. Experiments on various one-dimensional and multidimensional data sets demonstrate that the proposed kernel design yields superior training and prediction performance compared to its competitors.
 </div>
-<div class=btn-links>
-<a class="btn btn-outline-primary my-1 mr-1 btn-sm" href=/publication/fusion2022/slides.pdf target=_blank rel=noopener>
+<div class="btn-links mb-3">
+<a class="btn btn-outline-primary my-1 mr-1" href=/publication/fusion2022/slides.pdf target=_blank rel=noopener>
 Slides
 </a>
 </div>
 </div>
 </div>
 </div>
-<div class="grid-sizer col-lg-12 isotope-item pubtype-1 year-2021">
-<div class=card-simple itemscope itemtype=http://schema.org/ScholarlyArticle>
-<a href=/publication/icassp2021/>
-<img src=/publication/icassp2021/featured_hu0e6063164ee5594ad2a9fdebc66a5a62_56318_918x517_fill_q90_lanczos_smart1_3.png class=article-banner itemprop=image alt>
-</a>
-<div class=card-body>
-<h3 class="article-title mb-1 mt-0" itemprop=name>
-<a href=/publication/icassp2021/ itemprop=url>Demystifying Model Averaging for Communication-Efficient Federated Matrix Factorization</a>
-</h3>
-<meta content="2021-06-01 00:00:00 +0000 UTC" itemprop=datePublished>
-<meta content="2021-06-01 00:00:00 +0000 UTC" itemprop=dateModified>
-<div class=article-metadata>
-<div>
-<span itemprop="author name" itemtype=http://schema.org/Person><a href=/authors/shuai-wang/>Shuai Wang</a></span>, <span itemprop="author name" itemtype=http://schema.org/Person><a href=/authors/richard-cornelius-suwandi/>Richard Cornelius Suwandi</a></span>, <span itemprop="author name" itemtype=http://schema.org/Person><a href=/authors/tsung-hui-chang/>Tsung-Hui Chang</a></span>
-</div>
-<span class=article-date>
-<time>June 2021</time>
-</span>
-<span class=middot-divider></span>
-<span class=pub-publication>
-IEEE ICASSP 2021
-</span>
-</div>
-<div class=article-style itemprop=articleBody>
-Federated learning (FL) is encountered with the challenge of training a model in massive and heterogeneous networks. Model averaging (MA) has become a popular FL paradigm where parallel (stochastic) gradient descent (GD) is run on a small sampled subset of clients multiple times before uploading the local models to a server for averaging, which has been proven effective in reducing the communication cost for achieving a good model. However, MA has not been considered for the important matrix factorization (MF) model, which has vast signal processing and machine learning applications. In this paper, we investigate the federated MF problem and propose a new MA based algorithm, named FedMAvg, by judiciously combining the alternating minimization technique and MA. Through analysis, we show that gradually decreasing the number of local GD and only allowing partial clients to communicate with the server can greatly reduce the communication cost, especially in heterogeneous networks with non-i.i.d. data. Experimental results by applying FedMAvg to data clustering and item recommendation tasks demonstrate its efficacy in terms of both task performance and communication efficiency.
-</div>
-<div class=btn-links>
-<a class="btn btn-outline-primary my-1 mr-1 btn-sm" href=https://ieeexplore.ieee.org/document/9413927 target=_blank rel=noopener>
-PDF
-</a>
-<button type=button class="btn btn-outline-primary my-1 mr-1 btn-sm js-cite-modal" data-filename=/publication/icassp2021/cite.bib>
-Cite
-</button>
-<a class="btn btn-outline-primary my-1 mr-1 btn-sm" href=/publication/icassp2021/poster_fedma.pdf target=_blank rel=noopener>
-Poster
+<div class=article-container>
+<h3>Abstract</h3>
+<p class=pub-abstract itemprop=text>Kernel design for Gaussian processes (GPs) along with the associated hyper-parameter optimization is a challenging problem. In this paper, we propose a novel grid spectral mixture (GSM) kernel design for GPs that can automatically fit multidimensional data with affordable model complexity and superior modeling capability. {To alleviate the computational complexity due to the curse of dimensionality}, we leverage a multicore computing environment to optimize the kernel hyper-parameters in a distributed manner. We further propose a doubly distributed learning algorithm based on the alternating direction method of multipliers (ADMM) which enables multiple agents to learn the kernel hyper-parameters collaboratively. The doubly distributed learning algorithm is shown to be effective in reducing the overall computational complexity while preserving data privacy during the learning process. Experiments on various one-dimensional and multidimensional data sets demonstrate that the proposed kernel design yields superior training and prediction performance compared to its competitors.</p>
+<div class=row>
+<div class="col-md-10 mx-auto">
+<div class=row>
+<div class="col-12 col-md-3 pub-row-heading">Type</div>
+<div class="col-12 col-md-9">
+<a href=/publication/#1>
+Conference paper
 </a>
 </div>
 </div>
 </div>
 </div>
+<div class="d-md-none space-below"></div>
+<div class=row>
+<div class=col-md-1></div>
+<div class=col-md-10>
+<div class=row>
+<div class="col-12 col-md-3 pub-row-heading">Publication</div>
+<div class="col-12 col-md-9">International Conference on Information Fusion 2022</div>
+</div>
+</div>
+<div class=col-md-1></div>
+</div>
+<div class="d-md-none space-below"></div>
+<div class=space-below></div>
+<div class=article-style>
+</div>
+<div class=article-tags>
+<a class="badge badge-light" href=/tags/gaussian-processes/>Gaussian Processes</a>
+<a class="badge badge-light" href=/tags/grid-spectral-mixture-kernel/>Grid Spectral Mixture Kernel</a>
+<a class="badge badge-light" href=/tags/hyper-parameter-optimization/>Hyper-parameter Optimization</a>
+<a class="badge badge-light" href=/tags/distributed-learning/>Distributed Learning</a>
+</div>
+<div class="media author-card" itemscope itemtype=http://schema.org/Person>
+<div class=media-body>
+<h5 class=card-title itemprop=name><a href=/authors/richard-cornelius-suwandi/></a></h5>
+<ul class=network-icon aria-hidden=true>
+</ul>
 </div>
 </div>
 </div>
