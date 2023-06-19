@@ -5,11 +5,11 @@
 &lt;/blockquote>
 &lt;h3 id="setup">Setup&lt;/h3>
 &lt;p>Before we start, we first need to install the &lt;code>gpytorch&lt;/code> library. You can do this either by pip or conda using the following command:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#75715e"># Install using pip&lt;/span>
-pip install gpytorch
-&lt;span style="color:#75715e"># Install using conda&lt;/span>
-conda install gpytorch -c gpytorch
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>You can also check the requirements and installation instructions on their website &lt;a href="https://gpytorch.ai/#install">here&lt;/a>.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Install using pip&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pip install gpytorch
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Install using conda&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>conda install gpytorch -c gpytorch
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>You can also check the requirements and installation instructions on their website &lt;a href="https://gpytorch.ai/#install">here&lt;/a>.&lt;/p>
 &lt;blockquote>
 &lt;p>&lt;strong>Note:&lt;/strong> If you want to follow along with this tutorial, you can find the notebook of this tutorial &lt;a href="https://github.com/richardcsuwandi/gp/blob/main/GP%20Regression%20using%20GPyTorch.ipynb">here&lt;/a>.&lt;/p>
 &lt;/blockquote>
@@ -28,22 +28,24 @@ Next, we need to generate a training data for our model. We will be modeling the
 &lt;li>&lt;strong>A multivariate normal distribution:&lt;/strong> The multivariate normal distribution in GP (&lt;code>gpytorch.distributions.MultivariateNormal&lt;/code>)&lt;/li>
 &lt;/ol>
 &lt;p>We can build our GP model by constructing the above components as follows:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">SpectralMixtureGP&lt;/span>(gpytorch&lt;span style="color:#f92672">.&lt;/span>models&lt;span style="color:#f92672">.&lt;/span>ExactGP):
-&lt;span style="color:#66d9ef">def&lt;/span> __init__(self, x_train, y_train, likelihood):
-super(SpectralMixtureGP, self)&lt;span style="color:#f92672">.&lt;/span>__init__(x_train, y_train, likelihood)
-self&lt;span style="color:#f92672">.&lt;/span>mean &lt;span style="color:#f92672">=&lt;/span> gpytorch&lt;span style="color:#f92672">.&lt;/span>means&lt;span style="color:#f92672">.&lt;/span>ConstantMean() &lt;span style="color:#75715e"># Construct the mean function&lt;/span>
-self&lt;span style="color:#f92672">.&lt;/span>cov &lt;span style="color:#f92672">=&lt;/span> gpytorch&lt;span style="color:#f92672">.&lt;/span>kernels&lt;span style="color:#f92672">.&lt;/span>SpectralMixtureKernel(num_mixtures&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">4&lt;/span>) &lt;span style="color:#75715e"># Construct the kernel function&lt;/span>
-self&lt;span style="color:#f92672">.&lt;/span>cov&lt;span style="color:#f92672">.&lt;/span>initialize_from_data(x_train, y_train) &lt;span style="color:#75715e"># Initialize the hyperparameters from data&lt;/span>
-&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">forward&lt;/span>(self, x):
-&lt;span style="color:#75715e"># Evaluate the mean and kernel function at x&lt;/span>
-mean_x &lt;span style="color:#f92672">=&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>mean(x)
-cov_x &lt;span style="color:#f92672">=&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>cov(x)
-&lt;span style="color:#75715e"># Return the multivariate normal distribution using the evaluated mean and kernel function&lt;/span>
-&lt;span style="color:#66d9ef">return&lt;/span> gpytorch&lt;span style="color:#f92672">.&lt;/span>distributions&lt;span style="color:#f92672">.&lt;/span>MultivariateNormal(mean_x, cov_x)
-&lt;span style="color:#75715e"># Initialize the likelihood and model&lt;/span>
-likelihood &lt;span style="color:#f92672">=&lt;/span> gpytorch&lt;span style="color:#f92672">.&lt;/span>likelihoods&lt;span style="color:#f92672">.&lt;/span>GaussianLikelihood()
-model &lt;span style="color:#f92672">=&lt;/span> SpectralMixtureGP(x_train, y_train, likelihood)
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Let me breakdown the above code line-by-line:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">SpectralMixtureGP&lt;/span>(gpytorch&lt;span style="color:#f92672">.&lt;/span>models&lt;span style="color:#f92672">.&lt;/span>ExactGP):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> __init__(self, x_train, y_train, likelihood):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> super(SpectralMixtureGP, self)&lt;span style="color:#f92672">.&lt;/span>__init__(x_train, y_train, likelihood)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>mean &lt;span style="color:#f92672">=&lt;/span> gpytorch&lt;span style="color:#f92672">.&lt;/span>means&lt;span style="color:#f92672">.&lt;/span>ConstantMean() &lt;span style="color:#75715e"># Construct the mean function&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>cov &lt;span style="color:#f92672">=&lt;/span> gpytorch&lt;span style="color:#f92672">.&lt;/span>kernels&lt;span style="color:#f92672">.&lt;/span>SpectralMixtureKernel(num_mixtures&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">4&lt;/span>) &lt;span style="color:#75715e"># Construct the kernel function&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>cov&lt;span style="color:#f92672">.&lt;/span>initialize_from_data(x_train, y_train) &lt;span style="color:#75715e"># Initialize the hyperparameters from data&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">forward&lt;/span>(self, x):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># Evaluate the mean and kernel function at x&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> mean_x &lt;span style="color:#f92672">=&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>mean(x)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> cov_x &lt;span style="color:#f92672">=&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>cov(x)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># Return the multivariate normal distribution using the evaluated mean and kernel function&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> gpytorch&lt;span style="color:#f92672">.&lt;/span>distributions&lt;span style="color:#f92672">.&lt;/span>MultivariateNormal(mean_x, cov_x)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Initialize the likelihood and model&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>likelihood &lt;span style="color:#f92672">=&lt;/span> gpytorch&lt;span style="color:#f92672">.&lt;/span>likelihoods&lt;span style="color:#f92672">.&lt;/span>GaussianLikelihood()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>model &lt;span style="color:#f92672">=&lt;/span> SpectralMixtureGP(x_train, y_train, likelihood)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Let me breakdown the above code line-by-line:&lt;/p>
 &lt;ul>
 &lt;li>The above GP model has two main components: the &lt;code>__init__&lt;/code> and &lt;code>forward&lt;/code> method.&lt;/li>
 &lt;li>The &lt;code>__init__&lt;/code> method takes the training data and a likelihood as the inputs and constructs whatever objects are necessary for the model’s forward method. This will most commonly include objects like a mean function and a kernel function.&lt;/li>
@@ -62,55 +64,63 @@ model &lt;span style="color:#f92672">=&lt;/span> SpectralMixtureGP(x_train, y_tr
 &lt;p>&lt;strong>Note:&lt;/strong> By defining our custom training loop, we can have greater flexibility in training our model. For example, it is easy to save the parameters at each step of training or use different learning rates for different parameters.&lt;/p>
 &lt;/blockquote>
 &lt;p>The code for the training loop is given below:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#75715e"># Put the model into training mode&lt;/span>
-model&lt;span style="color:#f92672">.&lt;/span>train()
-likelihood&lt;span style="color:#f92672">.&lt;/span>train()
-&lt;span style="color:#75715e"># Use the Adam optimizer, with learning rate set to 0.1&lt;/span>
-optimizer &lt;span style="color:#f92672">=&lt;/span> torch&lt;span style="color:#f92672">.&lt;/span>optim&lt;span style="color:#f92672">.&lt;/span>Adam(model&lt;span style="color:#f92672">.&lt;/span>parameters(), lr&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">0.1&lt;/span>)
-&lt;span style="color:#75715e"># Use the negative marginal log-likelihood as the loss function&lt;/span>
-mll &lt;span style="color:#f92672">=&lt;/span> gpytorch&lt;span style="color:#f92672">.&lt;/span>mlls&lt;span style="color:#f92672">.&lt;/span>ExactMarginalLogLikelihood(likelihood, model)
-&lt;span style="color:#75715e"># Set the number of training iterations&lt;/span>
-n_iter &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">50&lt;/span>
-&lt;span style="color:#66d9ef">for&lt;/span> i &lt;span style="color:#f92672">in&lt;/span> range(n_iter):
-&lt;span style="color:#75715e"># Set the gradients from previous iteration to zero&lt;/span>
-optimizer&lt;span style="color:#f92672">.&lt;/span>zero_grad()
-&lt;span style="color:#75715e"># Output from model&lt;/span>
-output &lt;span style="color:#f92672">=&lt;/span> model(x_train)
-&lt;span style="color:#75715e"># Compute loss and backprop gradients&lt;/span>
-loss &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#f92672">-&lt;/span>mll(output, y_train)
-loss&lt;span style="color:#f92672">.&lt;/span>backward()
-print(&lt;span style="color:#e6db74">&amp;#39;Iter &lt;/span>&lt;span style="color:#e6db74">%d&lt;/span>&lt;span style="color:#e6db74">/&lt;/span>&lt;span style="color:#e6db74">%d&lt;/span>&lt;span style="color:#e6db74"> - Loss: &lt;/span>&lt;span style="color:#e6db74">%.3f&lt;/span>&lt;span style="color:#e6db74">&amp;#39;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> (i &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span>, n_iter, loss&lt;span style="color:#f92672">.&lt;/span>item()))
-optimizer&lt;span style="color:#f92672">.&lt;/span>step()
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>In the above code, we first put our model into training mode by calling &lt;code>model.train()&lt;/code> and &lt;code>likelihood.train()&lt;/code>. Then, we define the loss function and optimizer that we want to use in the training process. Here, we use the negative marginal log-likelihood as the loss function and Adam as the optimizer. We also need to set the number of iterations for the training loop, say 50 iterations.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Put the model into training mode&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>model&lt;span style="color:#f92672">.&lt;/span>train()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>likelihood&lt;span style="color:#f92672">.&lt;/span>train()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Use the Adam optimizer, with learning rate set to 0.1&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>optimizer &lt;span style="color:#f92672">=&lt;/span> torch&lt;span style="color:#f92672">.&lt;/span>optim&lt;span style="color:#f92672">.&lt;/span>Adam(model&lt;span style="color:#f92672">.&lt;/span>parameters(), lr&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">0.1&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Use the negative marginal log-likelihood as the loss function&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>mll &lt;span style="color:#f92672">=&lt;/span> gpytorch&lt;span style="color:#f92672">.&lt;/span>mlls&lt;span style="color:#f92672">.&lt;/span>ExactMarginalLogLikelihood(likelihood, model)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Set the number of training iterations&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>n_iter &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">50&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">for&lt;/span> i &lt;span style="color:#f92672">in&lt;/span> range(n_iter):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># Set the gradients from previous iteration to zero&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> optimizer&lt;span style="color:#f92672">.&lt;/span>zero_grad()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># Output from model&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> output &lt;span style="color:#f92672">=&lt;/span> model(x_train)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># Compute loss and backprop gradients&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> loss &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#f92672">-&lt;/span>mll(output, y_train)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> loss&lt;span style="color:#f92672">.&lt;/span>backward()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print(&lt;span style="color:#e6db74">&amp;#39;Iter &lt;/span>&lt;span style="color:#e6db74">%d&lt;/span>&lt;span style="color:#e6db74">/&lt;/span>&lt;span style="color:#e6db74">%d&lt;/span>&lt;span style="color:#e6db74"> - Loss: &lt;/span>&lt;span style="color:#e6db74">%.3f&lt;/span>&lt;span style="color:#e6db74">&amp;#39;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> (i &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span>, n_iter, loss&lt;span style="color:#f92672">.&lt;/span>item()))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> optimizer&lt;span style="color:#f92672">.&lt;/span>step()
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>In the above code, we first put our model into training mode by calling &lt;code>model.train()&lt;/code> and &lt;code>likelihood.train()&lt;/code>. Then, we define the loss function and optimizer that we want to use in the training process. Here, we use the negative marginal log-likelihood as the loss function and Adam as the optimizer. We also need to set the number of iterations for the training loop, say 50 iterations.&lt;/p>
 &lt;h3 id="making-predictions-with-the-model">Making predictions with the model&lt;/h3>
 &lt;p>Finally, we can make predictions using the trained model. The basic routine of evaluating the model and making predictions is given in the following code:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#75715e"># The test data is 50 equally-spaced points from [0,5]&lt;/span>
-x_test &lt;span style="color:#f92672">=&lt;/span> torch&lt;span style="color:#f92672">.&lt;/span>linspace(&lt;span style="color:#ae81ff">0&lt;/span>, &lt;span style="color:#ae81ff">5&lt;/span>, &lt;span style="color:#ae81ff">50&lt;/span>)
-&lt;span style="color:#75715e"># Put the model into evaluation mode&lt;/span>
-model&lt;span style="color:#f92672">.&lt;/span>eval()
-likelihood&lt;span style="color:#f92672">.&lt;/span>eval()
-&lt;span style="color:#75715e"># The gpytorch.settings.fast_pred_var flag activates LOVE (for fast variances)&lt;/span>
-&lt;span style="color:#75715e"># See https://arxiv.org/abs/1803.06058&lt;/span>
-&lt;span style="color:#66d9ef">with&lt;/span> torch&lt;span style="color:#f92672">.&lt;/span>no_grad(), gpytorch&lt;span style="color:#f92672">.&lt;/span>settings&lt;span style="color:#f92672">.&lt;/span>fast_pred_var():
-&lt;span style="color:#75715e"># Obtain the predictive mean and covariance matrix&lt;/span>
-f_preds &lt;span style="color:#f92672">=&lt;/span> model(x_test)
-f_mean &lt;span style="color:#f92672">=&lt;/span> f_preds&lt;span style="color:#f92672">.&lt;/span>mean
-f_cov &lt;span style="color:#f92672">=&lt;/span> f_preds&lt;span style="color:#f92672">.&lt;/span>covariance_matrix
-&lt;span style="color:#75715e"># Make predictions by feeding model through likelihood&lt;/span>
-observed_pred &lt;span style="color:#f92672">=&lt;/span> likelihood(model(x_test))
-&lt;span style="color:#75715e"># Initialize plot&lt;/span>
-f, ax &lt;span style="color:#f92672">=&lt;/span> plt&lt;span style="color:#f92672">.&lt;/span>subplots(&lt;span style="color:#ae81ff">1&lt;/span>, &lt;span style="color:#ae81ff">1&lt;/span>, figsize&lt;span style="color:#f92672">=&lt;/span>(&lt;span style="color:#ae81ff">8&lt;/span>, &lt;span style="color:#ae81ff">6&lt;/span>))
-&lt;span style="color:#75715e"># Get upper and lower confidence bounds&lt;/span>
-lower, upper &lt;span style="color:#f92672">=&lt;/span> observed_pred&lt;span style="color:#f92672">.&lt;/span>confidence_region()
-&lt;span style="color:#75715e"># Plot training data as black stars&lt;/span>
-ax&lt;span style="color:#f92672">.&lt;/span>plot(x_train&lt;span style="color:#f92672">.&lt;/span>numpy(), y_train&lt;span style="color:#f92672">.&lt;/span>numpy(), &lt;span style="color:#e6db74">&amp;#39;k*&amp;#39;&lt;/span>)
-&lt;span style="color:#75715e"># Plot predictive means as blue line&lt;/span>
-ax&lt;span style="color:#f92672">.&lt;/span>plot(x_test&lt;span style="color:#f92672">.&lt;/span>numpy(), observed_pred&lt;span style="color:#f92672">.&lt;/span>mean&lt;span style="color:#f92672">.&lt;/span>numpy(), &lt;span style="color:#e6db74">&amp;#39;b&amp;#39;&lt;/span>)
-&lt;span style="color:#75715e"># Shade between the lower and upper confidence bounds&lt;/span>
-ax&lt;span style="color:#f92672">.&lt;/span>fill_between(x_test&lt;span style="color:#f92672">.&lt;/span>numpy(), lower&lt;span style="color:#f92672">.&lt;/span>numpy(), upper&lt;span style="color:#f92672">.&lt;/span>numpy(), alpha&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">0.5&lt;/span>)
-ax&lt;span style="color:#f92672">.&lt;/span>set_ylim([&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">3&lt;/span>, &lt;span style="color:#ae81ff">3&lt;/span>])
-ax&lt;span style="color:#f92672">.&lt;/span>legend([&lt;span style="color:#e6db74">&amp;#39;Observed Data&amp;#39;&lt;/span>, &lt;span style="color:#e6db74">&amp;#39;Mean&amp;#39;&lt;/span>, &lt;span style="color:#e6db74">&amp;#39;Confidence&amp;#39;&lt;/span>])
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>There are a few things going on in the above code:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># The test data is 50 equally-spaced points from [0,5]&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>x_test &lt;span style="color:#f92672">=&lt;/span> torch&lt;span style="color:#f92672">.&lt;/span>linspace(&lt;span style="color:#ae81ff">0&lt;/span>, &lt;span style="color:#ae81ff">5&lt;/span>, &lt;span style="color:#ae81ff">50&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Put the model into evaluation mode&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>model&lt;span style="color:#f92672">.&lt;/span>eval()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>likelihood&lt;span style="color:#f92672">.&lt;/span>eval()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># The gpytorch.settings.fast_pred_var flag activates LOVE (for fast variances)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># See https://arxiv.org/abs/1803.06058&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">with&lt;/span> torch&lt;span style="color:#f92672">.&lt;/span>no_grad(), gpytorch&lt;span style="color:#f92672">.&lt;/span>settings&lt;span style="color:#f92672">.&lt;/span>fast_pred_var():
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># Obtain the predictive mean and covariance matrix&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> f_preds &lt;span style="color:#f92672">=&lt;/span> model(x_test)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> f_mean &lt;span style="color:#f92672">=&lt;/span> f_preds&lt;span style="color:#f92672">.&lt;/span>mean
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> f_cov &lt;span style="color:#f92672">=&lt;/span> f_preds&lt;span style="color:#f92672">.&lt;/span>covariance_matrix
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># Make predictions by feeding model through likelihood&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> observed_pred &lt;span style="color:#f92672">=&lt;/span> likelihood(model(x_test))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># Initialize plot&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> f, ax &lt;span style="color:#f92672">=&lt;/span> plt&lt;span style="color:#f92672">.&lt;/span>subplots(&lt;span style="color:#ae81ff">1&lt;/span>, &lt;span style="color:#ae81ff">1&lt;/span>, figsize&lt;span style="color:#f92672">=&lt;/span>(&lt;span style="color:#ae81ff">8&lt;/span>, &lt;span style="color:#ae81ff">6&lt;/span>))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># Get upper and lower confidence bounds&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> lower, upper &lt;span style="color:#f92672">=&lt;/span> observed_pred&lt;span style="color:#f92672">.&lt;/span>confidence_region()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># Plot training data as black stars&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ax&lt;span style="color:#f92672">.&lt;/span>plot(x_train&lt;span style="color:#f92672">.&lt;/span>numpy(), y_train&lt;span style="color:#f92672">.&lt;/span>numpy(), &lt;span style="color:#e6db74">&amp;#39;k*&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># Plot predictive means as blue line&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ax&lt;span style="color:#f92672">.&lt;/span>plot(x_test&lt;span style="color:#f92672">.&lt;/span>numpy(), observed_pred&lt;span style="color:#f92672">.&lt;/span>mean&lt;span style="color:#f92672">.&lt;/span>numpy(), &lt;span style="color:#e6db74">&amp;#39;b&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># Shade between the lower and upper confidence bounds&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ax&lt;span style="color:#f92672">.&lt;/span>fill_between(x_test&lt;span style="color:#f92672">.&lt;/span>numpy(), lower&lt;span style="color:#f92672">.&lt;/span>numpy(), upper&lt;span style="color:#f92672">.&lt;/span>numpy(), alpha&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">0.5&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ax&lt;span style="color:#f92672">.&lt;/span>set_ylim([&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">3&lt;/span>, &lt;span style="color:#ae81ff">3&lt;/span>])
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ax&lt;span style="color:#f92672">.&lt;/span>legend([&lt;span style="color:#e6db74">&amp;#39;Observed Data&amp;#39;&lt;/span>, &lt;span style="color:#e6db74">&amp;#39;Mean&amp;#39;&lt;/span>, &lt;span style="color:#e6db74">&amp;#39;Confidence&amp;#39;&lt;/span>])
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>There are a few things going on in the above code:&lt;/p>
 &lt;ul>
 &lt;li>We first generate the test data using 50 equally-spaced points from [0, 5].&lt;/li>
 &lt;li>We put the model into evaluation mode by calling &lt;code>model.eval()&lt;/code> and &lt;code>likelihood.eval()&lt;/code>.&lt;/li>
@@ -131,7 +141,7 @@ ax&lt;span style="color:#f92672">.&lt;/span>legend([&lt;span style="color:#e6db7
 &lt;p>&amp;ldquo;Federated learning enables mobile phones to collaboratively learn a shared prediction model while keeping all the training data on device, decoupling the ability to do machine learning from the need to store the data in the cloud.&amp;rdquo;&lt;/p>
 &lt;/blockquote>
 &lt;p>&lt;img src="https://cdn-images-1.medium.com/max/1080/0*eKT6eswrWynOHbs6" alt="">&lt;/p>
-&lt;p>Thus, federated learning can be thought of as a new approach to machine learning that allows you to train models across devices without pooling the data. Instead of bringing users' data to the server, federated learning brings the machine learning model to the users' devices. &lt;/p>
+&lt;p>Thus, federated learning can be thought of as a new approach to machine learning that allows you to train models across devices without pooling the data. Instead of bringing users&amp;rsquo; data to the server, federated learning brings the machine learning model to the users&amp;rsquo; devices. &lt;/p>
 &lt;p>With the above idea in mind, the way federated learning works is actually quite intuitive. A general federated learning framework usually involves the following steps:&lt;/p>
 &lt;ol>
 &lt;li>Your device downloads the current model from the server and improves it by training from data on your device&lt;/li>
@@ -143,11 +153,11 @@ ax&lt;span style="color:#f92672">.&lt;/span>legend([&lt;span style="color:#e6db7
 &lt;h3 id="why-does-federated-learningmatter">Why does federated learning matter?&lt;/h3>
 &lt;p>&lt;img src="https://cdn-images-1.medium.com/max/1080/0*3s3svoB3pAXJ_Ef8" alt="">&lt;/p>
 &lt;p>Traditional machine learning adopts a &lt;strong>centralized&lt;/strong> approach which requires all the data to be brought together to a server, where the models are trained. This centralized training approach, however, is privacy-intrusive as users have to trade their privacy by sending their personal data to the server owned by the AI companies. &lt;/p>
-&lt;p>In light of this, federated learning is basically the &lt;strong>decentralized&lt;/strong> form of machine learning. Unlike the traditional machine learning approaches, federated learning does not require the data to be stored in the server. Instead, the data stays on each users' device and thus privacy is preserved. In such a case, users can benefit from obtaining a well-trained machine learning model without sending their sensitive personal data to the server.&lt;/p>
+&lt;p>In light of this, federated learning is basically the &lt;strong>decentralized&lt;/strong> form of machine learning. Unlike the traditional machine learning approaches, federated learning does not require the data to be stored in the server. Instead, the data stays on each users&amp;rsquo; device and thus privacy is preserved. In such a case, users can benefit from obtaining a well-trained machine learning model without sending their sensitive personal data to the server.&lt;/p>
 &lt;h3 id="how-could-federated-learning-shape-the-future-ofai">How could federated learning shape the future of AI?&lt;/h3>
 &lt;p>&lt;img src="https://cdn-images-1.medium.com/max/1080/0*SQ6ox05dlBOyZzN-" alt="">&lt;/p>
-&lt;p>In recent years, data privacy has become the major obstacle for the development of AI, especially with the establishment of data protection and privacy laws like the &lt;a href="https://gdpr-info.eu/">General Data Protection Regulation (GDPR)&lt;/a> and the &lt;a href="https://www.oag.ca.gov/privacy/ccpa">California Consumer Privacy Act (CCPA)&lt;/a>. Thanks to federated learning, these barriers have been broken and we now have a secure way of training machine learning models within users' devices.&lt;/p>
-&lt;p>Federated learning allows us to build better machine learning models that can provide personalized services and maximize user experiences. A huge amount of data are produced from user&amp;rsquo;s devices on a daily basis. These data are valuable as it contains personal information about the users and their personal interests. With federated learning, it is now possible to build such personalized models while still preserving users' privacy.&lt;/p>
+&lt;p>In recent years, data privacy has become the major obstacle for the development of AI, especially with the establishment of data protection and privacy laws like the &lt;a href="https://gdpr-info.eu/">General Data Protection Regulation (GDPR)&lt;/a> and the &lt;a href="https://www.oag.ca.gov/privacy/ccpa">California Consumer Privacy Act (CCPA)&lt;/a>. Thanks to federated learning, these barriers have been broken and we now have a secure way of training machine learning models within users&amp;rsquo; devices.&lt;/p>
+&lt;p>Federated learning allows us to build better machine learning models that can provide personalized services and maximize user experiences. A huge amount of data are produced from user&amp;rsquo;s devices on a daily basis. These data are valuable as it contains personal information about the users and their personal interests. With federated learning, it is now possible to build such personalized models while still preserving users&amp;rsquo; privacy.&lt;/p>
 &lt;h3 id="whats-next">What's Next?&lt;/h3>
 &lt;p>In this blog post, we have explored a new decentralized approach to machine learning called federated learning. I personally believe that federated learning will play an important part in shaping the future of AI. In the near future, we will see a plethora of new applications taking advantage of federated learning, enhancing user experience in a way that was not possible before. Of course, this breakthrough also comes with a unique set of challenges that AI researchers need to tackle to bring this field forward. Nevertheless, the future looks exciting if AI and privacy could go hand in hand.&lt;/p></description></item><item><title>Analyzing My Own LinkedIn Data</title><link>https://richardcsuwandi.github.io/post/linkedin-analysis/</link><pubDate>Wed, 24 Feb 2021 00:00:00 +0000</pubDate><guid>https://richardcsuwandi.github.io/post/linkedin-analysis/</guid><description>&lt;h2 id="motivation">Motivation&lt;/h2>
 &lt;p>As an active user on &lt;a href="https://www.linkedin.com/in/richardcsuwandi/">LinkedIn&lt;/a> with more than 1000 connections, I was curious about the statistics of my network.
@@ -248,7 +258,7 @@ Anyone who deals with data knows that as much as 80% of the process is cleaning 
 &lt;p>The same also happens with data and algorithms. As you get to know your data and algorithms, you get to understand their limitations and strive to build something better. And as the amount of data is growing, you may need to fix and adjust your models to get better and better. In other words, the same learning curve applies to Lego building and machine learning modeling.&lt;/p>
 &lt;h3 id="design-is-important">Design is important&lt;/h3>
 &lt;p>&lt;img src="https://miro.medium.com/max/1050/0*7l23DpkRdyXCnxnW" alt="">&lt;/p>
-&lt;p>The name Lego is derived from the Danish phrase &amp;lsquo;leg godt&amp;rsquo;, which means &amp;lsquo;play well&amp;rsquo;. Before I start building something with Lego, I will first decide if it's something I want to display, or something I want to play with. For display-only models, I could get away with a simpler architecture, but if it was something I wanted to play with, I knew I had to make it extra robust. After all, it would be very disappointing if the wings of my spaceship fell off while I was swooshing it around the room.&lt;/p>
+&lt;p>The name Lego is derived from the Danish phrase &amp;rsquo;leg godt&amp;rsquo;, which means &amp;lsquo;play well&amp;rsquo;. Before I start building something with Lego, I will first decide if it's something I want to display, or something I want to play with. For display-only models, I could get away with a simpler architecture, but if it was something I wanted to play with, I knew I had to make it extra robust. After all, it would be very disappointing if the wings of my spaceship fell off while I was swooshing it around the room.&lt;/p>
 &lt;p>When it comes to making a dashboard, Python script, or even a report, I often start by asking myself if this is something people will actually use (i.e. play with), or if it's something they want to see once and never again. From there, I plan and build accordingly.&lt;/p>
 &lt;p>&lt;img src="https://miro.medium.com/max/1050/0*kc3iv8iUrm6dBWen" alt="">&lt;/p>
 &lt;p>Lego has taught me a lot about data and building models. Just like Lego:&lt;/p>
@@ -291,8 +301,8 @@ Here&amp;rsquo;s some of the images in the dataset:&lt;/p>
 model architecture with the pre-trained weights on the &lt;a href="http://www.image-net.org/">ImageNet&lt;/a> dataset.
 To train the layers, I use the &lt;code>fit_one_cycle&lt;/code> method based on the &amp;lsquo;&lt;a href="https://sgugger.github.io/the-1cycle-policy.html">1 Cycle Policy&lt;/a>&amp;rsquo;,
 which basically changes the learning rate over time to achieve better results.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">learn&lt;span style="color:#f92672">.&lt;/span>fit_one_cycle(&lt;span style="color:#ae81ff">3&lt;/span>)
-&lt;/code>&lt;/pre>&lt;/div>&lt;table>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>learn&lt;span style="color:#f92672">.&lt;/span>fit_one_cycle(&lt;span style="color:#ae81ff">3&lt;/span>)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>epoch&lt;/th>
@@ -330,9 +340,9 @@ To find the perfect learning rate, I used the lr_find and recorder.plot methods 
 &lt;p>&lt;img src="https://github.com/richardcsuwandi/chinese-calligraphy-classifier/blob/master/images/lr_plot.png?raw=true" alt="LR Plot">&lt;/p>
 &lt;p>The red dot on the graph indicates the point where the gradient is the steepest.
 I used that point as the first guess for the learning rate and train the model for another 2 epochs.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">min_grad_lr &lt;span style="color:#f92672">=&lt;/span> learn&lt;span style="color:#f92672">.&lt;/span>recorder&lt;span style="color:#f92672">.&lt;/span>min_grad_lr
-learn&lt;span style="color:#f92672">.&lt;/span>fit_one_cycle(&lt;span style="color:#ae81ff">2&lt;/span>, min_grad_lr)
-&lt;/code>&lt;/pre>&lt;/div>&lt;table>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>min_grad_lr &lt;span style="color:#f92672">=&lt;/span> learn&lt;span style="color:#f92672">.&lt;/span>recorder&lt;span style="color:#f92672">.&lt;/span>min_grad_lr
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>learn&lt;span style="color:#f92672">.&lt;/span>fit_one_cycle(&lt;span style="color:#ae81ff">2&lt;/span>, min_grad_lr)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>epoch&lt;/th>
@@ -362,9 +372,9 @@ The &lt;code>ImageCleaner&lt;/code> class displays images for re-labeling or del
 &lt;img src="https://github.com/richardcsuwandi/chinese-calligraphy-classifier/blob/master/images/cleaning.png?raw=true" alt="Cleaning">&lt;/p>
 &lt;p>The results of the cleaning are saved as a CSV file which I then used to load the data.
 I applied the same training steps as above but using the cleaned data.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">min_grad_lr &lt;span style="color:#f92672">=&lt;/span> learn&lt;span style="color:#f92672">.&lt;/span>recorder&lt;span style="color:#f92672">.&lt;/span>min_grad_lr
-learn&lt;span style="color:#f92672">.&lt;/span>fit_one_cycle(&lt;span style="color:#ae81ff">4&lt;/span>, min_grad_lr)
-&lt;/code>&lt;/pre>&lt;/div>&lt;table>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>min_grad_lr &lt;span style="color:#f92672">=&lt;/span> learn&lt;span style="color:#f92672">.&lt;/span>recorder&lt;span style="color:#f92672">.&lt;/span>min_grad_lr
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>learn&lt;span style="color:#f92672">.&lt;/span>fit_one_cycle(&lt;span style="color:#ae81ff">4&lt;/span>, min_grad_lr)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>epoch&lt;/th>

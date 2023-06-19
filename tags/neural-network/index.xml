@@ -35,8 +35,8 @@ Here&amp;rsquo;s some of the images in the dataset:&lt;/p>
 model architecture with the pre-trained weights on the &lt;a href="http://www.image-net.org/">ImageNet&lt;/a> dataset.
 To train the layers, I use the &lt;code>fit_one_cycle&lt;/code> method based on the &amp;lsquo;&lt;a href="https://sgugger.github.io/the-1cycle-policy.html">1 Cycle Policy&lt;/a>&amp;rsquo;,
 which basically changes the learning rate over time to achieve better results.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">learn&lt;span style="color:#f92672">.&lt;/span>fit_one_cycle(&lt;span style="color:#ae81ff">3&lt;/span>)
-&lt;/code>&lt;/pre>&lt;/div>&lt;table>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>learn&lt;span style="color:#f92672">.&lt;/span>fit_one_cycle(&lt;span style="color:#ae81ff">3&lt;/span>)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>epoch&lt;/th>
@@ -74,9 +74,9 @@ To find the perfect learning rate, I used the lr_find and recorder.plot methods 
 &lt;p>&lt;img src="https://github.com/richardcsuwandi/chinese-calligraphy-classifier/blob/master/images/lr_plot.png?raw=true" alt="LR Plot">&lt;/p>
 &lt;p>The red dot on the graph indicates the point where the gradient is the steepest.
 I used that point as the first guess for the learning rate and train the model for another 2 epochs.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">min_grad_lr &lt;span style="color:#f92672">=&lt;/span> learn&lt;span style="color:#f92672">.&lt;/span>recorder&lt;span style="color:#f92672">.&lt;/span>min_grad_lr
-learn&lt;span style="color:#f92672">.&lt;/span>fit_one_cycle(&lt;span style="color:#ae81ff">2&lt;/span>, min_grad_lr)
-&lt;/code>&lt;/pre>&lt;/div>&lt;table>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>min_grad_lr &lt;span style="color:#f92672">=&lt;/span> learn&lt;span style="color:#f92672">.&lt;/span>recorder&lt;span style="color:#f92672">.&lt;/span>min_grad_lr
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>learn&lt;span style="color:#f92672">.&lt;/span>fit_one_cycle(&lt;span style="color:#ae81ff">2&lt;/span>, min_grad_lr)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>epoch&lt;/th>
@@ -106,9 +106,9 @@ The &lt;code>ImageCleaner&lt;/code> class displays images for re-labeling or del
 &lt;img src="https://github.com/richardcsuwandi/chinese-calligraphy-classifier/blob/master/images/cleaning.png?raw=true" alt="Cleaning">&lt;/p>
 &lt;p>The results of the cleaning are saved as a CSV file which I then used to load the data.
 I applied the same training steps as above but using the cleaned data.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">min_grad_lr &lt;span style="color:#f92672">=&lt;/span> learn&lt;span style="color:#f92672">.&lt;/span>recorder&lt;span style="color:#f92672">.&lt;/span>min_grad_lr
-learn&lt;span style="color:#f92672">.&lt;/span>fit_one_cycle(&lt;span style="color:#ae81ff">4&lt;/span>, min_grad_lr)
-&lt;/code>&lt;/pre>&lt;/div>&lt;table>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>min_grad_lr &lt;span style="color:#f92672">=&lt;/span> learn&lt;span style="color:#f92672">.&lt;/span>recorder&lt;span style="color:#f92672">.&lt;/span>min_grad_lr
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>learn&lt;span style="color:#f92672">.&lt;/span>fit_one_cycle(&lt;span style="color:#ae81ff">4&lt;/span>, min_grad_lr)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>epoch&lt;/th>
