@@ -286,8 +286,8 @@ display_categories: ["blockquotes"] # these categories will be displayed on the 
 # -----------------------------------------------------------------------------
 
 scholar:
-  last_name: [Einstein]
-  first_name: [Albert, A.]
+  last_name: [Suwandi]
+  first_name: [Richard, Cornelius]
 
   style: apa
   locale: en
