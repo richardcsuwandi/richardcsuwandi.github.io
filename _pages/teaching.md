@@ -2,10 +2,12 @@
 layout: page
 permalink: /teaching/
 title: teaching
-description: summary of my teaching experience.
+description: list of taught courses.
 nav: true
 nav_order: 6
 ---
 
-- MAT2040: Linear Algebra, Teaching Assistant, Spring 2024
-- MAT2040: Linear Algebra, Teaching Assistant, Fall 2023
+#### The Chinese University of Hong Kong, Shenzhen
+- Fall 2024: Teaching Assistant, [MAT2040 Linear Algebra](https://www.cuhk.edu.cn/en/course/8058)
+- Spring 2024: Teaching Assistant, [MAT2040 Linear Algebra](https://www.cuhk.edu.cn/en/course/8058)
+- Fall 2023: Teaching Assistant, [MAT2040 Linear Algebra](https://www.cuhk.edu.cn/en/course/8058)
