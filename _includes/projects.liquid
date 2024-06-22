@@ -1,5 +1,5 @@
 <div class="col">
-  <a href="{% if project.redirect %}{{ project.redirect }}{% else %}{{ project.url | relative_url }}{% endif %}">
+  <a href="{% if project.external_url %}{{ project.external_url }}{% else %}{% if project.redirect %}{{ project.redirect }}{% else %}{{ project.url | relative_url }}{% endif %}{% endif %}" target="{% if project.external_url %}_blank{% endif %}">
     <div class="card h-100 hoverable">
       {% if project.img %}
         {%
