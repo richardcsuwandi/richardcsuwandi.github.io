@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Invited to serve as a **Reviewer** for [International Conference on Learning Representations (ICLR) 2025](https://iclr.cc)!
+Invited to serve as a **Reviewer** for [International Conference on Learning Representations (ICLR) 2025](https://iclr.cc)
