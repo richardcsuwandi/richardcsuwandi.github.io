@@ -11,8 +11,7 @@ thumbnail: /assets/img/target.jpeg
 toc:
   sidebar: left
 ---
-
-In ["Active Learning and Bayesian Optimization: A Unified Perspective to Learn with a Goal"](https://link.springer.com/article/10.1007/s11831-024-10064-z), the authors proposed a unified perspective of Bayesian optimization (BO) and active learning (AL). They argue that both BO and AL can be viewed as adaptive sampling schemes guided by common learning principles toward a given optimization goal. In this post, we will explore the key ideas presented in the paper and discuss the implications of this unified perspective.
+Traditionally, Bayesian optimization (BO) has been perceived as a technique for optimizing expensive objective functions through efficient data sampling, while active learning (AL) is often seen as a way to selectively query data to improve model performance. Recently, [Fiore et al.]((https://link.springer.com/article/10.1007/s11831-024-10064-z)) proposed a unified perspective of BO and AL, arguing that both can be viewed as adaptive sampling schemes guided by common learning principles toward a given optimization goal. In this post, we will explore the key ideas presented in the paper and discuss the implications of this unified perspective.
 
 #### Goal-driven learning
 *Goal-driven learning* can described as:
