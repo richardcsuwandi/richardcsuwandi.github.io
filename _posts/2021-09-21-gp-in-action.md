@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Gaussian Process in Action
-date: 2024-09-16 00:00:00 +0700
+date: 2021-09-21 00:00:00 +0700
 description: Building a Gaussian process model with GPyTorch
 tags: [gaussian-process, machine-learning]
 categories:
@@ -11,9 +11,6 @@ thumbnail: /assets/img/gpr.png
 toc:
   sidebar: left
 ---
-
-#### Introduction
-
 Gaussian processes (GPs) are a powerful yet often underappreciated model in machine learning. As a non-parametric and Bayesian approach, GPs are particularly effective for supervised learning tasks such as regression and classification. Compared to other algorithms, GPs offer several practical advantages:
 - They perform well even with small datasets.
 - They provide uncertainty quantification for predictions.
@@ -169,9 +166,9 @@ The resulting plot is shown below:
   <img src="/assets/img/gpr_pred.png" />
 </p>
 
-In this plot, the black stars represent the training (observed) data, while the blue line and shaded area indicate the mean and confidence bounds, respectively. Notice how the uncertainty decreases near the observed points. If we added more data points, we would see the mean function adjust to pass through them, further reducing uncertainty close to the observations.
+In this plot, the black stars (★) represent the training (observed) data, while the blue line and shaded area (🟦) indicate the mean and confidence bounds, respectively. Notice how the uncertainty decreases near the observed points. If we added more data points, we would see the mean function adjust to pass through them, further reducing uncertainty close to the observations.
 
 #### Takeaways
-In this tutorial, we learned how to build a GP model using GPyTorch. There are many additional [features](https://docs.gpytorch.ai/en/latest/) in GPyTorch that I didn't cover here. I hope this tutorial serves as a solid foundation for you to explore GPyTorch and Gaussian processes further.
+In this tutorial, we learned how to build a GP model using GPyTorch. There are many additional [features](https://docs.gpytorch.ai/en/latest/) in GPyTorch that I did not cover here. I hope this tutorial serves as a solid foundation for you to explore GPyTorch and Gaussian processes further.
 
 <!-- If you would like me to make more tutorials on GPyTorch or if you have any other suggestions, please let me know in the comments! -->
