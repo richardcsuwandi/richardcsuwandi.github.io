@@ -5,7 +5,7 @@ date: 2021-09-21 00:00:00 +0700
 description: Building a Gaussian process model with GPyTorch
 tags: [gaussian-process, machine-learning]
 categories:
-giscus_comments: false
+giscus_comments: true
 related_posts: false
 thumbnail: /assets/img/gpr.png
 toc:
