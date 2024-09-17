@@ -165,7 +165,7 @@ _styles: >
 Traditionally, Bayesian optimization (BO) has been perceived as a technique for optimizing expensive objective functions through efficient data sampling, while active learning (AL) is often seen as a way to selectively query data to improve model performance. Recently, Fiore et al. (2024)<d-cite key="di2024active"></d-cite> proposed a unified perspective of BO and AL, arguing that both can be viewed as adaptive sampling schemes guided by common learning principles toward a given optimization goal. In this post, we will explore the key ideas presented in the paper and discuss the implications of this unified perspective.
 
 ## Goal-driven learning
-Goal-driven learning can described as:
+Goal-driven learning<d-cite key="bui2007goal"></d-cite> can described as:
 <aside class="l-body box-note" markdown="1">
 a decision-making process in which each decision is made to acquire specific information about the system of interest that contributes the most to achieve a given a goal.
 </aside>
@@ -202,8 +202,9 @@ In contrast, the adaptive probing and adaptive modeling classes do not exhibit t
 
 ## Learning and infill criteria
 The strong synergy between AL and BO is rooted in the substantial analogy between the learning criteria that drive the AL procedure and the infill criteria that characterize the BO scheme.
+
 ### Learning criteria
-Learning criteria establish a metric for quantifying the gains of all the possible learner decisions, and prescribe an optimal decision based in information acquired from the surrogate model. In AL, there are 3 essential learning criteria:
+Learning criteria establish a metric for quantifying the gains of all the possible learner decisions, and prescribe an optimal decision based in information acquired from the surrogate model. In AL, there are 3 essential learning criteria<d-cite key="he2014active"></d-cite>:
 1. **Informativeness:** The sampling policy is driven by the goal of acquiring the *most informative samples*, i.e., the ones that are expected to contribute the maximum information.
 2. **Representativeness:** The sampling policy aims to select *samples that are representative* of the target domain, exploiting the structure of the problem to direct queries to locations
 3. **Diversity:** The sampling policy seeks to select *samples that are diverse*, i.e., well-spread across the domain, preventing the concentration of queries in small local regions.
@@ -214,7 +215,7 @@ Learning criteria establish a metric for quantifying the gains of all the possib
 </div>
 
 ### Infill criteria
-On the other hand, the infill criteria in BO provides a measure of the information gain that would result from sampling at a particular location. The most common infill criteria are:
+On the other hand, the infill criteria in BO provides a measure of the information gain that would result from sampling at a particular location. The most common infill criteria are<d-cite key="garnett2023bayesian"></d-cite>:
 1. **Global exploration:** This criterion focuses on choosing samples in regions of *high predictive uncertainty*, enhancing global awareness of the search space. However, this approach may not direct resources optimally towards the specific goal.
 2. **Local exploitation:** This criterion prioritizes choosing samples in regions with *high predictive mean*, focusing the search on promising areas. Yet, it may result in less accurate knowledge of the overall objective function distribution.
 
