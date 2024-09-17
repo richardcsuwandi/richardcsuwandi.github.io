@@ -271,7 +271,7 @@ Learning criteria establish a metric for quantifying the gains of all the possib
 **Figure 2.** Illustration of the three learning criteria in watering optimization problem: (a) informativeness, (b) representativeness, and (c) diversity.
 </div>
 
-### Infill Criteria
+### Infill criteria
 On the other hand, the infill criteria in BO provides a measure of the information gain that would result from sampling at a particular location. The most common infill criteria are:
 1. **Global exploration:** This criterion focuses on choosing samples in regions of *high predictive uncertainty*, enhancing global awareness of the search space. However, this approach may not direct resources optimally towards the specific goal.
 2. **Local exploitation:** This criterion prioritizes choosing samples in regions with *high predictive mean*, focusing the search on promising areas. Yet, it may result in less accurate knowledge of the overall objective function distribution.
