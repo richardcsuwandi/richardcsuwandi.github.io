@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: distill
 title: Gaussian Process in Action
 date: 2021-09-21 00:00:00 +0700
 description: Building a Gaussian process model with GPyTorch
@@ -8,18 +8,228 @@ categories: tutorial
 giscus_comments: true
 related_posts: false
 thumbnail: /assets/img/gpr.png
+future: true
+htmlwidgets: true
+
+# Anonymize when submitting
+# authors:
+#   - name: Anonymous
+#     affiliations:
+#       name: Anonymous
+
+authors:
+ - name: Richard Cornelius Suwandi
+   url: "https://richardcsuwandi.github.io/"
+   affiliations:
+     name: The Chinese University of Hong Kong, Shenzhen
+
+# must be the exact same name as your blogpost
+bibliography:
+
+# Add a table of contents to your post.
+#   - make sure that TOC names match the actual section names
+#     for hyperlinks within the post to work correctly.
+#   - please use this format rather than manually creating a markdown table of contents.
 toc:
-  sidebar: left
+  - name: Setup
+  - name: Generating the data
+  - name: Building the model
+  - name: Training the model
+  - name: Making predictions
+  - name: Takeaways
+
+# Below is an example of injecting additional post-specific styles.
+# This is used in the 'Layouts' section of this post.
+# If you use this post as a template, delete this _styles block.
+_styles: >
+
+  .center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+  }
+
+  .framed {
+    border: 1px var(--global-text-color) dashed !important;
+    padding: 20px;
+  }
+
+  d-article {
+    overflow-x: visible;
+  }
+
+  .underline {
+    text-decoration: underline;
+  }
+
+  .todo{
+      display: block;
+      margin: 12px 0;
+      font-style: italic;
+      color: red;
+  }
+  .todo:before {
+      content: "TODO: ";
+      font-weight: bold;
+      font-style: normal;
+  }
+  summary {
+    color: steelblue;
+    font-weight: bold;
+  }
+
+  summary-math {
+    text-align:center;
+    color: black
+  }
+
+  [data-theme="dark"] summary-math {
+    text-align:center;
+    color: white
+  }
+
+  details[open] {
+  --bg: #e2edfc;
+  color: black;
+  border-radius: 15px;
+  padding-left: 8px;
+  background: var(--bg);
+  outline: 0.5rem solid var(--bg);
+  margin: 0 0 2rem 0;
+  font-size: 80%;
+  line-height: 1.4;
+  }
+
+  [data-theme="dark"] details[open] {
+  --bg: #112f4a;
+  color: white;
+  border-radius: 15px;
+  padding-left: 8px;
+  background: var(--bg);
+  outline: 0.5rem solid var(--bg);
+  margin: 0 0 2rem 0;
+  font-size: 80%;
+  }
+  .box-note, .box-warning, .box-error, .box-important {
+    padding: 15px 15px 15px 10px;
+    margin: 20px 20px 20px 5px;
+    border: 1px solid #eee;
+    border-left-width: 5px;
+    border-radius: 5px 3px 3px 5px;
+  }
+  d-article .box-note {
+    background-color: #eee;
+    border-left-color: #2980b9;
+  }
+  d-article .box-warning {
+    background-color: #fdf5d4;
+    border-left-color: #f1c40f;
+  }
+  d-article .box-error {
+    background-color: #f4dddb;
+    border-left-color: #c0392b;
+  }
+  d-article .box-important {
+    background-color: #d4f4dd;
+    border-left-color: #2bc039;
+  }
+  html[data-theme='dark'] d-article .box-note {
+    background-color: #555555;
+    border-left-color: #2980b9;
+  }
+  html[data-theme='dark'] d-article .box-warning {
+    background-color: #7f7f00;
+    border-left-color: #f1c40f;
+  }
+  html[data-theme='dark'] d-article .box-error {
+    background-color: #800000;
+    border-left-color: #c0392b;
+  }
+  html[data-theme='dark'] d-article .box-important {
+    background-color: #006600;
+    border-left-color: #2bc039;
+  }
+  d-article aside {
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    padding: .5em .5em 0;
+    font-size: 90%;
+  }
+  .caption { 
+    font-size: 80%;
+    line-height: 1.2;
+    text-align: left;
+  }
 ---
+
+<div style="display: none">
+$$
+\definecolor{input}{rgb}{0.42, 0.55, 0.74}
+\definecolor{params}{rgb}{0.51,0.70,0.40}
+\definecolor{output}{rgb}{0.843, 0.608, 0}
+\def\mba{\boldsymbol a}
+\def\mbb{\boldsymbol b}
+\def\mbc{\boldsymbol c}
+\def\mbd{\boldsymbol d}
+\def\mbe{\boldsymbol e}
+\def\mbf{\boldsymbol f}
+\def\mbg{\boldsymbol g}
+\def\mbh{\boldsymbol h}
+\def\mbi{\boldsymbol i}
+\def\mbj{\boldsymbol j}
+\def\mbk{\boldsymbol k}
+\def\mbl{\boldsymbol l}
+\def\mbm{\boldsymbol m}
+\def\mbn{\boldsymbol n}
+\def\mbo{\boldsymbol o}
+\def\mbp{\boldsymbol p}
+\def\mbq{\boldsymbol q}
+\def\mbr{\boldsymbol r}
+\def\mbs{\boldsymbol s}
+\def\mbt{\boldsymbol t}
+\def\mbu{\boldsymbol u}
+\def\mbv{\boldsymbol v}
+\def\mbw{\textcolor{params}{\boldsymbol w}}
+\def\mbx{\textcolor{input}{\boldsymbol x}}
+\def\mby{\boldsymbol y}
+\def\mbz{\boldsymbol z}
+\def\mbA{\boldsymbol A}
+\def\mbB{\boldsymbol B}
+\def\mbE{\boldsymbol E}
+\def\mbH{\boldsymbol{H}}
+\def\mbK{\boldsymbol{K}}
+\def\mbP{\boldsymbol{P}}
+\def\mbR{\boldsymbol{R}}
+\def\mbW{\textcolor{params}{\boldsymbol W}}
+\def\mbQ{\boldsymbol{Q}}
+\def\mbV{\boldsymbol{V}}
+\def\mbtheta{\textcolor{params}{\boldsymbol \theta}}
+\def\mbzero{\boldsymbol 0}
+\def\mbI{\boldsymbol I}
+\def\cF{\mathcal F}
+\def\cH{\mathcal H}
+\def\cL{\mathcal L}
+\def\cM{\mathcal M}
+\def\cN{\mathcal N}
+\def\cX{\mathcal X}
+\def\cY{\mathcal Y}
+\def\cU{\mathcal U}
+\def\bbR{\mathbb R}
+\def\y{\textcolor{output}{y}}
+$$
+</div>
+
 Gaussian processes (GPs) are a powerful yet often underappreciated model in machine learning. As a non-parametric and Bayesian approach, GPs are particularly effective for supervised learning tasks such as regression and classification. Compared to other algorithms, GPs offer several practical advantages:
 - They perform well even with small datasets.
 - They provide uncertainty quantification for predictions.
 
 In this tutorial, we will implement GP regression using GPyTorch, a GP library built on PyTorch that is designed for creating scalable and flexible GP models. To learn more about GPyTorch, I recommend visiting their [official website](https://gpytorch.ai/).
 
-*Note: If you want to follow along with this tutorial, you can find the notebook [here](https://github.com/richardcsuwandi/gp/blob/main/GP%20Regression%20using%20GPyTorch.ipynb).*
+<aside class="l-body box-warning" markdown="1">
+**Note:** If you want to follow along with this tutorial, you can find the notebook [here](https://github.com/richardcsuwandi/gp/blob/main/GP%20Regression%20using%20GPyTorch.ipynb).
+</aside>
 
-#### Setup
+## Setup
 Before we begin, we need to install the `gpytorch` library. You can do this using either `pip` or `conda` with the following commands:
 
 ```bash
@@ -27,7 +237,7 @@ pip install gpytorch # using pip
 conda install gpytorch -c gpytorch # using conda
 ```
 
-#### Generating the data
+## Generating the data
 Next, we will generate training data for our model by modeling the following function:
 
 $$
@@ -36,21 +246,25 @@ $$
 
 We will evaluate this function at 15 equally spaced points in the interval $$[0,1]$$. The generated training data is illustrated in the following plot:
 
-<p align="center">
-  <img src="/assets/img/gpr_data.png" />
-</p>
+<img src="{{ '/assets/img/gpr_data.png' | relative_url }}" alt="transformer" class="center" width="60%" class="l-body rounded z-depth-1 center">
+<div class="l-gutter caption" markdown="1">
+**Figure 1.** The generated training data by evaluating the true function on 15 equally-spaced points from $$[0,1]$$.
+</div>
 
-#### Building the model
+## Building the model
 Now that we have our training data, we can start building our GP model. GPyTorch provides a flexible framework for constructing GP models, similar to building neural networks in standard PyTorch. For most GP regression models, you will need to create the following components:
 
+<aside class="l-body box-note" markdown="1">
 - **A GP model:** For exact (non-variational) GP models, use `gpytorch.models.ExactGP`.
 - **A likelihood function:** For GP regression, we typically use `gpytorch.likelihoods.GaussianLikelihood`.
 - **A mean function:** This serves as the prior mean of the GP. If you're unsure which mean function to use, `gpytorch.means.ConstantMean` is a good starting point.
 - **A kernel function:** This defines the prior covariance of the GP. For this tutorial, we will use the [spectral mixture (SM)](https://arxiv.org/pdf/1302.4245.pdf) kernel (`gpytorch.kernels.SpectralMixtureKernel`).
 - **A multivariate normal distribution:** Represented by `gpytorch.distributions.MultivariateNormal`.
+</aside>
 
 We can build our GP model by assembling these components as follows:
 
+{% details Show code %}
 ```python
 class SpectralMixtureGP(gpytorch.models.ExactGP):
     def __init__(self, x_train, y_train, likelihood):
@@ -70,14 +284,17 @@ class SpectralMixtureGP(gpytorch.models.ExactGP):
 likelihood = gpytorch.likelihoods.GaussianLikelihood()
 model = SpectralMixtureGP(x_train, y_train, likelihood)
 ```
+{% enddetails %}
 
 Here's a breakdown of the code:
+<aside class="l-body box-important" markdown="1">
 - The GP model consists of two main components: the `__init__` and `forward` methods.
 - The `__init__` method initializes the model with training data and a likelihood, constructing necessary objects like the mean and kernel functions.
 - The forward method takes the input data `x` and returns a multivariate normal distribution based on the evaluated mean and covariance.
 - We initialize the likelihood function for the GP model using the Gaussian likelihood, which assumes a homoskedastic noise model (i.e., uniform noise across inputs).
+</aside>
 
-#### Training the model
+## Training the model
 With the model built, we can now train it to find the optimal hyperparameters. Training a GP model in GPyTorch is akin to training a neural network in standard PyTorch. The training loop involves the following steps:
 
 - Setting all parameter gradients to zero.
@@ -85,10 +302,12 @@ With the model built, we can now train it to find the optimal hyperparameters. T
 - Backpropagating the loss to compute gradients.
 - Taking a step with the optimizer.
 
-<!--
-*Remark: By creating a custom training loop, we gain greater flexibility in training, such as saving parameters at each step or using different learning rates for different parameters.* -->
+<aside class="l-body box-warning" markdown="1">
+**Remark:** By creating a custom training loop, we gain greater flexibility in training, such as saving parameters at each step or using different learning rates for different parameters.
+</aside>
 
-Here’s the code for the training loop:
+Here's the code for the training loop:
+{% details Show code %}
 ```python
 # Put the model into training mode
 model.train()
@@ -114,12 +333,14 @@ for i in range(n_iter):
     print('Iter %d/%d - Loss: %.3f' % (i + 1, n_iter, loss.item()))
     optimizer.step()
 ```
+{% enddetails %}
 
 In this code, we first set our model to training mode. Then, we define the loss function and optimizer to use during training. We use the negative marginal log-likelihood as the loss and Adam as the optimizer, running the loop for 50 iterations.
 
-#### Making predictions
+## Making predictions
 Finally, we can make predictions with the trained model. The routine for evaluating the model and generating predictions is as follows:
 
+{% details Show code %}
 ```python
 # The test data is 50 equally-spaced points from [0,5]
 x_test = torch.linspace(0, 5, 50)
@@ -153,22 +374,24 @@ with torch.no_grad(), gpytorch.settings.fast_pred_var():
     ax.legend(['Observed Data', 'Mean', 'Confidence'])
     plt.show()
 ```
+{% enddetails %}
 
 The above code performs several things:
-
+<aside class="l-body box-important" markdown="1">
 - It generates test data using 50 equally spaced points from $$[0, 5]$$.
 - The model is set to evaluation mode, and we utilize `gpytorch.settings.fast_pred_var()` for faster predictive distributions.
 - The trained GP model returns a MultivariateNormal distribution containing the posterior mean and covariance, from which we extract the predictive mean and covariance matrix.
 - Finally, we plot the mean and confidence region of the fitted GP model. The `confidence_region()` method provides the upper and lower bounds, representing two standard deviations above and below the mean.
+</aside>
 
 The resulting plot is shown below:
-<p align="center">
-  <img src="/assets/img/gpr_pred.png" />
-</p>
+
+<img src="{{ '/assets/img/gpr_pred.png' | relative_url }}" alt="transformer" class="center" width="60%" class="l-body rounded z-depth-1 center">
+<div class="l-gutter caption" markdown="1">
+**Figure 2.** Plot of the fitted GP model given by the mean (blue line) and confidence region (shaded area). The observed data (black stars) is also plotted in the figure.
+</div>
 
 In this plot, the black stars (★) represent the training (observed) data, while the blue line and shaded area (🟦) indicate the mean and confidence bounds, respectively. Notice how the uncertainty decreases near the observed points. If we added more data points, we would see the mean function adjust to pass through them, further reducing uncertainty close to the observations.
 
-#### Takeaways
+## Takeaways
 In this tutorial, we learned how to build a GP model using GPyTorch. There are many additional [features](https://docs.gpytorch.ai/en/latest/) in GPyTorch that I did not cover here. I hope this tutorial serves as a solid foundation for you to explore GPyTorch and Gaussian processes further.
-
-<!-- If you would like me to make more tutorials on GPyTorch or if you have any other suggestions, please let me know in the comments! -->
