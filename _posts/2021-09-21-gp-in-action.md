@@ -161,7 +161,7 @@ _styles: >
     text-align: left;
   }
 ---
-Gaussian processes (GPs) are a powerful yet often underappreciated model in machine learning. As a non-parametric and Bayesian approach, GPs are particularly effective for supervised learning tasks such as regression and classification. Compared to other algorithms, GPs offer several practical advantages:
+Gaussian processes (GPs) are a powerful yet often underappreciated model in machine learning. As a non-parametric and Bayesian approach, GPs are particularly effective for supervised learning tasks such as regression and classification. Compared to other models, GPs offer several practical advantages:
 - They perform well even with small datasets.
 - They provide uncertainty quantification for predictions.
 
