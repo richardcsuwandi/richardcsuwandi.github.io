@@ -30,11 +30,11 @@ conda install gpytorch -c gpytorch # using conda
 #### Generating the data
 Next, we will generate training data for our model by modeling the following function:
 
-$$
+\\[
 y = \sin{(2\pi x)} + \epsilon, \epsilon \sim \mathcal{N}(0,0.04)
-$$
+\\]
 
-We will evaluate this function at 15 equally spaced points in the interval $$[0,1]$$. The generated training data is illustrated in the following plot:
+We will evaluate this function at 15 equally spaced points in the interval \\([0,1]\\). The generated training data is illustrated in the following plot:
 
 <p align="center">
   <img src="/assets/img/gpr_data.png" />
@@ -156,7 +156,7 @@ with torch.no_grad(), gpytorch.settings.fast_pred_var():
 
 The above code performs several things:
 
-- It generates test data using 50 equally spaced points from $$[0, 5]$$.
+- It generates test data using 50 equally spaced points from \\([0, 5]\\).
 - The model is set to evaluation mode, and we utilize `gpytorch.settings.fast_pred_var()` for faster predictive distributions.
 - The trained GP model returns a MultivariateNormal distribution containing the posterior mean and covariance, from which we extract the predictive mean and covariance matrix.
 - Finally, we plot the mean and confidence region of the fitted GP model. The `confidence_region()` method provides the upper and lower bounds, representing two standard deviations above and below the mean.
