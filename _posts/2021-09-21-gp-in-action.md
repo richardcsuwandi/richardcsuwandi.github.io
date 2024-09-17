@@ -223,7 +223,7 @@ Gaussian processes (GPs) are a powerful yet often underappreciated model in mach
 - They perform well even with small datasets.
 - They provide uncertainty quantification for predictions.
 
-In this tutorial, we will implement GP regression using GPyTorch, a GP library built on PyTorch that is designed for creating scalable and flexible GP models. To learn more about GPyTorch, I recommend visiting their [official website](https://gpytorch.ai/).
+In this tutorial, we will implement GP regression using GPyTorch, a GP library built on [PyTorch](https://pytorch.org) that is designed for creating scalable and flexible GP models. To learn more about GPyTorch, I recommend visiting their [official website](https://gpytorch.ai/).
 
 <aside class="l-body box-warning" markdown="1">
 **Note:** If you want to follow along with this tutorial, you can find the notebook [here](https://github.com/richardcsuwandi/gp/blob/main/GP%20Regression%20using%20GPyTorch.ipynb).
