@@ -4,7 +4,7 @@ title: Learning with a Goal
 date: 2024-09-16 00:00:00 +0700
 description: A unified perspective of Bayesian optimization and active learning
 tags: [bayesian-optimization, active-learning]
-categories:
+categories: paper-summary
 giscus_comments: true
 related_posts: false
 thumbnail: /assets/img/target.jpeg

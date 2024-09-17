@@ -36,7 +36,6 @@ layout: default
       {% endif %}
 
       {% if categories != '' %}
-        &nbsp; &middot; &nbsp;
         {% for category in page.categories %}
           {% if url_beginning == '/blog/' %}
             <a href="{{ category | slugify | prepend: '/blog/category/' | prepend: site.baseurl}}">
