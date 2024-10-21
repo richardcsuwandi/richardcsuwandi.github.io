@@ -195,7 +195,7 @@ The key distinction between these categories lies in the concept of *goal-driven
 
 In contrast, the adaptive probing and adaptive modeling classes do not exhibit this goal-driven learning characteristic. Adaptive probing methods operate without the aid of a surrogate, while adaptive modeling approaches compute a surrogate that is not directly used to inform the sampling process.
 
-<img src="{{ '/assets/img/adaptive_sampling.png' | relative_url }}" alt="transformer" class="center" width="70%" class="l-body rounded z-depth-1 center">
+<img src="{{ '/assets/img/adaptive_sampling.png' | relative_url }}" alt="transformer" class="center" width="80%" class="l-body rounded z-depth-1 center">
 <div class="l-gutter caption" markdown="1">
 **Figure 1.** Classification of adaptive sampling techniques: Where adaptive sampling and active learning meet.
 </div>
@@ -209,7 +209,7 @@ Learning criteria establish a metric for quantifying the gains of all the possib
 2. **Representativeness:** The sampling policy aims to select *samples that are representative* of the target domain, exploiting the structure of the problem to direct queries to locations
 3. **Diversity:** The sampling policy seeks to select *samples that are diverse*, i.e., well-spread across the domain, preventing the concentration of queries in small local regions.
 
-<img src="{{ '/assets/img/learning_criteria.png' | relative_url }}" alt="transformer" class="center" width="80%" class="l-body rounded z-depth-1 center">
+<img src="{{ '/assets/img/learning_criteria.png' | relative_url }}" alt="transformer" class="center" width="100%" class="l-body rounded z-depth-1 center">
 <div class="l-gutter caption" markdown="1">
 **Figure 2.** Illustration of the three learning criteria in watering optimization problem: (a) informativeness, (b) representativeness, and (c) diversity.
 </div>

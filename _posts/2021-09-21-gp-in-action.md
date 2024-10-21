@@ -188,7 +188,7 @@ $$
 
 We will evaluate this function at 15 equally spaced points in the interval $$[0,1]$$. The generated training data is illustrated in the following plot:
 
-<img src="{{ '/assets/img/gpr_data.png' | relative_url }}" alt="transformer" class="center" width="60%" class="l-body rounded z-depth-1 center">
+<img src="{{ '/assets/img/gpr_data.png' | relative_url }}" alt="transformer" class="center" width="70%" class="l-body rounded z-depth-1 center">
 <div class="l-gutter caption" markdown="1">
 **Figure 1.** The generated training data by evaluating the true function on 15 equally-spaced points from $$[0,1]$$.
 </div>
@@ -328,7 +328,7 @@ The above code performs several things:
 
 The resulting plot is shown below:
 
-<img src="{{ '/assets/img/gpr_pred.png' | relative_url }}" alt="transformer" class="center" width="60%" class="l-body rounded z-depth-1 center">
+<img src="{{ '/assets/img/gpr_pred.png' | relative_url }}" alt="transformer" class="center" width="70%" class="l-body rounded z-depth-1 center">
 <div class="l-gutter caption" markdown="1">
 **Figure 2.** Plot of the fitted GP model given by the mean (blue line) and confidence region (shaded area). The observed data (black stars) is also plotted in the figure.
 </div>
