@@ -17,9 +17,9 @@ social: true # includes social icons at the bottom of the page
 I am a PhD student at [The Chinese University of Hong Kong, Shenzhen (CUHK-Shenzhen)](https://cuhk.edu.cn/en/). Prior to my PhD, I obtained my BSc degree in Statistics from CUHK-Shenzhen.
 
 I am fortunate to be advised by [Prof. Feng Yin](https://sse.cuhk.edu.cn/en/faculty/yinfeng) and [Prof. Tsung-Hui Chang](https://sse.cuhk.edu.cn/en/faculty/tsunghuichang). My current research focuses on:
-- **Sequential decision-making** with active learning and Bayesian optimization
+- **Black-box optimization** with Bayesian optimization
 - **Probabilistic machine learning**, especially Gaussian processes
-- **AI4Science**, including experimental design and scientific discovery
+- **Generative models** for representation learning
 
 If you are interested in collaborating or discussing research ideas, feel free to reach out via [email](mailto:richardsuwandi@link.cuhk.edu.cn).
 
