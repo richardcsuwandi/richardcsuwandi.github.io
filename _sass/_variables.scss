@@ -4,31 +4,49 @@
  ******************************************************************************/
 
 // Colors
-$red-color: #ff3636 !default;
-$red-color-dark: #b71c1c !default;
-$orange-color: #f29105 !default;
-$blue-color: #0076df !default;
-$blue-color-dark: #0049db !default;
-$cyan-color: #2698ba !default;
+$red-color: #ff6b6b !default;
+$red-color-dark: #c92a2a !default;
+$orange-color: #f76707 !default;
+$blue-color: #4dabf7 !default;
+$blue-color-dark: #1971c2 !default;
+$cyan-color: #22b8cf !default;
 $light-cyan-color: lighten($cyan-color, 25%);
-$green-color: #00ab37 !default;
-$green-color-lime: #b7d12a !default;
-$green-color-dark: #009f06 !default;
-$green-color-light: #ddffdd !default;
-$green-color-bright: #11d68b !default;
-$purple-color: #b509ac !default;
+$green-color: #40c057 !default;
+$green-color-lime: #94d82d !default;
+$green-color-dark: #2b8a3e !default;
+$green-color-light: #ebfbee !default;
+$green-color-bright: #69db7c !default;
+$purple-color: #9775fa !default;
 $light-purple-color: lighten($purple-color, 25%);
-$pink-color: #f92080 !default;
-$pink-color-light: #ffdddd !default;
-$yellow-color: #efcc00 !default;
+$pink-color: #f06595 !default;
+$pink-color-light: #ffdeeb !default;
+$yellow-color: #fcc419 !default;
 
-$grey-color: #828282 !default;
-$grey-color-light: lighten($grey-color, 40%);
-$grey-color-dark: #1c1c1d;
+$grey-color: #adb5bd !default;
+$grey-color-light: #f8f9fa;
+$grey-color-dark: #212529;
 $grey-900: #212529;
 
 $white-color: #ffffff !default;
-$black-color: #000000 !default;
+$black-color: #343a40 !default;
+
+// Accent colors for different elements
+$accent-blue: #74c0fc !default;
+$accent-green: #63e6be !default;
+$accent-purple: #b197fc !default;
+$accent-orange: #ffa94d !default;
+
+// Highlighter colors with more visual interest - using only blue now
+$highlighter-yellow: rgba(255, 234, 167, 0.65) !default;
+$highlighter-green: rgba(200, 250, 205, 0.65) !default;
+$highlighter-blue: rgba(191, 223, 255, 0.75) !default;
+$highlighter-pink: rgba(255, 212, 219, 0.65) !default;
+
+// Dark mode colors
+$dark-bg: #1e2227 !default;
+$dark-bg-lighter: #2a2f36 !default;
+$dark-text: #e9ecef !default;
+$dark-text-lighter: #ced4da !default;
 
 // Theme colors
 

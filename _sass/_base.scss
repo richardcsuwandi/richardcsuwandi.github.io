@@ -2,6 +2,13 @@
  * Styles for the base elements of the theme.
  ******************************************************************************/
 
+/* --- GLOBAL VARIABLES --- */
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
 // Typography
 
 p,
@@ -37,14 +44,29 @@ table {
 a,
 table.table a {
   color: var(--global-theme-color);
-
+  text-decoration: none;
+  position: relative;
+  transition: all 0.2s ease;
+  
   &:hover {
-    color: var(--global-theme-color);
-    text-decoration: underline;
+    color: var(--global-hover-color);
+    text-decoration: none;
   }
-
-  &:hover:after :not(.nav-item.dropdown) {
+  
+  &::after {
+    content: '';
+    position: absolute;
     width: 100%;
+    height: 1px;
+    bottom: -1px;
+    left: 0;
+    background-color: var(--global-link-underline-color);
+    transition: all 0.2s ease-in-out;
+  }
+  
+  &:hover::after {
+    background-color: var(--global-link-hover-underline-color);
+    height: 2px;
   }
 }
 
@@ -1107,5 +1129,124 @@ swiper-container {
 
   .ps-algorithm.with-caption > .ps-line:first-child {
     border-bottom: 2px solid var(--global-text-color);
+  }
+}
+
+/* --- LINKS --- */
+
+a {
+  color: var(--global-text-color);
+  text-decoration: none;
+  position: relative;
+  
+  &:hover {
+    color: var(--global-hover-color) !important;
+    text-decoration: none;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: var(--global-link-underline-color);
+    transition: all 0.2s ease-in-out;
+  }
+  
+  &:hover::after {
+    background-color: var(--global-link-hover-underline-color);
+    height: 3px;
+  }
+}
+
+// Special styling for nav links
+#navbar a {
+  &::after {
+    height: 0;
+  }
+  
+  &:hover::after {
+    height: 2px;
+  }
+}
+
+.highlight-text {
+  position: relative;
+  display: inline;
+  z-index: 1;
+  
+  &::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 0.5em;
+    bottom: 0;
+    left: 0;
+    background-color: var(--global-highlight-color);
+    z-index: -1;
+    transition: height 0.15s ease-out;
+  }
+  
+  &:hover::before {
+    height: 0.8em;
+  }
+}
+
+// Typography
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 500;
+  margin-bottom: 1rem;
+  
+  a {
+    &::after {
+      height: 0;
+    }
+    
+    &:hover::after {
+      height: 0;
+    }
+  }
+}
+
+h1 {
+  font-size: 2.5rem;
+  letter-spacing: -0.015em;
+}
+
+h2 {
+  font-size: 1.8rem;
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    width: 3rem;
+    height: 3px;
+    bottom: -0.5rem;
+    left: 0;
+    background-color: var(--global-highlight-color);
+  }
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+h4 {
+  font-size: 1.2rem;
+}
+
+.social {
+  a {
+    &::after {
+      height: 0;
+    }
+    
+    &:hover::after {
+      height: 0;
+    }
   }
 }

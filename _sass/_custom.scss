@@ -1,0 +1,252 @@
+// Custom styling for minimalist design
+
+// Spacing
+.mt-5 {
+  margin-top: 3rem !important;
+}
+
+.mb-5 {
+  margin-bottom: 3rem !important;
+}
+
+// Consistent highlight for all styles
+.highlight-1,
+.highlight-2,
+.highlight-3,
+.highlight-4 {
+  background: linear-gradient(180deg, transparent 65%, var(--global-accent-color-1) 0);
+}
+
+// Enhanced highlight effect
+.highlight-text {
+  display: inline;
+  background-image: linear-gradient(to bottom, transparent 65%, var(--global-highlight-color) 65%);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  padding: 0 2px;
+  border-radius: 0.1em;
+  transition: all 0.25s ease-out;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  
+  &:hover {
+    background-size: 100% 110%;
+  }
+}
+
+// For highlight effect applied to links
+a.highlight-link {
+  background-image: linear-gradient(to bottom, transparent 85%, var(--global-highlight-color) 85%);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  padding: 0 2px;
+  transition: all 0.25s ease-out;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  
+  &:hover {
+    background-size: 100% 110%;
+  }
+  
+  &::after {
+    height: 0 !important;
+  }
+}
+
+// News section with minimalist style
+.news table {
+  border-collapse: collapse;
+  width: 100%;
+  
+  td {
+    border: none;
+    padding: 0.5rem 0;
+  }
+  
+  a {
+    background-image: linear-gradient(to bottom, transparent 85%, var(--global-highlight-color) 0);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    padding: 0 2px;
+    transition: all 0.25s ease-out;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    
+    &:hover {
+      background-size: 100% 110%;
+    }
+    
+    &::after {
+      height: 0 !important;
+    }
+  }
+}
+
+// Publications with minimalist style
+.publications {
+  .title {
+    font-weight: 500;
+  }
+  
+  .author {
+    font-style: normal;
+  }
+  
+  .links a.btn {
+    transition: all 0.2s ease;
+    
+    &:hover {
+      transform: translateY(-2px);
+    }
+  }
+}
+
+// Projects with clean look
+.projects {
+  .grid-item {
+    margin-bottom: 2rem;
+  }
+  
+  .card-title {
+    font-size: 1.2rem;
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+  
+  .card {
+    transition: all 0.3s ease;
+    
+    &:hover {
+      border-color: var(--global-theme-color);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+  }
+}
+
+// About section
+.about {
+  p {
+    margin-bottom: 1.5rem;
+    line-height: 1.7;
+  }
+  
+  a {
+    position: relative;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    background-image: linear-gradient(to bottom, transparent 85%, var(--global-highlight-color) 0);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    padding: 0 2px;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    
+    &:hover {
+      background-size: 100% 110%;
+    }
+    
+    &::after {
+      height: 0 !important;
+    }
+  }
+}
+
+// Social icons with a cleaner look
+.social {
+  .fa, .fab, .fas {
+    transition: all 0.3s ease;
+    opacity: 0.8;
+    
+    &:hover {
+      transform: translateY(-3px) scale(1.1);
+      opacity: 1;
+      color: var(--global-theme-color) !important;
+    }
+  }
+}
+
+// Selected text style
+::selection {
+  background-color: var(--global-highlight-color);
+  color: var(--global-text-color);
+}
+
+// Buttons with minimal styling
+.btn {
+  border-radius: 0;
+  border: 1px solid var(--global-divider-color);
+  padding: 0.375rem 1rem;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background-color: var(--global-highlight-color);
+    transform: translateY(-2px);
+  }
+}
+
+// Code blocks with cleaner styling
+pre {
+  border-radius: 0;
+  border: 1px solid var(--global-divider-color);
+  background-color: var(--global-code-bg-color);
+}
+
+// Tables with minimal styling
+table {
+  width: 100%;
+  margin-bottom: 1rem;
+  border-collapse: collapse;
+  
+  th, td {
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--global-divider-color);
+  }
+  
+  th {
+    font-weight: 500;
+  }
+  
+  tr:hover {
+    background-color: rgba(0,0,0,0.01);
+  }
+}
+
+// Navigation enhancement
+.navbar-nav .nav-item .nav-link {
+  position: relative;
+  padding: 0.5rem 1rem;
+  transition: all 0.2s ease;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    background-color: var(--global-theme-color);
+    transition: all 0.2s ease-out;
+  }
+  
+  &:hover::after {
+    width: 80%;
+    left: 10%;
+  }
+}
+
+.navbar-nav .nav-item.active .nav-link::after {
+  width: 80%;
+  left: 10%;
+}
+
+// Dark mode overrides
+html[data-theme='dark'] {
+  .highlight-text,
+  a.highlight-link,
+  .about a,
+  .news table a {
+    // Dark mode specific styles (if needed in the future)
+  }
+} 
