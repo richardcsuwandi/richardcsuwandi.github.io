@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Selected as the recipient of the [IEEE Signal Processing Society Scholarship](https://signalprocessingsociety.org/community-involvement/sps-scholarship-program)
+Selected as the **recipient** of the [IEEE Signal Processing Society Scholarship](https://signalprocessingsociety.org/community-involvement/sps-scholarship-program)

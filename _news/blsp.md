@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Joined [Bayesian Learning for Signal Processing (BLSP) Group](https://blsp-group.github.io/) of CUHK-Shenzhen as a PhD student
+Joined [Bayesian Learning for Signal Processing Group](https://blsp-group.github.io/) as **PhD student**
