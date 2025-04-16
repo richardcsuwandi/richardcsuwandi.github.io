@@ -44,29 +44,17 @@ table {
 a,
 table.table a {
   color: var(--global-theme-color);
-  text-decoration: none;
-  position: relative;
+  text-decoration: underline;
+  text-decoration-color: var(--global-link-underline-color);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
   transition: all 0.2s ease;
   
   &:hover {
     color: var(--global-hover-color);
-    text-decoration: none;
-  }
-  
-  &::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 1px;
-    bottom: -1px;
-    left: 0;
-    background-color: var(--global-link-underline-color);
-    transition: all 0.2s ease-in-out;
-  }
-  
-  &:hover::after {
-    background-color: var(--global-link-hover-underline-color);
-    height: 2px;
+    text-decoration: underline;
+    text-decoration-color: var(--global-link-hover-underline-color);
+    text-decoration-thickness: 2px;
   }
 }
 
