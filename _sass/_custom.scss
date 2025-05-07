@@ -434,4 +434,37 @@ table {
     padding: 0;
     display: inline-block;
   }
+}
+
+.toggle-container {
+  margin-top: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-left: 0;
+  height: auto;
+}
+
+.toggle-container #light-toggle {
+  padding: 0.5rem 1.25rem;
+  min-width: 0;
+  width: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 576px) {
+  .toggle-container {
+    height: 100%;
+    align-items: center;
+  }
+  .toggle-container #light-toggle {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding-top: 0.15rem;
+    padding-bottom: 0.25rem;
+  }
 } 
