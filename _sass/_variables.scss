@@ -3,55 +3,54 @@
  * To adjust anything, simply edit the variables below and rebuild the theme.
  ******************************************************************************/
 
-// Colors
-$red-color: #ff6b6b !default;
-$red-color-dark: #c92a2a !default;
-$orange-color: #f76707 !default;
-$blue-color: #4dabf7 !default;
-$blue-color-dark: #1971c2 !default;
-$cyan-color: #22b8cf !default;
+// Colors - New Modern Palette
+$red-color: #ef4444 !default;
+$red-color-dark: #b91c1c !default;
+$orange-color: #f97316 !default;
+$blue-color: #0ea5e9 !default; 
+$blue-color-dark: #0369a1 !default;
+$cyan-color: #06b6d4 !default;
 $light-cyan-color: lighten($cyan-color, 25%);
-$green-color: #40c057 !default;
-$green-color-lime: #94d82d !default;
-$green-color-dark: #2b8a3e !default;
-$green-color-light: #ebfbee !default;
-$green-color-bright: #69db7c !default;
-$purple-color: #9775fa !default;
+$green-color: #10b981 !default;
+$green-color-lime: #84cc16 !default;
+$green-color-dark: #047857 !default;
+$green-color-light: #ecfdf5 !default;
+$green-color-bright: #34d399 !default;
+$purple-color: #8b5cf6 !default;
 $light-purple-color: lighten($purple-color, 25%);
-$pink-color: #f06595 !default;
-$pink-color-light: #ffdeeb !default;
-$yellow-color: #fcc419 !default;
+$pink-color: #ec4899 !default;
+$pink-color-light: #fce7f3 !default;
+$yellow-color: #fbbf24 !default;
 
-$grey-color: #adb5bd !default;
-$grey-color-light: #f8f9fa;
-$grey-color-dark: #212529;
-$grey-900: #212529;
+$grey-color: #9ca3af !default;
+$grey-color-light: #f8fafc;
+$grey-color-dark: #0f172a;
+$grey-900: #0f172a;
 
 $white-color: #ffffff !default;
-$black-color: #343a40 !default;
+$black-color: #0f172a !default;
 
 // Accent colors for different elements
-$accent-blue: #74c0fc !default;
-$accent-green: #63e6be !default;
-$accent-purple: #b197fc !default;
-$accent-orange: #ffa94d !default;
+$accent-primary: #3b82f6 !default; // Changed to blue
+$accent-secondary: #0ea5e9 !default; // Sky blue
+$accent-tertiary: #6366f1 !default; // Indigo
+$accent-quaternary: #0891b2 !default; // Cyan
 
-// Highlighter colors with more visual interest - using only blue now
-$highlighter-yellow: rgba(255, 234, 167, 0.65) !default;
-$highlighter-green: rgba(200, 250, 205, 0.65) !default;
-$highlighter-blue: rgba(191, 223, 255, 0.75) !default;
-$highlighter-pink: rgba(255, 212, 219, 0.65) !default;
+// Highlighter colors - minimal effects
+$highlighter-yellow: rgba(254, 240, 138, 0.2) !default;
+$highlighter-green: rgba(187, 247, 208, 0.2) !default;
+$highlighter-blue: rgba(186, 230, 253, 0.2) !default;
+$highlighter-pink: rgba(251, 207, 232, 0.2) !default;
 
 // Dark mode colors
-$dark-bg: #1e2227 !default;
-$dark-bg-lighter: #2a2f36 !default;
-$dark-text: #e9ecef !default;
-$dark-text-lighter: #ced4da !default;
+$dark-bg: #0f172a !default;
+$dark-bg-lighter: #1e293b !default;
+$dark-text: #f1f5f9 !default;
+$dark-text-lighter: #e2e8f0 !default;
 
 // Theme colors
-
-$code-bg-color-light:#eef7fc !default;
-$code-bg-color-dark: #2c3237 !default;
+$code-bg-color-light: #f1f5f9 !default;
+$code-bg-color-dark: #1e293b !default;
 
 // Font awesome location
 $fa-font-path: "../webfonts";

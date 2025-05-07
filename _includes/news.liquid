@@ -2,7 +2,7 @@
   {% if site.news != blank %}
     {% assign news_size = site.news | size %}
     <div
-      class="table-responsive"
+      class="table-responsive news-container"
       {% if include.limit and site.announcements.scrollable and news_size > 3 %}
         style="max-height: 60vw"
       {% endif %}
@@ -17,7 +17,7 @@
         {% for item in news limit: news_limit %}
           <tr>
             <th scope="row" style="width: 20%">{{ item.date | date: '%b %d, %Y' }}</th>
-            <td>
+            <td class="news-item">
               {% if item.inline %}
                 {{ item.content | remove: '<p>' | remove: '</p>' | emojify }}
               {% else %}
