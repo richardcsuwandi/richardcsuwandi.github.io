@@ -332,6 +332,10 @@ ul.task-list input[type="checkbox"] {
     padding-top: 0;
     font-size: 1.7rem;
 
+    @media (max-width: 575.98px) { // Bootstrap sm breakpoint
+      padding-left: 15px;
+    }
+
     a {
       i::before {
         color: var(--global-text-color);
