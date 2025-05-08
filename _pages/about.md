@@ -16,11 +16,9 @@ social: true # includes social icons at the bottom of the page
 ---
 <div class="about-content" markdown="1">
 I am a **PhD student** at [CUHK-Shenzhen](https://cuhk.edu.cn/en/). Prior to my PhD, I obtained my BSc degree in Statistics from CUHK-Shenzhen. I am fortunate to be advised by [Prof. Feng Yin](https://sse.cuhk.edu.cn/en/faculty/yinfeng) and [Prof. Tsung-Hui Chang](https://sse.cuhk.edu.cn/en/faculty/tsunghuichang). My current research focuses on:
-- **Black-box optimization** with Bayesian optimization
-- **Probabilistic machine learning**, especially Gaussian processes
-- **Generative models** for representation learning
+- **Black-box optimization** with Bayesian optimization and zeroth-order methods
+- **Probabilistic machine learning**, especially Gaussian processes and Bayesian inference
+- **Large language models** for automated scientific discovery and engineering design
 
 If you are interested in collaborating or discussing research ideas, feel free to reach out via [email](mailto:richardsuwandi@link.cuhk.edu.cn).
 </div>
-
-<!-- I am currently pursuing my PhD in Computer and Information Engineering at [The Chinese University of Hong Kong, Shenzhen (CUHK-Shenzhen)](https://cuhk.edu.cn/en/), under the supervision of [Prof. Feng Yin](https://sse.cuhk.edu.cn/en/faculty/yinfeng) and [Prof. Tsung-Hui Chang](https://sse.cuhk.edu.cn/en/faculty/tsunghuichang). Prior to my PhD studies, I obtained my BSc degree in Statistics from CUHK-Shenzhen in 2023. -->
