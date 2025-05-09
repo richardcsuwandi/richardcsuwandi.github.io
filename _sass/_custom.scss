@@ -31,12 +31,13 @@ strong, b {
 // About section content specific styling
 .about-content {
   a {
-    color: var(--global-text-color);
-    text-decoration: underline !important;
-    font-weight: 300 !important;
+    color: var(--global-theme-color);
+    // text-decoration: underline !important;
+    font-weight: 400 !important;
     
     &:hover {
       color: var(--global-theme-color);
+      text-decoration: underline;
     }
   }
 }
@@ -45,9 +46,9 @@ strong, b {
 .news {
   .news-item {
     a {
-      color: var(--global-text-color);
-      text-decoration: underline;
-      font-weight: 300;
+      color: var(--global-theme-color);
+      // text-decoration: underline;
+      font-weight: 400;
       
       &:hover {
         color: var(--global-theme-color);

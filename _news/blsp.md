@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Joined [Bayesian Learning for Signal Processing Group](https://blsp-group.github.io/) as **PhD student**
+Joined [Bayesian Learning for Signal Processing Group](https://blsp-group.github.io/) as **PhD student**! 🎓
