@@ -8,6 +8,7 @@ $red-color: #ef4444 !default;
 $red-color-dark: #b91c1c !default;
 $orange-color: #f97316 !default;
 $blue-color: #0ea5e9 !default; 
+// $blue-color: #0081cb !default; 
 $blue-color-dark: #0369a1 !default;
 $cyan-color: #06b6d4 !default;
 $light-cyan-color: lighten($cyan-color, 25%);
@@ -31,7 +32,8 @@ $white-color: #ffffff !default;
 $black-color: #0f172a !default;
 
 // Accent colors for different elements
-$accent-primary: #3b82f6 !default; // Changed to blue
+// $accent-primary: #3b82f6 !default; // Changed to blue
+$accent-primary: #0081cb !default; // Changed to blue
 $accent-secondary: #0ea5e9 !default; // Sky blue
 $accent-tertiary: #6366f1 !default; // Indigo
 $accent-quaternary: #0891b2 !default; // Cyan

@@ -42,6 +42,19 @@ strong, b {
   }
 }
 
+// Links in page layout - makes services page links blue like about page
+.post article {
+  a {
+    color: var(--global-theme-color);
+    font-weight: 400 !important;
+    
+    &:hover {
+      color: var(--global-theme-color); 
+      text-decoration: underline;
+    }
+  }
+}
+
 // News section styling
 .news {
   .news-item {

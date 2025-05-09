@@ -8,10 +8,10 @@ nav_order: 6
 ---
 
 #### Teaching Assistant
-- Spring 2025, MAT2040 Linear Algebra
-- Fall 2024, CIE6007 Machine Learning
-- Spring 2024, MAT2040 Linear Algebra
-- Fall 2023, MAT2040 Linear Algebra
+- Spring 2025, [MAT2040 Linear Algebra](https://www.cuhk.edu.cn/en/course/8058), CUHK-Shenzhen
+- Fall 2024, [CIE6007 Machine Learning](https://www.cuhk.edu.cn/en/course/11167), CUHK-Shenzhen
+- Spring 2024, [MAT2040 Linear Algebra](https://www.cuhk.edu.cn/en/course/8058), CUHK-Shenzhen
+- Fall 2023, [MAT2040 Linear Algebra](https://www.cuhk.edu.cn/en/course/8058), CUHK-Shenzhen
 
 #### Reviewer
 - [IEEE Transactions on Signal Processing](https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=78)
