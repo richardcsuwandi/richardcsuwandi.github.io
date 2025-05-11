@@ -22,14 +22,31 @@
   }
 
   #bayesianOptimizationChart {
-    width: 700px; // Set a fixed width for the chart
-    height: 700px; // Set a fixed height for the chart
+    width: 100%; // Revert to previous working width for default
+    height: 300px; 
     border: 1px solid var(--global-divider-color, #e0e0e0);
     margin-top: 1rem;
     margin-bottom: 1rem;
     margin-left: auto; // Center the chart
     margin-right: auto; // Center the chart
     display: block; // Needed for margin auto to work on canvas
+  }
+
+  // Tablet specific styles
+  @media (max-width: 768px) {
+    #bayesianOptimizationChart {
+      width: 500px;
+      height: 250px;
+    }
+  }
+
+  // Mobile specific styles
+  @media (max-width: 480px) {
+    #bayesianOptimizationChart {
+      width: 320px; // A common mobile width
+      height: 200px;
+      // Consider making width 100% and letting container padding handle spacing if preferred
+    }
   }
 
   #addSamplePoint.btn-primary {
