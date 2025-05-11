@@ -5,61 +5,35 @@ permalink: /projects/
 description: Collection of my personal and research projects
 nav: true
 nav_order: 3
+chart:
+  chartjs: true
 display_categories:
 horizontal: false
 ---
 
 <!-- pages/projects.md -->
-<div class="projects">
-{% if site.enable_project_categories and page.display_categories %}
-  <!-- Display categorized projects -->
-  {% for category in page.display_categories %}
-  <a id="{{ category }}" href=".#{{ category }}">
-    <h2 class="category">{{ category }}</h2>
-  </a>
-  {% assign categorized_projects = site.projects | where: "category", category %}
-  {% assign sorted_projects = categorized_projects | sort: "importance" %}
-  <!-- Generate cards for each project -->
-  {% if page.horizontal %}
-  <div class="container">
-    <div class="row row-cols-1 row-cols-md-2">
-    {% for project in sorted_projects %}
-      {% include projects_horizontal.liquid %}
-    {% endfor %}
-    </div>
+
+<div class="bayesian-optimization-demo mb-5">
+  <h3>Interactive BayesOpt Demo</h3>
+  <p>Simulate querying a black-box function and see how BayesOpt finds the maximum</p>
+  <canvas id="bayesianOptimizationChart"></canvas>
+  
+  <div class="form-group mt-3">
+    <label for="acquisitionFunctionSelect">Acquisition function:</label>
+    <select class="form-control" id="acquisitionFunctionSelect">
+      <option value="UCB" selected>Upper Confidence Bound (UCB)</option>
+      <option value="EI">Expected Improvement (EI)</option>
+      <option value="TS">Thompson Sampling (TS)</option>
+    </select>
   </div>
-  {% else %}
-  <div class="row row-cols-1 row-cols-md-3">
-    {% for project in sorted_projects %}
-      {% include projects.liquid %}
-    {% endfor %}
+
+  <div class="mt-3">
+    <button id="addSamplePoint" class="btn btn-primary">Add point</button>
+    <button id="resetDemoButton" class="btn btn-secondary ml-2">Reset</button>
   </div>
-  {% endif %}
-  {% endfor %}
 
-{% else %}
-
-<!-- Display projects without categories -->
-
-{% assign sorted_projects = site.projects | sort: "importance" %}
-
-  <!-- Generate cards for each project -->
-
-{% if page.horizontal %}
-
-  <div class="container">
-    <div class="row row-cols-1 row-cols-md-2">
-    {% for project in sorted_projects %}
-      {% include projects_horizontal.liquid %}
-    {% endfor %}
-    </div>
-  </div>
-  {% else %}
-  <div class="row row-cols-1 row-cols-md-3">
-    {% for project in sorted_projects %}
-      {% include projects.liquid %}
-    {% endfor %}
-  </div>
-  {% endif %}
-{% endif %}
+  <p class="mt-2">Iteration: <span id="iterationCount">0</span></p>
+  <p>Best value found: <span id="bestValue">N/A</span> at x = <span id="bestX">N/A</span></p>
 </div>
+
+<script src="{{ '/assets/js/bayesian-optimization-demo.js' | relative_url }}"></script>

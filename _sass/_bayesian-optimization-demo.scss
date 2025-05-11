@@ -1,0 +1,66 @@
+// _sass/_bayesian-optimization-demo.scss
+
+.bayesian-optimization-demo {
+  border: 1px solid var(--global-divider-color, #dee2e6);
+  padding: 1.5rem;
+  border-radius: 0.25rem;
+  background-color: var(--global-card-bg-color, #fff);
+  margin-bottom: 2rem; // Already has mb-5, but this is for internal consistency
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: auto;
+
+  h3 {
+    color: var(--global-theme-color, #007bff);
+    margin-bottom: 1rem;
+  }
+
+  p {
+    color: var(--global-text-color, #343a40);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  #bayesianOptimizationChart {
+    width: 700px; // Set a fixed width for the chart
+    height: 700px; // Set a fixed height for the chart
+    border: 1px solid var(--global-divider-color, #e0e0e0);
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    margin-left: auto; // Center the chart
+    margin-right: auto; // Center the chart
+    display: block; // Needed for margin auto to work on canvas
+  }
+
+  #addSamplePoint.btn-primary {
+    background-color: var(--global-theme-color, #007bff);
+    border-color: var(--global-theme-color, #007bff);
+    color: var(--global-btn-text-color, #fff); // Assuming a light text on theme color
+
+    &:hover,
+    &:focus {
+      background-color: var(--global-hover-color, #0056b3); // Darken theme color on hover
+      border-color: var(--global-hover-color, #0056b3);
+      color: var(--global-btn-text-color, #fff);
+    }
+  }
+
+  #iterationCount,
+  #bestValue,
+  #bestX {
+    font-weight: bold;
+    color: var(--global-theme-color, #007bff);
+  }
+
+  // Ensure Chart.js tooltips and legend match the site's theme if possible
+  // This might require more specific Chart.js options in JS if direct CSS is not enough
+  .chartjs-tooltip {
+    background-color: var(--global-bg-color, #fff) !important;
+    color: var(--global-text-color, #343a40) !important;
+    border: 1px solid var(--global-divider-color, #dee2e6) !important;
+  }
+
+  .chartjs-legend ul li span {
+    color: var(--global-text-color, #343a40) !important;
+  }
+}

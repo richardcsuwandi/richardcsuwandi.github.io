@@ -1,5 +1,8 @@
 // Custom styling for new elegant, minimalist design with fresh typography
 
+// Import Bayesian Optimization Demo styles
+@import 'bayesian-optimization-demo';
+
 // Global typography and spacing
 body {
   font-family: 'Open Sans', sans-serif;
@@ -481,4 +484,4 @@ table {
     padding-top: 0.15rem;
     padding-bottom: 0.25rem;
   }
-} 
+}
