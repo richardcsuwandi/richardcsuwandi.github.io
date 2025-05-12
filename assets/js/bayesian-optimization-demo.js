@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 tension: 0.1,
             },
             {
-                label: 'GP Confidence Interval (lower)', // Helper for fill
+                label: 'GP confidence interval (lower)', // Helper for fill
                 data: [], // Filled by plotFunctions for lower bound
                 borderColor: 'rgba(54, 162, 235, 0.3)',
                 borderWidth: 1,
@@ -208,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 tension: 0.1,
             },
             {
-                label: `Acquisition function (${currentAcquisitionFunction.toUpperCase()})`,
+                label: `Acquisition (${currentAcquisitionFunction.toUpperCase()})`,
                 data: [], // Filled by plotFunctions
                 borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 2,
