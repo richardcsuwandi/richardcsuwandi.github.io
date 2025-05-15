@@ -32,12 +32,13 @@ bibliography: 2025-05-15-llm-algorithm-discovery.bib
 #   - please use this format rather than manually creating a markdown table of contents.
 toc:
   - name: Introduction
-  - name: "FunSearch: Finding Functions with LLMs"
+  - name: "FunSearch"
     subsections:
       - name: How FunSearch Works
-      - name: Key Discoveries and Benefits
-  - name: "AlphaEvolve: Designing Advanced Algorithms with Gemini"
+      - name: Benefits of FunSearch
+  - name: "AlphaEvolve"
     subsections:
+      - name: How AlphaEvolve Works
       - name: Benefits of AlphaEvolve
   - name: Takeaways
 
@@ -163,11 +164,24 @@ _styles: >
     line-height: 1.2;
     text-align: left;
   }
+  
+  /* Fix spacing in references section */
+  d-citation-list .references .title {
+    margin-bottom: -5px;
+    line-height: 1.3;
+  }
+  d-citation-list .references .authors {
+    margin-top: -5px;
+    line-height: 1.3;
+  }
+  d-citation-list .references {
+    line-height: 1.3;
+  }
 ---
 
-Large language models (LLMs) are useful assistants. They excel at combining concepts and can read, write and code to help people solve problems. But could they discover entirely new knowledge? As LLMs have been shown to "hallucinate" factually incorrect information, using them to make verifiably correct discoveries is a challenge. But what if we could harness the creativity of LLMs by identifying and building upon only their very best ideas? This question is at the heart of recent breakthroughs from [Google DeepMind](https://deepmind.google/), which explore how LLMs can be guided to make novel discoveries in mathematics and algorithm design. This post delves into two pioneering works, FunSearch and the more recent AlphaEvolve, showcasing their approaches and implications for the future of automated algorithm discovery.
+Large language models (LLMs) have rapidly become indispensable AI assistants. They excel at synthesizing concepts, writing, and coding to help humans solve complex problems<d-cite key="chen2021evaluating"></d-cite> . But could they discover entirely new knowledge? As LLMs have been shown to "hallucinate"<d-cite key="farquhar2024detecting"></d-cite> factually incorrect information, using them to make verifiably correct discoveries is a challenge. But what if we could harness the creativity of LLMs by identifying and building upon only their very best ideas? This question is at the heart of recent breakthroughs from [Google DeepMind](https://deepmind.google/), which explore how LLMs can be guided to make novel discoveries in mathematics and algorithm design. This post delves into two pioneering works, FunSearch and the more recent AlphaEvolve, showcasing their approaches and implications for the future of automated algorithm discovery.
 
-## FunSearch: Finding functions with LLMs
+## FunSearch
 
 In a paper published in Nature<d-cite key="romera2024mathematical"></d-cite>, Google DeepMind introduced [FunSearch](https://deepmind.google/discover/blog/funsearch-making-new-discoveries-in-mathematical-sciences-using-large-language-models/), a groundbreaking method demonstrating that LLMs can make new discoveries in mathematical sciences. The core idea is to search for novel "functions" written in computer code, hence the name FunSearch. FunSearch tackles the challenge of LLM creativity versus correctness by pairing a pre-trained LLM with an automated "evaluator." This evaluator guards against hallucinations and incorrect ideas, ensuring that the system builds upon solid foundations.
 
@@ -209,16 +223,18 @@ A significant advantage of FunSearch is that it does not just provide solutions.
 
 The success of FunSearch <d-cite key="romera2024mathematical"></d-cite> underscores that LLMs, when carefully guided and their outputs rigorously verified, can be powerful engines for scientific discovery.
 
-## AlphaEvolve: Designing advanced algorithms with Gemini
+## AlphaEvolve
 
 More recently, in May 2025, Google DeepMind announced [AlphaEvolve](https://deepmind.google/discover/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/), an evolutionary coding agent powered by large language models for general-purpose algorithm discovery and optimization<d-cite key="deepmind2025alphaevolve"></d-cite>. This development builds upon the success of systems like FunSearch and represents a significant step towards leveraging AI for complex problem-solving across various domains. Unlike FunSearch, which focuses on discovering single functions, AlphaEvolve is designed to evolve entire codebases and develop much more intricate algorithms.
+
+### How AlphaEvolve works
+
+AlphaEvolve pairs the creative problem-solving capabilities of Google's Gemini models with automated evaluators. It uses an ensemble approach: [Gemini Flash](https://deepmind.google/discover/blog/gemini-flash-a-new-generation-of-large-language-models-with-fast-inference-and-high-quality-outputs/), the fastest and most efficient model, is used to maximize the breadth of ideas explored, while [Gemini Pro](https://deepmind.google/discover/blog/gemini-pro-a-new-generation-of-large-language-models-with-fast-inference-and-high-quality-outputs/), the most powerful model, provides critical depth with insightful suggestions. Together, these models propose computer programs that implement algorithmic solutions.
 
 <img src="{{ '/assets/img/alphaevolve.png' | relative_url }}" alt="Overview of AlphaEvolve" class="center" width="80%" class="l-body rounded z-depth-1 center">
 <div class="l-gutter caption" markdown="1">
 **Figure 4.** The AlphaEvolve process. A prompt sampler assembles prompts for the LLMs, which generate new programs. These are then evaluated and stored in a programs database, which uses an evolutionary algorithm to select programs for future prompts.
 </div>
-
-AlphaEvolve pairs the creative problem-solving capabilities of Google's Gemini models with automated evaluators. It uses an ensemble approach: [Gemini Flash](https://deepmind.google/discover/blog/gemini-flash-a-new-generation-of-large-language-models-with-fast-inference-and-high-quality-outputs/), the fastest and most efficient model, is used to maximize the breadth of ideas explored, while [Gemini Pro](https://deepmind.google/discover/blog/gemini-pro-a-new-generation-of-large-language-models-with-fast-inference-and-high-quality-outputs/), the most powerful model, provides critical depth with insightful suggestions. Together, these models propose computer programs that implement algorithmic solutions.
 
 These proposed programs are then verified, run, and scored using automated evaluation metrics that provide an objective assessment of each solution's accuracy and quality. This makes AlphaEvolve particularly effective in domains where progress can be clearly and systematically measured, like mathematics and computer science.
 
