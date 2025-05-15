@@ -165,7 +165,7 @@ _styles: >
   }
 ---
 
-Large language models (LLMs) are useful assistants. They excel at combining concepts and can read, write and code to help people solve problems. But could they discover entirely new knowledge? As LLMs have been shown to "hallucinate" factually incorrect information, using them to make verifiably correct discoveries is a challenge. But what if we could harness the creativity of LLMs by identifying and building upon only their very best ideas? This question is at the heart of recent breakthroughs from [Google DeepMind](https://deepmind.google/), which explore how LLMs can be guided to make novel discoveries in mathematics and algorithm design. This post delves into two pioneering systems, FunSearch and the more recent AlphaEvolve, showcasing their approaches and implications for the future of automated algorithm discovery.
+Large language models (LLMs) are useful assistants. They excel at combining concepts and can read, write and code to help people solve problems. But could they discover entirely new knowledge? As LLMs have been shown to "hallucinate" factually incorrect information, using them to make verifiably correct discoveries is a challenge. But what if we could harness the creativity of LLMs by identifying and building upon only their very best ideas? This question is at the heart of recent breakthroughs from [Google DeepMind](https://deepmind.google/), which explore how LLMs can be guided to make novel discoveries in mathematics and algorithm design. This post delves into two pioneering works, FunSearch and the more recent AlphaEvolve, showcasing their approaches and implications for the future of automated algorithm discovery.
 
 ## FunSearch: Finding functions with LLMs
 

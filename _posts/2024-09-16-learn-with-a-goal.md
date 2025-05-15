@@ -223,7 +223,6 @@ On the other hand, the infill criteria in BO provides a measure of the informati
 Overall, we can observe a strong correspondence between the learning criteria in AL and the infill criteria in BO:
 - **The "informativeness" criterion in AL aligns with the "local exploitation" criterion in BO**, as both aim to maximize the information gain.
 - Similarly, **the "representativeness" and "diversity" criteria in AL correspond to the "global exploration" criterion in BO**, as they seek to ensure that the sampling process is well-distributed across the domain.
-
 </aside>
 
 ## Takeaways
