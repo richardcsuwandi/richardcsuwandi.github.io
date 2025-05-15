@@ -1,8 +1,8 @@
 ---
 layout: distill
-title: Automated Algorithm Discovery with LLMs
+title: Can we use LLMs to discover new algorithms?
 date: 2025-05-15 00:00:00 +0700
-description: Can we use LLMs to discover new algorithms?
+description: Automated algorithm discovery with LLMs
 tags: [large-language-models, agents]
 categories: paper-summary
 giscus_comments: true
@@ -37,7 +37,8 @@ toc:
       - name: How FunSearch Works
       - name: Key Discoveries and Benefits
   - name: "AlphaEvolve: Designing Advanced Algorithms with Gemini"
-  - name: The Future of AI in Algorithmic Discovery
+    subsections:
+      - name: Benefits of AlphaEvolve
   - name: Takeaways
 
 # Below is an example of injecting additional post-specific styles.
