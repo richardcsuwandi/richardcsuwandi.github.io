@@ -40,7 +40,7 @@ toc:
     subsections:
       - name: How AlphaEvolve Works
       - name: Benefits of AlphaEvolve
-  - name: FunSe
+  - name: FunSearch vs AlphaEvolve
   - name: Takeaways
 
 # Below is an example of injecting additional post-specific styles.
