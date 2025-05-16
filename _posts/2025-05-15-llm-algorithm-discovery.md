@@ -193,7 +193,7 @@ In a paper published in Nature<d-cite key="romera2024mathematical"></d-cite>, Go
 **Figure 1.** The FunSearch process. The LLM is shown a selection of the best programs it has generated so far, and asked to generate an even better one. The programs proposed by the LLM are automatically executed, and evaluated. The best programs are added to the database, for selection in subsequent cycles.
 </div>
 
-FunSearch uses an evolutionary approach. To start, the user writes a description of the problem in code. This includes a way to evaluate programs and an initial "seed" program to begin the process. The system then follows these steps:
+FunSearch uses an evolutionary approach<d-cite key="mouret2015illuminating"></d-cite><d-cite key="tanese1989distributed"></d-cite>. To start, the user writes a description of the problem in code. This includes a way to evaluate programs and an initial "seed" program to begin the process. The system then follows these steps:
 
 1. It selects the most promising programs from the current database.
 2. These programs are sent to an LLM<d-footnote>In their work, Google's PaLM 2 was used, though other code-trained LLMs can also work.</d-footnote>, which creatively builds upon them to generate new program proposals.
