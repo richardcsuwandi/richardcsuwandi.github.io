@@ -2,7 +2,7 @@
 layout: distill
 title: Can we use LLMs to discover new algorithms?
 date: 2025-05-15 10:00:00 +0700
-description: Automated algorithm discovery with LLMs
+description: A review of FunSearch and AlphaEvolve
 tags: [large-language-models, agents]
 categories: paper-summary
 giscus_comments: true
