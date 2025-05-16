@@ -1,7 +1,7 @@
 ---
 layout: distill
 title: Can we use LLMs to discover new algorithms?
-date: 2025-05-15 00:00:00 +0700
+date: 2025-05-15 10:00:00 +0700
 description: Automated algorithm discovery with LLMs
 tags: [large-language-models, agents]
 categories: paper-summary
@@ -40,6 +40,7 @@ toc:
     subsections:
       - name: How AlphaEvolve Works
       - name: Benefits of AlphaEvolve
+  - name: FunSe
   - name: Takeaways
 
 # Below is an example of injecting additional post-specific styles.
@@ -183,7 +184,7 @@ Large language models (LLMs) have rapidly become indispensable AI assistants. Th
 
 ## FunSearch
 
-In a paper published in Nature<d-cite key="romera2024mathematical"></d-cite>, Google DeepMind introduced [FunSearch](https://deepmind.google/discover/blog/funsearch-making-new-discoveries-in-mathematical-sciences-using-large-language-models/), a groundbreaking method demonstrating that LLMs can make new discoveries in mathematical sciences. The core idea is to search for novel "functions" written in computer code, hence the name FunSearch. FunSearch tackles the challenge of LLM creativity versus correctness by pairing a pre-trained LLM with an automated "evaluator." This evaluator guards against hallucinations and incorrect ideas, ensuring that the system builds upon solid foundations.
+In a paper published in Nature<d-cite key="romera2024mathematical"></d-cite>, Google DeepMind introduced [FunSearch](https://deepmind.google/discover/blog/funsearch-making-new-discoveries-in-mathematical-sciences-using-large-language-models/), a groundbreaking method demonstrating that LLMs can make new discoveries in mathematical sciences. The core idea is to search for novel "functions" written in computer code, hence the name FunSearch. FunSearch tackles the trade-off between LLMs' creativity and correctness by pairing a pre-trained LLM with an automated "evaluator." This evaluator guards against hallucinations and incorrect ideas, ensuring that the system builds upon solid foundations.
 
 ### How FunSearch works
 
@@ -194,18 +195,18 @@ In a paper published in Nature<d-cite key="romera2024mathematical"></d-cite>, Go
 
 FunSearch uses an evolutionary approach. To start, the user writes a description of the problem in code. This includes a way to evaluate programs and an initial "seed" program to begin the process. The system then follows these steps:
 
-1. It selects the most promising programs from the current pool.
+1. It selects the most promising programs from the current database.
 2. These programs are sent to an LLM<d-footnote>In their work, Google's PaLM 2 was used, though other code-trained LLMs can also work.</d-footnote>, which creatively builds upon them to generate new program proposals.
 3. The new programs are automatically run and checked by the evaluator.
-4. The best-performing, valid programs are added back into the pool, improving the collection for the next round.
+4. The best-performing valid programs are added back into the database, improving the database for the next round.
 
 <aside class="l-body box-note" markdown="1">
-This cycle of selection, generation, evaluation, and update creates a *self-improving loop*. Starting from basic knowledge about the problem and using strategies to keep the pool diverse, FunSearch is able to evolve simple solutions into more advanced ones. It can solve complex problems where human intuition might fall short.
+This cycle of selection, generation, evaluation, and update creates a *self-improving loop*. Starting from basic knowledge about the problem and using strategies to keep the database diverse, FunSearch is able to evolve simple solutions into more advanced ones. It can solve complex problems where human intuition might fall short.
 </aside>
 
 ### Benefits of FunSearch
 
-FunSearch's capabilities were demonstrated on challenging problems. For example, it was used to solve the **[cap set problem](https://en.wikipedia.org/wiki/Cap_set)**, which involves finding the largest set of points in a high-dimensional grid where no three points lie on a line. This longstanding open problem in extremal combinatorics, once described by renowned mathematician Terence Tao as his [favorite open question](https://terrytao.wordpress.com/2007/02/23/open-question-best-bounds-for-cap-sets/), was solved by FunSearch, in collaboration with [Prof. Jordan Ellenberg](https://people.math.wisc.edu/~ellenberg/). This marked the first time an LLM made a new discovery for such a challenging scientific problem, outperforming state-of-the-art computational solvers.
+FunSearch's capabilities were tested on challenging problems. For example, it was used to solve the **[cap set problem](https://en.wikipedia.org/wiki/Cap_set)**, which involves finding the largest set of points in a high-dimensional grid where no three points lie on a line. This longstanding open problem in extremal combinatorics, once described by renowned mathematician Terence Tao as his [favorite open question](https://terrytao.wordpress.com/2007/02/23/open-question-best-bounds-for-cap-sets/), was solved by FunSearch, in collaboration with [Prof. Jordan Ellenberg](https://people.math.wisc.edu/~ellenberg/). This marked the first time an LLM made a new discovery for such a challenging scientific problem, outperforming state-of-the-art computational solvers.
 
 <img src="{{ '/assets/img/capset.png' | relative_url }}" alt="Benefits of FunSearch" class="center" width="30%" class="l-body rounded z-depth-1 center">
 <div class="l-gutter caption" markdown="1">
@@ -229,7 +230,7 @@ More recently, in May 2025, Google DeepMind announced [AlphaEvolve](https://deep
 
 ### How AlphaEvolve works
 
-AlphaEvolve pairs the creative problem-solving capabilities of Google's Gemini models with automated evaluators. It uses an ensemble approach: [Gemini Flash](https://deepmind.google/discover/blog/gemini-flash-a-new-generation-of-large-language-models-with-fast-inference-and-high-quality-outputs/), the fastest and most efficient model, is used to maximize the breadth of ideas explored, while [Gemini Pro](https://deepmind.google/discover/blog/gemini-pro-a-new-generation-of-large-language-models-with-fast-inference-and-high-quality-outputs/), the most powerful model, provides critical depth with insightful suggestions. Together, these models propose computer programs that implement algorithmic solutions.
+AlphaEvolve pairs the creative problem-solving capabilities of Google's Gemini models with automated evaluators. It uses an ensemble approach: [Gemini Flash](https://deepmind.google/discover/blog/gemini-flash-a-new-generation-of-large-language-models-with-fast-inference-and-high-quality-outputs/), the fastest and most efficient model, is used to maximize the breadth of ideas explored, while [Gemini Pro](https://deepmind.google/discover/blog/gemini-pro-a-new-generation-of-large-language-models-with-high-quality-outputs/), the most powerful model, provides critical depth with insightful suggestions. Together, these models propose computer programs that implement algorithmic solutions.
 
 <img src="{{ '/assets/img/alphaevolve.png' | relative_url }}" alt="Overview of AlphaEvolve" class="center" width="80%" class="l-body rounded z-depth-1 center">
 <div class="l-gutter caption" markdown="1">
@@ -240,18 +241,44 @@ These proposed programs are then verified, run, and scored using automated evalu
 
 ### Benefits of AlphaEvolve
 
-AlphaEvolve has already demonstrated significant real-world impact. Here are a couple of examples:
+AlphaEvolve has already demonstrated significant real-world impact across multiple domains:
 
-1. **Improving data center scheduling:** AlphaEvolve discovered a simple yet highly effective heuristic to help [Borg])(https://research.google/pubs/large-scale-cluster-management-at-google-with-borg/), Google's cluster management system, orchestrate its vast data centers more efficiently. This solution, which has been in production for over a year, continuously recovers, on average, 0.7% of Google's worldwide compute resources. This sustained efficiency gain allows more tasks to be completed on the same computational footprint. A key benefit is that AlphaEvolve's solution is human-readable code, offering interpretability, debuggability, predictability, and ease of deployment.
+1. **Improving data center scheduling:** AlphaEvolve discovered a simple yet highly effective heuristic to help [Borg](https://research.google/pubs/large-scale-cluster-management-at-google-with-borg/), Google's cluster management system, orchestrate its vast data centers more efficiently. This solution, which has been in production for over a year, continuously recovers, on average, 0.7% of Google's worldwide compute resources. This sustained efficiency gain allows more tasks to be completed on the same computational footprint. A key benefit is that AlphaEvolve's solution is human-readable code, offering interpretability, debuggability, predictability, and ease of deployment.
 
-2. **Enhancing AI training and inference:** AlphaEvolve has significantly accelerated AI performance. By finding smarter ways to divide large matrix multiplication operations into more manageable subproblems, it sped up this vital [kernel](https://docs.jax.dev/en/latest/pallas/index.html) in Gemini's architecture by 23%. This led to a 1% reduction in Gemini's overall training time, a considerable saving given the substantial computing resources required for developing generative AI models. Furthermore, AlphaEvolve can optimize low-level GPU instructions, achieving up to a 32.5% speedup for the [FlashAttention](https://arxiv.org/abs/2205.14135) kernel implementation in Transformer-based AI models. This not only boosts performance but also reduces engineering time for kernel optimization from weeks to days.
+2. **Hardware design optimization:** AlphaEvolve proposed a [Verilog](https://en.wikipedia.org/wiki/Verilog) rewrite that removed unnecessary bits in a key, highly optimized arithmetic circuit for matrix multiplication. The proposal passed robust verification methods to confirm functional correctness and was integrated into an upcoming Tensor Processing Unit (TPU). By suggesting modifications in the standard language of chip designers, AlphaEvolve promotes collaboration between AI and hardware engineers to accelerate specialized chip design.
 
-Beyond these, AlphaEvolve has assisted in hardware design by proposing [Verilog](https://en.wikipedia.org/wiki/Verilog) rewrites for [TPUs](https://cloud.google.com/tpu?hl=en) and has advanced mathematical frontiers, such as finding an improved algorithm for multiplying 4-by-4 complex-valued matrices and making progress on the [kissing number problem](https://en.wikipedia.org/wiki/Kissing_number).
+3. **Enhancing AI training and inference:** AlphaEvolve found more efficient ways to divide large matrix multiplication operations into manageable subproblems, achieving a 23% speedup in Gemini's architecture's vital [kernel](https://docs.jax.dev/en/latest/pallas/index.html), resulting in a 1% reduction in overall training time. In the realm of low-level GPU optimization, AlphaEvolve demonstrated remarkable efficiency by achieving up to a 32.5% speedup for the [FlashAttention](https://arxiv.org/abs/2205.14135) kernel implementation in Transformer-based AI models.
+
+4. **Mathematical discoveries:** AlphaEvolve made a groundbreaking contribution by discovering an algorithm for multiplying 4x4 complex-valued matrices using just 48 scalar multiplications, surpassing the efficiency of [Strassen's 1969 algorithm](https://en.wikipedia.org/wiki/Strassen_algorithm). When applied to a diverse set of over 50 open problems spanning mathematical analysis, geometry, combinatorics, and number theory, AlphaEvolve demonstrated remarkable versatility: it successfully rediscovered state-of-the-art solutions in 75% of cases and improved upon previously best-known solutions in 20% of cases. One of its most notable achievements was advancing the [300-year-old kissing number problem](https://plus.maths.org/content/newton-and-kissing-problem), where it discovered a configuration of 593 outer spheres and established a new lower bound in 11 dimensions, showcasing its ability to tackle complex geometric challenges.
 
 <img src="{{ '/assets/img/alphaevolve_applications.png' | relative_url }}" alt="Overview of AlphaEvolve" class="center" width="80%" class="l-body rounded z-depth-1 center">
 <div class="l-gutter caption" markdown="1">
 **Figure 5.** How AlphaEvolve helps Google deliver a more efficient digital ecosystem, from data center scheduling and hardware design to AI model training.
 </div>
+
+<aside class="l-body box-note" markdown="1">
+Looking ahead, AlphaEvolve is expected to continue improving alongside the capabilities of large language models, especially as they become more proficient at coding. Google DeepMind is also planning an [Early Access Program](https://docs.google.com/forms/d/e/1FAIpQLSfaLUgKtUOJWdQtyLNAYb3KAkABAlKDmZoIqPbHtwmy3YXlCg/viewform) for selected academic users and exploring possibilities to make AlphaEvolve more broadly available. While currently focused on math and computing, its general nature means it could potentially transform many other areas such as material science, drug discovery, sustainability, and broader applications.
+</aside>
+
+## FunSearch vs AlphaEvolve
+
+While both FunSearch and AlphaEvolve leverage evolutionary methods combined with LLMs for algorithm discovery, AlphaEvolve represents a substantial enhancement over its predecessor. Here's a detailed comparison of their capabilities:
+
+| Capability | FunSearch | AlphaEvolve |
+|------------|-----------|-------------|
+| Code Scope | Evolves single function | Evolves entire code file |
+| Code Size | Evolves up to 10-20 lines of code | Evolves up to hundreds of lines of code |
+| Language Support | Python only | Any programming language |
+| Computation | Needs fast evaluation (≤ 20min on 1 CPU) | Can evaluate for hours, in parallel, on accelerators |
+| LLM Usage | Millions of LLM samples used | Thousands of LLM samples suffice |
+| Model Scale | Small LLMs used; no benefit from larger | Benefits from state-of-the-art LLMs |
+| Context Handling | Minimal context (only previous solutions) | Rich context and feedback in prompts |
+| Optimization | Optimizes single metric | Can simultaneously optimize multiple metrics |
+
+
+<aside class="l-body box-note" markdown="1">
+The evolution from FunSearch to AlphaEvolve demonstrates significant advances in scale and generality. While FunSearch was groundbreaking in showing how LLMs could aid mathematical discovery, AlphaEvolve extends this approach to tackle more complex, real-world problems across multiple domains. This progression also reflects the rapid advancement in LLM capabilities, where newer state-of-the-art models can generate more sophisticated and accurate code with fewer samples.
+</aside>
 
 ## Takeaways
 
