@@ -230,14 +230,12 @@ More recently, in May 2025, Google DeepMind announced [AlphaEvolve](https://deep
 
 ### How AlphaEvolve works
 
-AlphaEvolve pairs the creative problem-solving capabilities of Google's Gemini models with automated evaluators. It uses an ensemble approach: [Gemini Flash](https://deepmind.google/discover/blog/gemini-flash-a-new-generation-of-large-language-models-with-fast-inference-and-high-quality-outputs/), the fastest and most efficient model, is used to maximize the breadth of ideas explored, while [Gemini Pro](https://deepmind.google/discover/blog/gemini-pro-a-new-generation-of-large-language-models-with-high-quality-outputs/), the most powerful model, provides critical depth with insightful suggestions. Together, these models propose computer programs that implement algorithmic solutions.
-
 <img src="{{ '/assets/img/alphaevolve.png' | relative_url }}" alt="Overview of AlphaEvolve" class="center" width="80%" class="l-body rounded z-depth-1 center">
 <div class="l-gutter caption" markdown="1">
 **Figure 4.** The AlphaEvolve process. A prompt sampler assembles prompts for the LLMs, which generate new programs. These are then evaluated and stored in a programs database, which uses an evolutionary algorithm to select programs for future prompts.
 </div>
 
-These proposed programs are then verified, run, and scored using automated evaluation metrics that provide an objective assessment of each solution's accuracy and quality. This makes AlphaEvolve particularly effective in domains where progress can be clearly and systematically measured, like mathematics and computer science.
+AlphaEvolve pairs the creative problem-solving capabilities of Google's Gemini models with automated evaluators. It uses an ensemble approach: [Gemini Flash](https://deepmind.google/discover/blog/gemini-flash-a-new-generation-of-large-language-models-with-fast-inference-and-high-quality-outputs/), the fastest and most efficient model, is used to maximize the breadth of ideas explored, while [Gemini Pro](https://deepmind.google/discover/blog/gemini-pro-a-new-generation-of-large-language-models-with-high-quality-outputs/), the most powerful model, provides critical depth with insightful suggestions. Together, these models propose computer programs that implement algorithmic solutions. These proposed programs are then verified, run, and scored using automated evaluation metrics that provide an objective assessment of each solution's accuracy and quality. This makes AlphaEvolve particularly effective in domains where progress can be clearly and systematically measured, like mathematics and computer science.
 
 ### Benefits of AlphaEvolve
 
@@ -249,11 +247,16 @@ AlphaEvolve has already demonstrated significant real-world impact across multip
 
 3. **Enhancing AI training and inference:** AlphaEvolve found more efficient ways to divide large matrix multiplication operations into manageable subproblems, achieving a 23% speedup in Gemini's architecture's vital [kernel](https://docs.jax.dev/en/latest/pallas/index.html), resulting in a 1% reduction in overall training time. In the realm of low-level GPU optimization, AlphaEvolve demonstrated remarkable efficiency by achieving up to a 32.5% speedup for the [FlashAttention](https://arxiv.org/abs/2205.14135) kernel implementation in Transformer-based AI models.
 
-4. **Mathematical discoveries:** AlphaEvolve made a groundbreaking contribution by discovering an algorithm for multiplying 4x4 complex-valued matrices using just 48 scalar multiplications, surpassing the efficiency of [Strassen's 1969 algorithm](https://en.wikipedia.org/wiki/Strassen_algorithm). When applied to a diverse set of over 50 open problems spanning mathematical analysis, geometry, combinatorics, and number theory, AlphaEvolve demonstrated remarkable versatility: it successfully rediscovered state-of-the-art solutions in 75% of cases and improved upon previously best-known solutions in 20% of cases. One of its most notable achievements was advancing the [300-year-old kissing number problem](https://plus.maths.org/content/newton-and-kissing-problem), where it discovered a configuration of 593 outer spheres and established a new lower bound in 11 dimensions, showcasing its ability to tackle complex geometric challenges.
-
 <img src="{{ '/assets/img/alphaevolve_applications.png' | relative_url }}" alt="Overview of AlphaEvolve" class="center" width="80%" class="l-body rounded z-depth-1 center">
 <div class="l-gutter caption" markdown="1">
-**Figure 5.** How AlphaEvolve helps Google deliver a more efficient digital ecosystem, from data center scheduling and hardware design to AI model training.
+**Figure 6.** How AlphaEvolve helps Google deliver a more efficient digital ecosystem, from data center scheduling and hardware design to AI model training.
+</div>
+
+Beyond these applications, AlphaEvolve made a groundbreaking contribution by discovering an algorithm for multiplying 4x4 complex-valued matrices using just 48 scalar multiplications, surpassing the efficiency of [Strassen's 1969 algorithm](https://en.wikipedia.org/wiki/Strassen_algorithm). When applied to a diverse set of over 50 open problems spanning mathematical analysis, geometry, combinatorics, and number theory, AlphaEvolve demonstrated remarkable versatility: it successfully rediscovered state-of-the-art solutions in 75% of cases and improved upon previously best-known solutions in 20% of cases. One of its most notable achievements was advancing the [300-year-old kissing number problem](https://plus.maths.org/content/newton-and-kissing-problem), where it discovered a configuration of 593 outer spheres and established a new lower bound in 11 dimensions, showcasing its ability to tackle complex geometric challenges.
+
+<img src="{{ '/assets/img/alphaevolve_math.png' | relative_url }}" alt="Overview of AlphaEvolve" class="center" width="80%" class="l-body rounded z-depth-1 center">
+<div class="l-gutter caption" markdown="1">
+**Figure 7.** Examples of ground-breaking mathematical contributions discovered with AlphaEvolve.
 </div>
 
 <aside class="l-body box-note" markdown="1">
@@ -271,13 +274,13 @@ While both FunSearch and AlphaEvolve leverage evolutionary methods combined with
 | Language Support | Python only | Any programming language |
 | Computation | Needs fast evaluation (≤ 20min on 1 CPU) | Can evaluate for hours, in parallel, on accelerators |
 | LLM Usage | Millions of LLM samples used | Thousands of LLM samples suffice |
-| Model Scale | Small LLMs used; no benefit from larger | Benefits from state-of-the-art LLMs |
+| Model Scale | Small LLMs used, no benefit from using larger models | Benefits from using state-of-the-art LLMs |
 | Context Handling | Minimal context (only previous solutions) | Rich context and feedback in prompts |
 | Optimization | Optimizes single metric | Can simultaneously optimize multiple metrics |
 
 
 <aside class="l-body box-note" markdown="1">
-The evolution from FunSearch to AlphaEvolve demonstrates significant advances in scale and generality. While FunSearch was groundbreaking in showing how LLMs could aid mathematical discovery, AlphaEvolve extends this approach to tackle more complex, real-world problems across multiple domains. This progression also reflects the rapid advancement in LLM capabilities, where newer state-of-the-art models can generate more sophisticated and accurate code with fewer samples.
+The evolution from FunSearch to AlphaEvolve demonstrates significant advances in **scale** and **generality**. While FunSearch was groundbreaking in showing how LLMs could aid mathematical discovery, AlphaEvolve extends this approach to tackle more complex, real-world problems across multiple domains. This progression also reflects the rapid advancement in LLM capabilities, where newer state-of-the-art models can generate more sophisticated and accurate code with fewer samples.
 </aside>
 
 ## Takeaways
