@@ -708,6 +708,10 @@ footer.sticky-bottom {
       margin-bottom: 1rem;
 
       .preview {
+        width: 100%;
+        max-width: 250px;
+        height: auto;
+        object-fit: cover;
       }
 
       .abbr {
