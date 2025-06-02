@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="{{ site.lang }}">
+  <!-- Head -->
+  <head>
+    {% if page.redirect %}
+      {% if page.redirect == true %}
+        {% assign redirect = site.baseurl | append: '/' %}
+      {% elsif page.redirect contains '://' %}
+        {% assign redirect = page.redirect %}
+      {% else %}
+        {% assign redirect = page.redirect | relative_url %}
+      {% endif %}
+      <meta http-equiv="refresh" content="3; url={{ redirect }}">
+    {% endif %}
+    {% include head.liquid %}
+  </head>
+
+  <!-- Body -->
+  <body class="{% if site.navbar_fixed %}fixed-top-nav{% endif %} {% unless site.footer_fixed %}sticky-bottom-footer{% endunless %}">
+    <!-- Header -->
+    {% include header.liquid %}
+
+    <!-- Content -->
+    <div class="container-fluid mt-3" role="main">
+      <div class="row g-0">
+        <div class="col-lg-2 col-md-3 d-none d-md-block"> <!-- Sidebar column, hidden on small screens -->
+          {% include tags_sidebar.liquid %}
+        </div>
+        <div class="col-lg-10 col-md-9"> <!-- Main content column -->
+          {% if page.toc and page.toc.sidebar %}
+            {% if page.toc.sidebar == 'right' %}
+              <div class="row">
+                <!-- main content area -->
+                <div class="col-sm-9">{{ content }}</div>
+                <!-- sidebar, which will move to the top on a small screen -->
+                <div class="col-sm-3">
+                  <nav id="toc-sidebar" class="sticky-top"></nav>
+                </div>
+              </div>
+            {% else %}
+              <div class="row">
+                <!-- sidebar, which will move to the top on a small screen -->
+                <div class="col-sm-3">
+                  <nav id="toc-sidebar" class="sticky-top"></nav>
+                </div>
+                <!-- main content area -->
+                <div class="col-sm-9">{{ content }}</div>
+              </div>
+            {% endif %}
+          {% else %}
+            {{ content }}
+          {% endif %}
+        </div> <!-- End Main content column -->
+      </div> <!-- End row -->
+    </div>
+
+    <!-- Footer -->
+    {% include footer.liquid %}
+
+    <!-- JavaScripts -->
+    {% include scripts/jquery.liquid %}
+    {% include scripts/bootstrap.liquid %}
+    {% include scripts/masonry.liquid %}
+    {% include scripts/mermaid.liquid %}
+    {% include scripts/diff2html.liquid %}
+    {% include scripts/leaflet.liquid %}
+    {% include scripts/chartjs.liquid %}
+    {% include scripts/echarts.liquid %}
+    {% include scripts/vega.liquid %}
+    {% include scripts/tikzjax.liquid %}
+    {% include scripts/typograms.liquid %}
+    {% include scripts/misc.liquid %}
+    {% include scripts/badges.liquid %}
+    {% include scripts/mathjax.liquid %}
+    {% include scripts/pseudocode.liquid %}
+    {% include scripts/analytics.liquid %}
+    {% include scripts/progressBar.liquid %}
+    {% include scripts/wechatModal.liquid %}
+    {% include scripts/imageLayouts.liquid %}
+    {% include scripts/jekyll_tabs.liquid %}
+    {% include scripts/back_to_top.liquid %}
+    
+    <!-- Custom scripts -->
+    <script src="{{ '/assets/js/navbar-scroll.js' | relative_url }}"></script>
+
+    <script>
+      function setActiveTag(clickedElement) {
+        // Remove active class from all tag links
+        document.querySelectorAll('.tags-sidebar .nav-link').forEach(link => {
+          link.classList.remove('active-tag-filter');
+        });
+        // Add active class to the clicked link
+        if (clickedElement) {
+          clickedElement.classList.add('active-tag-filter');
+        }
+      }
+
+      function filterPostsByTag(selectedTagSlug) {
+        const allPostCards = document.querySelectorAll('.blog-post-card');
+        let postsFound = false;
+
+        allPostCards.forEach(cardCol => {
+          // console.log('Inspecting card:', cardCol);
+          const rawDataTags = cardCol.dataset.tags;
+          // console.log('Card raw data-tags:', rawDataTags);
+
+          if (selectedTagSlug === null) { // Show all
+            cardCol.classList.add('d-flex'); // Ensure it's a flex item
+            cardCol.classList.remove('d-none');
+            postsFound = true;
+          } else {
+            const cardTags = rawDataTags ? rawDataTags.split(',') : [];
+            // console.log('Card tags array:', cardTags);
+            // console.log('Does cardTags include selectedTagSlug?', cardTags.includes(selectedTagSlug));
+            if (cardTags.includes(selectedTagSlug)) {
+              cardCol.classList.add('d-flex'); // Ensure it's a flex item
+              cardCol.classList.remove('d-none');
+              postsFound = true;
+            } else {
+              cardCol.classList.remove('d-flex'); // Remove flex display
+              cardCol.classList.add('d-none');
+            }
+          }
+        });
+
+        const noResultsMessage = document.getElementById('no-posts-found-message');
+        if (noResultsMessage) {
+          noResultsMessage.style.display = postsFound ? 'none' : 'block';
+        }
+      }
+
+      // Set the "Show All" as active by default on page load
+      document.addEventListener('DOMContentLoaded', function() {
+        const showAllLink = document.getElementById('show-all-tags');
+        if (showAllLink) {
+          setActiveTag(showAllLink);
+          // Optionally, ensure all posts are visible on initial load if d-none might have been cached or set by mistake
+          // filterPostsByTag(null); // Can uncomment this if initial state is an issue
+        }
+      });
+    </script>
+  </body>
+</html> 

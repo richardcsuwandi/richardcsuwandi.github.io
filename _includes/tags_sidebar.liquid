@@ -1,0 +1,46 @@
+{% comment %}
+  Collect all unique tags from all posts.
+  site.tags is a hash where keys are tag names (lowercase)
+  and values are arrays of posts with that tag.
+  We just need the unique tag names.
+{% endcomment %}
+
+{% comment %} Corrected logic to collect tag names {% endcomment %}
+{% assign all_tags = "" | split: "" %} 
+{% for tag_item_pair in site.tags %}
+  {% assign all_tags = all_tags | push: tag_item_pair[0] %}
+{% endfor %}
+{% assign all_tags = all_tags | sort_natural %}
+
+{% if all_tags.size > 0 %}
+<div class="tags-sidebar pe-2" style="max-height: calc(100vh - 70px); overflow-y: auto;">
+  <h5 class="mb-2 ps-2"><i class="fa-solid fa-tags fa-xs me-1" style="color: #6c757d;"></i> Tags</h5>
+  <ul class="list-unstyled nav flex-column">
+    <li class="nav-item">
+      <a href="#" id="show-all-tags" class="nav-link text-body-secondary py-1 px-2 active-tag-filter" onclick="filterPostsByTag(null); setActiveTag(this); return false;">
+      All
+      </a>
+    </li>
+    {% for tag_name in all_tags %}
+      {% assign tag_slug = tag_name | slugify %}
+      <li class="nav-item">
+        <a href="#" class="nav-link text-body-secondary py-1 px-2" onclick="filterPostsByTag('{{ tag_slug }}'); setActiveTag(this); return false;">
+          <span>
+            <i class="fa-solid fa-hashtag fa-xs me-1" style="color: #6c757d;"></i>{{ tag_name }}
+          </span>
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+{% else %}
+{% comment %} No explicit message needed if no tags are found by default, sidebar just won't render its main content. {% endcomment %}
+{% endif %}
+
+<style>
+  .active-tag-filter {
+    font-weight: bold;
+    background-color: #e9ecef; /* A light background for active state */
+    border-radius: 0.25rem;
+  }
+</style> 

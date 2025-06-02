@@ -15,39 +15,59 @@ layout: default
 {% assign url_beginning = page.url | slice: 0, 6 %}
 
 <div class="post">
-  <header class="post-header">
-    <h1 class="post-title">{{ page.title }}</h1>
-    <p class="post-meta">
-      {{ page.date | date: '%B %d, %Y' }}
-      {% if page.author %}by {{ page.author }}{% endif %}
-      {% if page.last_updated %}, last updated in {{ page.last_updated | date: '%B %d, %Y' }}{% endif %}
-      {% if page.meta %}• {{ page.meta }}{% endif %}
-    </p>
-    <p class="post-tags">
-      {% if tags != '' %}
-        {% for tag in page.tags %}
-          {% if url_beginning == '/blog/' %}
-            <a href="{{ tag | slugify | prepend: '/blog/tag/' | prepend: site.baseurl}}"> <i class="fa-solid fa-hashtag fa-sm"></i> {{ tag }}</a>
-            &nbsp;
-          {% else %}
-            <i class="fa-solid fa-hashtag fa-sm"></i> {{ tag }} &nbsp;
-          {% endif %}
-        {% endfor %}
-      {% endif %}
+  <header class="post-header card" style="margin-bottom: 2rem; overflow: hidden; /* ensures image corners are clipped if card has border-radius */">
+    {% if page.image %}
+      <img src="{{ page.image }}" alt="{{ page.title | escape }} header image" style="width:100%; display: block; max-height:300px; object-fit: cover;">
+    {% endif %}
+    <div class="card-content-inner" style="padding: 1.5rem;">
+      <h1 class="post-title" style="margin-top: {% if page.image %} 1rem {% else %} 0 {% endif %}; font-size: 2.2em;">
+        {{ page.title }}
+      </h1>
+      <p class="post-meta" style="font-size: 0.9em; color: #555; margin-bottom: 1rem;">
+        {{ page.date | date: '%B %d, %Y' }}
+        {% if page.author %}by {{ page.author }}{% endif %}
+        {% if page.last_updated %}, last updated in {{ page.last_updated | date: '%B %d, %Y' }}{% endif %}
+        {% if page.meta %}• {{ page.meta }}{% endif %}
+      </p>
 
-      {% if categories != '' %}
-        {% for category in page.categories %}
-          {% if url_beginning == '/blog/' %}
-            <a href="{{ category | slugify | prepend: '/blog/category/' | prepend: site.baseurl}}">
-              <i class="fa-solid fa-tag fa-sm"></i> {{ category -}}
-            </a>
-            &nbsp;
-          {% else %}
-            <i class="fa-solid fa-tag fa-sm"></i> {{ category }} &nbsp;
+      {% comment %} using new variable names for local scope clarity {% endcomment %}
+      {% assign current_post_tags = page.tags %}
+      {% assign current_post_categories = page.categories %}
+
+      {% if current_post_tags and current_post_tags.size > 0 or current_post_categories and current_post_categories.size > 0 %}
+        <div class="post-taxonomy-container" style="margin-top: 1rem;">
+          {% if current_post_tags and current_post_tags.size > 0 %}
+            <ul class="course-terms" style="list-style: none; padding: 0; margin: 0 0 0.75rem 0; display: flex; flex-wrap: wrap; gap: 0.6rem;">
+              {% for tag_item in current_post_tags %}
+                <li style="background-color: #f1f1f1; padding: 0.3rem 0.8rem; border-radius: 16px; font-size: 0.875em; line-height: 1.4;">
+                  {% if url_beginning == '/blog/' %}
+                    <a href="{{ tag_item | slugify | prepend: '/blog/tag/' | prepend: site.baseurl }}" style="text-decoration: none; color: #333;"> <i class="fa-solid fa-hashtag fa-sm" style="margin-right: 3px;"></i>{{ tag_item }}</a>
+                  {% else %}
+                    <span style="color: #333;"><i class="fa-solid fa-hashtag fa-sm" style="margin-right: 3px;"></i>{{ tag_item }}</span>
+                  {% endif %}
+                </li>
+              {% endfor %}
+            </ul>
           {% endif %}
-        {% endfor %}
+
+          {% if current_post_categories and current_post_categories.size > 0 %}
+            <ul class="course-terms" style="list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 0.6rem;">
+              {% for category_item in current_post_categories %}
+                <li style="background-color: #e8e8e8; padding: 0.3rem 0.8rem; border-radius: 16px; font-size: 0.875em; line-height: 1.4;">
+                   {% if url_beginning == '/blog/' %}
+                     <a href="{{ category_item | slugify | prepend: '/blog/category/' | prepend: site.baseurl }}" style="text-decoration: none; color: #333;">
+                       <i class="fa-solid fa-tag fa-sm" style="margin-right: 3px;"></i>{{ category_item }}
+                     </a>
+                   {% else %}
+                     <span style="color: #333;"><i class="fa-solid fa-tag fa-sm" style="margin-right: 3px;"></i>{{ category_item }}</span>
+                   {% endif %}
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </div>
       {% endif %}
-    </p>
+    </div>
   </header>
 
   <article class="post-content">
