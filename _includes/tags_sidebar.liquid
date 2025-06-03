@@ -14,20 +14,18 @@
 
 {% if all_tags.size > 0 %}
 <div class="tags-sidebar pe-2" style="max-height: calc(100vh - 70px); overflow-y: auto;">
-  <h5 class="mb-2 ps-2"><i class="fa-solid fa-tags fa-xs me-1" style="color: #6c757d;"></i> Tags</h5>
+  <h5 class="mb-3 ps-2" style="color: var(--global-text-color);"><i class="fa-solid fa-tags fa-xs me-2"></i>Tags</h5>
   <ul class="list-unstyled nav flex-column">
-    <li class="nav-item">
-      <a href="#" id="show-all-tags" class="nav-link text-body-secondary py-1 px-2 active-tag-filter" onclick="filterPostsByTag(null); setActiveTag(this); return false;">
-      All
+    <li class="nav-item mb-2">
+      <a href="#" id="show-all-tags" class="nav-link py-2 px-3" onclick="filterPostsByTag(null); setActiveTag(this); return false;">
+        All
       </a>
     </li>
     {% for tag_name in all_tags %}
       {% assign tag_slug = tag_name | slugify %}
-      <li class="nav-item">
-        <a href="#" class="nav-link text-body-secondary py-1 px-2" onclick="filterPostsByTag('{{ tag_slug }}'); setActiveTag(this); return false;">
-          <span>
-            <i class="fa-solid fa-hashtag fa-xs me-1" style="color: #6c757d;"></i>{{ tag_name }}
-          </span>
+      <li class="nav-item mb-2">
+        <a href="#" class="nav-link py-2 px-3" onclick="filterPostsByTag('{{ tag_slug }}'); setActiveTag(this); return false;">
+          <i class="fa-solid fa-hashtag fa-xs me-2"></i>{{ tag_name }}
         </a>
       </li>
     {% endfor %}
@@ -38,9 +36,29 @@
 {% endif %}
 
 <style>
+  .tags-sidebar {
+    padding: 20px;
+  }
+
+  .tags-sidebar .nav-link {
+    color: var(--global-text-color);
+    background-color: var(--global-bg-color);
+    border: 1px solid var(--global-divider-color);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+  }
+
+  .tags-sidebar .nav-link:hover {
+    background-color: var(--global-theme-color);
+    color: #ffffff;
+    border-color: var(--global-theme-color);
+  }
+
   .active-tag-filter {
-    font-weight: bold;
-    background-color: #e9ecef; /* A light background for active state */
-    border-radius: 0.25rem;
+    font-weight: 500;
+    background-color: var(--global-theme-color) !important;
+    color: #ffffff !important;
+    border-color: var(--global-theme-color) !important;
   }
 </style> 

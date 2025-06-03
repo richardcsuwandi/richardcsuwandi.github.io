@@ -20,6 +20,13 @@
     <!-- Header -->
     {% include header.liquid %}
 
+    <!-- Landing Section -->
+    <div class="container-fluid landing-section text-center">
+      <img src="{{ '/assets/img/logo_light.png' | relative_url }}" alt="Logo" class="landing-logo light-mode-logo">
+      <img src="{{ '/assets/img/logo_dark.png' | relative_url }}" alt="Logo" class="landing-logo dark-mode-logo">
+      <p style="margin-bottom: 1rem; font-size: 1.2rem;"><strong>My learning notes, paper summaries, and thoughts.</strong></p>
+    </div>
+
     <!-- Content -->
     <div class="container-fluid mt-3" role="main">
       <div class="row g-0">

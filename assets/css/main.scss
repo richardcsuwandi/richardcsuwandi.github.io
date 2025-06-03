@@ -26,3 +26,71 @@ $max-content-width: {{ site.max_width }};
 
 // Import custom styles
 @import "custom";
+
+/* Landing section styles */
+.landing-section {
+  margin: 0 auto;
+  padding: 2rem 0 0 0 !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 900px;
+  width: 100%;
+}
+
+.landing-logo {
+  max-width: 400px;
+  height: auto;
+  margin-bottom: 0.25rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.landing-section p {
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  width: 100%;
+}
+
+.landing-section h2 {
+  margin-top: 0.25rem;
+  margin-bottom: 0;
+  font-size: 1.5rem;
+  font-weight: normal;
+}
+
+/* Logo visibility based on theme */
+.light-mode-logo {
+  display: block;
+}
+
+.dark-mode-logo {
+  display: none;
+}
+
+/* Theme-based logo visibility */
+[data-theme="dark"],
+[data-theme-setting="dark"] {
+  .light-mode-logo {
+    display: none !important;
+  }
+  
+  .dark-mode-logo {
+    display: block !important;
+  }
+}
+
+[data-theme="light"],
+[data-theme-setting="light"] {
+  .light-mode-logo {
+    display: block !important;
+  }
+  
+  .dark-mode-logo {
+    display: none !important;
+  }
+}
+
