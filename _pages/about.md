@@ -16,7 +16,7 @@ social: true # includes social icons at the bottom of the page
 ---
 <div class="about-content" markdown="1">
 
-sI am a **PhD student** at [CUHK-Shenzhen](https://cuhk.edu.cn/en/), advised by [Prof. Feng Yin](https://sse.cuhk.edu.cn/en/faculty/yinfeng) and [Prof. Tsung-Hui Chang](https://sse.cuhk.edu.cn/en/faculty/tsunghuichang). Prior to my PhD, I obtained my BSc degree in Statistics from CUHK-Shenzhen. 
+I am a **PhD student** at [CUHK-Shenzhen](https://cuhk.edu.cn/en/), advised by [Prof. Feng Yin](https://sse.cuhk.edu.cn/en/faculty/yinfeng) and [Prof. Tsung-Hui Chang](https://sse.cuhk.edu.cn/en/faculty/tsunghuichang). Prior to my PhD, I obtained my BSc degree in Statistics from CUHK-Shenzhen. 
 
 I am currently interested in building *robust* and *adaptive* intelligent systems that can learn efficiently from limited data and generalize effectively across diverse tasks. Some of my research topics include:
 
