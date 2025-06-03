@@ -1,13 +1,12 @@
 ---
 layout: distill
-title: Can we use LLMs to discover new algorithms?
+title: Can we use AI to discover better algorithms?
 date: 2025-05-15 10:00:00 +0700
 description: A review of FunSearch and AlphaEvolve
-tags: [large-language-models, agents]
-categories: paper-summary
+tags: [large-language-models, agents, review]
 giscus_comments: true
 related_posts: false
-thumbnail: /assets/img/algorithms.png
+thumbnail: /assets/img/evolution.png
 future: true
 htmlwidgets: true
 
@@ -17,11 +16,11 @@ htmlwidgets: true
 #     affiliations:
 #       name: Anonymous
 
-authors:
- - name: Richard Cornelius Suwandi
-   url: "https://richardcsuwandi.github.io/"
-   affiliations:
-     name: The Chinese University of Hong Kong, Shenzhen
+# authors:
+#  - name: Richard Cornelius Suwandi
+#    url: "https://richardcsuwandi.github.io/"
+#    affiliations:
+#      name: The Chinese University of Hong Kong, Shenzhen
 
 # must be the exact same name as your blogpost
 bibliography: 2025-05-15-llm-algorithm-discovery.bib
@@ -124,35 +123,35 @@ _styles: >
   }
   d-article .box-note {
     background-color: #eee;
-    border-left-color: #2980b9;
+    border-left-color: #3498db;
   }
   d-article .box-warning {
-    background-color: #fdf5d4;
-    border-left-color: #f1c40f;
+    background-color: #eee;
+    border-left-color: #ffc107;
   }
   d-article .box-error {
-    background-color: #f4dddb;
-    border-left-color: #c0392b;
+    background-color: #eee;
+    border-left-color: #dc3545;
   }
   d-article .box-important {
-    background-color: #d4f4dd;
-    border-left-color: #2bc039;
+    background-color: #eee;
+    border-left-color: #20c997;
   }
   html[data-theme='dark'] d-article .box-note {
-    background-color: #555555;
-    border-left-color: #2980b9;
+    background-color: #2f2f2f;
+    border-left-color: #3498db;
   }
   html[data-theme='dark'] d-article .box-warning {
-    background-color: #7f7f00;
-    border-left-color: #f1c40f;
+    background-color: #2f2f2f;
+    border-left-color: #ffc107;
   }
   html[data-theme='dark'] d-article .box-error {
-    background-color: #800000;
-    border-left-color: #c0392b;
+    background-color: #2f2f2f;
+    border-left-color: #dc3545;
   }
   html[data-theme='dark'] d-article .box-important {
-    background-color: #006600;
-    border-left-color: #2bc039;
+    background-color: #2f2f2f;
+    border-left-color: #20c997;
   }
   d-article aside {
     border: 1px solid #aaa;
@@ -235,7 +234,17 @@ More recently, in May 2025, Google DeepMind announced [AlphaEvolve](https://deep
 **Figure 4.** The AlphaEvolve process. A prompt sampler assembles prompts for the LLMs, which generate new programs. These are then evaluated and stored in a programs database, which uses an evolutionary algorithm to select programs for future prompts.
 </div>
 
-AlphaEvolve pairs the creative problem-solving capabilities of Google's Gemini models with automated evaluators. It uses an ensemble approach: [Gemini Flash](https://deepmind.google/discover/blog/gemini-flash-a-new-generation-of-large-language-models-with-fast-inference-and-high-quality-outputs/), the fastest and most efficient model, is used to maximize the breadth of ideas explored, while [Gemini Pro](https://deepmind.google/discover/blog/gemini-pro-a-new-generation-of-large-language-models-with-high-quality-outputs/), the most powerful model, provides critical depth with insightful suggestions. Together, these models propose computer programs that implement algorithmic solutions. These proposed programs are then verified, run, and scored using automated evaluation metrics that provide an objective assessment of each solution's accuracy and quality. This makes AlphaEvolve particularly effective in domains where progress can be clearly and systematically measured, like mathematics and computer science.
+AlphaEvolve uses an evolutionary approach with four key components (see Figure 4):
+
+1. **Prompt sampler:** The prompt contains rich context based on previously discovered solutions, along with instructions for proposing changes to particular solutions.
+
+2. **LLM ensemble:** Unlike FunSearch that uses a single LLM, AlphaEvolve uses an ensemble approach combining [Gemini Flash](https://deepmind.google/discover/blog/gemini-flash-a-new-generation-of-large-language-models-with-fast-inference-and-high-quality-outputs/) and [Gemini Pro](https://deepmind.google/discover/blog/gemini-pro-a-new-generation-of-large-language-models-with-high-quality-outputs/). The lightweight Gemini Flash enables higher rates of candidate generation through lower latency, while the more powerful Gemini Pro provides deeper insights and higher-quality suggestions that can significantly advance the evolutionary search and potentially lead to breakthroughs.
+
+3. **Evaluator pool:** This component verifies, runs, and scores proposed solutions using automated evaluation metrics that provide objective assessments of each solution's accuracy and quality.
+
+4. **Program database:** AlphaEvolve uses an evolutionary database inspired by a combination of the MAP elites algorithm<d-cite key="mouret2015illuminating"></d-cite> and island-based population models<d-cite key="tanese1989distributed"></d-cite> to continuously improve upon the best solutions while maintaining diversity to encourage exploration.
+
+Unlike traditional genetic algorithms with explicit mutation and crossover operations, AlphaEvolve uses LLMs as sophisticated genetic operators to generate code modifications based on context from past solutions. Mutation occurs when the LLM ensemble suggests code changes (e.g., rewrites or targeted diffs), while crossover is implicit as the LLM receives multiple parent solutions as inspiration. This approach makes AlphaEvolve particularly effective in domains where progress can be clearly and systematically measured, like mathematics and computer science.
 
 ### Benefits of AlphaEvolve
 
@@ -265,21 +274,21 @@ Looking ahead, AlphaEvolve is expected to continue improving alongside the capab
 
 ## FunSearch vs AlphaEvolve
 
-While both FunSearch and AlphaEvolve leverage evolutionary methods combined with LLMs for algorithm discovery, AlphaEvolve represents a substantial enhancement over its predecessor. Here's a detailed comparison of their capabilities:
+While both FunSearch and AlphaEvolve leverage LLM within an evolutionary framework, AlphaEvolve offers a substantial improvement over its predecessor, both in terms of scale and generality. Here's a detailed comparison of their capabilities:
 
 | Capability | FunSearch | AlphaEvolve |
 |------------|-----------|-------------|
-| Code Scope | Evolves single function | Evolves entire code file |
+| Code Scope | Evolves a single function | Evolves an entire codebase |
 | Code Size | Evolves up to 10-20 lines of code | Evolves up to hundreds of lines of code |
 | Language Support | Python only | Any programming language |
 | Computation | Needs fast evaluation (≤ 20min on 1 CPU) | Can evaluate for hours, in parallel, on accelerators |
 | LLM Usage | Millions of LLM samples used | Thousands of LLM samples suffice |
 | Model Scale | Small LLMs used, no benefit from using larger models | Benefits from using state-of-the-art LLMs |
 | Context Handling | Minimal context (only previous solutions) | Rich context and feedback in prompts |
-| Optimization | Optimizes single metric | Can simultaneously optimize multiple metrics |
+| Optimization | Optimizes a single metric | Can simultaneously optimize multiple metrics |
 
 
-<aside class="l-body box-note" markdown="1">
+<aside class="l-body box-im" markdown="1">
 The evolution from FunSearch to AlphaEvolve demonstrates significant advances in **scale** and **generality**. While FunSearch was groundbreaking in showing how LLMs could aid mathematical discovery, AlphaEvolve extends this approach to tackle more complex, real-world problems across multiple domains. This progression also reflects the rapid advancement in LLM capabilities, where newer state-of-the-art models can generate more sophisticated and accurate code with fewer samples.
 </aside>
 

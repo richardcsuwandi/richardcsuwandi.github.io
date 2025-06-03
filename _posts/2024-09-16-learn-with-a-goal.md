@@ -3,11 +3,10 @@ layout: distill
 title: Learning with a Goal
 date: 2024-09-16 00:00:00 +0700
 description: A unified perspective of Bayesian optimization and active learning
-tags: [bayesian-optimization, active-learning]
-categories: paper-summary
+tags: [bayesian-optimization, active-learning, review]
 giscus_comments: true
 related_posts: false
-thumbnail: /assets/img/target.jpeg
+thumbnail: /assets/img/race.png
 future: true
 htmlwidgets: true
 
@@ -17,11 +16,11 @@ htmlwidgets: true
 #     affiliations:
 #       name: Anonymous
 
-authors:
- - name: Richard Cornelius Suwandi
-   url: "https://richardcsuwandi.github.io/"
-   affiliations:
-     name: The Chinese University of Hong Kong, Shenzhen
+# authors:
+#  - name: Richard Cornelius Suwandi
+#    url: "https://richardcsuwandi.github.io/"
+#    affiliations:
+#      name: The Chinese University of Hong Kong, Shenzhen
 
 # must be the exact same name as your blogpost
 bibliography: 2024-09-16-learn-with-a-goal.bib
@@ -120,35 +119,35 @@ _styles: >
   }
   d-article .box-note {
     background-color: #eee;
-    border-left-color: #2980b9;
+    border-left-color: #3498db;
   }
   d-article .box-warning {
-    background-color: #fdf5d4;
-    border-left-color: #f1c40f;
+    background-color: #eee;
+    border-left-color: #ffc107;
   }
   d-article .box-error {
-    background-color: #f4dddb;
-    border-left-color: #c0392b;
+    background-color: #eee;
+    border-left-color: #dc3545;
   }
   d-article .box-important {
-    background-color: #d4f4dd;
-    border-left-color: #2bc039;
+    background-color: #eee;
+    border-left-color: #20c997;
   }
   html[data-theme='dark'] d-article .box-note {
-    background-color: #555555;
-    border-left-color: #2980b9;
+    background-color: #2f2f2f;
+    border-left-color: #3498db;
   }
   html[data-theme='dark'] d-article .box-warning {
-    background-color: #7f7f00;
-    border-left-color: #f1c40f;
+    background-color: #2f2f2f;
+    border-left-color: #ffc107;
   }
   html[data-theme='dark'] d-article .box-error {
-    background-color: #800000;
-    border-left-color: #c0392b;
+    background-color: #2f2f2f;
+    border-left-color: #dc3545;
   }
   html[data-theme='dark'] d-article .box-important {
-    background-color: #006600;
-    border-left-color: #2bc039;
+    background-color: #2f2f2f;
+    border-left-color: #20c997;
   }
   d-article aside {
     border: 1px solid #aaa;
@@ -160,6 +159,19 @@ _styles: >
     font-size: 80%;
     line-height: 1.2;
     text-align: left;
+  }
+  
+  /* Fix spacing in references section */
+  d-citation-list .references .title {
+    margin-bottom: -5px;
+    line-height: 1.3;
+  }
+  d-citation-list .references .authors {
+    margin-top: -5px;
+    line-height: 1.3;
+  }
+  d-citation-list .references {
+    line-height: 1.3;
   }
 ---
 Traditionally, Bayesian optimization (BO) has been perceived as a technique for optimizing expensive objective functions through efficient data sampling, while active learning (AL) is often seen as a way to selectively query data to improve model performance. Recently, Fiore et al. (2024)<d-cite key="di2024active"></d-cite> proposed a unified perspective of BO and AL, arguing that both can be viewed as adaptive sampling schemes guided by common learning principles toward a given optimization goal. In this post, we will explore the key ideas presented in the paper and discuss the implications of this unified perspective.
@@ -176,7 +188,7 @@ BO and AL can be regarded as goal-driven procedures, where a surrogate model is 
   x^* = \arg \min_{x \in \mathcal{X}} f(R(x))
 \\]
 
-where \\(f\\) is the objective and \\(R(x)\\) is the response of the system. Here, \\(f\\) may represent the error between the surrogate approximation and the response, such that the goal is to minimize the error to improve the accuracy of the surrogate. Alternatively, \\(f\\) may also represents a performance indicator based on the response, so the goal is to minimize this indicator to improve the system’s performance.
+where \\(f\\) is the objective and \\(R(x)\\) is the response of the system. Here, \\(f\\) may represent the error between the surrogate approximation and the response, such that the goal is to minimize the error to improve the accuracy of the surrogate. Alternatively, \\(f\\) may also represents a performance indicator based on the response, so the goal is to minimize this indicator to improve the system's performance.
 
 ## Adaptive sampling
 BO and AL use adaptive sampling schemes to efficiently accomplish a given goal while adapting to the previously collected information:
