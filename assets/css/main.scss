@@ -37,6 +37,7 @@ $max-content-width: {{ site.max_width }};
   justify-content: center;
   max-width: 900px;
   width: 100%;
+  transform: translateX(1rem); /* Match logo offset */
 }
 
 .landing-logo {
@@ -46,6 +47,7 @@ $max-content-width: {{ site.max_width }};
   display: block;
   margin-left: auto;
   margin-right: auto;
+  transform: translateX(-1.5rem); /* Match logo offset */
 }
 
 .landing-section p {
@@ -53,6 +55,7 @@ $max-content-width: {{ site.max_width }};
   margin-bottom: 1rem;
   text-align: center;
   width: 100%;
+  transform: translateX(-1rem); /* Match logo offset */
 }
 
 .landing-section h2 {
