@@ -5,7 +5,7 @@
 
 // Global typography and spacing
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 16px;
   line-height: 1.8;
   font-weight: 300;
@@ -74,13 +74,13 @@ strong, b {
   }
 }
 
-// Headings with Lato
+// Headings with Inter
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Lato', sans-serif;
-  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
   line-height: 1.3;
   margin-bottom: 1.5rem;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 
 h1 {
