@@ -304,26 +304,26 @@ ul.task-list input[type="checkbox"] {
   }
 
   .navbar-brand {
-    color: var(--global-text-color);
+    color: var(--global-navbar-text-color);
     font-weight: 600;
     letter-spacing: -0.02em;
   }
 
   .navbar-nav .nav-item .nav-link {
-    color: var(--global-text-color);
+    color: var(--global-navbar-text-color);
 
     &:hover {
-      color: var(--global-hover-color);
+      color: var(--global-navbar-hover-color);
     }
   }
 
   .navbar-nav .nav-item.active > .nav-link {
     background-color: inherit;
     font-weight: bolder;
-    color: var(--global-theme-color);
+    color: var(--global-navbar-text-color);
 
     &:hover {
-      color: var(--global-hover-color);
+      color: var(--global-navbar-hover-color);
     }
   }
 
@@ -338,13 +338,13 @@ ul.task-list input[type="checkbox"] {
 
     a {
       i::before {
-        color: var(--global-text-color);
+        color: var(--global-social-icon-color);
         transition-property: all 0.2s ease-in-out;
       }
 
       &:hover {
         i::before {
-          color: var(--global-theme-color);
+          color: var(--global-navbar-hover-color);
         }
       }
     }

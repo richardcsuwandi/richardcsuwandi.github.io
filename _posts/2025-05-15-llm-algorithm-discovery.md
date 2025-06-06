@@ -16,11 +16,11 @@ htmlwidgets: true
 #     affiliations:
 #       name: Anonymous
 
-# authors:
-#  - name: Richard Cornelius Suwandi
-#    url: "https://richardcsuwandi.github.io/"
-#    affiliations:
-#      name: The Chinese University of Hong Kong, Shenzhen
+authors:
+ - name: Richard Cornelius Suwandi
+   url: "https://richardcsuwandi.github.io/"
+   affiliations:
+     name: The Chinese University of Hong Kong, Shenzhen
 
 # must be the exact same name as your blogpost
 bibliography: 2025-05-15-llm-algorithm-discovery.bib
