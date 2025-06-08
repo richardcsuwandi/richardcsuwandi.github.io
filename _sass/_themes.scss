@@ -112,6 +112,10 @@ html[data-theme='dark'] {
   --global-danger-block-text: #{$pink-color-light};
   --global-danger-block-title: #{$pink-color-light};
 
+  --global-navbar-text-color: #ffffff;
+  --global-navbar-hover-color: #ffffff;
+  --global-social-icon-color: #ffffff;
+
   .repo-img-light {
     display: none;
   }

@@ -21,44 +21,147 @@
     {% include header.liquid %}
 
     <!-- Landing Section -->
-    <div class="container-fluid landing-section text-center">
+    <div class="landing-section text-center">
       <img src="{{ '/assets/img/logo_light.png' | relative_url }}" alt="Logo" class="landing-logo light-mode-logo">
       <img src="{{ '/assets/img/logo_dark.png' | relative_url }}" alt="Logo" class="landing-logo dark-mode-logo">
-      <p style="margin-bottom: 1rem; font-size: 1.2rem;"><strong>My learning notes, paper summaries, and thoughts.</strong></p>
+      <p class="landing-subtitle"><strong>My interpretation on the latest AI updates</strong></p>
     </div>
 
     <!-- Content -->
-    <div class="container-fluid mt-3" role="main">
-      <div class="row g-0">
-        <div class="col-lg-2 col-md-3 d-none d-md-block"> <!-- Sidebar column, hidden on small screens -->
+    <div class="container-fluid px-4" role="main">
+      <div class="row">
+        <div class="col-md-2"> <!-- Sidebar -->
           {% include tags_sidebar.liquid %}
         </div>
-        <div class="col-lg-10 col-md-9"> <!-- Main content column -->
-          {% if page.toc and page.toc.sidebar %}
-            {% if page.toc.sidebar == 'right' %}
-              <div class="row">
-                <!-- main content area -->
-                <div class="col-sm-9">{{ content }}</div>
-                <!-- sidebar, which will move to the top on a small screen -->
-                <div class="col-sm-3">
-                  <nav id="toc-sidebar" class="sticky-top"></nav>
-                </div>
-              </div>
+        <div class="col-md-10"> <!-- Main content -->
+          {% assign featured_posts = site.posts | where: "featured", "true" %}
+          {% if featured_posts.size > 0 %}
+          <div class="featured-posts mb-5">
+            {% for post in featured_posts %}
+            {% if post.external_source == blank %}
+              {% assign read_time = post.content | number_of_words | divided_by: 180 | plus: 1 %}
             {% else %}
-              <div class="row">
-                <!-- sidebar, which will move to the top on a small screen -->
-                <div class="col-sm-3">
-                  <nav id="toc-sidebar" class="sticky-top"></nav>
-                </div>
-                <!-- main content area -->
-                <div class="col-sm-9">{{ content }}</div>
-              </div>
+              {% assign read_time = post.feed_content | strip_html | number_of_words | divided_by: 180 | plus: 1 %}
             {% endif %}
-          {% else %}
-            {{ content }}
+
+            {% assign temp_slugified_tags_array = "" | split: "" %}
+            {% for t in post.tags %}
+              {% capture captured_slug %}{{ t | slugify }}{% endcapture %}
+              {% assign temp_slugified_tags_array = temp_slugified_tags_array | push: captured_slug %}
+            {% endfor %}
+            {% assign post_tags_for_data_attr = temp_slugified_tags_array | join: ',' %}
+
+            <div class="blog-post-card-horizontal mb-4" data-tags="{{ post_tags_for_data_attr }}">
+              <div class="row g-0 align-items-start">
+                <!-- Left column: Date and Tags -->
+                <div class="col-md-2 post-left-section">
+                  <div class="post-date">{{ post.date | date: '%b %d, %Y' }}</div>
+                  {% if post.tags.size > 0 %}
+                  <div class="post-tags-left">
+                    {% for tag in post.tags %}
+                    <a href="{{ tag | slugify | prepend: '/blog/tag/' | relative_url }}" class="tag-link">
+                      <i class="fa-solid fa-hashtag fa-xs"></i>{{ tag }}
+                    </a>
+                    {% endfor %}
+                  </div>
+                  {% endif %}
+                </div>
+                
+                <!-- Middle column: Title, Read time, Description -->
+                <div class="col-md-7 post-middle-section">
+                  <h2 class="post-title-horizontal">
+                    {% if post.redirect == blank %}
+                      <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                    {% elsif post.redirect contains '://' %}
+                      <a href="{{ post.redirect }}" target="_blank">{{ post.title }}</a>
+                    {% else %}
+                      <a href="{{ post.redirect | relative_url }}">{{ post.title }}</a>
+                    {% endif %}
+                  </h2>
+                  <div class="post-read-time">{{ read_time }} min read</div>
+                  <p class="post-description">{{ post.description }}</p>
+                </div>
+                
+                <!-- Right column: Thumbnail -->
+                <div class="col-md-3 post-right-section">
+                  {% if post.thumbnail %}
+                    <img src="{{post.thumbnail | relative_url}}" alt="{{ post.title | escape }} thumbnail" class="post-thumbnail">
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          <hr>
           {% endif %}
-        </div> <!-- End Main content column -->
-      </div> <!-- End row -->
+
+          <!-- Regular Posts -->
+          <div class="blog-posts">
+            {%- for post in paginator.posts -%}
+              {% if post.external_source == blank %}
+                {% assign read_time = post.content | number_of_words | divided_by: 180 | plus: 1 %}
+              {% else %}
+                {% assign read_time = post.feed_content | strip_html | number_of_words | divided_by: 180 | plus: 1 %}
+              {% endif %}
+
+              {% assign temp_slugified_tags_array = "" | split: "" %}
+              {% for t in post.tags %}
+                {% capture captured_slug %}{{ t | slugify }}{% endcapture %}
+                {% assign temp_slugified_tags_array = temp_slugified_tags_array | push: captured_slug %}
+              {% endfor %}
+              {% assign post_tags_for_data_attr = temp_slugified_tags_array | join: ',' %}
+
+              <div class="blog-post-card-horizontal blog-post-card mb-4" data-tags="{{ post_tags_for_data_attr }}">
+                <div class="row g-0 align-items-start">
+                  <!-- Left column: Date and Tags -->
+                  <div class="col-md-2 post-left-section">
+                    <div class="post-date">{{ post.date | date: '%b %d, %Y' }}</div>
+                    {% if post.tags.size > 0 %}
+                    <div class="post-tags-left">
+                      {% for tag in post.tags %}
+                      <a href="{{ tag | slugify | prepend: '/blog/tag/' | relative_url }}" class="tag-link">
+                        <i class="fa-solid fa-hashtag fa-xs"></i>{{ tag }}
+                      </a>
+                      {% endfor %}
+                    </div>
+                    {% endif %}
+                  </div>
+                  
+                  <!-- Middle column: Title, Read time, Description -->
+                  <div class="col-md-7 post-middle-section">
+                    <h2 class="post-title-horizontal">
+                      {% if post.redirect == blank %}
+                        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                      {% elsif post.redirect contains '://' %}
+                        <a href="{{ post.redirect }}" target="_blank">{{ post.title }}</a>
+                      {% else %}
+                        <a href="{{ post.redirect | relative_url }}">{{ post.title }}</a>
+                      {% endif %}
+                    </h2>
+                    <div class="post-read-time">{{ read_time }} min read</div>
+                    <p class="post-description">{{ post.description }}</p>
+                  </div>
+                  
+                  <!-- Right column: Thumbnail -->
+                  <div class="col-md-3 post-right-section">
+                    {% if post.thumbnail %}
+                      <img src="{{post.thumbnail | relative_url}}" alt="{{ post.title | escape }} thumbnail" class="post-thumbnail">
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+
+          <div id="no-posts-found-message" style="display: none; text-align: center; margin-top: 20px;">
+            <p class="lead text-muted">no posts found matching the selected tag.</p>
+          </div>
+
+          {% if page.pagination.enabled %}
+            {% include pagination.liquid %}
+          {% endif %}
+        </div>
+      </div>
     </div>
 
     <!-- Footer -->
@@ -107,25 +210,18 @@
         let postsFound = false;
 
         allPostCards.forEach(cardCol => {
-          // console.log('Inspecting card:', cardCol);
           const rawDataTags = cardCol.dataset.tags;
-          // console.log('Card raw data-tags:', rawDataTags);
 
           if (selectedTagSlug === null) { // Show all
-            cardCol.classList.add('d-flex'); // Ensure it's a flex item
-            cardCol.classList.remove('d-none');
+            cardCol.style.display = 'block';
             postsFound = true;
           } else {
             const cardTags = rawDataTags ? rawDataTags.split(',') : [];
-            // console.log('Card tags array:', cardTags);
-            // console.log('Does cardTags include selectedTagSlug?', cardTags.includes(selectedTagSlug));
             if (cardTags.includes(selectedTagSlug)) {
-              cardCol.classList.add('d-flex'); // Ensure it's a flex item
-              cardCol.classList.remove('d-none');
+              cardCol.style.display = 'block';
               postsFound = true;
             } else {
-              cardCol.classList.remove('d-flex'); // Remove flex display
-              cardCol.classList.add('d-none');
+              cardCol.style.display = 'none';
             }
           }
         });
@@ -141,8 +237,6 @@
         const showAllLink = document.getElementById('show-all-tags');
         if (showAllLink) {
           setActiveTag(showAllLink);
-          // Optionally, ensure all posts are visible on initial load if d-none might have been cached or set by mistake
-          // filterPostsByTag(null); // Can uncomment this if initial state is an issue
         }
       });
     </script>
