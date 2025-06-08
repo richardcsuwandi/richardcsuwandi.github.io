@@ -239,6 +239,45 @@ html[data-theme="dark"] .post-tags-left .tag-link:hover {
   .blog-post-card-horizontal .post-description {
     font-size: 1.1rem !important;
   }
+  
+  /* Fix tag wrapping on iPad/tablet screens */
+  .post-tags-left {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    max-width: 100%;
+  }
+  
+  .post-tags-left .tag-link {
+    flex-shrink: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+}
+
+/* iPad specific adjustments */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .post-left-section {
+    padding-right: 0.75rem;
+  }
+  
+  .post-tags-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    max-width: 100%;
+  }
+  
+  .post-tags-left .tag-link {
+    font-size: 0.6rem;
+    padding: 0.25rem 0.5rem;
+    max-width: 100%;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
 }
 
 @media (max-width: 768px) {

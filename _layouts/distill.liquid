@@ -24,6 +24,55 @@
         {{ page._styles }}
       </style>
     {% endif %}
+    
+    <!-- Custom byline styling for better spacing -->
+    <style type="text/css">
+      d-byline {
+        max-width: 100% !important;
+        width: 100% !important;
+      }
+      
+      /* Create a grid layout for the entire byline section */
+      d-byline .byline {
+        max-width: 100% !important;
+        width: 100% !important;
+        display: grid !important;
+        grid-template-columns: minmax(150px, 1fr) minmax(250px, 2fr) minmax(200px, 1fr);
+        gap: 4rem;
+        align-items: start;
+      }
+      
+      /* Style the headers */
+      d-byline h3 {
+        margin-bottom: 0.5rem !important;
+        font-weight: bold;
+        white-space: nowrap;
+      }
+      
+      /* Prevent author names from wrapping */
+      d-byline .author,
+      d-byline .authors {
+        white-space: nowrap;
+        overflow: visible;
+      }
+      
+      /* Prevent affiliation names from wrapping */
+      d-byline .affiliations,
+      d-byline .affiliation {
+        white-space: nowrap;
+        overflow: visible;
+      }
+      
+      /* Style the published date section */
+      d-byline .published {
+        white-space: nowrap;
+      }
+      
+      /* Additional spacing adjustments */
+      d-byline > div {
+        margin-right: 0 !important;
+      }
+    </style>
   </head>
 
   <d-front-matter>
