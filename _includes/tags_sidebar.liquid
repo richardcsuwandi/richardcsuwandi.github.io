@@ -25,7 +25,7 @@
       {% assign tag_slug = tag_name | slugify %}
       <li class="nav-item mb-2">
         <a href="#" class="nav-link py-2 px-3" onclick="filterPostsByTag('{{ tag_slug }}'); setActiveTag(this); return false;">
-          <i class="fa-solid fa-hashtag fa-xs me-2"></i>{{ tag_name }}
+          {{ tag_name }}
         </a>
       </li>
     {% endfor %}
@@ -44,9 +44,9 @@
     color: var(--global-text-color);
     background-color: var(--global-bg-color);
     border: 1px solid var(--global-divider-color);
-    border-radius: 8px;
+    border-radius: 5px; /* Reduced from 8px for more rectangular look */
     transition: all 0.3s ease;
-    font-size: 0.9rem;
+    font-size: 0.65rem; /* Reduced from 0.9rem */
   }
 
   .tags-sidebar .nav-link:hover {

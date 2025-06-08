@@ -5,8 +5,9 @@
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.2s ease;
-  padding: 2rem;
-  margin-bottom: 2rem;
+  padding: 1.5rem; /* Reduced from 2rem to make cards shorter */
+  margin-bottom: 1.5rem; /* Reduced from 2rem */
+  min-height: 140px; /* Set a minimum height to keep cards compact */
 }
 
 .blog-post-card-horizontal:hover {
@@ -28,7 +29,7 @@ html[data-theme="dark"] .blog-post-card-horizontal:hover {
 
 /* Left section - Date and Tags */
 .post-left-section {
-  padding-right: 2rem;
+  padding-right: 1.5rem; /* Reduced to be consistent */
   padding-top: 0.25rem; /* Align with title baseline */
 }
 
@@ -48,15 +49,16 @@ html[data-theme="dark"] .blog-post-card-horizontal:hover {
 
 .post-tags-left .tag-link {
   display: block;
-  color: var(--global-text-color);
-  background-color: var(--global-bg-color);
+  color: #ffffff;
+  background-color: #54667d;
   border: 1px solid var(--global-divider-color);
-  border-radius: 8px;
-  padding: 0.4rem 0.8rem;
+  border-radius: 5px; /* Reduced from 8px for more rectangular look */
+  padding: 0.3rem 0.6rem; /* Reduced padding for smaller tags */
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 0.65rem; /* Reduced from 0.9rem */
   transition: all 0.3s ease;
   line-height: 1.4;
+  font-weight: 500;
 }
 
 .post-tags-left .tag-link:hover {
@@ -80,18 +82,17 @@ html[data-theme="dark"] .post-tags-left .tag-link:hover {
   border-color: var(--global-theme-color);
 }
 
-.post-tags-left .tag-link i {
-  margin-right: 0.25rem;
-}
+/* Removed hashtag icon styling as icons are no longer used */
 
 /* Middle section - Title, Read time, Description */
 .post-middle-section {
-  padding-right: 2rem;
+  padding-right: 1.5rem; /* Reduced to give more space to thumbnail */
 }
 
 .post-title-horizontal {
+  font-family: 'Inter', sans-serif;
   font-size: 2rem;
-  font-weight: 800; /* Made bolder */
+  font-weight: 900; /* Extra heavy - pushing beyond standard black for maximum thickness */
   line-height: 1.2;
   margin-bottom: 0.5rem;
   margin-top: 0; /* Remove any default margin */
@@ -109,16 +110,16 @@ html[data-theme="dark"] .post-tags-left .tag-link:hover {
 }
 
 .post-read-time {
-  font-size: 1rem;
-  color: var(--global-text-color-light);
+  font-size: 0.8rem;
+  color: #60636a;
   margin-bottom: 1rem;
 }
 
 .blog-post-card-horizontal .post-description {
-  font-size: 1.2rem !important; /* Added !important to override any conflicting styles */
+  font-size: 1rem !important; /* Added !important to override any conflicting styles */
   line-height: 1.6;
   font-weight: 400;
-  color: var(--global-text-color-light);
+  color: #60636a;
   margin: 0;
 }
 
@@ -132,8 +133,8 @@ html[data-theme="dark"] .post-tags-left .tag-link:hover {
 
 .post-thumbnail {
   width: 100%;
-  max-width: 250px;
-  height: 180px;
+  max-width: 100%; /* Allow full width of the column */
+  height: 140px; /* Reduced height to match card min-height */
   object-fit: cover;
   border-radius: 8px;
 }
@@ -260,7 +261,7 @@ html[data-theme="dark"] .post-tags-left .tag-link:hover {
   .post-tags-left {
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 0.75rem;
+    gap: 0.65rem;
   }
   
   .post-title-horizontal {
@@ -324,7 +325,7 @@ html[data-theme="dark"] .post-tags-left .tag-link:hover {
 }
 
 .blog-post-card .post-tags .badge {
-  font-size: 0.85rem;
+  font-size: 0.65rem;
   padding: 0.35rem 0.65rem;
   margin-right: 0.5rem;
   background-color: #f8f9fa;

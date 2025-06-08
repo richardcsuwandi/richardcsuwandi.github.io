@@ -9,6 +9,12 @@ html {
   scroll-behavior: smooth;
 }
 
+body {
+  font-family: $font-family-sans-serif;
+  font-weight: $font-weight-regular;
+  line-height: 1.5;
+}
+
 // Typography
 
 p,
@@ -22,8 +28,88 @@ em,
 div,
 li,
 span,
-strong {
+strong,
+td,
+th,
+blockquote,
+figcaption,
+caption {
   color: var(--global-text-color);
+  font-family: $font-family-sans-serif;
+}
+
+// Make sure paragraphs use regular weight
+p {
+  font-weight: $font-weight-regular;
+}
+
+// List items should also use regular weight
+ul, ol, li {
+  font-weight: $font-weight-regular;
+}
+
+// Italic elements use regular weight (not thinner)
+em, i {
+  font-weight: $font-weight-regular;
+  font-style: italic;
+}
+
+// Bold and strong elements
+strong, b {
+  font-weight: $font-weight-semibold;
+}
+
+// Ensure all text elements use regular weight by default
+span, div, td, th, blockquote, figcaption, caption {
+  font-weight: $font-weight-regular;
+}
+
+// Force regular weight for all d-article content (distill layout)
+d-article,
+d-article p,
+d-article li,
+d-article span,
+d-article div {
+  font-weight: $font-weight-regular !important;
+}
+
+// Headings with Inter Bold
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-family-sans-serif;
+  font-weight: $font-weight-bold;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+  margin-top: 0;
+}
+
+h1 {
+  font-weight: $font-weight-black; // Extra bold for h1
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-weight: $font-weight-extrabold; // Extra bold for h2
+  font-size: 2rem;
+}
+
+h3 {
+  font-weight: $font-weight-bold;
+  font-size: 1.75rem;
+}
+
+h4 {
+  font-weight: $font-weight-bold;
+  font-size: 1.5rem;
+}
+
+h5 {
+  font-weight: $font-weight-semibold;
+  font-size: 1.25rem;
+}
+
+h6 {
+  font-weight: $font-weight-semibold;
+  font-size: 1rem;
 }
 
 hr {
@@ -44,6 +130,7 @@ table {
 a,
 table.table a {
   color: var(--global-theme-color);
+  font-weight: $font-weight-semibold !important;
   text-decoration: underline;
   text-decoration-color: var(--global-link-underline-color);
   text-decoration-thickness: 1px;

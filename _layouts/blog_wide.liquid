@@ -28,12 +28,12 @@
     </div>
 
     <!-- Content -->
-    <div class="container-fluid px-4" role="main">
-      <div class="row">
-        <div class="col-md-2"> <!-- Sidebar -->
-          {% include tags_sidebar.liquid %}
-        </div>
-        <div class="col-md-10"> <!-- Main content -->
+    <div class="container-fluid" px-4 role="main">
+      <div class="row justify-content-center">
+        <!-- <div class="col-md-2"> --> <!-- Sidebar - Commented out -->
+          <!-- {% include tags_sidebar.liquid %} -->
+        <!-- </div> -->
+        <div class="col-md-9"> <!-- Main content - Perfectly centered -->
           {% assign featured_posts = site.posts | where: "featured", "true" %}
           {% if featured_posts.size > 0 %}
           <div class="featured-posts mb-5">
@@ -60,7 +60,7 @@
                   <div class="post-tags-left">
                     {% for tag in post.tags %}
                     <a href="{{ tag | slugify | prepend: '/blog/tag/' | relative_url }}" class="tag-link">
-                      <i class="fa-solid fa-hashtag fa-xs"></i>{{ tag }}
+                      {{ tag }}
                     </a>
                     {% endfor %}
                   </div>
@@ -68,7 +68,7 @@
                 </div>
                 
                 <!-- Middle column: Title, Read time, Description -->
-                <div class="col-md-7 post-middle-section">
+                <div class="col-md-6 post-middle-section">
                   <h2 class="post-title-horizontal">
                     {% if post.redirect == blank %}
                       <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
@@ -83,7 +83,7 @@
                 </div>
                 
                 <!-- Right column: Thumbnail -->
-                <div class="col-md-3 post-right-section">
+                <div class="col-md-4 post-right-section">
                   {% if post.thumbnail %}
                     <img src="{{post.thumbnail | relative_url}}" alt="{{ post.title | escape }} thumbnail" class="post-thumbnail">
                   {% endif %}
@@ -120,14 +120,14 @@
                     <div class="post-tags-left">
                       {% for tag in post.tags %}
                       <span class="tag-link">
-                        <i class="fa-solid fa-hashtag fa-xs"></i>{{ tag }}
+                        {{ tag }}
                       </span>
                       {% endfor %}
                     </div>
                     {% endif %}
                   </div>
                   <!-- Middle column: Title, Read time, Description -->
-                  <div class="col-md-7 post-middle-section">
+                  <div class="col-md-6 post-middle-section">
                     <h2 class="post-title-horizontal">
                       {% if post.redirect == blank %}
                         <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
@@ -142,7 +142,7 @@
                   </div>
                   
                   <!-- Right column: Thumbnail -->
-                  <div class="col-md-3 post-right-section">
+                  <div class="col-md-4 post-right-section">
                     {% if post.thumbnail %}
                       <img src="{{post.thumbnail | relative_url}}" alt="{{ post.title | escape }} thumbnail" class="post-thumbnail">
                     {% endif %}

@@ -3,7 +3,7 @@ layout: distill
 title: Can we use AI to discover better algorithms?
 date: 2025-05-15 10:00:00 +0700
 description: A review of FunSearch and AlphaEvolve
-tags: [large-language-models, agents]
+tags: [AGENTS, LARGE LANGUAGE MODELS]
 giscus_comments: true
 related_posts: false
 thumbnail: /assets/img/evolution.png
