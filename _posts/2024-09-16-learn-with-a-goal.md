@@ -184,11 +184,11 @@ a decision-making process in which each decision is made to acquire specific inf
 
 BO and AL can be regarded as goal-driven procedures, where a surrogate model is built to capture the behavior of a system or effectively inform an optimization procedure to minimize the given objective.  This goal-driven process seeks to determine the "best" location of the domain to acquire information about the system, and refine the surrogate model towards the goal. Mathematically, it can be formulated as:
 
-\\[
+$$
   x^* = \arg \min_{x \in \mathcal{X}} f(R(x))
-\\]
+$$
 
-where \\(f\\) is the objective and \\(R(x)\\) is the response of the system. Here, \\(f\\) may represent the error between the surrogate approximation and the response, such that the goal is to minimize the error to improve the accuracy of the surrogate. Alternatively, \\(f\\) may also represents a performance indicator based on the response, so the goal is to minimize this indicator to improve the system's performance.
+where $$f$$ is the objective and $$R(x)$$ is the response of the system. Here, $$f$$ may represent the error between the surrogate approximation and the response, such that the goal is to minimize the error to improve the accuracy of the surrogate. Alternatively, $$f$$ may also represents a performance indicator based on the response, so the goal is to minimize this indicator to improve the system's performance.
 
 ## Adaptive sampling
 BO and AL use adaptive sampling schemes to efficiently accomplish a given goal while adapting to the previously collected information:
