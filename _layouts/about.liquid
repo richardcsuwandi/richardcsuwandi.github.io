@@ -1,11 +1,53 @@
 ---
 layout: default
 ---
+<style>
+  /* Increase body font size to match blog posts */
+  .post article {
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+  
+  /* Make site title bigger and more prominent like blog post titles */
+  .post-header .post-title {
+    font-size: 3.5rem !important;
+    font-weight: 700 !important;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+  
+  @media (max-width: 768px) {
+    .post-header .post-title {
+      font-size: 2.5rem !important;
+    }
+  }
+  
+  /* Style section headers (News, Selected Works, etc.) to be bold with line separator */
+  .post article h2 {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 2.2rem !important;
+    line-height: 1.2 !important;
+    margin-top: 3rem !important;
+    margin-bottom: 1.5rem !important;
+    padding-bottom: 0.5rem !important;
+    border-bottom: 2px solid var(--global-divider-color) !important;
+  }
+  
+  .post article h2 a {
+    color: var(--global-text-color) !important;
+    text-decoration: none !important;
+    font-weight: 500 !important;
+  }
+  
+  .post article h2 a:hover {
+    color: var(--global-theme-color) !important;
+  }
+</style>
 <div class="post">
   <header class="post-header">
     <h1 class="post-title">
       {% if site.title == 'blank' %}
-        <span class="font-weight-bold">{{ site.first_name }}</span> {{ site.middle_name }}
+        <span class="font-weight-black">{{ site.first_name }}</span> {{ site.middle_name }}
         {{ site.last_name }}
       {% else %}
         {{ site.title }}
