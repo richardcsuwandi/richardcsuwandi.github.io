@@ -39,6 +39,21 @@
       margin-top: -0.5rem !important;
     }
     
+    /* Fix toggle button alignment on mobile */
+    @media (max-width: 991px) {
+      #navbar .toggle-container {
+        margin-top: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        height: 100% !important;
+      }
+      
+      #navbar .toggle-container button {
+        margin: 0 !important;
+        padding: 0.5rem !important;
+      }
+    }
+    
     #navbar .navbar-toggler {
       padding: 0.25rem 0 !important;
       border: none !important;
