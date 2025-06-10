@@ -7,9 +7,9 @@
 $red-color: #ef4444 !default;
 $red-color-dark: #b91c1c !default;
 $orange-color: #f97316 !default;
-$blue-color: #0ea5e9 !default; 
+$blue-color: #68b2ff !default; 
 // $blue-color: #0081cb !default; 
-$blue-color-dark: #0369a1 !default;
+$blue-color-dark: #0063c9 !default;
 $cyan-color: #06b6d4 !default;
 $light-cyan-color: lighten($cyan-color, 25%);
 $green-color: #10b981 !default;
@@ -33,10 +33,10 @@ $black-color: #0f172a !default;
 
 // Accent colors for different elements
 // $accent-primary: #3b82f6 !default; // Changed to blue
-$accent-primary: #0ea5e9 !default; // Changed to blue
-$accent-secondary: #0ea5e9 !default; // Sky blue
+$accent-primary: #0063c9 !default; // Changed to blue
+$accent-secondary: #68b2ff  !default; // Sky blue
 $accent-tertiary: #6366f1 !default; // Indigo
-$accent-quaternary: #0891b2 !default; // Cyan
+$accent-quaternary: #68b2ff  !default; // Cyan
 
 // Highlighter colors - minimal effects
 $highlighter-yellow: rgba(254, 240, 138, 0.2) !default;
@@ -46,13 +46,13 @@ $highlighter-pink: rgba(251, 207, 232, 0.2) !default;
 
 // Dark mode colors
 $dark-bg: #1a1a1a !default;
-$dark-bg-lighter: #1e293b !default;
+$dark-bg-lighter: #1a1a1a !default;
 $dark-text: #f1f5f9 !default;
 $dark-text-lighter: #e2e8f0 !default;
 
 // Theme colors
 $code-bg-color-light: #f1f5f9 !default;
-$code-bg-color-dark: #1e293b !default;
+$code-bg-color-dark: #1a1a1a !default;
 
 // Font families
 $font-family-sans-serif: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !default;

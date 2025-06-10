@@ -1,3 +1,93 @@
 <div class="publications">
   {% bibliography --group_by none --query @*[selected=true]* --sort_by year --order descending %}
 </div>
+
+<style>
+  /* Additional styling for publications */
+  .publication-authors {
+    font-size: 1rem;
+    color: var(--global-text-color);
+    margin-bottom: 0.5rem;
+    font-weight: 400;
+    line-height: 1.4;
+  }
+  
+  .publication-venue {
+    font-size: 1rem;
+    color: #60636a;
+    font-style: italic;
+    margin: 0;
+    line-height: 1.4;
+  }
+  
+  /* Abstract styling */
+  .publication-abstract {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: var(--global-card-bg-color, #f8f9fa);
+    border: 1px solid var(--global-divider-color, #ddd);
+    border-radius: 6px;
+    border-top: 3px solid var(--global-theme-color, #60636a);
+  }
+  
+  .abstract-content h4 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--global-theme-color, #60636a);
+  }
+  
+  .abstract-content p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--global-text-color, #333);
+    text-align: justify;
+  }
+  
+  /* All tag links styling */
+  .tag-link {
+    cursor: pointer;
+    text-decoration: none !important;
+    transition: all 0.2s ease;
+  }
+  
+  .tag-link:hover {
+    background-color: var(--global-theme-color, #60636a) !important;
+    color: white !important;
+    text-decoration: none !important;
+  }
+  
+  /* Adjust title font size for better fit */
+  .post-title-horizontal {
+    font-size: 1.6rem !important;
+    line-height: 1.25 !important;
+  }
+  
+  /* Dark mode styling for publication text */
+  html[data-theme='dark'] .publication-authors,
+  html[data-theme-setting="dark"] .publication-authors,
+  [data-theme="dark"] .publication-authors {
+    color: var(--global-text-color);
+  }
+  
+  html[data-theme='dark'] .publication-venue,
+  html[data-theme-setting="dark"] .publication-venue,
+  [data-theme="dark"] .publication-venue {
+    color: #999;
+  }
+  
+  /* Dark mode abstract styling */
+  html[data-theme='dark'] .publication-abstract,
+  html[data-theme-setting="dark"] .publication-abstract,
+  [data-theme="dark"] .publication-abstract {
+    background-color: #2a2a2a;
+    border-color: #444;
+  }
+  
+  html[data-theme='dark'] .abstract-content p,
+  html[data-theme-setting="dark"] .abstract-content p,
+  [data-theme="dark"] .abstract-content p {
+    color: #e0e0e0;
+  }
+</style>

@@ -208,7 +208,7 @@ p {
     transition: all 0.3s ease;
     
     &:hover, &.active {
-      color: var(--global-theme-color);
+      color: #0063c9 !important; // Light mode hover color
       background-color: transparent;
     }
   }
@@ -306,34 +306,177 @@ footer {
   }
 }
 
-// Publications styling
+// Publications styling for blog card format
 .publications {
   ol.bibliography {
+    list-style: none;
+    padding: 0;
+    
     li {
-      margin-bottom: 2.5rem;
-      padding-bottom: 2rem;
+      margin-bottom: 0; // Remove default spacing since cards have their own
+      padding-bottom: 0;
+    }
+  }
+  
+  // Publication title styling
+  .publication-title {
+    font-size: 1.6rem !important; // Smaller than default post titles
+    margin-top: 0 !important; // Remove top margin for better alignment
+    margin-bottom: 0.75rem !important; // Adjust padding/spacing
+    line-height: 1.3 !important;
+    
+    a {
+      text-decoration: none !important; // Remove underline
       
-      .title {
-        font-family: 'Inter', sans-serif;
-        font-size: 1.25rem;
-        margin-bottom: 1rem;
-      }
-      
-      .author {
-        font-family: 'Inter', sans-serif;
-        margin-bottom: 1rem;
-      }
-      
-      .links {
-        margin-top: 1.25rem;
-        
-        .btn {
-          margin-right: 0.5rem;
-          margin-bottom: 0.5rem;
-        }
+      &:hover {
+        text-decoration: none !important;
+        color: var(--global-theme-color);
       }
     }
   }
+  
+  // Publication authors styling
+  .publication-authors {
+    font-size: 0.95rem;
+    color: var(--global-text-color);
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+    
+    strong {
+      font-weight: 600;
+    }
+    
+    .more-authors-toggle {
+      text-decoration: underline;
+      
+      &:hover {
+        color: var(--global-theme-color) !important;
+      }
+    }
+  }
+  
+  // Publication venue styling  
+  .publication-venue {
+    font-size: 0.9rem;
+    color: var(--global-text-color); // Changed from text-color-light to avoid gray
+    font-style: italic;
+    line-height: 1.3;
+    
+    em {
+      color: var(--global-text-color); // Ensure venue name isn't gray
+    }
+  }
+  
+  // Abstract panel styling
+  .publication-abstract {
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    
+    .abstract-content {
+      h5 {
+        font-weight: 600;
+        font-size: 1rem;
+        margin-bottom: 0.75rem;
+      }
+      
+      p {
+        font-size: 0.95rem;
+        line-height: 1.5;
+        color: var(--global-text-color);
+      }
+    }
+  }
+  
+     // Dark mode abstract styling
+   html[data-theme='dark'] & {
+     .publication-abstract {
+       background-color: var(--global-card-bg-color) !important;
+       
+       .abstract-content {
+         h5 {
+           color: var(--global-text-color);
+         }
+         
+         p {
+           color: var(--global-text-color);
+         }
+       }
+     }
+   }
+}
+
+// Dark mode body link colors only
+html[data-theme='dark'] {
+  // Target main content area links only, not navbar or headers
+  .container a:not(.navbar a):not(.nav-link),
+  .container-fluid a:not(.navbar a):not(.nav-link),
+  main a:not(.navbar a):not(.nav-link),
+  .content a:not(.navbar a):not(.nav-link),
+  .post-content a:not(.navbar a):not(.nav-link),
+  .wide-about-container a:not(.navbar a):not(.nav-link),
+  .publications a:not(.navbar a):not(.nav-link),
+  .news a:not(.navbar a):not(.nav-link),
+  p a:not(.navbar a):not(.nav-link),
+  li a:not(.navbar a):not(.nav-link) {
+    color: #68b2ff;
+    
+    &:hover {
+      color: #4da3ff;
+    }
+  }
+  
+     // Dark mode navbar styling - make it more specific
+   .navbar .navbar-nav .nav-item .nav-link {
+     color: var(--global-text-color) !important;
+     
+     &:hover, &.active {
+       color: #68b2ff !important; // Dark mode hover color
+     }
+   }
+   
+   // Dark mode publication styling
+   .publications {
+     .post-title-horizontal a {
+       color: #ffffff !important; // Light blue for publication titles
+       
+       &:hover {
+         color: #4da3ff !important;
+       }
+     }
+     
+     .tag-link {
+       color: white !important; // White text for tags
+       
+       &:hover {
+         color: white !important; // Keep white text on hover
+       }
+     }
+   }
+
+   // Dark mode blog post content links
+   .blog-post-card a
+   {
+     color: #ffffff !important;
+     
+     &:hover {
+       color: #4da3ff !important;
+     }
+   }
+   
+   // Exclude other navbar and header links from this styling
+   .navbar a:not(.nav-link),
+   h1 a,
+   h2 a,
+   h3 a,
+   h4 a,
+   h5 a,
+   h6 a {
+     color: var(--global-text-color) !important;
+     
+     &:hover {
+       color: var(--global-theme-color) !important;
+     }
+   }
 }
 
 // Projects grid
