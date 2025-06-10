@@ -73,14 +73,26 @@
         margin-right: 0 !important;
       }
       
-      /* Fixed table of contents */
-      d-contents {
-        position: sticky !important;
-        top: 80px !important;
-        z-index: 500 !important;
-        max-height: calc(100vh - 120px) !important;
-        overflow-y: auto !important;
-        margin-top: 0px !important;
+      /* Fixed table of contents - only on larger screens */
+      @media (min-width: 1024px) {
+        d-contents {
+          position: sticky !important;
+          top: 80px !important;
+          z-index: 500 !important;
+          max-height: calc(100vh - 120px) !important;
+          overflow-y: auto !important;
+          margin-top: 0px !important;
+        }
+      }
+      
+      /* Reset TOC positioning on smaller screens */
+      @media (max-width: 1023px) {
+        d-contents {
+          position: static !important;
+          top: auto !important;
+          max-height: none !important;
+          overflow-y: visible !important;
+        }
       }
       
       /* TOC styling - bold sections, regular subsections */

@@ -207,7 +207,7 @@ The key distinction between these categories lies in the concept of *goal-driven
 
 In contrast, the adaptive probing and adaptive modeling classes do not exhibit this goal-driven learning characteristic. Adaptive probing methods operate without the aid of a surrogate, while adaptive modeling approaches compute a surrogate that is not directly used to inform the sampling process.
 
-<img src="{{ '/assets/img/adaptive_sampling.png' | relative_url }}" alt="transformer" class="center" width="80%" class="l-body rounded z-depth-1 center">
+<img src="{{ '/assets/img/adaptive_sampling.png' | relative_url }}" alt="transformer" class="center" width="100%" class="l-body rounded z-depth-1 center">
 <div class="l-gutter caption" markdown="1">
 **Figure 1.** Classification of adaptive sampling techniques: Where adaptive sampling and active learning meet.
 </div>

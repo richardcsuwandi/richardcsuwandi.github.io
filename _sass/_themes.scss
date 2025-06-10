@@ -17,7 +17,7 @@
   --global-card-bg-color: #{$white-color};
   --global-highlight-color: transparent;
   --global-highlight-border-color: transparent;
-  --global-back-to-top-bg-color: #{$accent-primary};
+  --global-back-to-top-bg-color: #{$grey-color};
   --global-back-to-top-text-color: #{$white-color};
   --global-link-underline-color: transparent;
   --global-link-hover-underline-color: transparent;
@@ -90,8 +90,8 @@ html[data-theme='dark'] {
   --global-card-bg-color: #{$dark-bg-lighter};
   --global-highlight-color: transparent;
   --global-highlight-border-color: transparent;
-  --global-back-to-top-bg-color: #{$accent-primary};
-  --global-back-to-top-text-color: #{$dark-bg};
+  --global-back-to-top-bg-color: #{$grey-color};
+  --global-back-to-top-text-color: #{$white-color};
   --global-link-underline-color: transparent;
   --global-link-hover-underline-color: transparent;
   --global-accent-color-1: #{$accent-primary};
