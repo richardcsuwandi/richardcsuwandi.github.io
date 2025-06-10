@@ -6,8 +6,17 @@
       min-height: auto !important;
     }
     
+    /* Override container max-width within navbar to match content width */
     #navbar .container {
+      max-width: 75% !important;
       padding: 0 2rem !important;
+    }
+    
+    @media (max-width: 768px) {
+      #navbar .container {
+        max-width: 95% !important;
+        padding: 0 1rem !important;
+      }
     }
     
     #navbar .navbar-nav .nav-link {

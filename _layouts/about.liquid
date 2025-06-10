@@ -1,7 +1,33 @@
----
-layout: default
----
+<!doctype html>
+<html lang="{{ site.lang }}">
+  <!-- Head -->
+  <head>
+    {% if page.redirect %}
+      {% if page.redirect == true %}
+        {% assign redirect = site.baseurl | append: '/' %}
+      {% elsif page.redirect contains '://' %}
+        {% assign redirect = page.redirect %}
+      {% else %}
+        {% assign redirect = page.redirect | relative_url %}
+      {% endif %}
+      <meta http-equiv="refresh" content="3; url={{ redirect }}">
+    {% endif %}
+    {% include head.liquid %}
+  </head>
+
+  <!-- Body -->
+  <body class="{% if site.navbar_fixed %}fixed-top-nav{% endif %} {% unless site.footer_fixed %}sticky-bottom-footer{% endunless %}">
+    <!-- Header -->
+    {% include header.liquid %}
+
 <style>
+  /* Override container max-width for this page */
+  .wide-about-container {
+    max-width: 75% !important;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  
   /* Increase body font size to match blog posts */
   .post article {
     font-size: 1.1rem;
@@ -10,7 +36,7 @@ layout: default
   
   /* Make site title bigger and more prominent like blog post titles */
   .post-header .post-title {
-    font-size: 3.5rem !important;
+    font-size: 3rem !important;
     font-weight: 700 !important;
     line-height: 1.2;
     margin-bottom: 1rem;
@@ -19,6 +45,11 @@ layout: default
   @media (max-width: 768px) {
     .post-header .post-title {
       font-size: 2.5rem !important;
+    }
+    
+    .wide-about-container {
+      max-width: 95% !important;
+      padding: 0 1rem;
     }
   }
   
@@ -36,14 +67,33 @@ layout: default
   .post article h2 a {
     color: var(--global-text-color) !important;
     text-decoration: none !important;
-    font-weight: 500 !important;
+    font-weight: 600 !important;
   }
   
   .post article h2 a:hover {
     color: var(--global-theme-color) !important;
   }
+  
+  /* Add spacing between profile image and text content */
+  .profile {
+    margin-left: 2rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+  
+  @media (max-width: 768px) {
+    .profile {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      margin-bottom: 1.5rem !important;
+      float: none !important;
+      text-align: center;
+    }
+  }
 </style>
-<div class="post">
+
+    <!-- Wide Content Container -->
+    <div class="wide-about-container mt-5" role="main">
+      <div class="post">
   <header class="post-header">
     <h1 class="post-title">
       {% if site.title == 'blank' %}
@@ -107,3 +157,35 @@ layout: default
     {% endif %}
   </article>
 </div>
+    </div>
+
+    <!-- Footer -->
+    {% include footer.liquid %}
+
+    <!-- JavaScripts -->
+    {% include scripts/jquery.liquid %}
+    {% include scripts/bootstrap.liquid %}
+    {% include scripts/masonry.liquid %}
+    {% include scripts/mermaid.liquid %}
+    {% include scripts/diff2html.liquid %}
+    {% include scripts/leaflet.liquid %}
+    {% include scripts/chartjs.liquid %}
+    {% include scripts/echarts.liquid %}
+    {% include scripts/vega.liquid %}
+    {% include scripts/tikzjax.liquid %}
+    {% include scripts/typograms.liquid %}
+    {% include scripts/misc.liquid %}
+    {% include scripts/badges.liquid %}
+    {% include scripts/mathjax.liquid %}
+    {% include scripts/pseudocode.liquid %}
+    {% include scripts/analytics.liquid %}
+    {% include scripts/progressBar.liquid %}
+    {% include scripts/wechatModal.liquid %}
+    {% include scripts/imageLayouts.liquid %}
+    {% include scripts/jekyll_tabs.liquid %}
+    {% include scripts/back_to_top.liquid %}
+    
+    <!-- Custom scripts -->
+    <script src="{{ '/assets/js/navbar-scroll.js' | relative_url }}"></script>
+  </body>
+</html>

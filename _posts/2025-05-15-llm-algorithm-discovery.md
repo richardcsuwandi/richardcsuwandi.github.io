@@ -305,14 +305,14 @@ AlphaEvolve has already demonstrated significant real-world impact across multip
 
 <img src="{{ '/assets/img/alphaevolve_applications.png' | relative_url }}" alt="Overview of AlphaEvolve" class="center" width="100%" class="l-body rounded z-depth-1 center">
 <div class="l-gutter caption" markdown="1">
-**Figure 6.** How AlphaEvolve helps Google deliver a more efficient digital ecosystem, from data center scheduling and hardware design to AI model training.
+**Figure 5.** How AlphaEvolve helps Google deliver a more efficient digital ecosystem, from data center scheduling and hardware design to AI model training.
 </div>
 
 Beyond these applications, AlphaEvolve made a groundbreaking contribution by discovering an algorithm for multiplying 4x4 complex-valued matrices using just 48 scalar multiplications, surpassing the efficiency of [Strassen's 1969 algorithm](https://en.wikipedia.org/wiki/Strassen_algorithm). When applied to a diverse set of over 50 open problems spanning mathematical analysis, geometry, combinatorics, and number theory, AlphaEvolve demonstrated remarkable versatility: it successfully rediscovered state-of-the-art solutions in 75% of cases and improved upon previously best-known solutions in 20% of cases. One of its most notable achievements was advancing the [300-year-old kissing number problem](https://plus.maths.org/content/newton-and-kissing-problem), where it discovered a configuration of 593 outer spheres and established a new lower bound in 11 dimensions, showcasing its ability to tackle complex geometric challenges.
 
 <img src="{{ '/assets/img/alphaevolve_math.png' | relative_url }}" alt="Overview of AlphaEvolve" class="center" width="100%" class="l-body rounded z-depth-1 center">
 <div class="l-gutter caption" markdown="1">
-**Figure 7.** Examples of ground-breaking mathematical contributions discovered with AlphaEvolve.
+**Figure 6.** Examples of ground-breaking mathematical contributions discovered with AlphaEvolve.
 </div>
 
 <aside class="l-body box-warning" markdown="1" title="Remark">
