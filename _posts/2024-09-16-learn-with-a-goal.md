@@ -132,7 +132,7 @@ _styles: >
   
   d-article .box-note {
     background-color: #f9f9f9;
-    border-left-color: #bbc2d2;
+    border-left-color: #9db2d8;
   }
   d-article .box-note[title]::before {
     color:rgb(0, 0, 0);
@@ -164,7 +164,7 @@ _styles: >
   
   html[data-theme='dark'] d-article .box-note {
     background-color: #2f2f2f;
-    border-left-color: #bbc2d2;
+    border-left-color: #9db2d8;
   }
   html[data-theme='dark'] d-article .box-note[title]::before {
     color:rgb(255, 255, 255);
