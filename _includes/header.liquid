@@ -1,4 +1,41 @@
 <header>
+  <!-- Compact navbar styles -->
+  <style>
+    #navbar {
+      padding: 0.25rem 0 !important;
+      min-height: auto !important;
+    }
+    
+    #navbar .container {
+      padding: 0 2rem !important;
+    }
+    
+    #navbar .navbar-nav .nav-link {
+      padding: 0.25rem 0.75rem !important;
+      margin: 0 !important;
+    }
+    
+    #navbar .navbar-brand.social {
+      margin: 0 !important;
+      padding: 0.25rem 0 !important;
+    }
+    
+    #navbar .navbar-brand.social a {
+      margin: 0 0.25rem !important;
+    }
+    
+    #navbar .toggle-container {
+      margin: 0 !important;
+      padding: 0.25rem 0 !important;
+      margin-top: -0.5rem !important;
+    }
+    
+    #navbar .navbar-toggler {
+      padding: 0.25rem 0 !important;
+      border: none !important;
+    }
+  </style>
+  
   <!-- Nav Bar -->
   <nav id="navbar" class="navbar navbar-light navbar-expand-sm {% if site.navbar_fixed %}fixed-top{% else %}sticky-top{% endif %}" role="navigation">
     <div class="container">

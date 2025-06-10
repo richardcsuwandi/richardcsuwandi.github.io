@@ -72,6 +72,30 @@
       d-byline > div {
         margin-right: 0 !important;
       }
+      
+      /* Fixed table of contents */
+      d-contents {
+        position: sticky !important;
+        top: 80px !important;
+        z-index: 500 !important;
+        max-height: calc(100vh - 120px) !important;
+        overflow-y: auto !important;
+        margin-top: 0px !important;
+      }
+      
+      /* TOC styling - bold sections, regular subsections */
+      d-contents nav > div > a {
+        font-weight: bold !important;
+      }
+      
+      d-contents nav ul li a {
+        font-weight: normal !important;
+      }
+      
+      /* Add scroll offset for anchor links to account for fixed navbar */
+      h1, h2, h3, h4, h5, h6 {
+        scroll-margin-top: 100px !important;
+      }
     </style>
   </head>
 
