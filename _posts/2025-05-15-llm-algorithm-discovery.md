@@ -117,47 +117,95 @@ _styles: >
   .box-note, .box-warning, .box-error, .box-important {
     padding: 15px 15px 15px 10px;
     margin: 20px 20px 20px 5px;
-    border: 1px solid #eee;
+    border: 1px solid #f9f9f9;
     border-left-width: 5px;
     border-radius: 5px 3px 3px 5px;
+    position: relative;
   }
+  
+  /* Title styling for boxes */
+  .box-note[title]::before, .box-warning[title]::before, .box-error[title]::before, .box-important[title]::before {
+    content: attr(title);
+    display: block;
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-bottom: 8px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+  }
+  
   d-article .box-note {
-    background-color: #eee;
-    border-left-color: #3498db;
+    background-color: #f9f9f9;
+    border-left-color: #bbc2d2;
   }
+  d-article .box-note[title]::before {
+    color:rgb(0, 0, 0);
+  }
+  
   d-article .box-warning {
-    background-color: #eee;
-    border-left-color: #ffc107;
+    background-color: #f9f9f9;
+    border-left-color: #f8de92;
   }
+  d-article .box-warning[title]::before {
+    color:rgb(0, 0, 0);
+  }
+  
   d-article .box-error {
-    background-color: #eee;
-    border-left-color: #dc3545;
+    background-color: #f9f9f9;
+    border-left-color: #ddb4be;
   }
+  d-article .box-error[title]::before {
+    color:rgb(0, 0, 0);
+  }
+  
   d-article .box-important {
-    background-color: #eee;
-    border-left-color: #20c997;
+    background-color: #f9f9f9;
+    border-left-color: #a8c08a;
   }
+  d-article .box-important[title]::before {
+    color:rgb(0, 0, 0);
+  }
+  
   html[data-theme='dark'] d-article .box-note {
     background-color: #2f2f2f;
-    border-left-color: #3498db;
+    border-left-color: #bbc2d2;
   }
+  html[data-theme='dark'] d-article .box-note[title]::before {
+    color:rgb(255, 255, 255);
+    border-bottom-color: #686868;
+  }
+  
   html[data-theme='dark'] d-article .box-warning {
     background-color: #2f2f2f;
-    border-left-color: #ffc107;
+    border-left-color: #f8de92;
   }
+  html[data-theme='dark'] d-article .box-warning[title]::before {
+    color:rgb(255, 255, 255);
+    border-bottom-color: #686868;
+  }
+  
   html[data-theme='dark'] d-article .box-error {
     background-color: #2f2f2f;
-    border-left-color: #dc3545;
+    border-left-color: #ddb4be;
   }
+  html[data-theme='dark'] d-article .box-error[title]::before {
+    color:rgb(255, 255, 255);
+    border-bottom-color: #686868;
+  }
+  
   html[data-theme='dark'] d-article .box-important {
     background-color: #2f2f2f;
-    border-left-color: #20c997;
+    border-left-color: #a8c08a;
+  }
+  html[data-theme='dark'] d-article .box-important[title]::before {
+    color:rgb(255, 255, 255);
+    border-bottom-color: #686868;
   }
   d-article aside {
     border: 1px solid #aaa;
     border-radius: 4px;
     padding: .5em .5em 0;
-    font-size: 90%;
+    font-size: 90%
   }
   .caption { 
     font-size: 80%;
@@ -178,7 +226,6 @@ _styles: >
     line-height: 1.3;
   }
 ---
-
 Large language models (LLMs) have rapidly become indispensable AI assistants. They excel at synthesizing concepts, writing, and coding to help humans solve complex problems<d-cite key="chen2021evaluating"></d-cite> . But could they discover entirely new knowledge? As LLMs have been shown to "hallucinate"<d-cite key="farquhar2024detecting"></d-cite> factually incorrect information, using them to make verifiably correct discoveries is a challenge. But what if we could harness the creativity of LLMs by identifying and building upon only their very best ideas? This question is at the heart of recent breakthroughs from [Google DeepMind](https://deepmind.google/), which explore how LLMs can be guided to make novel discoveries in mathematics and algorithm design. This post delves into two pioneering works, FunSearch and the more recent AlphaEvolve, showcasing their approaches and implications for the future of automated algorithm discovery.
 
 ## FunSearch
@@ -195,11 +242,11 @@ In a paper published in Nature<d-cite key="romera2024mathematical"></d-cite>, Go
 FunSearch uses an evolutionary approach<d-cite key="mouret2015illuminating"></d-cite><d-cite key="tanese1989distributed"></d-cite>. To start, the user writes a description of the problem in code. This includes a way to evaluate programs and an initial "seed" program to begin the process. The system then follows these steps:
 
 1. It selects the most promising programs from the current database.
-2. These programs are sent to an LLM<d-footnote>In their work, Google's PaLM 2 was used, though other code-trained LLMs can also work.</d-footnote>, which creatively builds upon them to generate new program proposals.
+2. These programs are sent to an LLM<d-footnote>The authors used Google's PaLM 2, although other code-trained LLMs can also work.</d-footnote>, which creatively builds upon them to generate new program proposals.
 3. The new programs are automatically run and checked by the evaluator.
 4. The best-performing valid programs are added back into the database, improving the database for the next round.
 
-<aside class="l-body box-note" markdown="1">
+<aside class="l-body box-note" markdown="1" title="Note">
 This cycle of selection, generation, evaluation, and update creates a *self-improving loop*. Starting from basic knowledge about the problem and using strategies to keep the database diverse, FunSearch is able to evolve simple solutions into more advanced ones. It can solve complex problems where human intuition might fall short.
 </aside>
 
@@ -268,7 +315,7 @@ Beyond these applications, AlphaEvolve made a groundbreaking contribution by dis
 **Figure 7.** Examples of ground-breaking mathematical contributions discovered with AlphaEvolve.
 </div>
 
-<aside class="l-body box-note" markdown="1">
+<aside class="l-body box-warning" markdown="1" title="Remark">
 Looking ahead, AlphaEvolve is expected to continue improving alongside the capabilities of large language models, especially as they become more proficient at coding. Google DeepMind is also planning an [Early Access Program](https://docs.google.com/forms/d/e/1FAIpQLSfaLUgKtUOJWdQtyLNAYb3KAkABAlKDmZoIqPbHtwmy3YXlCg/viewform) for selected academic users and exploring possibilities to make AlphaEvolve more broadly available. While currently focused on math and computing, its general nature means it could potentially transform many other areas such as material science, drug discovery, sustainability, and broader applications.
 </aside>
 
@@ -288,7 +335,7 @@ While both FunSearch and AlphaEvolve leverage LLM within an evolutionary framewo
 | Optimization | Optimizes a single metric | Can simultaneously optimize multiple metrics |
 
 
-<aside class="l-body box-im" markdown="1">
+<aside class="l-body box-warning" markdown="1" title="Remark">
 The evolution from FunSearch to AlphaEvolve demonstrates significant advances in **scale** and **generality**. While FunSearch was groundbreaking in showing how LLMs could aid mathematical discovery, AlphaEvolve extends this approach to tackle more complex, real-world problems across multiple domains. This progression also reflects the rapid advancement in LLM capabilities, where newer state-of-the-art models can generate more sophisticated and accurate code with fewer samples.
 </aside>
 

@@ -113,47 +113,95 @@ _styles: >
   .box-note, .box-warning, .box-error, .box-important {
     padding: 15px 15px 15px 10px;
     margin: 20px 20px 20px 5px;
-    border: 1px solid #eee;
+    border: 1px solid #f9f9f9;
     border-left-width: 5px;
     border-radius: 5px 3px 3px 5px;
+    position: relative;
   }
+  
+  /* Title styling for boxes */
+  .box-note[title]::before, .box-warning[title]::before, .box-error[title]::before, .box-important[title]::before {
+    content: attr(title);
+    display: block;
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-bottom: 8px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+  }
+  
   d-article .box-note {
-    background-color: #eee;
-    border-left-color: #3498db;
+    background-color: #f9f9f9;
+    border-left-color: #bbc2d2;
   }
+  d-article .box-note[title]::before {
+    color:rgb(0, 0, 0);
+  }
+  
   d-article .box-warning {
-    background-color: #eee;
-    border-left-color: #ffc107;
+    background-color: #f9f9f9;
+    border-left-color: #f8de92;
   }
+  d-article .box-warning[title]::before {
+    color:rgb(0, 0, 0);
+  }
+  
   d-article .box-error {
-    background-color: #eee;
-    border-left-color: #dc3545;
+    background-color: #f9f9f9;
+    border-left-color: #ddb4be;
   }
+  d-article .box-error[title]::before {
+    color:rgb(0, 0, 0);
+  }
+  
   d-article .box-important {
-    background-color: #eee;
-    border-left-color: #20c997;
+    background-color: #f9f9f9;
+    border-left-color: #a8c08a;
   }
+  d-article .box-important[title]::before {
+    color:rgb(0, 0, 0);
+  }
+  
   html[data-theme='dark'] d-article .box-note {
     background-color: #2f2f2f;
-    border-left-color: #3498db;
+    border-left-color: #bbc2d2;
   }
+  html[data-theme='dark'] d-article .box-note[title]::before {
+    color:rgb(255, 255, 255);
+    border-bottom-color: #686868;
+  }
+  
   html[data-theme='dark'] d-article .box-warning {
     background-color: #2f2f2f;
-    border-left-color: #ffc107;
+    border-left-color: #f8de92;
   }
+  html[data-theme='dark'] d-article .box-warning[title]::before {
+    color:rgb(255, 255, 255);
+    border-bottom-color: #686868;
+  }
+  
   html[data-theme='dark'] d-article .box-error {
     background-color: #2f2f2f;
-    border-left-color: #dc3545;
+    border-left-color: #ddb4be;
   }
+  html[data-theme='dark'] d-article .box-error[title]::before {
+    color:rgb(255, 255, 255);
+    border-bottom-color: #686868;
+  }
+  
   html[data-theme='dark'] d-article .box-important {
     background-color: #2f2f2f;
-    border-left-color: #20c997;
+    border-left-color: #a8c08a;
+  }
+  html[data-theme='dark'] d-article .box-important[title]::before {
+    color:rgb(255, 255, 255);
+    border-bottom-color: #686868;
   }
   d-article aside {
     border: 1px solid #aaa;
     border-radius: 4px;
     padding: .5em .5em 0;
-    font-size: 90%;
+    font-size: 90%
   }
   .caption { 
     font-size: 80%;
@@ -178,8 +226,8 @@ Traditionally, Bayesian optimization (BO) has been perceived as a technique for 
 
 ## Goal-driven learning
 Goal-driven learning<d-cite key="bui2007goal"></d-cite> can described as:
-<aside class="l-body box-note" markdown="1">
-a decision-making process in which each decision is made to acquire specific information about the system of interest that contributes the most to achieve a given a goal.
+<aside class="l-body box-important" markdown="1" title="Definition">
+A decision-making process in which each decision is made to acquire specific information about the system of interest that contributes the most to achieve a given a goal.
 </aside>
 
 BO and AL can be regarded as goal-driven procedures, where a surrogate model is built to capture the behavior of a system or effectively inform an optimization procedure to minimize the given objective.  This goal-driven process seeks to determine the "best" location of the domain to acquire information about the system, and refine the surrogate model towards the goal. Mathematically, it can be formulated as:
@@ -231,7 +279,7 @@ On the other hand, the infill criteria in BO provides a measure of the informati
 1. **Global exploration:** This criterion focuses on choosing samples in regions of *high predictive uncertainty*, enhancing global awareness of the search space. However, this approach may not direct resources optimally towards the specific goal.
 2. **Local exploitation:** This criterion prioritizes choosing samples in regions with *high predictive mean*, focusing the search on promising areas. Yet, it may result in less accurate knowledge of the overall objective function distribution.
 
-<aside class="l-body box-important" markdown="1">
+<aside class="l-body box-warning" markdown="1" title="Remark">
 Overall, we can observe a strong correspondence between the learning criteria in AL and the infill criteria in BO:
 - **The "informativeness" criterion in AL aligns with the "local exploitation" criterion in BO**, as both aim to maximize the information gain.
 - Similarly, **the "representativeness" and "diversity" criteria in AL correspond to the "global exploration" criterion in BO**, as they seek to ensure that the sampling process is well-distributed across the domain.
