@@ -1,3 +1,43 @@
+<!-- Footer and back-to-top button styling -->
+<style>
+  /* Footer colors for light and dark mode */
+  footer {
+    background-color: #ffffff !important;
+    border-top: 1px solid #ffffff !important;
+  }
+  
+  [data-theme="dark"] footer {
+    background-color: #1a1a1a !important;
+    border-top: 1px solid #1a1a1a !important;
+    color: #1a1a1a !important;
+  }
+  
+  /* Back to top button styling */
+  .back-to-top {
+    background-color: #6c757d !important;
+    border-color: #6c757d !important;
+    color: white !important;
+  }
+  
+  .back-to-top:hover {
+    background-color: #5a6268 !important;
+    border-color: #545b62 !important;
+    color: white !important;
+  }
+  
+  [data-theme="dark"] .back-to-top {
+    background-color: #6c757d !important;
+    border-color: #6c757d !important;
+    color: white !important;
+  }
+  
+  [data-theme="dark"] .back-to-top:hover {
+    background-color: #5a6268 !important;
+    border-color: #545b62 !important;
+    color: white !important;
+  }
+</style>
+
 {% if site.footer_fixed %}
   <footer class="fixed-bottom" role="contentinfo">
     <div class="container mt-0">
