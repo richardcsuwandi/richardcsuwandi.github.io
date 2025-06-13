@@ -155,6 +155,202 @@
       </h2>
       {% include selected_papers.liquid %}
     {% endif %}
+
+    <style>
+      .services-flex {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        margin-bottom: 2.5rem;
+      }
+      .services-col {
+        flex: 1 1 320px;
+        min-width: 280px;
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+      }
+      .services-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+      .services-dot {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        background: #cce3f9;
+        border-radius: 999px;
+        margin-right: 0.5rem;
+        border: 4px solid #3182ce;
+      }
+      .services-title {
+        background: #e3f0fa;
+        border-radius: 1.5rem;
+        padding: 0.3rem 1.2rem;
+        font-weight: 600;
+        font-size: 1.1rem;
+        color: #222;
+      }
+      /* dark mode for service header */
+      html[data-theme='dark'] .services-title,
+      html[data-theme-setting="dark"] .services-title,
+      [data-theme="dark"] .services-title {
+        background: #23272b;
+        color: #f3f3f3;
+      }
+      .service-card {
+        background: var(--global-card-bg-color, #fff);
+        border: 1.5px solid var(--global-divider-color, #e3f0fa);
+        border-radius: 1.2rem;
+        padding: 1.1rem 1.3rem 1.1rem 1.3rem;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+        transition: box-shadow 0.2s;
+      }
+      .service-card:hover {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+      }
+      .service-meta {
+        font-size: 0.97rem;
+        color: var(--global-text-color-light, #666);
+        font-weight: 500;
+        margin-bottom: 0.2rem;
+        letter-spacing: 0.2px;
+      }
+      .service-main {
+        font-size: 1.13rem;
+        font-weight: 600;
+        color: var(--global-text-color, #222);
+        margin-bottom: 0.1rem;
+      }
+      .service-link {
+        color: #111 !important;
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.18s;
+      }
+      .service-link:hover {
+        color: var(--global-theme-color, #0063c9) !important;
+        text-decoration: underline;
+      }
+      html[data-theme='dark'] .service-link,
+      html[data-theme-setting="dark"] .service-link,
+      [data-theme="dark"] .service-link {
+        color: #fff !important;
+      }
+      html[data-theme='dark'] .service-link:hover,
+      html[data-theme-setting="dark"] .service-link:hover,
+      [data-theme="dark"] .service-link:hover {
+        color: #68b2ff !important;
+      }
+      @media (max-width: 900px) {
+        .services-flex { flex-direction: column; gap: 2.5rem; }
+      }
+    </style>
+
+    <!-- Honors & Awards Section -->
+    <h2 style="margin-top: 3rem; margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--global-divider-color);">Honors & Awards</h2>
+    <style>
+      .awards-scrollable {
+        max-height: 450px;
+        overflow-y: auto;
+        padding-right: 0.5rem;
+      }
+      .awards-scrollable::-webkit-scrollbar {
+        width: 6px;
+      }
+      .awards-scrollable::-webkit-scrollbar-track {
+        background: var(--global-bg-color, #f1f1f1);
+        border-radius: 3px;
+      }
+      .awards-scrollable::-webkit-scrollbar-thumb {
+        background: var(--global-divider-color, #ccc);
+        border-radius: 3px;
+      }
+      .awards-scrollable::-webkit-scrollbar-thumb:hover {
+        background: var(--global-text-color-light, #999);
+      }
+    </style>
+    <div class="services-flex">
+      <div class="services-col awards-scrollable">
+        <div class="service-card">
+          <div class="service-meta">2024</div>
+          <div class="service-main">IEEE Signal Processing Society Scholarship</div>
+        </div>
+        <div class="service-card">
+          <div class="service-meta">2024</div>
+          <div class="service-main">Shenzhen Universiade International Scholarship Foundation</div>
+        </div>
+        <div class="service-card">
+          <div class="service-meta">2023</div>
+          <div class="service-main">School of Science and Engineering Postgraduate Studentship, CUHK-Shenzhen</div>
+        </div>
+        <div class="service-card">
+          <div class="service-meta">2022, 2023</div>
+          <div class="service-main">Undergraduate Research Award, CUHK-Shenzhen</div>
+        </div>
+        <div class="service-card">
+          <div class="service-meta">2020, 2021, 2022, 2023</div>
+          <div class="service-main">School of Data Science Dean's List Award, CUHK-Shenzhen</div>
+        </div>
+        <div class="service-card">
+          <div class="service-meta">2020, 2021</div>
+          <div class="service-main">Guangdong Government Outstanding International Student Scholarship</div>
+        </div>
+        <div class="service-card">
+          <div class="service-meta">2019</div>
+          <div class="service-main">Full Tuition and Accommodation Scholarship, CUHK-Shenzhen</div>
+        </div>
+      </div>
+    </div>
+    <!-- End Honors & Awards Section -->
+
+    <!-- Services Section -->
+    <h2 style="margin-top: 3rem; margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--global-divider-color);">Services</h2>
+    <div class="services-flex">
+      <!-- Teaching Assistant Column -->
+      <div class="services-col">
+        <div class="services-header">
+          <span class="services-title">Teaching Assistant</span>
+        </div>
+        <div class="service-card">
+          <div class="service-meta">Spring 2025, CUHK-Shenzhen</div>
+          <div class="service-main"><a class="service-link" href="https://www.cuhk.edu.cn/en/course/8058" target="_blank">MAT2040 Linear Algebra</a></div>
+        </div>
+        <div class="service-card">
+          <div class="service-meta">Fall 2024, CUHK-Shenzhen</div>
+          <div class="service-main"><a class="service-link" href="https://www.cuhk.edu.cn/en/course/11167" target="_blank">CIE6007 Machine Learning</a></div>
+        </div>
+        <div class="service-card">
+          <div class="service-meta">Spring 2024, CUHK-Shenzhen</div>
+          <div class="service-main"><a class="service-link" href="https://www.cuhk.edu.cn/en/course/8058" target="_blank">MAT2040 Linear Algebra</a></div>
+        </div>
+        <div class="service-card">
+          <div class="service-meta">Fall 2023, CUHK-Shenzhen</div>
+          <div class="service-main"><a class="service-link" href="https://www.cuhk.edu.cn/en/course/8058" target="_blank">MAT2040 Linear Algebra</a></div>
+        </div>
+      </div>
+      <!-- Reviewer Column -->
+      <div class="services-col">
+        <div class="services-header">
+          <span class="services-title">Reviewer</span>
+        </div>
+        <div class="service-card">
+          <div class="service-main"><a class="service-link" href="https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=78" target="_blank">IEEE Transactions on Signal Processing</a></div>
+        </div>
+        <div class="service-card">
+          <div class="service-main"><a class="service-link" href="https://ieeexplore.ieee.org/xpl/conhome/1000002/all-proceedings" target="_blank">IEEE International Conference on Acoustics, Speech, and Signal Processing (ICASSP)</a></div>
+        </div>
+        <div class="service-card">
+          <div class="service-main"><a class="service-link" href="https://iclr.cc" target="_blank">International Conference on Learning Representations (ICLR)</a></div>
+        </div>
+        <div class="service-card">
+          <div class="service-main"><a class="service-link" href="https://icml.cc" target="_blank">International Conference on Machine Learning (ICML)</a></div>
+        </div>
+      </div>
+    </div>
+    <!-- End Services Section -->
+
   </article>
 </div>
     </div>
