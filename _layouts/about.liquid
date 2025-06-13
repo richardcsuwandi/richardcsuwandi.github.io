@@ -246,11 +246,6 @@
       @media (max-width: 900px) {
         .services-flex { flex-direction: column; gap: 2.5rem; }
       }
-    </style>
-
-    <!-- Honors & Awards Section -->
-    <h2 style="margin-top: 3rem; margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--global-divider-color);">Honors & Awards</h2>
-    <style>
       .awards-scrollable {
         max-height: 450px;
         overflow-y: auto;
@@ -270,36 +265,87 @@
       .awards-scrollable::-webkit-scrollbar-thumb:hover {
         background: var(--global-text-color-light, #999);
       }
+      .award-expand-btn {
+        cursor: pointer;
+        display: block;
+        width: 100%;
+        text-align: left;
+        background: none;
+        border: none;
+        padding: 0;
+        font: inherit;
+        color: inherit;
+      }
+      .award-description {
+        display: none;
+        margin-top: 0.7rem;
+        font-size: 1rem;
+        color: var(--global-text-color-light, #666);
+        animation: fadeIn 0.2s;
+      }
+      .service-card.expanded .award-description {
+        display: block;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
     </style>
+
+    <!-- Honors & Awards Section -->
+    <h2 style="margin-top: 3rem; margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--global-divider-color);">Honors & Awards</h2>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var cards = document.querySelectorAll('.awards-scrollable .service-card');
+        cards.forEach(function(card) {
+          var btn = card.querySelector('.award-expand-btn');
+          if (btn) {
+            btn.addEventListener('click', function(e) {
+              e.preventDefault();
+              // close others
+              cards.forEach(function(c) { if (c !== card) c.classList.remove('expanded'); });
+              card.classList.toggle('expanded');
+            });
+          }
+        });
+      });
+    </script>
     <div class="services-flex">
       <div class="services-col awards-scrollable">
         <div class="service-card">
           <div class="service-meta">2024</div>
-          <div class="service-main">IEEE Signal Processing Society Scholarship</div>
+          <button class="service-main award-expand-btn">IEEE Signal Processing Society Scholarship</button>
+          <div class="award-description">A scholarship worth US$7,000 for up to three years of consecutive support to students who have expressed interest and commitment to pursuing signal processing education and real-world career experiences.</div>
         </div>
         <div class="service-card">
           <div class="service-meta">2024</div>
-          <div class="service-main">Shenzhen Universiade International Scholarship Foundation</div>
+          <button class="service-main award-expand-btn">Shenzhen Universiade International Scholarship Foundation</button>
+          <div class="award-description">A specially raised fund to support the eligible international students with a view to carrying forward the spirit of the Universiade Shenzhen and promoting cultural and educational exchanges among international young people.</div>
         </div>
         <div class="service-card">
           <div class="service-meta">2023</div>
-          <div class="service-main">School of Science and Engineering Postgraduate Studentship, CUHK-Shenzhen</div>
+          <button class="service-main award-expand-btn">School of Science and Engineering Postgraduate Studentship, CUHK-Shenzhen</button>
+          <div class="award-description">The studentship provides financial support through a tuition waiver, teaching assistant stipend, and research assistant (RA) opportunities.</div>
         </div>
         <div class="service-card">
           <div class="service-meta">2022, 2023</div>
-          <div class="service-main">Undergraduate Research Award, CUHK-Shenzhen</div>
+          <button class="service-main award-expand-btn">Undergraduate Research Award, CUHK-Shenzhen</button>
+          <div class="award-description">A monthly cash award for working on a research project under the supervision of a faculty member.</div>
         </div>
         <div class="service-card">
           <div class="service-meta">2020, 2021, 2022, 2023</div>
-          <div class="service-main">School of Data Science Dean's List Award, CUHK-Shenzhen</div>
+          <button class="service-main award-expand-btn">School of Data Science Dean's List Award, CUHK-Shenzhen</button>
+          <div class="award-description">The award is given by the Dean and the School to students who attained a year GPA of 3.5 or above (out of 4.0) as a recognition of hard work and outstanding academic performance.</div>
         </div>
         <div class="service-card">
           <div class="service-meta">2020, 2021</div>
-          <div class="service-main">Guangdong Government Outstanding International Student Scholarship</div>
+          <button class="service-main award-expand-btn">Guangdong Government Outstanding International Student Scholarship</button>
+          <div class="award-description">The scholarship is awarded to outstanding international students in colleges and universities across the Guangdong province.</div>
         </div>
         <div class="service-card">
           <div class="service-meta">2019</div>
-          <div class="service-main">Full Tuition and Accommodation Scholarship, CUHK-Shenzhen</div>
+          <button class="service-main award-expand-btn">Full Tuition and Accommodation Scholarship, CUHK-Shenzhen</button>
+          <div class="award-description">Full tuition and accommodation scholarship awarded upon admission and subject to annual renewal in line with outstanding academic achievement.</div>
         </div>
       </div>
     </div>
