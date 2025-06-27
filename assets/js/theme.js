@@ -198,6 +198,24 @@ let determineThemeSetting = () => {
   return themeSetting;
 };
 
+// Determine the computed theme considering user preference and system preference
+let determineComputedTheme = () => {
+  let themeSetting = localStorage.getItem("theme");
+  
+  // If user has explicitly set a theme, use it
+  if (themeSetting === "dark" || themeSetting === "light") {
+    return themeSetting;
+  }
+  
+  // Otherwise, use system preference if available
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    return "dark";
+  }
+  
+  // Default to light theme
+  return "light";
+};
+
 let initTheme = () => {
   let themeSetting = determineThemeSetting();
   setThemeSetting(themeSetting);
