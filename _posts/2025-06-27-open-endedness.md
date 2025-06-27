@@ -38,15 +38,13 @@ toc:
       - name: The evolution revolution (1960s-70s)
       - name: The artificial life explosion (1980s-90s)
       - name: The modern renaissance (2010s-2020s)
-  - name: Why today's AI hits walls (and how open-endedness may break them)
+  - name: Limitations of current AI systems
   - name: Open-endedness in action
     subsections:
       - name: Voyager
       - name: The AI Scientist
       - name: AI-Generating Algorithms
-  - name: Research frontiers
   - name: Safety in an open-ended world
-  - name: The future of AI is open-ended
   - name: Takeaways
 
 # Below is an example of injecting additional post-specific styles.
@@ -540,7 +538,7 @@ Fast forward to the 2010s, and we hit the modern era of open-ended AI. Generativ
 **Figure 4.** Move 37, the famous move in AlphaGo's match against Lee Sedol that changed the course of AI history.
 </div>
 
-## Why today's AI hits walls (and how open-endedness may break them)
+## Limitations of current AI systems
 
 Most AI systems today follow a predictable pattern: they are trained to optimize for a specific objective, and then they are deployed to solve that problem. This is a very efficient way to solve problems, but it has a few limitations. As [Kenneth Stanley](https://www.kennethstanley.net/) and [Joel Lehman](https://joellehman.com) brilliantly articulate in "Why Greatness Cannot Be Planned"<d-cite key="stanley2015greatness"></d-cite>, this goal-oriented approach creates the so-called *objective deception*, such that the pursuit of specific goals often leads us away from more interesting discoveries. Once these systems reach their optimization target, they become what I call *intellectual fossils* – perfectly preserved specimens that can't evolve further. Their capabilities are frozen at the moment their training ended, unable to learn from new experiences or develop novel skills.
 
