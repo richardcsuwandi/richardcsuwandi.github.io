@@ -543,9 +543,12 @@ Fast forward to the 2010s, and we hit the modern era of open-ended AI. Generativ
 Most AI systems today follow a predictable pattern: they are trained to optimize for a specific objective, and then they are deployed to solve that problem. This is a very efficient way to solve problems, but it has a few limitations. As [Kenneth Stanley](https://www.kennethstanley.net/) and [Joel Lehman](https://joellehman.com) brilliantly articulate in "Why Greatness Cannot Be Planned"<d-cite key="stanley2015greatness"></d-cite>, this goal-oriented approach creates the so-called *objective deception*, such that the pursuit of specific goals often leads us away from more interesting discoveries. Once these systems reach their optimization target, they become what I call *intellectual fossils* – perfectly preserved specimens that can't evolve further. Their capabilities are frozen at the moment their training ended, unable to learn from new experiences or develop novel skills.
 
 Open-ended systems offer an elegant escape from these limitations. Instead of optimizing for fixed objectives, they embrace what we might call "productive uncertainty", or the willingness to explore without knowing exactly what they're looking for. Here's how open-endedness may break through each barrier:
-- Open-ended systems don't just solve predefined problems; they discover new problems worth solving. They develop meta-skills – abilities to learn, adapt, and transfer knowledge across domains. Instead of being chess grandmasters, they become learning machines that can master new games.
-- Rather than pursuing specific objectives, open-ended systems use what Stanley calls "novelty search" and "quality-diversity" approaches. They ask "What's interesting?" rather than "What optimizes metric X?" This shift in perspective allows them to discover valuable capabilities that no human would have thought to optimize for directly.
-- Open-ended systems treat every achievement as a stepping stone rather than a destination. When they master one skill, they use it as a foundation for exploring new challenges. They exhibit what researchers call *continual learning*<d-cite key="wang2024comprehensive"></d-cite>, the ability to keep growing throughout their operational lifetime.
+
+| Barrier | Open-ended systems |
+|---------|--------------------------------|
+| Fixed Problem Space | Discover new problems worth solving rather than just solving predefined problems. Develop meta-skills to learn, adapt, and transfer knowledge across domains. |
+| Narrow Objectives | Use *novelty search*<d-cite key="lehman2011novelty"></d-cite> and *quality-diversity*<d-cite key="pugh2016quality"></d-cite> approaches. Ask "What's interesting?" rather than "What optimizes metric X?" |
+| Static Capabilities | Treat achievements as stepping stones rather than destinations. Use mastered skills as foundations for exploring new challenges. |
 
 <div class="box-important" markdown="1" title="Insight">
 The shift from goal-oriented to open-ended AI isn't just a technical upgrade. It's a fundamental reimagining of what AI can be. Instead of tools that solve known problems efficiently, we're building partners that can help us discover problems we never knew existed and solutions we never imagined possible.
@@ -586,7 +589,7 @@ Even more impressively, The AI Scientist-v2<d-cite key="yamada2025ai"></d-cite> 
 
 ### AI-Generating Algorithms
 
-[Jeff Clune](https://www.jeffclune.com/) has proposed one of the most ambitious visions: [AI-Generating Algorithms (AI-GAs)](https://arxiv.org/abs/1905.10985)<d-cite key="clune2019ai"></d-cite>, representing an alternate paradigm to the dominant "manual AI approach" where researchers attempt to discover and combine individual pieces of intelligence. Instead of hand-designing solutions, AI-GAs automatically learn how to produce general AI, following the clear trend in machine learning where learned solutions eventually replace hand-designed ones. The AI-GA approach rests on 3 pillars**: 
+[Jeff Clune](https://www.jeffclune.com/) has proposed one of the most ambitious visions: [AI-Generating Algorithms (AI-GAs)](https://arxiv.org/abs/1905.10985)<d-cite key="clune2019ai"></d-cite>, representing an alternate paradigm to the dominant "manual AI approach" where researchers attempt to discover and combine individual pieces of intelligence. Instead of hand-designing solutions, AI-GAs automatically learn how to produce general AI, following the clear trend in machine learning where learned solutions eventually replace hand-designed ones. The AI-GA approach rests on 3 pillars: 
 
 1. **Meta-learning architectures** that can automatically discover neural network designs
 2. **Meta-learning the learning algorithms themselves** rather than using fixed optimization methods
