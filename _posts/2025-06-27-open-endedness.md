@@ -460,9 +460,9 @@ _styles: >
     }
   }
 ---
-Why do humans keep inventing new musical genres, designing cities that float on water, and imagining life beyond our universe? It’s because we've inherited nature’s restless, boundary-pushing creativity. We are an **open-ended species**: driven by curiosity, dissatisfied with "good enough", and always reaching for what’s next. But here’s the catch: most of our AI systems today are not open-ended. They’re built for specific tasks, optimized for efficiency rather than exploration. While this approach has taken us far, researchers at Google DeepMind recently argued<d-cite key="hughes2024position"></d-cite> that it won’t be enough to reach artificial superintelligence (ASI). So, the big question is: 
+Why do humans keep inventing new musical genres, designing cities that float on water, and imagining life beyond our universe? It’s because we've inherited nature’s restless, boundary-pushing creativity. We are an **open-ended species**—driven by curiosity, dissatisfied with "good enough", and always reaching for what’s next. But here’s the catch: most of our AI systems today are not quite there yet. They’re built for specific tasks, optimized for efficiency rather than exploration. While this approach has taken us far, researchers at Google DeepMind recently argued<d-cite key="hughes2024position"></d-cite> that it won’t be enough to reach artificial superintelligence (ASI). So, the big question is: 
 
-> Can we teach AI to be as endlessly creative as nature itself?
+> Can we teach AI to be as endlessly creative as humans or even nature itself?
 
 In this post, we’ll dive into the fascinating world of open-ended AI and explore how embracing open-endedness might finally break through the walls of today’s AI systems.
 
