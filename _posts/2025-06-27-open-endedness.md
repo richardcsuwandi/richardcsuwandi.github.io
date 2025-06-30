@@ -602,7 +602,7 @@ Even more impressively, The AI Scientist-v2<d-cite key="yamada2025ai"></d-cite> 
 2. **Meta-learning the learning algorithms themselves** rather than using fixed optimization methods
 3. **Generating effective learning environments** that provide the right training conditions for developing intelligence
 
-We're already seeing promising implementations of this vision. The [Automated Design of Agentic Systems (ADAS)](https://www.shengranhu.com/ADAS/)<d-cite key="hu2024automated"></d-cite> project, which won Outstanding Paper at the NeurIPS 2024 Open-World Agent Workshop, demonstrates that agents can literally invent novel agent designs by programming in code. Using their "Meta Agent Search" algorithm, the system iteratively programs new agents, tests their performance, archives discoveries, and uses this growing knowledge base to inform subsequent iterations. Remarkably, these AI-discovered agents consistently outperform hand-designed baselines across multiple domains and maintain superior performance even when transferred across different tasks and models.
+We're already seeing promising implementations of this vision. For example, [Automated Design of Agentic Systems (ADAS)](https://www.shengranhu.com/ADAS/)<d-cite key="hu2024automated"></d-cite>, which won Outstanding Paper at the NeurIPS 2024 Open-World Agent Workshop, demonstrates that agents can literally invent novel agent designs by programming in code. Using their "Meta Agent Search" algorithm, the system iteratively programs new agents, tests their performance, archives discoveries, and uses this growing knowledge base to inform subsequent iterations. Remarkably, these AI-discovered agents consistently outperform hand-designed baselines across multiple domains and maintain superior performance even when transferred across different tasks and models.
 
 <img src="{{ '/assets/img/adas.png' | relative_url }}" alt="Meta Agent Search" class="center" width="100%" class="l-body rounded z-depth-1 center">
 <div class="l-gutter caption" markdown="1">
@@ -615,7 +615,7 @@ Similarly, Sakana AI's [Darwin-Gödel Machine (DGM)](https://sakana.ai/dgm/)<d-c
 Interested readers can refer to my previous [post](https://richardcsuwandi.github.io/blog/2025/dgm/) for a comprehensive overview of the Darwin-Gödel Machine.
 </div>
 
-The full vision involves AI that can design not just its software and algorithms, but potentially even its hardware and architecture, making AI-GAs a compelling candidate for achieving AGI through automated discovery rather than manual engineering.
+The full vision involves AI that can design not just its software and algorithms, but potentially even its hardware and architecture, making AI-GAs a compelling candidate for achieving more general intelligence through automated discovery rather than manual engineering.
 
 ## Safety in an open-ended world
 Now for the elephant in the room: if we build AI systems that can continuously discover new capabilities and behaviors, how do we ensure they remain safe and beneficial? Open-endedness is incredibly powerful, but as they say, "with great power comes great responsibility". By definition, we can't predict what open-ended systems will discover (because that's the whole point!). This creates unique safety questions:
