@@ -524,7 +524,9 @@ It all started with [Norbert Wiener](https://en.wikipedia.org/wiki/Norbert_Wiene
 
 The 1980s and 90s saw the birth of [Artificial Life (ALife)](https://en.wikipedia.org/wiki/Artificial_life), spearheaded by researchers like [Christopher Langton](https://en.wikipedia.org/wiki/Christopher_Langton). But the real showstopper was [Thomas Ray's](https://en.wikipedia.org/wiki/Thomas_S._Ray) [Tierra](https://web.stanford.edu/class/sts129/Alife/html/Tierra.htm), a digital world where self-replicating programs evolved through natural selection<d-footnote>In Tierra, digital organisms evolved remarkable strategies including parasitism (programs that used other programs' code to reproduce), immunity (defenses against parasites), and even hyper-parasitism (parasites that specifically targeted other parasites). These behaviors emerged purely from the evolutionary process without any explicit programming.</d-footnote>. Notably, Tierra had no explicit optimization function, the fitness function was determined purely by survival and reproduction.
 
-<img src="{{ '/assets/img/tierra.mp4' | relative_url }}" alt="Tierra" class="center" width="100%" class="l-body rounded z-depth-1 center">
+<video src="{{ '/assets/img/tierra.mp4' | relative_url }}" alt="Tierra" class="center" width="100%" autoplay muted loop controls>
+  Your browser does not support the video tag.
+</video>
 <div class="l-gutter caption" markdown="1">
 **Figure 3.** Tierra, a virtual ecosystem where digital organisms could reproduce, mutate, and compete for computational resources. These digital creatures evolved increasingly sophisticated survival strategies, including parasitism, immunity, and even altruism, all without any explicit programming for these behaviors!
 </div>
@@ -563,7 +565,9 @@ Enough theory let's see open-endedness in action! Below are some of the most exc
 ### Voyager
 Our first example is [Voyager](https://github.com/MineDojo/Voyager)<d-cite key="wang2023voyager"></d-cite>, an AI agent that explores Minecraft with endless curiosity. Unlike traditional game AI that follows scripted behaviors, Voyager is powered by large language models (specifically GPT-4) and consists of three key innovations: an automatic curriculum that maximizes exploration, a growing skill library that stores reusable code for complex behaviors, and an iterative prompting system that incorporates feedback to improve performance. What makes Voyager special is its ability to learn continuously without human intervention - it sets its own goals, acquires diverse skills, and makes novel discoveries through pure experimentation<d-footnote>Compared to previous approaches, Voyager achieves impressive results: it collects 3.3× more unique items, travels 2.3× further distances, and reaches key technological milestones up to 15.3× faster, all while developing interpretable and transferable skills.</d-footnote>. Most importantly, the skills it develops are interpretable, compositional, and transferable to new scenarios. Voyager can take what it learns in one Minecraft world and apply those capabilities to solve novel challenges in entirely new environments, demonstrating true open-ended learning.
 
-<img src="{{ '/assets/img/voyager.mp4' | relative_url }}" alt="Voyager" class="center" width="100%" class="l-body rounded z-depth-1 center">
+<video src="{{ '/assets/img/voyager.mp4' | relative_url }}" alt="Voyager" class="center" width="100%" autoplay muted loop controls>
+  Your browser does not support the video tag.
+</video>
 <div class="l-gutter caption" markdown="1">
 **Figure 5.** Voyager, an AI agent that explores Minecraft with endless curiosity.
 </div>

@@ -344,7 +344,9 @@ The findings also have significant implications for AI development and safety. T
 ## Takeaways
 Perhaps Ilya's 2023 prediction was more prophetic than we realized. If the above results hold true, then the current race toward artificial superintelligence (ASI) through scaling language models might be secretly a race toward building more sophisticated world models. It is also possible that we may be witnessing something even more profound: the transition from what David Silver and Richard Sutton call the ["Era of Human Data" to the "Era of Experience"](https://storage.googleapis.com/deepmind-media/Era-of-Experience%20/The%20Era%20of%20Experience%20Paper.pdf). While current AI systems have achieved remarkable capabilities by imitating human-generated data, Silver and Sutton argue that superhuman intelligence will emerge through agents learning predominantly from their own experience<d-cite key="silver2025welcome"></d-cite>. For example, with recent developments in foundation world models like [Genie 2](https://deepmind.google/discover/blog/genie-2-a-large-scale-foundation-world-model/), we can generate endless 3D environments from single images<d-cite key="parker2024genie"></d-cite> and allow agents to inhabit "streams of experience" in richly grounded environments that adapt and evolve with their capabilities.
 
-<img src="{{ '/assets/img/genie2.mp4' | relative_url }}" alt="Genie 2" class="center" width="100%" class="l-body rounded z-depth-1 center">
+<video src="{{ '/assets/img/genie2.mp4' | relative_url }}" alt="Genie 2" class="center" width="100%" autoplay muted loop controls>
+  Your browser does not support the video tag.
+</video>
 <div class="l-gutter caption" markdown="1">
 **Figure 6.** Genie 2, a foundation world model capable of generating an endless variety of action-controllable, playable 3D environments for training and evaluating embodied agents. Based on a single prompt image, it can be played by a human or AI agent using keyboard and mouse inputs.
 </div>
