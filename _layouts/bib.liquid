@@ -100,10 +100,10 @@
     <div class="col-md-4 post-right-section">
       {% if entry.preview %}
         {% if entry.preview contains '://' %}
-          <img src="{{ entry.preview }}" alt="{{ entry.title | escape }} preview" class="post-thumbnail">
+          <img src="{{ entry.preview }}" alt="{{ entry.title | escape }} preview" class="paper-thumbnail">
         {% else %}
           <img src="{{ '/assets/img/publication_preview/' | append: entry.preview | relative_url }}" 
-               alt="{{ entry.title | escape }} preview" class="post-thumbnail">
+               alt="{{ entry.title | escape }} preview" class="paper-thumbnail">
         {% endif %}
       {% endif %}
     </div>

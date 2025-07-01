@@ -134,7 +134,15 @@ html[data-theme="dark"] .post-tags-left .tag-link:hover {
 .post-thumbnail {
   width: 100%;
   max-width: 100%; /* Allow full width of the column */
-  height: 140px; /* Reduced height to match card min-height */
+  height: 200px; /* Reduced height to match card min-height */
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.paper-thumbnail {
+  width: 150%;
+  max-width: 150%; /* Allow full width of the column */
+  height: 250px; /* Reduced height to match card min-height */
   object-fit: cover;
   border-radius: 8px;
 }
