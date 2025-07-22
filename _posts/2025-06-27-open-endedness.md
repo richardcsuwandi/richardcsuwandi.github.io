@@ -422,7 +422,7 @@ _styles: >
 
   /* Language label styling */
   pre::before {
-    content: "Python";
+    content: "Python";  /* Default label */
     position: absolute;
     top: 8px;
     right: 12px;
@@ -437,9 +437,32 @@ _styles: >
     backdrop-filter: blur(5px);
   }
 
+  /* Override for BibTeX code blocks */
+  pre.bibtex::before,
+  pre.language-bibtex::before {
+    content: "BibTeX" !important;
+  }
+
   html[data-theme='dark'] pre::before {
     background-color: rgba(255,255,255,0.1);
     color: #a0aec0;
+  }
+
+  /* Citation box styling */
+  .citation-box {
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 20px 0;
+    font-family: 'SF Mono', Monaco, 'Inconsolata', 'Fira Mono', monospace;
+    font-size: 0.9em;
+    line-height: 1.6;
+    overflow-x: auto;
+  }
+
+  /* Dark mode for citation box */
+  html[data-theme='dark'] .citation-box {
+    background-color: #2d3748;
   }
 
   /* Responsive adjustments */
@@ -645,3 +668,24 @@ Long ago on Earth, life was simple — just single-celled organisms. Then came t
 - **AI Doctors** who find new treatments and maybe even help people live longer
 
 These AIs won't be fixed or limited — they'll keep learning and improving over time. And importantly, they won't just work in their own little corners - they'll be able to connect ideas from different fields. The [Renaissance](https://en.wikipedia.org/wiki/Renaissance)<d-footnote>The Renaissance exemplified cross-pollination of ideas: Leonardo da Vinci's anatomical studies informed his engineering designs, Islamic mathematical concepts influenced European art, and artistic perspective techniques advanced architectural planning. This interdisciplinary approach led to unprecedented innovation across multiple domains.</d-footnote> was a time when great progress happened not just because of smart individuals, but because of ideas mixing together. Artists learned from science, scientists looked to nature, and engineers borrowed ideas from art. Open-ended AI could spark a new kind of Renaissance. Imagine an AI working on music discovering something useful for architecture. Or an AI studying animals finding a solution that helps computer design. With open-ended AI, the lines between different fields might blur in exciting ways — helping us solve problems and create things we can barely imagine today.
+
+## Citation
+
+If you find this post useful, please cite it as:
+
+<div class="citation-box">
+Suwandi, R. C. (Jun 2025). The future of AI is open-ended. https://richardcsuwandi.github.io/blog/2025/open-endedness/.
+</div>
+
+Or in BibTeX format:
+
+```bibtex
+@article{suwandi2025openendedness,
+    title   = "The future of AI is open-ended",
+    author  = "Suwandi, Richard Cornelius",
+    journal = "richardcsuwandi.github.io",
+    year    = "2025",
+    month   = "Jun",
+    url     = "https://richardcsuwandi.github.io/blog/2025/open-endedness/"
+}
+```

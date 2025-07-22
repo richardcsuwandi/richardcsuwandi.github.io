@@ -228,6 +228,258 @@ _styles: >
   d-citation-list .references {
     line-height: 1.3;
   }
+
+  /* Enhanced Code Block Styling */
+  code {
+    background-color: #f5f5f5;
+    color: #d73027;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'SF Mono', Monaco, 'Inconsolata', 'Fira Code', 'Droid Sans Mono', 'Source Code Pro', monospace;
+    font-size: 0.9em;
+    font-weight: 500;
+    border: 1px solid #e1e1e1;
+  }
+
+  .highlight {
+    background-color: #f8f8f8;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    margin: 20px 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    position: relative;
+  }
+
+  .highlight pre {
+    background-color: transparent !important;
+    border: none !important;
+    border-radius: 0;
+    padding: 16px 20px;
+    margin: 0 !important;
+    overflow-x: auto;
+    box-shadow: none !important;
+  }
+
+  /* For standalone pre elements without .highlight wrapper */
+  pre:not(.highlight pre) {
+    background-color: #f8f8f8;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    margin: 20px 0;
+    padding: 16px 20px;
+    overflow-x: auto;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    position: relative;
+  }
+
+  pre code {
+    background-color: transparent;
+    color: #2d3748;
+    padding: 0;
+    border: none;
+    font-size: 0.85em;
+    line-height: 1.6;
+    font-weight: 400;
+    display: block;
+  }
+
+  /* Simple Python syntax highlighting for code blocks */
+  pre code {
+    color: #2d3748;
+  }
+
+  /* Keywords: class, def, if, while, return, etc. */
+  pre code .token.keyword,
+  pre code .language-python .hljs-keyword {
+    color: #1976d2;
+    font-weight: 600;
+  }
+
+  /* Strings */
+  pre code .token.string,
+  pre code .language-python .hljs-string {
+    color: #388e3c;
+  }
+
+  /* Comments */
+  pre code .token.comment,
+  pre code .language-python .hljs-comment {
+    color: #757575;
+    font-style: italic;
+  }
+
+  /* Numbers */
+  pre code .token.number,
+  pre code .language-python .hljs-number {
+    color: #d32f2f;
+  }
+
+  /* Function and class names */
+  pre code .token.function,
+  pre code .token.class-name,
+  pre code .language-python .hljs-title {
+    color: #7b1fa2;
+    font-weight: 600;
+  }
+
+  /* Built-ins like self, True, False */
+  pre code .token.builtin,
+  pre code .language-python .hljs-built_in {
+    color: #1976d2;
+  }
+
+  /* Manual highlighting for common Python patterns */
+  pre code {
+    white-space: pre;
+    line-height: 1.6;
+  }
+
+  /* Dark mode styling */
+  html[data-theme='dark'] code {
+    background-color: #2d3748;
+    color: #fbb6ce;
+    border: 1px solid #4a5568;
+  }
+
+  html[data-theme='dark'] .highlight {
+    background-color: #1a202c !important;
+    border: 1px solid #2d3748 !important;
+    box-shadow: none !important;
+    border-radius: 8px;
+  }
+
+  html[data-theme='dark'] pre,
+  html[data-theme='dark'] .highlight pre {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 16px 20px !important;
+  }
+
+  /* For standalone pre elements without .highlight wrapper */
+  html[data-theme='dark'] pre:not(.highlight pre) {
+    background-color: #1a202c !important;
+    border: 1px solid #2d3748 !important;
+    border-radius: 8px;
+  }
+
+  html[data-theme='dark'] pre code {
+    background-color: transparent !important;
+    color: #e2e8f0 !important;
+    border: none !important;
+  }
+
+  /* Dark mode syntax highlighting - ensure consistent base styling */
+  html[data-theme='dark'] pre code,
+  html[data-theme='dark'] .highlight code {
+    background-color: transparent !important;
+    color: #e2e8f0 !important;
+    border: none !important;
+  }
+
+  /* Keywords in dark mode */
+  html[data-theme='dark'] pre code .token.keyword,
+  html[data-theme='dark'] pre code .language-python .hljs-keyword {
+    color: #81d4fa;
+    font-weight: 600;
+  }
+
+  /* Strings in dark mode */
+  html[data-theme='dark'] pre code .token.string,
+  html[data-theme='dark'] pre code .language-python .hljs-string {
+    color: #a5d6a7;
+  }
+
+  /* Comments in dark mode */
+  html[data-theme='dark'] pre code .token.comment,
+  html[data-theme='dark'] pre code .language-python .hljs-comment {
+    color: #90a4ae;
+    font-style: italic;
+  }
+
+  /* Numbers in dark mode */
+  html[data-theme='dark'] pre code .token.number,
+  html[data-theme='dark'] pre code .language-python .hljs-number {
+    color: #ffab91;
+  }
+
+  /* Function and class names in dark mode */
+  html[data-theme='dark'] pre code .token.function,
+  html[data-theme='dark'] pre code .token.class-name,
+  html[data-theme='dark'] pre code .language-python .hljs-title {
+    color: #ce93d8;
+    font-weight: 600;
+  }
+
+  /* Built-ins in dark mode */
+  html[data-theme='dark'] pre code .token.builtin,
+  html[data-theme='dark'] pre code .language-python .hljs-built_in {
+    color: #81d4fa;
+  }
+
+  /* Language label styling */
+  pre::before {
+    content: "Python";  /* Default label */
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    background-color: rgba(0,0,0,0.1);
+    color: #666;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.75em;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    backdrop-filter: blur(5px);
+  }
+
+  /* Override for BibTeX code blocks */
+  pre.bibtex::before,
+  pre.language-bibtex::before {
+    content: "BibTeX" !important;
+  }
+
+  html[data-theme='dark'] pre::before {
+    background-color: rgba(255,255,255,0.1);
+    color: #a0aec0;
+  }
+
+  /* Citation box styling */
+  .citation-box {
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 20px 0;
+    font-family: 'SF Mono', Monaco, 'Inconsolata', 'Fira Mono', monospace;
+    font-size: 0.9em;
+    line-height: 1.6;
+    overflow-x: auto;
+  }
+
+  /* Dark mode for citation box */
+  html[data-theme='dark'] .citation-box {
+    background-color: #2d3748;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    pre {
+      margin: 15px -10px;
+      border-radius: 0;
+      border-left: none;
+      border-right: none;
+    }
+    
+    code {
+      font-size: 0.85em;
+    }
+    
+    pre code {
+      font-size: 0.8em;
+    }
+  }
 ---
 Imagine if we could build an AI that thinks and plans like a human. Recent breakthroughs in large language models (LLMs) have brought us closer to this goal. As these models grow larger and trained on more data, they develop the so-called *emergent abilities*<d-cite key="wei2022emergent"></d-cite> that significantly improve their performance on a wide range of downstream tasks. This has sparked a new wave of research into creating general AI agents that can tackle complex, long-horizon tasks in the real world environments<d-cite key="yao2023react"></d-cite><d-cite key="hao2023reasoning"></d-cite>. But here is the fascinating part: humans do not just react to what they see, we build rich [mental models](https://www.youtube.com/watch?v=OKkEdTchsiE)<d-cite key="johnson1983mental"></d-cite><d-cite key="lecun2022path"></d-cite> of how the world works. These [world models](https://worldmodels.github.io)<d-cite key="ha2018world"></d-cite> help us set ambitious goals<d-cite key="locke2013goal"></d-cite> and make thoughtful plans<d-cite key="bratman1987intention"></d-cite>. Hence, based on this observation, it is natural to ask:
 
@@ -352,3 +604,24 @@ Perhaps Ilya's 2023 prediction was more prophetic than we realized. If the above
 </div>
 
 If general agents must learn world models, and superhuman intelligence requires learning from experience rather than human data, then foundation world models like Genie 2 might be the ultimate scaling law for the Era of Experience. Rather than hitting the ceiling of human knowledge, we are entering a phase where the quality of AI agents is fundamentally limited by the fidelity of the worlds they can simulate and explore. The agent that can dream the most accurate dreams, and learn the most from those dreams, might just be the most intelligent.
+
+## Citation
+
+If you find this post useful, please cite it as:
+
+<div class="citation-box">
+Suwandi, R. C. (Jun 2025). No world model, no general AI. https://richardcsuwandi.github.io/blog/2025/agents-world-models/.
+</div>
+
+Or in BibTeX format:
+
+```bibtex
+@article{suwandi2025agentsworldmodels,
+    title   = "No world model, no general AI",
+    author  = "Suwandi, Richard Cornelius",
+    journal = "richardcsuwandi.github.io",
+    year    = "2025",
+    month   = "Jun",
+    url     = "https://richardcsuwandi.github.io/blog/2025/agents-world-models/"
+}
+```

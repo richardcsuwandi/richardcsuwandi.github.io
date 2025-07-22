@@ -221,6 +221,258 @@ _styles: >
   d-citation-list .references {
     line-height: 1.3;
   }
+
+  /* Enhanced Code Block Styling */
+  code {
+    background-color: #f5f5f5;
+    color: #d73027;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'SF Mono', Monaco, 'Inconsolata', 'Fira Code', 'Droid Sans Mono', 'Source Code Pro', monospace;
+    font-size: 0.9em;
+    font-weight: 500;
+    border: 1px solid #e1e1e1;
+  }
+
+  .highlight {
+    background-color: #f8f8f8;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    margin: 20px 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    position: relative;
+  }
+
+  .highlight pre {
+    background-color: transparent !important;
+    border: none !important;
+    border-radius: 0;
+    padding: 16px 20px;
+    margin: 0 !important;
+    overflow-x: auto;
+    box-shadow: none !important;
+  }
+
+  /* For standalone pre elements without .highlight wrapper */
+  pre:not(.highlight pre) {
+    background-color: #f8f8f8;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    margin: 20px 0;
+    padding: 16px 20px;
+    overflow-x: auto;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    position: relative;
+  }
+
+  pre code {
+    background-color: transparent;
+    color: #2d3748;
+    padding: 0;
+    border: none;
+    font-size: 0.85em;
+    line-height: 1.6;
+    font-weight: 400;
+    display: block;
+  }
+
+  /* Simple Python syntax highlighting for code blocks */
+  pre code {
+    color: #2d3748;
+  }
+
+  /* Keywords: class, def, if, while, return, etc. */
+  pre code .token.keyword,
+  pre code .language-python .hljs-keyword {
+    color: #1976d2;
+    font-weight: 600;
+  }
+
+  /* Strings */
+  pre code .token.string,
+  pre code .language-python .hljs-string {
+    color: #388e3c;
+  }
+
+  /* Comments */
+  pre code .token.comment,
+  pre code .language-python .hljs-comment {
+    color: #757575;
+    font-style: italic;
+  }
+
+  /* Numbers */
+  pre code .token.number,
+  pre code .language-python .hljs-number {
+    color: #d32f2f;
+  }
+
+  /* Function and class names */
+  pre code .token.function,
+  pre code .token.class-name,
+  pre code .language-python .hljs-title {
+    color: #7b1fa2;
+    font-weight: 600;
+  }
+
+  /* Built-ins like self, True, False */
+  pre code .token.builtin,
+  pre code .language-python .hljs-built_in {
+    color: #1976d2;
+  }
+
+  /* Manual highlighting for common Python patterns */
+  pre code {
+    white-space: pre;
+    line-height: 1.6;
+  }
+
+  /* Dark mode styling */
+  html[data-theme='dark'] code {
+    background-color: #2d3748;
+    color: #fbb6ce;
+    border: 1px solid #4a5568;
+  }
+
+  html[data-theme='dark'] .highlight {
+    background-color: #1a202c !important;
+    border: 1px solid #2d3748 !important;
+    box-shadow: none !important;
+    border-radius: 8px;
+  }
+
+  html[data-theme='dark'] pre,
+  html[data-theme='dark'] .highlight pre {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 16px 20px !important;
+  }
+
+  /* For standalone pre elements without .highlight wrapper */
+  html[data-theme='dark'] pre:not(.highlight pre) {
+    background-color: #1a202c !important;
+    border: 1px solid #2d3748 !important;
+    border-radius: 8px;
+  }
+
+  html[data-theme='dark'] pre code {
+    background-color: transparent !important;
+    color: #e2e8f0 !important;
+    border: none !important;
+  }
+
+  /* Dark mode syntax highlighting - ensure consistent base styling */
+  html[data-theme='dark'] pre code,
+  html[data-theme='dark'] .highlight code {
+    background-color: transparent !important;
+    color: #e2e8f0 !important;
+    border: none !important;
+  }
+
+  /* Keywords in dark mode */
+  html[data-theme='dark'] pre code .token.keyword,
+  html[data-theme='dark'] pre code .language-python .hljs-keyword {
+    color: #81d4fa;
+    font-weight: 600;
+  }
+
+  /* Strings in dark mode */
+  html[data-theme='dark'] pre code .token.string,
+  html[data-theme='dark'] pre code .language-python .hljs-string {
+    color: #a5d6a7;
+  }
+
+  /* Comments in dark mode */
+  html[data-theme='dark'] pre code .token.comment,
+  html[data-theme='dark'] pre code .language-python .hljs-comment {
+    color: #90a4ae;
+    font-style: italic;
+  }
+
+  /* Numbers in dark mode */
+  html[data-theme='dark'] pre code .token.number,
+  html[data-theme='dark'] pre code .language-python .hljs-number {
+    color: #ffab91;
+  }
+
+  /* Function and class names in dark mode */
+  html[data-theme='dark'] pre code .token.function,
+  html[data-theme='dark'] pre code .token.class-name,
+  html[data-theme='dark'] pre code .language-python .hljs-title {
+    color: #ce93d8;
+    font-weight: 600;
+  }
+
+  /* Built-ins in dark mode */
+  html[data-theme='dark'] pre code .token.builtin,
+  html[data-theme='dark'] pre code .language-python .hljs-built_in {
+    color: #81d4fa;
+  }
+
+  /* Language label styling */
+  pre::before {
+    content: "Python";  /* Default label */
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    background-color: rgba(0,0,0,0.1);
+    color: #666;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.75em;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    backdrop-filter: blur(5px);
+  }
+
+  /* Override for BibTeX code blocks */
+  pre.bibtex::before,
+  pre.language-bibtex::before {
+    content: "BibTeX" !important;
+  }
+
+  html[data-theme='dark'] pre::before {
+    background-color: rgba(255,255,255,0.1);
+    color: #a0aec0;
+  }
+
+  /* Citation box styling */
+  .citation-box {
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 20px 0;
+    font-family: 'SF Mono', Monaco, 'Inconsolata', 'Fira Mono', monospace;
+    font-size: 0.9em;
+    line-height: 1.6;
+    overflow-x: auto;
+  }
+
+  /* Dark mode for citation box */
+  html[data-theme='dark'] .citation-box {
+    background-color: #2d3748;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    pre {
+      margin: 15px -10px;
+      border-radius: 0;
+      border-left: none;
+      border-right: none;
+    }
+    
+    code {
+      font-size: 0.85em;
+    }
+    
+    pre code {
+      font-size: 0.8em;
+    }
+  }
 ---
 Traditionally, Bayesian optimization (BO) has been perceived as a technique for optimizing expensive objective functions through efficient data sampling, while active learning (AL) is often seen as a way to selectively query data to improve model performance. Recently, Fiore et al. (2024)<d-cite key="di2024active"></d-cite> proposed a unified perspective of BO and AL, arguing that both can be viewed as adaptive sampling schemes guided by common learning principles toward a given optimization goal. In this post, we will explore the key ideas presented in the paper and discuss the implications of this unified perspective.
 
@@ -287,3 +539,24 @@ Overall, we can observe a strong correspondence between the learning criteria in
 
 ## Takeaways
 BO and AL have traditionally been viewed as distinct fields with separate goals and methodologies. However, this paper provides a unified perspective that highlights the shared principles underlying both fields. By recognizing the synergy between BO and AL, we can leverage the strengths of each field to develop more powerful and efficient learning algorithms.
+
+## Citation
+
+If you find this post useful, please cite it as:
+
+<div class="citation-box">
+Suwandi, R. C. (Sep 2024). Learning with a goal. https://richardcsuwandi.github.io/blog/2024/learn-with-a-goal/.
+</div>
+
+Or in BibTeX format:
+
+```bibtex
+@article{suwandi2024learnwithagoal,
+    title   = "Learning with a goal",
+    author  = "Suwandi, Richard Cornelius",
+    journal = "richardcsuwandi.github.io",
+    year    = "2024",
+    month   = "Sep",
+    url     = "https://richardcsuwandi.github.io/blog/2024/learn-with-a-goal/"
+}
+```
