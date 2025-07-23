@@ -545,7 +545,7 @@ BO and AL have traditionally been viewed as distinct fields with separate goals 
 If you find this post useful, please cite it as:
 
 <div class="citation-box">
-Suwandi, R. C. (Sep 2024). Learning with a goal. https://richardcsuwandi.github.io/blog/2024/learn-with-a-goal/.
+Suwandi, R. C. (Sep 2024). Learning with a goal. Posterior Update. https://richardcsuwandi.github.io/blog/2024/learn-with-a-goal/.
 </div>
 
 Or in BibTeX format:
@@ -554,7 +554,7 @@ Or in BibTeX format:
 @article{suwandi2024learnwithagoal,
     title   = "Learning with a goal",
     author  = "Suwandi, Richard Cornelius",
-    journal = "richardcsuwandi.github.io",
+    journal = "Posterior Update",
     year    = "2024",
     month   = "Sep",
     url     = "https://richardcsuwandi.github.io/blog/2024/learn-with-a-goal/"

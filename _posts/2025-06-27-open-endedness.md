@@ -674,7 +674,7 @@ These AIs won't be fixed or limited — they'll keep learning and improving over
 If you find this post useful, please cite it as:
 
 <div class="citation-box">
-Suwandi, R. C. (Jun 2025). The future of AI is open-ended. https://richardcsuwandi.github.io/blog/2025/open-endedness/.
+Suwandi, R. C. (Jun 2025). The future of AI is open-ended. Posterior Update. https://richardcsuwandi.github.io/blog/2025/open-endedness/.
 </div>
 
 Or in BibTeX format:
@@ -683,7 +683,7 @@ Or in BibTeX format:
 @article{suwandi2025openendedness,
     title   = "The future of AI is open-ended",
     author  = "Suwandi, Richard Cornelius",
-    journal = "richardcsuwandi.github.io",
+    journal = "Posterior Update",
     year    = "2025",
     month   = "Jun",
     url     = "https://richardcsuwandi.github.io/blog/2025/open-endedness/"

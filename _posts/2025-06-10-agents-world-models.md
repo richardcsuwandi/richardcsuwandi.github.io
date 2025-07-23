@@ -610,7 +610,7 @@ If general agents must learn world models, and superhuman intelligence requires 
 If you find this post useful, please cite it as:
 
 <div class="citation-box">
-Suwandi, R. C. (Jun 2025). No world model, no general AI. https://richardcsuwandi.github.io/blog/2025/agents-world-models/.
+Suwandi, R. C. (Jun 2025). No world model, no general AI. Posterior Update. https://richardcsuwandi.github.io/blog/2025/agents-world-models/.
 </div>
 
 Or in BibTeX format:
@@ -619,7 +619,7 @@ Or in BibTeX format:
 @article{suwandi2025agentsworldmodels,
     title   = "No world model, no general AI",
     author  = "Suwandi, Richard Cornelius",
-    journal = "richardcsuwandi.github.io",
+    journal = "Posterior Update",
     year    = "2025",
     month   = "Jun",
     url     = "https://richardcsuwandi.github.io/blog/2025/agents-world-models/"

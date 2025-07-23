@@ -600,7 +600,7 @@ The development of FunSearch<d-cite key="romera2024mathematical"></d-cite> and A
 If you find this post useful, please cite it as:
 
 <div class="citation-box">
-Suwandi, R. C. (May 2025). Can we use AI to discover better algorithms? https://richardcsuwandi.github.io/blog/2025/llm-algorithm-discovery/.
+Suwandi, R. C. (May 2025). Can we use AI to discover better algorithms? Posterior Update. https://richardcsuwandi.github.io/blog/2025/llm-algorithm-discovery/.
 </div>
 
 Or in BibTeX format:
@@ -609,7 +609,7 @@ Or in BibTeX format:
 @article{suwandi2025algorithmdiscovery,
     title   = "Can we use AI to discover better algorithms?",
     author  = "Suwandi, Richard Cornelius",
-    journal = "richardcsuwandi.github.io",
+    journal = "Posterior Update",
     year    = "2025",
     month   = "May",
     url     = "https://richardcsuwandi.github.io/blog/2025/llm-algorithm-discovery/"
