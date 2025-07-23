@@ -2,7 +2,7 @@
 layout: distill
 title: The Science of Intelligent Exploration
 date: 2025-07-23 10:00:00 +0700
-description: Why
+description: Why we need to re-center exploration in AI
 tags: [OPEN-ENDEDNESS, EXPLORATION]
 giscus_comments: true
 related_posts: false
