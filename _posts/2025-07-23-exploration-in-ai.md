@@ -493,7 +493,7 @@ In a classic maze experiment<d-cite key="lehman2008exploiting"></d-cite>, algori
 **Figure 1.** Novelty search vs fitness-based search in a maze.
 </div>
 
-The stepping stones to success often look nothing like the goal itself. For example, the path from abacuses to laptops involved seemingly unrelated innovations like electricity and vacuum tubes. An interesting experiment that demonstrates this is [Picbreeder](https://picbreeder.org/), a platform where users evolve images through novelty search. A user aiming for a car might end up with a spaceship-like form that, through further exploration, morphs into a car. The lesson? Ignoring the objective can sometimes get you there faster.
+The stepping stones to success often look nothing like the goal itself. For example, the path from abacuses to laptops involved seemingly unrelated innovations like electricity and vacuum tubes. An interesting experiment that demonstrates this is [Picbreeder](https://nbenko1.github.io/#/), a platform where users evolve images through novelty search. A user aiming for a car might end up with a spaceship-like form that, through further exploration, morphs into a car. The lesson? Ignoring the objective can sometimes get you there faster.
 
 <img src="{{ '/assets/img/picbreeder.png' | relative_url }}" alt="Picbreeder" class="center" width="100%" class="l-body rounded z-depth-1 center">
 <div class="l-gutter caption" markdown="1">
