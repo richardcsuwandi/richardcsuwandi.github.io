@@ -30,7 +30,15 @@ bibliography: 2025-07-23-exploration-in-ai.bib
 #     for hyperlinks within the post to work correctly.
 #   - please use this format rather than manually creating a markdown table of contents.
 toc:
-  - name:
+  - name: Embracing the unexpected
+  - name: Beyond a single solution
+  - name: Towards endless innovation
+  - name: A path to general intelligence
+    children:
+      - name: Meta-learning architectures
+      - name: Meta-Learning learning algorithms
+      - name: Generating effective learning environments
+  - name: Takeaways
 
 # Below is an example of injecting additional post-specific styles.
 # This is used in the 'Layouts' section of this post.
@@ -492,7 +500,7 @@ The stepping stones to success often look nothing like the goal itself. For exam
 **Figure 2.** What Picbreeder shows: The stepping stones almost never resemble the final product! You can only find things by not looking for them.
 </div>
 
-But novelty alone isn’t enough. What if we could balance exploration with quality? That's where [quality diversity](https://en.wikipedia.org/wiki/Quality_diversity) comes in.
+But novelty alone isn’t enough. What if we could balance exploration with quality? That's where quality diversity comes in.
 
 ## Beyond a single solution
 
@@ -546,7 +554,7 @@ A prime example of modern open-endedness is the [Paired Open-Ended Trailblazer (
 
 The most interesting part lies in the **co-evolutionary arms race**: as agents get better, environments become more challenging; as environments become harder, agents must develop more sophisticated strategies. Open-endedness is about more than solving problems—it's about creating a system that generates its own problems and learns from them. This brings us to the next frontier: AI-generating algorithms (AI-GAs)<d-cite key="clune2019ai"></d-cite>.
 
-## Towards more general intelligence
+## A path to general intelligence
 
 In his 2019 paper, Jeff Clune proposed AI-GAs as a path to AGI, built on three pillars:
 
@@ -554,7 +562,7 @@ In his 2019 paper, Jeff Clune proposed AI-GAs as a path to AGI, built on three p
 2. **Meta-learning learning algorithms**: Evolving the rules of learning itself, like how gradients are updated.
 3. **Generating effective learning environments**: Creating diverse, challenging environments to train AI systems.
 
-### Pillar 1: Meta-Learning Architectures
+### Meta-learning architectures
 
 Traditional [neural architecture search (NAS)](https://en.wikipedia.org/wiki/Neural_architecture_search) focuses on finding good architectures for specific datasets. AI-GA approaches go further by evolving architectures that can quickly adapt to new tasks. Recent examples include:
 
@@ -566,7 +574,7 @@ Traditional [neural architecture search (NAS)](https://en.wikipedia.org/wiki/Neu
 Instead of hand-designing architectures, let evolution discover designs optimized for specific problem classes or computational constraints.
 </div>
 
-### Pillar 2: Meta-Learning Learning Algorithms**
+### Meta-learning learning algorithms
 
 This involves evolving not just what the network learns, but *how* it learns. Examples include:
 
@@ -574,7 +582,7 @@ This involves evolving not just what the network learns, but *how* it learns. Ex
 - **Meta-learning with gradient descent**<d-cite key="finn2017model"></d-cite>: Model-agnostic meta-learning (MAML) trains models to be good at learning new tasks with just a few gradient steps.
 - **Evolutionary strategy for RL**<d-cite key="salimans2017evolution"></d-cite>: Replace backpropagation entirely with evolution strategies that can discover entirely new learning rules.
 
-### Pillar 3: Generating Effective Learning Environments
+### Generating effective learning environments
 
 Traditional AI training has relied on fixed datasets or hand-crafted environments. While this approach has enabled progress, it is fundamentally limited: hand-coding environments is brittle, and it is notoriously difficult to define what makes a task "interesting" or "useful" for learning. Early attempts to automate environment generation often used simple heuristics, such as:
 
