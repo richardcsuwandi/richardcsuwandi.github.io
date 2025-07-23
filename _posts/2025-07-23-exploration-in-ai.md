@@ -524,11 +524,7 @@ One of QD's most striking successes came in robotics, where MAP-Elites generated
 
 {% include youtube.html id="KFDMm666QBU" %}
 
-Another example is the [Montezuma's Revenge](https://en.wikipedia.org/wiki/Montezuma%27s_Revenge_(video_game)) game. Traditional reinforcement learning struggled with its sparse rewards, but QD algorithms, by prioritizing diverse strategies, cracked it. They didn't just find one way to win—they mapped out a constellation of approaches, each valuable in its own right.
-
-<div class="box-note" markdown="1" title="Go-Explore: A Story of Rediscovery">
-Go-Explore<d-cite key="ecoffet2019goexplore"></d-cite> is a landmark algorithm in QD. It works in two phases: (1) systematically exploring and remembering promising states (even if they seem irrelevant at first), and (2) robustifying solutions to make them work in the real, noisy environment.
-</div>
+Another notable QD algorithm is Go-Explore<d-cite key="ecoffet2019go"></d-cite>. Go-Explore works in two phases: first, it systematically explores and remembers promising states—even those that seem irrelevant at first. Then, in a second phase, it robustifies these solutions to ensure they work reliably in the real, noisy environment. By explicitly separating exploration from exploitation, Go-Explore was able to crack [Montezuma's Revenge](https://en.wikipedia.org/wiki/Montezuma%27s_Revenge_(video_game)), discovering not just one way to win, but mapping out a constellation of valuable approaches.
 
 {% include youtube.html id="L_E3w_gHBOY" %}
 
@@ -597,7 +593,7 @@ But these approaches often miss the nuanced understanding of what makes a proble
 **Figure 4.** OMNI combines a learning progress auto-curriculum and a model of interestingness, to train an RL agent in a task-conditioned manner.
 </div>
 
-Another breakthrough is [Genie](https://deepmind.google/discover/blog/genie-2-a-large-scale-foundation-world-model/)<d-cite key="parker2024genie"></d-cite>, a foundation world model that can generate dynamic, interactive worlds for AI to explore. Genie demonstrates that FMs can create not just static environments, but rich, interactive worlds with consistent physics and engaging dynamics—further expanding the possibilities for open-ended learning.
+Another breakthrough is [Genie](https://deepmind.google/discover/blog/genie-2-a-large-scale-foundation-world-model/)<d-cite key="bruce2024genie"></d-cite>, a foundation world model that can generate dynamic, interactive worlds for AI to explore. Genie demonstrates that FMs can create not just static environments, but rich, interactive worlds with consistent physics and engaging dynamics—further expanding the possibilities for open-ended learning.
 
 ## Takeaways
 
