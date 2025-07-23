@@ -16,13 +16,13 @@ social: true # includes social icons at the bottom of the page
 ---
 <div class="about-content" markdown="1">
 
-I am a **PhD student** at [CUHK-Shenzhen](https://cuhk.edu.cn/en/), advised by [Prof. Feng Yin](https://sse.cuhk.edu.cn/en/faculty/yinfeng) and [Prof. Tsung-Hui Chang](https://sse.cuhk.edu.cn/en/faculty/tsunghuichang). Prior to my PhD, I obtained my BSc degree in Statistics from CUHK-Shenzhen. 
+I am a **PhD student** at [CUHK-Shenzhen](https://cuhk.edu.cn/en/), advised by [Prof. Feng Yin](https://sse.cuhk.edu.cn/en/faculty/yinfeng) and [Prof. Tsung-Hui Chang](https://sse.cuhk.edu.cn/en/faculty/tsunghuichang). Prior to my PhD, I obtained my BSc degree in Statistics from CUHK-Shenzhen.
 
-I am currently interested in building *robust* and *adaptive* intelligent systems that can learn efficiently from limited data and generalize effectively across diverse tasks. Some of my research topics include:
+I am interested in building *open-ended* intelligent systems capable of continuous learning, efficient knowledge acquisition from limited data, and generalization across a broad and evolving range of tasks. To this end, my research explores:
 
-- **Bayesian optimization** for sample-efficient optimization and sequential decision-making
-- **Gaussian processes** for probabilistic machine learning and uncertainty quantification
-- **Large language models** for automated algorithm discovery and engineering design
+- **Bayesian optimization** for sample-efficient, adaptive decision-making in open-ended search spaces
+- **Bayesian inference** to enable principled uncertainty quantification and lifelong learning under uncertainty
+- **Foundation models** for open-ended algorithm discovery, creative problem solving, and generative design in science and engineering
 
 If you are interested in collaborating or discussing research ideas, feel free to reach out via [email](mailto:richardsuwandi@link.cuhk.edu.cn).
 </div>
