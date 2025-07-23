@@ -1,6 +1,6 @@
 ---
 layout: distill
-title: Can we use AI to discover better algorithms?
+title: Can We Use AI to Discover Better Algorithms?
 date: 2025-05-15 10:00:00 +0700
 description: A review of FunSearch and AlphaEvolve
 tags: [AGENTS, LARGE LANGUAGE MODELS]
@@ -600,14 +600,14 @@ The development of FunSearch<d-cite key="romera2024mathematical"></d-cite> and A
 If you find this post useful, please cite it as:
 
 <div class="citation-box">
-Suwandi, R. C. (May 2025). Can we use AI to discover better algorithms? Posterior Update. https://richardcsuwandi.github.io/blog/2025/llm-algorithm-discovery/.
+Suwandi, R. C. (May 2025). Can We Use AI to Discover Better Algorithms? Posterior Update. https://richardcsuwandi.github.io/blog/2025/llm-algorithm-discovery/.
 </div>
 
 Or in BibTeX format:
 
 ```bibtex
 @article{suwandi2025algorithmdiscovery,
-    title   = "Can we use AI to discover better algorithms?",
+    title   = "Can We Use AI to Discover Better Algorithms?",
     author  = "Suwandi, Richard Cornelius",
     journal = "Posterior Update",
     year    = "2025",

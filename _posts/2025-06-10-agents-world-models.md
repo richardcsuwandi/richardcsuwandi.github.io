@@ -1,6 +1,6 @@
 ---
 layout: distill
-title: No world model, no general AI
+title: No World Model, No General AI
 date: 2025-06-11 10:00:00 +0700
 description: From Ilya's prediction to Google DeepMind's proof.
 tags: [AGENTS, REINFORCEMENT LEARNING]
@@ -610,14 +610,14 @@ If general agents must learn world models, and superhuman intelligence requires 
 If you find this post useful, please cite it as:
 
 <div class="citation-box">
-Suwandi, R. C. (Jun 2025). No world model, no general AI. Posterior Update. https://richardcsuwandi.github.io/blog/2025/agents-world-models/.
+Suwandi, R. C. (Jun 2025). No World Model, No General AI. Posterior Update. https://richardcsuwandi.github.io/blog/2025/agents-world-models/.
 </div>
 
 Or in BibTeX format:
 
 ```bibtex
 @article{suwandi2025agentsworldmodels,
-    title   = "No world model, no general AI",
+    title   = "No World Model, No General AI",
     author  = "Suwandi, Richard Cornelius",
     journal = "Posterior Update",
     year    = "2025",

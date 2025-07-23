@@ -1,6 +1,6 @@
 ---
 layout: distill
-title: The future of AI is open-ended
+title: The Future of AI is Open-Ended
 date: 2025-06-27 10:00:00 +0700
 description: Embracing open-endedness in the pursuit of creative AI
 tags: [AGENTS, OPEN-ENDEDNESS]
@@ -674,14 +674,14 @@ These AIs won't be fixed or limited — they'll keep learning and improving over
 If you find this post useful, please cite it as:
 
 <div class="citation-box">
-Suwandi, R. C. (Jun 2025). The future of AI is open-ended. Posterior Update. https://richardcsuwandi.github.io/blog/2025/open-endedness/.
+Suwandi, R. C. (Jun 2025). The Future of AI is Open-Ended. Posterior Update. https://richardcsuwandi.github.io/blog/2025/open-endedness/.
 </div>
 
 Or in BibTeX format:
 
 ```bibtex
 @article{suwandi2025openendedness,
-    title   = "The future of AI is open-ended",
+    title   = "The Future of AI is Open-Ended",
     author  = "Suwandi, Richard Cornelius",
     journal = "Posterior Update",
     year    = "2025",
