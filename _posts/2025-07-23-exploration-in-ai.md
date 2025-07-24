@@ -38,6 +38,7 @@ toc:
       - name: Meta-learning architectures
       - name: Meta-Learning learning algorithms
       - name: Generating effective learning environments
+  - name: Exploration is the future
   - name: Takeaways
 
 # Below is an example of injecting additional post-specific styles.
@@ -476,7 +477,7 @@ _styles: >
     }
   }
 ---
-One of the most thought-provoking moments for me at [ICML 2025](https://icml.cc/) didn’t come from a new architecture or a scaling law. It emerged from a simple, unsettling question: What happens when AI stops exploring? Recent breakthroughs in AI—especially in LLMs—have been fueled not by curiosity, but by curation. By training on vast swaths of human-generated text, models like LLMs bypass the messy, uncertain process of active exploration. Instead, they absorb a pre-digested version of our collective knowledge, effectively "pre-exploring" the world through the lens of what’s already been written. While these models can recombine, paraphrase, and simulate, they rarely discover new things. This is the core mission of the [Exploration in AI Today (EXAIT)](https://exait-workshop.github.io/) Workshop at ICML 2025: to confront the quiet crisis of over-exploitation and re-center exploration to enable progress in modern AI. Because whether it’s a robot learning to walk, a recommender system fighting filter bubbles<d-footnote>"Filter bubbles" refers to the phenomenon where users are only shown familiar content.</d-footnote>, or an AI searching for a drug in a vast space of possible molecules, the path to breakthroughs isn’t paved by more data alone. In this post, we will explore the science of intelligent exploration, from the basics of novelty search to the cutting-edge of open-endedness.
+One of the most thought-provoking moments for me at [ICML 2025](https://icml.cc/) didn’t come from a new architecture or a scaling law. It emerged from a simple, unsettling question: What happens when AI stops exploring? Recent breakthroughs in AI—especially in LLMs—have been fueled not by curiosity, but by curation. By training on vast amounts of human-generated data, models like LLMs bypass the messy, uncertain process of active exploration. Instead, they absorb a pre-digested version of our collective knowledge, effectively "pre-exploring" the world through the lens of what’s already been written. While these models can recombine, paraphrase, and simulate, they rarely discover new things. This is the core mission of the [Exploration in AI Today (EXAIT)](https://exait-workshop.github.io/) Workshop at ICML 2025: to confront the quiet crisis of over-exploitation and re-center exploration to enable progress in modern AI. Because whether it’s a robot learning to walk, a recommender system fighting filter bubbles<d-footnote>"Filter bubbles" refers to the phenomenon where users are only shown familiar content.</d-footnote>, or an AI searching for a drug in a vast space of possible molecules, the path to breakthroughs isn’t paved by more data alone. In this post, we will explore the science of intelligent exploration, from the basics of novelty search to the cutting-edge of open-endedness.
 
 <img src="{{ '/assets/img/exait.png' | relative_url }}" alt="EXAIT Workshop" class="center" width="100%" class="l-body rounded z-depth-1 center">
 <div class="l-gutter caption" markdown="1">
@@ -591,7 +592,7 @@ Traditional AI training has relied on fixed datasets or hand-crafted environment
 - **Learning progress**: Prioritize environments where agents are improving fastest
 - **Behavioral diversity**: Generate environments that elicit different behaviors
 
-But these approaches often miss the nuanced understanding of what makes a problem genuinely interesting or valuable for developing intelligence. A recent example is [OMNI](https://www.jennyzhangzt.com/omni)<d-cite key="zhang2023omni"></d-cite><d-cite key="faldor2024omni"></d-cite>. OMNI uses foundation models (FMs) to propose and implement new reinforcement learning tasks that maximize agent learning progress and align with human intuitions about what is "interesting." The core idea is to use the FM's broad knowledge<d-footnote>FMs are trained on vast swaths of the internet, and they implicitly understand what humans find interesting—they've read our blogs, tweets, and papers, after all.</d-footnote> to guide the creation of a diverse and ever-expanding set of environments.
+But these approaches often miss the nuanced understanding of what makes a problem genuinely interesting or valuable for developing intelligence. A recent example is [OMNI](https://www.jennyzhangzt.com/omni)<d-cite key="zhang2023omni"></d-cite><d-cite key="faldor2024omni"></d-cite>. OMNI uses foundation models (FMs) to propose and implement new reinforcement learning tasks that maximize agent learning progress and align with human intuitions about what is "interesting." The core idea is to use the FM's broad knowledge<d-footnote>FMs are trained on vast internet data, and they implicitly understand what humans find interesting—they've read our blogs, tweets, and papers, after all.</d-footnote> to guide the creation of a diverse and ever-expanding set of environments.
 
 <img src="{{ '/assets/img/omni.png' | relative_url }}" alt="OMNI" class="center" width="100%" class="l-body rounded z-depth-1 center">
 <div class="l-gutter caption" markdown="1">
@@ -633,9 +634,26 @@ To showcase the power of Genie 2, DeepMind introduced [SIMA](https://deepmind.go
 The combination of a powerful environment generator and an agent forms a virtuous cycle: as the environment generator creates new worlds, the agent must adapt and learn, and their progress can be used to further refine both the agent and the environment generation process.
 </div>
 
+## Exploration is the future
+
+One way to understand the urgency of re-centering exploration in AI is through the lens of the emerging [Software²](https://blog.minch.co/2022/11/15/software-squared.html) paradigm. While traditional deep learning ([Software 2.0](https://karpathy.medium.com/software-2-0-a64152b37c35)) focuses on learning from vast, static datasets, Software² envisions a new generation of AI systems that actively seek out and generate their own training data. This shift—from passively absorbing curated data to actively exploring and producing new, informative experiences—places exploration at the heart of progress. In this view, the ability of an AI to decide *what* data to learn from, and to continually expand its own learning environment, becomes a critical driver of generality and innovation. As we move toward more open-ended and self-improving AI, the science of exploration is poised to become the central engine of advancement.
+
+<img src="{{ '/assets/img/generalized_exp.png' | relative_url }}" alt="Software²" class="center" width="100%" class="l-body rounded z-depth-1 center">
+<div class="l-gutter caption" markdown="1">
+**Figure 8.** Software² rests on a form of *generalized exploration* for active data collection. Unlike existing notions of exploration in RL and SL (where it takes the form of active learning), generalized exploration seeks the most informative samples from the **full data space**.
+</div>
+
+Closely related is the vision articulated in [The Era of Experience](https://storage.googleapis.com/deepmind-media/Era-of-Experience%20/The%20Era%20of%20Experience%20Paper.pdf), which argues that the next leap in AI will come not from scaling up static data, but from enabling agents to learn through rich, interactive experiences. In this new era, AI systems will continually generate, seek out, and learn from novel experiences—mirroring the way humans and animals learn by engaging with the world. Exploration, therefore, is not just a technical detail, but the foundation of a new paradigm where experience itself becomes the primary driver of intelligence.
+
+<img src="{{ '/assets/img/era_of_exp.png' | relative_url }}" alt="Era of Experience" class="center" width="100%" class="l-body rounded z-depth-1 center">
+<div class="l-gutter caption" markdown="1">
+**Figure 9.** We are currently transitioning from the Era of Data to the Era of Experience.
+</div>
+
 ## Takeaways
 
-The science of intelligent exploration is at the heart of progress in all domains where discovery, creativity, and adaptation matter-including AI. We have just seen that breakthroughs rarely come from following a single, well-trodden path. Instead, they emerge from venturing into the unknown, embracing diversity, and allowing for serendipity and surprise. As AI advances, the most powerful and resilient systems will be those that do not just optimize for what is already known, but continuously seek out the adjacent possible, illuminate new landscapes, and expand the boundaries of what is achievable. To build the next generation of intelligent systems, we must treat exploration not as an afterthought, but as a scientific principle—a driving force for innovation, robustness, and true generality. The future belongs to those who explore. Let us design AI that does the same.
+Intelligent exploration lies at the heart of discovery, creativity, and adaptation—across science, innovation, and AI. We have just seen that breakthroughs rarely come from following a single, well-trodden path. Instead, they emerge from venturing into the unknown, embracing diversity, and allowing for serendipity and surprise. As AI evolves, the most capable and resilient systems will be those that do more than optimize known patterns—they will actively seek the adjacent possible, generate novel experiences, and expand the frontiers of knowledge. To build truly general and self-improving systems, we must elevate exploration to a first-class principle in AI design. The future belongs to those who explore. Let us design AI that does the same.
+
 
 ## Citation
 
