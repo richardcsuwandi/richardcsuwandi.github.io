@@ -3,7 +3,7 @@ layout: page
 title: Projects
 permalink: /projects/
 description: Collection of my personal and research projects
-nav: true
+nav: false
 nav_order: 3
 chart:
   chartjs: true
