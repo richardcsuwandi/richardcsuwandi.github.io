@@ -8,6 +8,7 @@ nav_order: 6
 ---
 
 #### Teaching Assistant
+- Fall 2025, [CIE6007 Machine Learning](https://www.cuhk.edu.cn/en/course/11167), CUHK-Shenzhen
 - Spring 2025, [MAT2040 Linear Algebra](https://www.cuhk.edu.cn/en/course/8058), CUHK-Shenzhen
 - Fall 2024, [CIE6007 Machine Learning](https://www.cuhk.edu.cn/en/course/11167), CUHK-Shenzhen
 - Spring 2024, [MAT2040 Linear Algebra](https://www.cuhk.edu.cn/en/course/8058), CUHK-Shenzhen
