@@ -2,7 +2,7 @@
 layout: distill
 title: No World Model, No General AI
 date: 2025-06-11 10:00:00 +0700
-description: From Ilya's prediction to Google DeepMind's proof.
+description: From Ilya's prediction to Google DeepMind's proof
 tags: [AGENTS, REINFORCEMENT LEARNING]
 giscus_comments: true
 related_posts: false
