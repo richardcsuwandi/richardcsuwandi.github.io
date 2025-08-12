@@ -1,7 +1,7 @@
 ---
 layout: distill
 title: The Dream Machines
-date: 2025-08-08 10:00:00 +0700
+date: 2025-08-11 10:00:00 +0700
 description: How AI is learning to simulate our physical world
 tags: [WORLD MODEL, OPEN-ENDEDNESS]
 giscus_comments: true
