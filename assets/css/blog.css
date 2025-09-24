@@ -140,12 +140,14 @@ html[data-theme="dark"] .post-tags-left .tag-link:hover {
 }
 
 .paper-thumbnail {
-  width: 150%;
-  max-width: 150%; /* Allow full width of the column */
-  height: 250px; /* Reduced height to match card min-height */
-  object-fit: cover;
+  width: 100%;
+  max-width: 100%; /* Ensure image fits within container */
+  height: auto; /* Maintain aspect ratio */
+  object-fit: contain; /* Scale image to fit completely within container without cropping */
   border-radius: 8px;
+  display: block; /* Ensure proper block behavior */
 }
+
 
 /* Landing section - Updated styling */
 .landing-section {

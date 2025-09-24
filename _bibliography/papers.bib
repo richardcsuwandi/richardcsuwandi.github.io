@@ -30,6 +30,19 @@
   abstract={Kernel design for Gaussian processes (GPs) along with the associated hyper-parameter optimization is a challenging problem. In this paper, we propose a novel grid spectral mixture (GSM) kernel design for GPs that can automatically fit multidimensional data with affordable model complexity and superior modeling capability. To alleviate the computational complexity due to the curse of dimensionality, we leverage a multicore computing environment to optimize the kernel hyper-parameters in a distributed manner. We further propose a doubly distributed learning algorithm based on the alternating direction method of multipliers (ADMM) which enables multiple agents to learn the kernel hyper-parameters collaboratively. The doubly distributed learning algorithm is shown to be effective in reducing the overall computational complexity while preserving data privacy during the learning process. Experiments on various one-dimensional and multidimensional data sets demonstrate that the proposed kernel design yields superior training and prediction performance compared to its competitors.}
 }
 
+@article{suwandi2025cake,
+  title={Adaptive Kernel Design for Bayesian Optimization Is a Piece of CAKE with LLMs},
+  author={Richard Cornelius Suwandi and Feng Yin and Juntao Wang and Renjie Li and Tsung-Hui Chang and Sergios Theodoridis},
+  journal={Advances in Neural Information Processing Systems (NeurIPS)}, 
+  year={2025},
+  website={https://arxiv.org/abs/2509.17998},
+  code={https://github.com/richardcsuwandi/cake},
+  preview={cake.png},
+  selected={true},
+  abstract={The efficiency of Bayesian optimization (BO) relies heavily on the choice of the Gaussian process (GP) kernel, which plays a central role in balancing exploration and exploitation under limited evaluation budgets. Traditional BO methods often rely on fixed or heuristic kernel selection strategies, which can result in slow convergence or suboptimal solutions when the chosen kernel is poorly suited to the underlying objective function. To address this limitation, we propose a freshly-baked Context-Aware Kernel Evolution (CAKE) to enhance BO with large language models (LLMs). Concretely, CAKE leverages LLMs as the crossover and mutation operators to adaptively generate and refine GP kernels based on the observed data throughout the optimization process. To maximize the power of CAKE, we further propose BIC-Acquisition Kernel Ranking (BAKER) to select the most effective kernel through balancing the model fit measured by the Bayesian information criterion (BIC) with the expected improvement at each iteration of BO. Extensive experiments demonstrate that our fresh CAKE-based BO method consistently outperforms established baselines across a range of real-world tasks, including hyperparameter optimization, controller tuning, and photonic chip design.}
+}
+
+
 @article{suwandi2023gaussian,
   title={Sparsity-Aware Distributed Learning for Gaussian Processes with Linear Multiple Kernel},
   author={Richard Cornelius Suwandi and Zhidi Lin and Feng Yin and Zhiguo Wang and Sergios Theodoridis},
