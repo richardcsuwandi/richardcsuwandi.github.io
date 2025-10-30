@@ -26,5 +26,3 @@ I am interested in building *open-ended* intelligent systems capable of continuo
 
 If you are interested in collaborating or discussing research ideas, feel free to reach out via [email](mailto:richardsuwandi@link.cuhk.edu.cn).
 </div>
-
-> I also co-organize the **AI4Science community** on [alphaXiv](https://www.alphaxiv.org). If you are interested in building the future of automated research, feel free to [join us](https://www.alphaxiv.org/invite/8866160b-928d-4690-8fe5-03aff0c54348)!
