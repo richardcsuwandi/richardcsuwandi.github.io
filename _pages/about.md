@@ -26,3 +26,5 @@ I am interested in building *open-ended* intelligent systems capable of continuo
 
 If you are interested in collaborating or discussing research ideas, feel free to reach out via [email](mailto:richardsuwandi@link.cuhk.edu.cn).
 </div>
+
+> 🌴 I will be at San Diego from Dec 1-8 for NeurIPS 2025! If you are also attending, feel free to reach out to chat or grab a coffee!
