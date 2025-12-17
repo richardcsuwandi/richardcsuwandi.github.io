@@ -45,6 +45,7 @@
         {% if site.max_author_limit and author_array_size > site.max_author_limit %}
           {% assign author_array_limit = site.max_author_limit %}
         {% endif %}
+        {%- assign more_authors = author_array_size | minus: author_array_limit -%}
 
         {%- for author in entry.author_array limit: author_array_limit -%}
           {% assign author_is_self = false %}
@@ -55,28 +56,21 @@
             {% endif %}
           {%- endif -%}
           
-          {%- if forloop.length > 1 -%}
-            {% if forloop.first == false %}, {% endif %}
-            {%- if forloop.last and author_array_limit == author_array_size %} and {% endif -%}
-          {% endif %}
-          
           {%- if author_is_self -%}
-            <strong>{{ author.first }} {{ author.last }}</strong>
+            <strong>{{ author.first }} {{ author.last }}</strong>{%- if forloop.length > 1 and forloop.last == false -%}, {% elsif forloop.last and more_authors > 0 -%}, {% endif %}
           {%- else -%}
-            {{ author.first }} {{ author.last }}
+            {{ author.first }} {{ author.last }}{%- if forloop.length > 1 and forloop.last == false -%}, {% elsif forloop.last and more_authors > 0 -%}, {% endif %}
           {% endif %}
         {% endfor %}
         
-        {%- assign more_authors = author_array_size | minus: author_array_limit -%}
         {% if more_authors > 0 %}
-          , and 
           <span class="more-authors-toggle" style="color: #999; cursor: pointer;" 
                 onclick="toggleMoreAuthors('{{ entry.key }}')">
             {{ more_authors }} more author{% if more_authors > 1 %}s{% endif %}
           </span>
           <span id="more-authors-{{ entry.key }}" style="display: none;">
             {%- for author in entry.author_array offset: author_array_limit -%}
-              , {{ author.first }} {{ author.last }}
+              {% if forloop.first %}{% else %}, {% endif %}{{ author.first }} {{ author.last }}
             {%- endfor -%}
           </span>
         {% endif %}
