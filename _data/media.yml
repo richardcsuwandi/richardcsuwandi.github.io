@@ -1,0 +1,14 @@
+- name: "IEEE SPS"
+  logo: "sps-logo.png"
+  url: "https://signalprocessingsociety.org/publications-resources/blog/optimize-your-signal-processing-bayesian-optimization"
+  alt: "IEEE SPS"
+
+- name: "SUISF"
+  logo: "suisf-logo.png"
+  url: "https://mp.weixin.qq.com/s?__biz=Mzg4Mjc3NTY4Mw==&mid=2247499964&idx=1&sn=2abeac67a62146c66e7dfb225afb36b5&chksm=ce01a797f94321b328e687c27418de0674f7ef17087e40ec83761ac07190944eb04acc478e53&mpshare=1&scene=24&srcid=0808uANtUOIeAUaEU4xpqpwM&sharer_shareinfo=1096a555ed8e4c6800b4248bbecc198f&sharer_shareinfo_first=6a1d5c74ba14e27996882557dc3aee0e#rd"
+  alt: "SUISF (深圳大运留学基金会)"
+
+- name: "Jiqizhixin"
+  logo: "jiqizhixin-logo.png"
+  url: "https://mp.weixin.qq.com/s?__biz=MzA3MzI4MjgzMw==&mid=2651005150&idx=4&sn=d2cc26f051c17a257a744209bdee1f5b&chksm=85f8209e9dcd57feb909afbf222c9172b85dc03b06a8ae24f6804b2dbb7999048bc55e5d459b&mpshare=1&scene=1&srcid=12042403CbNaHIxIjjEQ5oic&sharer_shareinfo=faf3cf7237d375827280c3f9ff718871&sharer_shareinfo_first=faf3cf7237d375827280c3f9ff718871#rd"
+  alt: "Jiqizhixin (机器之心)"

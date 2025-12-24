@@ -206,6 +206,52 @@
 }
 
 // ============================================================================
+// Media Coverage Section
+// ============================================================================
+
+.media-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  margin-top: 1.5rem;
+}
+
+.media-card {
+  background: var(--global-card-bg-color, #fff);
+  border: 1.5px solid var(--global-divider-color, #e3f0fa);
+  border-radius: 1.2rem;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  min-height: 150px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    border-color: var(--global-theme-color, #0063c9);
+  }
+}
+
+.media-logo {
+  max-width: 100%;
+  max-height: 80px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: grayscale(20%);
+  transition: filter 0.3s ease;
+
+  .media-card:hover & {
+    filter: grayscale(0%);
+  }
+}
+
+// ============================================================================
 // Dark Mode Overrides
 // ============================================================================
 

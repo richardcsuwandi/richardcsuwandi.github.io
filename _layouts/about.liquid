@@ -85,6 +85,19 @@
       {% include selected_papers.liquid %}
     {% endif %}
 
+    <!-- Media Coverage Section -->
+    {% if site.data.media %}
+      <h2>Media Coverage</h2>
+      <div class="media-grid">
+        {% for item in site.data.media %}
+        <a href="{{ item.url }}" class="media-card" target="_blank" rel="noopener noreferrer">
+          <img src="{{ '/assets/img/media/' | append: item.logo | relative_url }}" alt="{{ item.alt }}" class="media-logo">
+        </a>
+        {% endfor %}
+      </div>
+    {% endif %}
+    <!-- End Media Coverage Section -->
+
     <!-- Honors & Awards Section -->
     <!-- <h2>Honors & Awards</h2>
     <div class="services-flex">
