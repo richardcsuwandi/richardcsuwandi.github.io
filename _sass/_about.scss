@@ -225,15 +225,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
+  transition: box-shadow 0.2s ease;
   text-decoration: none;
   min-height: 150px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 
   &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    border-color: var(--global-theme-color, #0063c9);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
   }
 }
 
@@ -268,6 +266,16 @@ html[data-theme-setting='dark'],
 
     &:hover {
       color: #68b2ff !important;
+    }
+  }
+
+  .media-card {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    box-shadow: 0 1px 3px rgba(255, 255, 255, 0.1);
+
+    &:hover {
+      box-shadow: 0 4px 6px rgba(255, 255, 255, 0.15);
     }
   }
 }
