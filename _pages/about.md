@@ -16,7 +16,7 @@ social: true # includes social icons at the bottom of the page
 ---
 <div class="about-content" markdown="1">
 
-I am a **PhD student** at [CUHK-Shenzhen](https://cuhk.edu.cn/en/), advised by [Prof. Feng Yin](https://sse.cuhk.edu.cn/en/faculty/yinfeng) and [Prof. Tsung-Hui Chang](https://sse.cuhk.edu.cn/en/faculty/tsunghuichang). Prior to my PhD, I obtained my BSc degree in Statistics from CUHK-Shenzhen. My current research explores:
+I am a **PhD student** at [CUHK-Shenzhen](https://cuhk.edu.cn/en/), advised by [Prof. Feng Yin](https://sai.cuhk.edu.cn/en/teacher/97) and [Prof. Tsung-Hui Chang](https://sai.cuhk.edu.cn/en/teacher/83). Prior to my PhD, I obtained my BSc degree in Statistics from CUHK-Shenzhen. My current research explores:
 - **Bayesian optimization** for sample-efficient black-box optimization and sequential decision-making
 - **Gaussian processes** for probabilisitic modeling and uncertainty quantification
 - **Foundation models** for open-ended algorithm discovery and generative design in science & engineering
