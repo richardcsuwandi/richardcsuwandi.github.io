@@ -1,0 +1,38 @@
+# Awards and Honors
+# This file is used by:
+# - _layouts/about.liquid (homepage awards section)
+# - _pages/awards.md (standalone awards page)
+#
+# To add a new award, add an entry with year, title, and description fields
+
+- year: "2024, 2025"
+  title: "IEEE Signal Processing Society Scholarship"
+  description: "A scholarship worth US$7,000 for up to three years of consecutive support to students who have expressed interest and commitment to pursuing signal processing education and real-world career experiences."
+
+- year: "2024"
+  title: "Shenzhen Universiade International Scholarship Foundation"
+  description: "A specially raised fund to support the eligible international students with a view to carrying forward the spirit of the Universiade Shenzhen and promoting cultural and educational exchanges among international young people."
+
+- year: "2023"
+  title: "School of Science and Engineering Postgraduate Studentship, CUHK-Shenzhen"
+  description: "The studentship provides financial support through a tuition waiver, teaching assistant stipend, and research assistant (RA) opportunities."
+
+- year: "2022, 2023"
+  title: "Undergraduate Research Award, CUHK-Shenzhen"
+  description: "A monthly cash award for working on a research project under the supervision of a faculty member."
+
+- year: "2020, 2021, 2022, 2023"
+  title: "School of Data Science Dean's List Award, CUHK-Shenzhen"
+  description: "The award is given by the Dean and the School to students who attained a year GPA of 3.5 or above (out of 4.0) as a recognition of hard work and outstanding academic performance."
+
+- year: "2020, 2021"
+  title: "Guangdong Government Outstanding International Student Scholarship"
+  description: "The scholarship is awarded to outstanding international students in colleges and universities across the Guangdong province."
+
+- year: "2019"
+  title: "Full Tuition and Accommodation Scholarship, CUHK-Shenzhen"
+  description: "Full tuition and accommodation scholarship awarded upon admission and subject to annual renewal in line with outstanding academic achievement."
+
+- year: "2018"
+  title: "Bronze Medal, Asia International Mathematical Olympiad (AIMO)"
+  description: "Asia International Mathematical Olympiad (AIMO) is an annual international olympiad competition originated from Hong Kong."
