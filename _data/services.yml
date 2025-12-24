@@ -1,0 +1,53 @@
+# Academic Services
+# This file is used by:
+# - _layouts/about.liquid (homepage services section)
+# - _pages/services.md (standalone services page)
+#
+# To add new entries:
+# - For teaching: add semester, institution, course, and url
+# - For reviewing: add name and url
+
+teaching:
+  - semester: "Fall 2025"
+    institution: "CUHK-Shenzhen"
+    course: "CIE6007 Machine Learning"
+    url: "https://www.cuhk.edu.cn/en/course/11167"
+
+  - semester: "Spring 2025"
+    institution: "CUHK-Shenzhen"
+    course: "MAT2040 Linear Algebra"
+    url: "https://www.cuhk.edu.cn/en/course/8058"
+
+  - semester: "Fall 2024"
+    institution: "CUHK-Shenzhen"
+    course: "CIE6007 Machine Learning"
+    url: "https://www.cuhk.edu.cn/en/course/11167"
+
+  - semester: "Spring 2024"
+    institution: "CUHK-Shenzhen"
+    course: "MAT2040 Linear Algebra"
+    url: "https://www.cuhk.edu.cn/en/course/8058"
+
+  - semester: "Fall 2023"
+    institution: "CUHK-Shenzhen"
+    course: "MAT2040 Linear Algebra"
+    url: "https://www.cuhk.edu.cn/en/course/8058"
+
+reviewing:
+  - name: "IEEE Transactions on Neural Networks and Learning Systems"
+    url: "https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=5962385"
+
+  - name: "IEEE Transactions on Signal Processing"
+    url: "https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=78"
+
+  - name: "IEEE International Conference on Acoustics, Speech, and Signal Processing (ICASSP)"
+    url: "https://ieeexplore.ieee.org/xpl/conhome/1000002/all-proceedings"
+
+  - name: "International Conference on Learning Representations (ICLR)"
+    url: "https://iclr.cc"
+
+  - name: "International Conference on Machine Learning (ICML)"
+    url: "https://icml.cc"
+
+  - name: "Conference on Neural Information Processing Systems (NeurIPS)"
+    url: "https://neurips.cc"

@@ -8,15 +8,11 @@ nav_order: 6
 ---
 
 #### Teaching Assistant
-- Fall 2025, [CIE6007 Machine Learning](https://www.cuhk.edu.cn/en/course/11167), CUHK-Shenzhen
-- Spring 2025, [MAT2040 Linear Algebra](https://www.cuhk.edu.cn/en/course/8058), CUHK-Shenzhen
-- Fall 2024, [CIE6007 Machine Learning](https://www.cuhk.edu.cn/en/course/11167), CUHK-Shenzhen
-- Spring 2024, [MAT2040 Linear Algebra](https://www.cuhk.edu.cn/en/course/8058), CUHK-Shenzhen
-- Fall 2023, [MAT2040 Linear Algebra](https://www.cuhk.edu.cn/en/course/8058), CUHK-Shenzhen
+{% for teaching in site.data.services.teaching %}
+- {{ teaching.semester }}, [{{ teaching.course }}]({{ teaching.url }}), {{ teaching.institution }}
+{% endfor %}
 
 #### Reviewer
-- [IEEE Transactions on Neural Networks and Learning Systems](https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=5962385)
-- [IEEE Transactions on Signal Processing](https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=78)
-- [IEEE International Conference on Acoustics, Speech, and Signal Processing (ICASSP)](https://ieeexplore.ieee.org/xpl/conhome/1000002/all-proceedings)
-- [International Conference on Learning Representations (ICLR)](https://iclr.cc)
-- [International Conference on Machine Learning (ICML)](https://icml.cc)
+{% for review in site.data.services.reviewing %}
+- [{{ review.name }}]({{ review.url }})
+{% endfor %}
