@@ -1,0 +1,1 @@
+document.addEventListener("DOMContentLoaded",function(){var e=document.querySelectorAll(".awards-scrollable .service-card");e.forEach(function(n){var t=n.querySelector(".award-expand-btn");t&&t.addEventListener("click",function(t){t.preventDefault(),e.forEach(function(e){e!==n&&e.classList.remove("expanded")}),n.classList.toggle("expanded")})})});
