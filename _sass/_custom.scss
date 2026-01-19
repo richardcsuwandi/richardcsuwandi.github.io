@@ -321,6 +321,7 @@ footer {
   // Publication title styling
   .publication-title {
     font-size: 1.6rem !important; // Smaller than default post titles
+    font-weight: 600 !important; // Override the heavy font-weight from post-title-horizontal
     margin-top: 0 !important; // Remove top margin for better alignment
     margin-bottom: 0.75rem !important; // Adjust padding/spacing
     line-height: 1.3 !important;
