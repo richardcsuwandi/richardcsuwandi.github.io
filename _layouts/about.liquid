@@ -13,6 +13,10 @@
       <meta http-equiv="refresh" content="3; url={{ redirect }}">
     {% endif %}
     {% include head.liquid %}
+    {% if page.profile and page.profile.image %}
+      {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
+      <link rel="preload" as="image" href="{{ profile_image_path | relative_url | bust_file_cache }}" fetchpriority="high">
+    {% endif %}
   </head>
 
   <!-- Body -->

@@ -68,7 +68,8 @@
       {% elsif site.lazy_loading_images %}
         loading="lazy"
       {% endif %}
-      onerror="this.onerror=null; $('.responsive-img-srcset').remove();"
+      decoding="async"
+      onerror="this.onerror=null; var sources = this.closest('picture')?.querySelectorAll('source.responsive-img-srcset'); if (sources) { sources.forEach(function(s) { s.remove(); }); } this.style.display='block';"
     >
   </picture>
 
