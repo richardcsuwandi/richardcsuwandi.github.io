@@ -104,6 +104,43 @@ h4 {
   margin-top: 1.5rem;
 }
 
+d-article {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-bottom: 0.75rem;
+  }
+
+  h1 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    margin-top: 2rem;
+  }
+
+  h3 {
+    margin-top: 1.25rem;
+  }
+
+  h4 {
+    margin-top: 1rem;
+  }
+
+  p {
+    margin-bottom: 1.25rem;
+  }
+
+  blockquote {
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+}
+
 p {
   margin-bottom: 1.75rem;
 }
@@ -595,6 +632,17 @@ table {
     padding: 0;
     display: inline-block;
   }
+}
+
+// distill appendix uses <span class="title"> per reference; global .title above is
+// display:block + width:100% for page headers, which drops [HTML]/[PDF] links to their own line
+d-citation-list .references .title {
+  display: inline;
+  width: auto;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  clear: none;
 }
 
 .toggle-container {

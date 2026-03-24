@@ -32,40 +32,69 @@
         width: 100% !important;
       }
       
-      /* Create a grid layout for the entire byline section */
+      /*
+        .byline has two children: .authors-affiliations (authors + affiliations) and the published block.
+        A 3-column outer grid squeezed the first child and caused overlap with nowrap text.
+      */
       d-byline .byline {
         max-width: 100% !important;
         width: 100% !important;
         display: grid !important;
-        grid-template-columns: minmax(150px, 1fr) minmax(250px, 2fr) minmax(200px, 1fr);
-        gap: 4rem;
+        /* !important beats distill’s injected 4-column rule at min-width 768px */
+        grid-template-columns: minmax(0, 1fr) minmax(0, auto) !important;
+        gap: clamp(1.5rem, 4vw, 3rem);
         align-items: start;
       }
-      
+
+      /* Distill defaults use span 2 on a 4-col grid; reset so the two children sit side by side */
+      d-byline .authors-affiliations {
+        grid-column-end: auto !important;
+        min-width: 0 !important;
+        display: grid !important;
+        grid-template-columns: minmax(0, auto) minmax(0, 1fr) !important;
+        column-gap: clamp(1rem, 3vw, 2.5rem) !important;
+        row-gap: 0.25rem !important;
+        align-items: start !important;
+      }
+
+      d-byline .byline > div:last-child {
+        min-width: 0 !important;
+      }
+
       /* Style the headers */
       d-byline h3 {
         margin-bottom: 0.5rem !important;
         font-weight: bold;
         white-space: nowrap;
       }
-      
-      /* Prevent author names from wrapping */
+
+      /* Let long names and affiliations wrap; min-width:0 allows grid items to shrink */
       d-byline .author,
-      d-byline .authors {
-        white-space: nowrap;
-        overflow: visible;
-      }
-      
-      /* Prevent affiliation names from wrapping */
+      d-byline .authors,
       d-byline .affiliations,
-      d-byline .affiliation {
-        white-space: nowrap;
-        overflow: visible;
+      d-byline .affiliation,
+      d-byline p.author,
+      d-byline p.affiliation,
+      d-byline .authors-affiliations p {
+        white-space: normal !important;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        min-width: 0;
       }
-      
-      /* Style the published date section */
-      d-byline .published {
-        white-space: nowrap;
+
+      d-byline .byline > div:last-child p {
+        white-space: normal !important;
+        margin: 0;
+      }
+
+      @media (max-width: 640px) {
+        d-byline .byline {
+          grid-template-columns: minmax(0, 1fr) !important;
+        }
+
+        d-byline .authors-affiliations {
+          grid-template-columns: minmax(0, 1fr) !important;
+        }
       }
       
       /* Additional spacing adjustments */

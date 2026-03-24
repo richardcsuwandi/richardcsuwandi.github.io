@@ -2,12 +2,18 @@
  * Style overrides for distill blog posts.
  ******************************************************************************/
 
- d-byline {
+d-byline {
   border-top-color: var(--global-divider-color) !important;
+  /* distill’s injected stylesheet uses 0.8rem here and 0.6rem on h3 — too small next to body text */
+  font-size: 1rem !important;
+  line-height: 1.65 !important;
 }
 
 d-byline h3 {
   color: var(--global-text-color) !important;
+  font-size: 0.8125rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.04em;
 }
 
 d-byline a, d-article d-byline a {
