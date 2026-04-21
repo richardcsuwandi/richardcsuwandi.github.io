@@ -1,0 +1,329 @@
+// =============================================================================
+// UI/UX Enhancements
+// Polished micro-interactions, scroll animations, and visual refinements
+// =============================================================================
+
+// ── Smooth scroll ─────────────────────────────────────────────────────────────
+html {
+  scroll-behavior: smooth;
+}
+
+// ── Scroll-reveal system ──────────────────────────────────────────────────────
+// Only active when JS adds .reveal-js-enabled to <body>
+body.reveal-js-enabled {
+  .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+
+    &.revealed {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  // Stagger helper for sibling groups
+  @for $i from 1 through 12 {
+    .reveal-stagger > *:nth-child(#{$i}) {
+      transition-delay: #{($i - 1) * 70}ms;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.reveal-js-enabled .reveal,
+  body.reveal-js-enabled .reveal.revealed {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+// ── Navbar glass effect on scroll ─────────────────────────────────────────────
+.navbar {
+  transition: background-color 0.3s ease, backdrop-filter 0.3s ease,
+    -webkit-backdrop-filter 0.3s ease, box-shadow 0.3s ease !important;
+
+  &.scrolled {
+    background-color: rgba(255, 255, 255, 0.82) !important;
+    backdrop-filter: blur(14px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(14px) saturate(180%) !important;
+    box-shadow: 0 1px 24px rgba(0, 0, 0, 0.07) !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+  }
+}
+
+html[data-theme='dark'] .navbar.scrolled,
+html[data-theme-setting='dark'] .navbar.scrolled {
+  background-color: rgba(26, 26, 26, 0.84) !important;
+  box-shadow: 0 1px 24px rgba(0, 0, 0, 0.4) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+// ── Navbar link active indicator ──────────────────────────────────────────────
+.navbar-nav .nav-item .nav-link {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--global-theme-color);
+    border-radius: 1px;
+    transform: translateX(-50%);
+    transition: width 0.2s ease;
+  }
+
+  &:hover::after,
+  &.active::after {
+    width: 20px;
+  }
+}
+
+// ── Profile photo refinements ─────────────────────────────────────────────────
+.profile {
+  img {
+    border-radius: 10px !important;
+    transition: transform 0.4s ease, box-shadow 0.4s ease !important;
+    box-shadow: 0 8px 32px rgba(0, 99, 201, 0.1), 0 2px 8px rgba(0, 0, 0, 0.06) !important;
+
+    &:hover {
+      transform: scale(1.025) translateY(-2px) !important;
+      box-shadow: 0 16px 48px rgba(0, 99, 201, 0.18), 0 4px 16px rgba(0, 0, 0, 0.08) !important;
+    }
+  }
+}
+
+// ── Section heading accent ────────────────────────────────────────────────────
+.post article h2 {
+  position: relative;
+  padding-bottom: 0.75rem !important;
+  margin-bottom: 1.75rem !important;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 36px;
+    height: 2.5px;
+    background: linear-gradient(90deg, var(--global-theme-color), transparent);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+  }
+
+  &:hover::after {
+    width: 64px;
+  }
+}
+
+// ── Post title gradient ───────────────────────────────────────────────────────
+.post-header .post-title {
+  letter-spacing: -0.03em !important;
+}
+
+// ── Inline link animated underline ───────────────────────────────────────────
+.post article .clearfix p a,
+.post article .about-content p a,
+.news .news-item p a,
+.news .news-item a {
+  position: relative;
+  text-decoration: none !important;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: currentColor;
+    transition: width 0.2s ease;
+  }
+
+  &:hover::after {
+    width: 100%;
+  }
+}
+
+// ── Social icon hover pill ────────────────────────────────────────────────────
+.contact-icons a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  transition: background 0.2s ease, transform 0.2s ease, color 0.2s ease !important;
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(0, 99, 201, 0.08);
+    transform: translateY(-3px) !important;
+    color: var(--global-theme-color) !important;
+  }
+}
+
+html[data-theme='dark'] .contact-icons a:hover,
+html[data-theme-setting='dark'] .contact-icons a:hover {
+  background: rgba(104, 178, 255, 0.12);
+  color: #68b2ff !important;
+}
+
+// ── Card hover consistency ────────────────────────────────────────────────────
+.card {
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease !important;
+
+  &:hover {
+    transform: translateY(-6px) !important;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.09) !important;
+
+    .card-img {
+      filter: grayscale(0%) !important;
+    }
+  }
+}
+
+// ── Media card lift ───────────────────────────────────────────────────────────
+.media-card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.11) !important;
+    border-color: rgba(0, 99, 201, 0.18) !important;
+  }
+}
+
+html[data-theme='dark'] .media-card:hover,
+html[data-theme-setting='dark'] .media-card:hover {
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4) !important;
+  border-color: rgba(104, 178, 255, 0.2) !important;
+}
+
+// ── Service card polish ───────────────────────────────────────────────────────
+.service-card {
+  cursor: default;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease !important;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07) !important;
+    border-color: rgba(0, 99, 201, 0.2) !important;
+  }
+}
+
+// ── News items visual accent ──────────────────────────────────────────────────
+.news table,
+.news .table {
+  border: none;
+  box-shadow: none;
+}
+
+.news .news-item,
+.news tr {
+  transition: background 0.18s ease;
+  border-radius: 8px;
+}
+
+// ── Back-to-top button ────────────────────────────────────────────────────────
+#back-to-top {
+  border-radius: 50% !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease !important;
+
+  &:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22) !important;
+  }
+}
+
+// ── Page load fade-in ─────────────────────────────────────────────────────────
+@keyframes page-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.wide-about-container,
+.container.mt-5 {
+  animation: page-fade-in 0.5s ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wide-about-container,
+  .container.mt-5 {
+    animation: none;
+  }
+}
+
+// ── Text selection polish ─────────────────────────────────────────────────────
+::selection {
+  background-color: rgba(0, 99, 201, 0.18);
+  color: inherit;
+}
+
+html[data-theme='dark'] ::selection,
+html[data-theme-setting='dark'] ::selection {
+  background-color: rgba(104, 178, 255, 0.28);
+}
+
+// ── Focus states for keyboard navigation ─────────────────────────────────────
+a:focus-visible,
+button:focus-visible,
+[role='button']:focus-visible {
+  outline: 2px solid var(--global-theme-color);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+// ── Publication bib list items ────────────────────────────────────────────────
+.publications ol.bibliography > li {
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: translateX(3px);
+  }
+}
+
+// ── Desc / subtitle under name ────────────────────────────────────────────────
+.post-header .desc {
+  opacity: 0.75;
+  font-size: 1.1rem;
+  letter-spacing: 0.01em;
+  margin-top: -0.25rem;
+}
+
+// ── More-info panel in profile ────────────────────────────────────────────────
+.profile .more-info {
+  font-size: 0.93rem;
+  line-height: 1.7;
+  margin-top: 0.75rem;
+
+  a {
+    font-weight: 500;
+    transition: color 0.18s ease;
+  }
+}
+
+// ── Responsive: tighten section gap on mobile ─────────────────────────────────
+@media (max-width: 768px) {
+  .post article h2::after {
+    width: 28px;
+  }
+
+  .contact-icons a {
+    width: 40px;
+    height: 40px;
+  }
+}

@@ -1,4 +1,6 @@
 _site
+.claude
+.cursor
 .bundle
 .sass-cache
 .jekyll-cache

@@ -28,6 +28,9 @@ $max-content-width: {{ site.max_width }};
 // Import custom styles
 @import "custom";
 
+// Import UI/UX enhancements (micro-interactions, scroll reveal, glass nav)
+@import "enhancements";
+
 /* Landing section styles */
 .landing-section {
   margin: 0 auto;
