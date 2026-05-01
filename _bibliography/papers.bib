@@ -1,6 +1,18 @@
 ---
 ---
 
+@article{li2026mimomamba,
+  title={MIMOMamba: From Scalar Duality to Matrix-Valued Attention},
+  author={Li, Yanbo and Suwandi, Richard Cornelius and Yin, Feng and Sun, Yiyong and Huang, Wei and Pu, Wenqiang},
+  journal={43rd International Conference on Machine Learning (ICML)},
+  year={2026},
+  selected={true},
+  organization={ICML},
+  preview={mimomamba.png},
+  abstract={The state space duality (SSD) framework, central to modern state-space models (SSMs) such as Mamba, has established an efficient attention-like mechanism by leveraging the commutative property of linear recurrences. However, existing formulations are limited to single-input single-output (SISO) systems that enforce commutativity with a restrictive scalar-identity constraint, which prevents cross-dimensional interactions within the state dynamics. In this work, we generalize SSD to the multi-input multi-output (MIMO) setting by introducing a matrix polynomial parameterization. This approach not only provides a principled way to ensure commutativity for generalized duality but also induces a shared algebraic structure across state transitions, thereby significantly reducing parameter redundancy. Building on this foundation, we present MIMOMamba, a multi-head SSM architecture that captures rich cross-dimensional dynamics while retaining linear-time training. Empirical results on a sequence modeling benchmark show that MIMOMamba matches or exceeds the performance of standard Transformers with only approximately one-third the parameters of the baseline.}
+}
+
+
 @inproceedings{suwandi2026breaking,
   title={Breaking the Curse of Dimensionality in Gaussian Process Training With Zeroth-Order Adaptive Perturbation},
   author={Suwandi, Richard Cornelius and Yin, Feng and Chang, Tsung-Hui},
