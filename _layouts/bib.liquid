@@ -76,17 +76,25 @@
         {% endif %}
       </div>
       <div class="publication-venue">
+        {% assign presentation_kind = entry.presentation | default: '' | downcase | strip %}
         {% assign proceedings = 'inproceedings,incollection' | split: ',' %}
         {% assign thesis = 'thesis,mastersthesis,phdthesis' | split: ',' %}
-        {% if entry.type == 'article' %}
-          <em>{{ entry.journal }}</em>, {{ entry.year }}
-        {% elsif proceedings contains entry.type %}
-          <em>{{ entry.booktitle }}</em>, {{ entry.year }}
-        {% elsif thesis contains entry.type %}
-          <em>{{ entry.school }}</em>, {{ entry.year }}
-        {% else %}
-          {{ entry.year }}
-        {% endif %}
+        <div class="publication-venue-line">
+          <span class="publication-venue-text">
+            {% if presentation_kind == 'oral' %}
+              <span class="presentation-badge presentation-badge-oral">ORAL</span>
+            {% endif %}
+            {% if entry.type == 'article' %}
+              <em>{{ entry.journal }}</em>, {{ entry.year }}
+            {% elsif proceedings contains entry.type %}
+              <em>{{ entry.booktitle }}</em>, {{ entry.year }}
+            {% elsif thesis contains entry.type %}
+              <em>{{ entry.school }}</em>, {{ entry.year }}
+            {% else %}
+              {{ entry.year }}
+            {% endif %}
+          </span>
+        </div>
       </div>
     </div>
     

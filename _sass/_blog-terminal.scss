@@ -1,0 +1,180 @@
+// Terminal-style blog listing
+
+$term-bg:       #0d1117;
+$term-bg-dim:   #161b22;
+$term-border:   #30363d;
+$term-text:     #c9d1d9;
+$term-muted:    #6e7681;
+$term-amber:    #e6a817;
+$term-amber-bg: #e8a217;
+$term-dark:     #1c1c1c;
+$term-blue:     #58a6ff;
+
+.blog-terminal-wrapper {
+  background-color: $term-bg;
+  min-height: calc(100vh - 80px);
+  padding: 2.5rem 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.blog-terminal {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  background-color: $term-bg;
+  color: $term-text;
+  width: 100%;
+  max-width: 860px;
+  display: flex;
+  flex-direction: column;
+
+  // Prompt line
+  .terminal-header {
+    padding: 0.25rem 0 0.5rem;
+    font-size: 1rem;
+    line-height: 1.5;
+
+    .t-user    { color: $term-amber; font-weight: 700; }
+    .t-sep     { color: $term-text; }
+    .t-path    { color: $term-blue; }
+    .t-dollar  { color: $term-text; }
+    .t-cmd     { color: $term-text; }
+  }
+
+  .terminal-divider {
+    border: none;
+    border-top: 1px solid $term-border;
+    margin: 0.4rem 0 0.6rem;
+  }
+
+  // Inline search bar
+  .terminal-search-bar {
+    display: none;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.15rem 0 0.4rem 0;
+
+    &.active { display: flex; }
+
+    .t-search-label { color: $term-amber; font-weight: 700; }
+
+    .t-search-input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: $term-text;
+      font-family: inherit;
+      font-size: 1rem;
+      flex: 1;
+      caret-color: $term-amber;
+    }
+  }
+
+  // Post rows
+  .terminal-posts { flex: 1; }
+
+  .terminal-post-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0;
+    padding: 0.25rem 0.4rem;
+    cursor: pointer;
+    text-decoration: none !important;
+    border-radius: 2px;
+    transition: background-color 0.08s;
+    color: $term-text;
+
+    .t-cursor {
+      display: inline-block;
+      width: 1.6ch;
+      color: transparent;
+      font-weight: 700;
+      flex-shrink: 0;
+      user-select: none;
+    }
+
+    .t-date {
+      color: $term-amber;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-right: 1.2ch;
+    }
+
+    .t-title {
+      color: $term-text;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .t-desc-sep,
+    .t-desc {
+      display: none;
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    .t-desc-sep { margin: 0 0.5ch; color: $term-dark; }
+    .t-desc     { color: $term-dark; opacity: 0.85; flex: 1; white-space: normal; }
+
+    &.active,
+    &:hover {
+      background-color: $term-amber-bg;
+      color: $term-dark;
+
+      .t-cursor  { color: $term-dark; }
+      .t-date    { color: $term-dark; }
+      .t-title   { color: $term-dark; }
+      .t-desc-sep,
+      .t-desc    { display: inline; }
+    }
+
+    &.hidden { display: none; }
+  }
+
+  // Status bar
+  .terminal-statusbar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.3rem 0.5rem;
+    background-color: $term-bg-dim;
+    border-top: 1px solid $term-border;
+    margin-top: 0.75rem;
+    font-size: 0.82rem;
+    flex-wrap: wrap;
+
+    .t-mode {
+      background-color: $term-amber;
+      color: $term-dark;
+      padding: 0 0.5rem;
+      font-weight: 700;
+    }
+
+    .t-stat,
+    .t-pos { color: $term-muted; }
+
+    .t-hints {
+      color: $term-muted;
+      margin-left: auto;
+
+      @media (max-width: 600px) {
+        display: none;
+      }
+    }
+  }
+}
+
+// Responsive
+@media (max-width: 600px) {
+  .blog-terminal .terminal-post-row {
+    .t-desc-sep,
+    .t-desc { display: none !important; }
+
+    .t-title {
+      white-space: normal;
+      overflow: visible;
+    }
+  }
+}

@@ -334,6 +334,7 @@ filtered_bibtex_keywords:
     html,
     pdf,
     poster,
+    presentation,
     preview,
     selected,
     slides,

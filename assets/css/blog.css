@@ -47,6 +47,32 @@ html[data-theme="dark"] .blog-post-card-horizontal:hover {
   gap: 0.5rem;
 }
 
+.publication-venue .publication-venue-line {
+  display: block;
+  line-height: inherit;
+}
+
+.publication-venue .publication-venue-text {
+  display: inline;
+}
+
+.publication-venue .presentation-badge {
+  display: inline-block;
+  font-style: normal;
+  font-size: 0.92em;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  margin-right: 0.4em;
+  padding: 0.12em 0.45em;
+  border-radius: 4px;
+  line-height: 1.25;
+  vertical-align: baseline;
+  color: var(--global-theme-color);
+  background: color-mix(in srgb, var(--global-theme-color) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--global-theme-color) 38%, transparent);
+}
+
 .post-tags-left .tag-link {
   display: block;
   color: #ffffff;
@@ -65,6 +91,12 @@ html[data-theme="dark"] .blog-post-card-horizontal:hover {
   background-color: var(--global-theme-color);
   color: #ffffff;
   border-color: var(--global-theme-color);
+}
+
+[data-theme="dark"] .publication-venue .presentation-badge,
+html[data-theme="dark"] .publication-venue .presentation-badge {
+  background: color-mix(in srgb, var(--global-theme-color) 18%, transparent);
+  border-color: color-mix(in srgb, var(--global-theme-color) 45%, transparent);
 }
 
 /* Dark mode specific styling for tags */
