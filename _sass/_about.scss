@@ -246,6 +246,48 @@
 }
 
 // ============================================================================
+// Open-Source Contributions Section
+// ============================================================================
+
+.opensource-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  margin-top: 1.5rem;
+}
+
+.opensource-card {
+  width: 100%;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  .repo {
+    max-width: 100%;
+    padding: 0 !important;
+  }
+
+  a {
+    display: block;
+    text-decoration: none;
+  }
+
+  img {
+    width: 100%;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+    transition: box-shadow 0.25s ease;
+  }
+
+  &:hover img {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+}
+
+// ============================================================================
 // Dark Mode Overrides
 // ============================================================================
 
@@ -273,6 +315,14 @@ html[data-theme-setting='dark'],
     &:hover {
       box-shadow: 0 4px 6px rgba(255, 255, 255, 0.15);
     }
+  }
+
+  .opensource-card img {
+    box-shadow: 0 1px 3px rgba(255, 255, 255, 0.1);
+  }
+
+  .opensource-card:hover img {
+    box-shadow: 0 4px 6px rgba(255, 255, 255, 0.15);
   }
 }
 

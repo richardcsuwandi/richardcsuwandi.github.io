@@ -89,7 +89,19 @@
       {% include selected_papers.liquid %}
     {% endif %}
 
+    <!-- Open-Source Contributions Section -->
+    {% if site.data.opensource %}
+      <h2>Open-Source Contributions</h2>
+      <div class="opensource-grid">
+        {% for item in site.data.opensource %}
+          {% include opensource_repo.liquid repo=item.repo %}
+        {% endfor %}
+      </div>
+    {% endif %}
+    <!-- End Open-Source Contributions Section -->
+
     <!-- Media Coverage Section -->
+    {% comment %}
     {% if site.data.media %}
       <h2>Media Coverage</h2>
       <div class="media-grid">
@@ -100,6 +112,7 @@
         {% endfor %}
       </div>
     {% endif %}
+    {% endcomment %}
     <!-- End Media Coverage Section -->
 
     <!-- Honors & Awards Section -->

@@ -1,0 +1,23 @@
+- name: "OpenEvolve"
+  repo: "algorithmicsuperintelligence/openevolve"
+  url: "https://github.com/algorithmicsuperintelligence/openevolve"
+  logo: "openevolve.png"
+  alt: "OpenEvolve"
+
+- name: "PyCaret"
+  repo: "pycaret/pycaret"
+  url: "https://github.com/pycaret/pycaret"
+  logo: "pycaret.png"
+  alt: "PyCaret"
+
+- name: "pymoo"
+  repo: "anyoptimization/pymoo"
+  url: "https://github.com/anyoptimization/pymoo"
+  logo: "pymoo.png"
+  alt: "pymoo"
+
+- name: "feature_engine"
+  repo: "feature-engine/feature_engine"
+  url: "https://github.com/feature-engine/feature_engine"
+  logo: "feature-engine.png"
+  alt: "feature_engine"
