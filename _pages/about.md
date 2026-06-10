@@ -22,7 +22,4 @@ I am a fully-funded **PhD student** at [School of Artificial Intelligence, CUHK-
 - **Foundation models** for open-ended algorithm discovery and generative design in science & engineering
 
 If you are interested in collaborating or discussing research ideas, feel free to reach out via [email](mailto:richardsuwandi@link.cuhk.edu.cn).
-
-> I am co-organizing [AIDDA 2026](https://luma.com/AIDDA2026), a two-day virtual technical conference focusing on AI-driven algorithm discovery.
-
 </div>

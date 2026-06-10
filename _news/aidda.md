@@ -1,8 +1,8 @@
 ---
 layout: post
-date: 2026-05-12 00:00:00-0000
+date: 2026-06-09 00:00:00-0000
 inline: true
 related_posts: false
 ---
 
-💻 Joined [Institute for AI Driven Discovery of Algorithms (AIDDA)](https://www.algorithmdiscovery.org/) as an **Organizing Committee Member**!
+💻 Co-organized [AIDDA 2026](https://luma.com/AIDDA2026), a two-day virtual technical conference focusing on AI-driven algorithm discovery
