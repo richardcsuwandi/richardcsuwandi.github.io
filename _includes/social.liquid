@@ -52,6 +52,9 @@
 {% if site.medium_username %}
   <a href="https://medium.com/@{{ site.medium_username }}" title="Medium" class="social-icon" style="margin-right: 15px;"><i class="fa-brands fa-medium"></i></a>
 {% endif %}
+{% if site.substack_username %}
+  <a href="https://{{ site.substack_username }}.substack.com/" title="Substack" class="social-icon" style="margin-right: 15px;"><svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" height="1em" width="1em" fill="currentColor" aria-hidden="true"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/></svg></a>
+{% endif %}
 {% if site.quora_username %}
   <a href="https://www.quora.com/profile/{{ site.quora_username }}" title="Quora" class="social-icon" style="margin-right: 15px;"><i class="fa-brands fa-quora"></i></a>
 {% endif %}

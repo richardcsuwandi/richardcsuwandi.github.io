@@ -136,6 +136,10 @@
     {% capture link %}https://medium.com/@{{ site.medium_username }}{% endcapture %}
     {% assign sameaslinks = sameaslinks | push: link %}
   {% endif %}
+  {% if site.substack_username %}
+    {% capture link %}https://{{ site.substack_username }}.substack.com/{% endcapture %}
+    {% assign sameaslinks = sameaslinks | push: link %}
+  {% endif %}
   {% if site.quora_username %}
     {% capture link %}https://www.quora.com/profile/{{ site.quora_username }}{% endcapture %}
     {% assign sameaslinks = sameaslinks | push: link %}
