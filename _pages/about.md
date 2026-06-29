@@ -27,7 +27,7 @@ science & engineering
 
 I co-developed [OpenEvolve](https://github.com/algorithmicsuperintelligence/openevolve), an evolutionary coding agent for automated algorithm discovery and optimization. I also helped build [Kai](https://kai.dria.co/), an autonomous agent that can evolve codebases by finding and patching software vulnerabilities.
 
-I am also a founding committee member of the [Institute for AI-driven Discovery of Algorithms (AIDDA)](https://algorithmdiscovery.org/), where I contribute to coordinating research, knowledge sharing, and community building in this emerging discipline.
+I am a founding committee member of the [Institute for AI-driven Discovery of Algorithms (AIDDA)](https://algorithmdiscovery.org/), a community for researchers and practitioners working on automated algorithm discovery. I also help co-organize our first conference, [AIDDA 2026](https://luma.com/AIDDA2026), and contribute to the institute's [YouTube channel](https://youtube.com/@aiddainstitute?si=sbK6OMLUummd4348).
 
 <!-- If you are interested in collaborating or discussing research ideas, feel free to reach out via [email](mailto:richardsuwandi@link.cuhk.edu.cn). -->
 </div>
