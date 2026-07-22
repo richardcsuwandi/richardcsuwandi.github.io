@@ -114,6 +114,68 @@ html[data-theme="dark"] .post-tags-left .tag-link:hover {
   border-color: var(--global-theme-color);
 }
 
+/* alphaXiv link badge (matches official "View on alphaXiv" pill) */
+.alphaxiv-link-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  width: fit-content;
+  max-width: 100%;
+  margin-top: 0.15rem;
+  padding: 0.28rem 0.7rem;
+  border: 1px solid #d8d8d8;
+  border-radius: 999px;
+  background: #ffffff !important;
+  color: #6b2d2d !important;
+  text-decoration: none !important;
+  font-size: 0.68rem;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.alphaxiv-link-badge span {
+  color: inherit !important;
+}
+
+.alphaxiv-link-badge svg {
+  width: 0.95rem;
+  height: 0.7rem;
+  flex-shrink: 0;
+  color: inherit;
+}
+
+.alphaxiv-link-badge:hover {
+  border-color: #6b2d2d;
+  box-shadow: 0 1px 4px rgba(107, 45, 45, 0.18);
+  color: #6b2d2d !important;
+  background: #ffffff !important;
+  text-decoration: none !important;
+  transform: translateY(-1px);
+}
+
+[data-theme="dark"] .alphaxiv-link-badge,
+html[data-theme="dark"] .alphaxiv-link-badge,
+.publications .alphaxiv-link-badge,
+html[data-theme="dark"] .publications .alphaxiv-link-badge,
+html[data-theme="dark"] .blog-post-card .alphaxiv-link-badge {
+  background: #ffffff !important;
+  color: #6b2d2d !important;
+  border-color: #d8d8d8;
+}
+
+[data-theme="dark"] .alphaxiv-link-badge:hover,
+html[data-theme="dark"] .alphaxiv-link-badge:hover,
+.publications .alphaxiv-link-badge:hover,
+html[data-theme="dark"] .publications .alphaxiv-link-badge:hover,
+html[data-theme="dark"] .blog-post-card .alphaxiv-link-badge:hover {
+  background: #ffffff !important;
+  color: #6b2d2d !important;
+  border-color: #6b2d2d;
+}
+
 /* Removed hashtag icon styling as icons are no longer used */
 
 /* Middle section - Title, Read time, Description */

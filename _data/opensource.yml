@@ -1,23 +1,31 @@
 - name: "OpenEvolve"
   repo: "algorithmicsuperintelligence/openevolve"
   url: "https://github.com/algorithmicsuperintelligence/openevolve"
-  logo: "openevolve.png"
-  alt: "OpenEvolve"
+  description: "Open-source implementation of AlphaEvolve"
+  language: "Python"
+  stars: 6769
+  forks: 1089
 
 - name: "PyCaret"
   repo: "pycaret/pycaret"
   url: "https://github.com/pycaret/pycaret"
-  logo: "pycaret.png"
-  alt: "PyCaret"
+  description: "Open-source, low-code AutoML platform for Python"
+  language: "Python"
+  stars: 9828
+  forks: 1852
 
 - name: "pymoo"
   repo: "anyoptimization/pymoo"
   url: "https://github.com/anyoptimization/pymoo"
-  logo: "pymoo.png"
-  alt: "pymoo"
+  description: "Multi-objective optimization algorithms in Python"
+  language: "Python"
+  stars: 2922
+  forks: 479
 
 - name: "feature_engine"
   repo: "feature-engine/feature_engine"
   url: "https://github.com/feature-engine/feature_engine"
-  logo: "feature-engine.png"
-  alt: "feature_engine"
+  description: "Feature engineering and selection library for scikit-learn"
+  language: "Python"
+  stars: 2259
+  forks: 355

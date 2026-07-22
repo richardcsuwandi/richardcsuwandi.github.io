@@ -10,6 +10,7 @@
   organization={ICML},
   preview={mimomamba.png},
   website={https://openreview.net/forum?id=UmQ07sj13y},
+  alphaxiv={https://www.alphaxiv.org/abs/2607.mimomamba-matrix-valued-attention},
   abstract={The state space duality (SSD) framework, central to modern state-space models (SSMs) such as Mamba, has established an efficient attention-like mechanism by leveraging the commutative property of linear recurrences. However, existing formulations are limited to single-input single-output (SISO) systems that enforce commutativity with a restrictive scalar-identity constraint, which prevents cross-dimensional interactions within the state dynamics. In this work, we generalize SSD to the multi-input multi-output (MIMO) setting by introducing a matrix polynomial parameterization. This approach not only provides a principled way to ensure commutativity for generalized duality but also induces a shared algebraic structure across state transitions, thereby significantly reducing parameter redundancy. Building on this foundation, we present MIMOMamba, a multi-head SSM architecture that captures rich cross-dimensional dynamics while retaining linear-time training. Empirical results on a sequence modeling benchmark show that MIMOMamba matches or exceeds the performance of standard Transformers with only approximately one-third the parameters of the baseline.}
 }
 
@@ -25,6 +26,7 @@
   preview={zap.png},
   website={https://ieeexplore.ieee.org/document/11463847},
   code={https://github.com/richardcsuwandi/zap},
+  alphaxiv={https://www.alphaxiv.org/abs/2607.zap},
   abstract={Hyperparameter optimization remains a core challenge in training Gaussian processes (GPs), primarily due to the high computational cost and numerical instabilities associated with gradient-based optimizers. These issues are exacerbated in high-dimensional spaces, where the optimization landscapes become increasingly complex and difficult to navigate efficiently. We propose zeroth-order adaptive perturbation (ZAP), a scalable gradient-free algorithm that leverages simultaneous perturbations sampled from a Bernoulli distribution to obtain accurate gradient estimates with only two function evaluations per iteration, regardless of the hyperparameter dimensionality. Our theoretical analysis establishes that the gradient estimator is asymptotically unbiased and that ZAP converges to a stationary point under standard assumptions. Empirically, ZAP outperforms state-of-the-art gradient-based and gradient-free baselines on real-world datasets, achieving an average of 20 times reduction in mean-squared-error and a 118 times speedup in optimization time.}
 }
 
@@ -39,6 +41,7 @@
   preview={fedmf.png},
   selected={true},
   poster={poster_fedmf.pdf},
+  alphaxiv={https://www.alphaxiv.org/abs/2607.federated-matrix-factorization-model-averaging},
   abstract={Federated learning (FL) is encountered with the challenge of training a model in massive and heterogeneous networks. Model averaging (MA) has become a popular FL paradigm where parallel (stochastic) gradient descent (GD) is run on a small sampled subset of clients multiple times before uploading the local models to a server for averaging, which has been proven effective in reducing the communication cost for achieving a good model. However, MA has not been considered for the important matrix factorization (MF) model, which has vast signal processing and machine learning applications. In this paper, we investigate the federated MF problem and propose a new MA based algorithm, named FedMAvg, by judiciously combining the alternating minimization technique and MA. Through analysis, we show that gradually decreasing the number of local GD and only allowing partial clients to communicate with the server can greatly reduce the communication cost, especially in heterogeneous networks with non-i.i.d. data. Experimental results by applying FedMAvg to data clustering and item recommendation tasks demonstrate its efficacy in terms of both task performance and communication efficiency.}
 }
 
@@ -52,6 +55,7 @@
   website={https://ieeexplore.ieee.org/document/9841347},
   code={https://github.com/richardcsuwandi/distributed-gsm},
   slides={fusion2022_slides.pdf},
+  alphaxiv={https://www.alphaxiv.org/abs/2607.gp-regression-gsm},
   preview={gsm.png},
   selected={true},
   abstract={Kernel design for Gaussian processes (GPs) along with the associated hyper-parameter optimization is a challenging problem. In this paper, we propose a novel grid spectral mixture (GSM) kernel design for GPs that can automatically fit multidimensional data with affordable model complexity and superior modeling capability. To alleviate the computational complexity due to the curse of dimensionality, we leverage a multicore computing environment to optimize the kernel hyper-parameters in a distributed manner. We further propose a doubly distributed learning algorithm based on the alternating direction method of multipliers (ADMM) which enables multiple agents to learn the kernel hyper-parameters collaboratively. The doubly distributed learning algorithm is shown to be effective in reducing the overall computational complexity while preserving data privacy during the learning process. Experiments on various one-dimensional and multidimensional data sets demonstrate that the proposed kernel design yields superior training and prediction performance compared to its competitors.}
@@ -63,6 +67,7 @@
   journal={39th Conference on Neural Information Processing Systems (NeurIPS)}, 
   year={2025},
   website={https://arxiv.org/abs/2509.17998},
+  alphaxiv={https://www.alphaxiv.org/abs/2509.17998},
   code={https://github.com/richardcsuwandi/cake},
   poster={neurips2025_poster.pdf},
   preview={cake.png},
@@ -77,6 +82,7 @@
   journal={IEEE Transactions on Neural Networks and Learning Systems}, 
   year={2025},
   website={https://ieeexplore.ieee.org/document/10856719/keywords#keywords},
+  alphaxiv={https://www.alphaxiv.org/abs/2309.08201},
   code={https://github.com/richardcsuwandi/slim-kl},
   preview={gsmp.png},
   selected={true},

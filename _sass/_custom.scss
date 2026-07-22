@@ -446,16 +446,16 @@ footer {
 // Dark mode body link colors only
 html[data-theme='dark'] {
   // Target main content area links only, not navbar or headers
-  .container a:not(.navbar a):not(.nav-link),
-  .container-fluid a:not(.navbar a):not(.nav-link),
-  main a:not(.navbar a):not(.nav-link),
-  .content a:not(.navbar a):not(.nav-link),
-  .post-content a:not(.navbar a):not(.nav-link),
-  .wide-about-container a:not(.navbar a):not(.nav-link),
+  .container a:not(.navbar a):not(.nav-link):not(.opensource-card),
+  .container-fluid a:not(.navbar a):not(.nav-link):not(.opensource-card),
+  main a:not(.navbar a):not(.nav-link):not(.opensource-card),
+  .content a:not(.navbar a):not(.nav-link):not(.opensource-card),
+  .post-content a:not(.navbar a):not(.nav-link):not(.opensource-card),
+  .wide-about-container a:not(.navbar a):not(.nav-link):not(.opensource-card),
   .publications a:not(.navbar a):not(.nav-link),
   .news a:not(.navbar a):not(.nav-link),
   p a:not(.navbar a):not(.nav-link),
-  li a:not(.navbar a):not(.nav-link) {
+  li a:not(.navbar a):not(.nav-link):not(.opensource-card) {
     color: #68b2ff;
     
     &:hover {

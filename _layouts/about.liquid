@@ -94,9 +94,43 @@
       <h2>Open-Source Contributions</h2>
       <div class="opensource-grid">
         {% for item in site.data.opensource %}
-          {% include opensource_repo.liquid repo=item.repo %}
+          {% include opensource_repo.liquid item=item %}
         {% endfor %}
       </div>
+      <script>
+        (function () {
+          function formatCount(n) {
+            n = Number(n) || 0;
+            if (n >= 1000) {
+              var value = n / 1000;
+              return (value >= 10 ? value.toFixed(0) : value.toFixed(1).replace(/\.0$/, "")) + "k";
+            }
+            return String(n);
+          }
+
+          document.querySelectorAll(".opensource-card[data-repo]").forEach(function (card) {
+            var starsEl = card.querySelector('[data-stat="stars"]');
+            var forksEl = card.querySelector('[data-stat="forks"]');
+            if (starsEl) starsEl.textContent = formatCount(starsEl.textContent);
+            if (forksEl) forksEl.textContent = formatCount(forksEl.textContent);
+
+            fetch("https://api.github.com/repos/" + card.dataset.repo)
+              .then(function (res) {
+                if (!res.ok) throw new Error("GitHub API " + res.status);
+                return res.json();
+              })
+              .then(function (data) {
+                if (starsEl && typeof data.stargazers_count === "number") {
+                  starsEl.textContent = formatCount(data.stargazers_count);
+                }
+                if (forksEl && typeof data.forks_count === "number") {
+                  forksEl.textContent = formatCount(data.forks_count);
+                }
+              })
+              .catch(function () {});
+          });
+        })();
+      </script>
     {% endif %}
     <!-- End Open-Source Contributions Section -->
 
