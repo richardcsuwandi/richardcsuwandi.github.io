@@ -424,14 +424,22 @@ ul.task-list input[type="checkbox"] {
     }
 
     a {
-      i::before {
+      // Keep FA (::before) and inline SVG (e.g. Substack) icons in sync.
+      // SVG uses fill="currentColor", so the <a> color must match too.
+      color: var(--global-social-icon-color);
+
+      i::before,
+      svg {
         color: var(--global-social-icon-color);
-        transition-property: all 0.2s ease-in-out;
+        transition: color 0.2s ease-in-out;
       }
 
       &:hover {
-        i::before {
-          color: var(--global-navbar-hover-color);
+        color: var(--global-theme-color);
+
+        i::before,
+        svg {
+          color: var(--global-theme-color);
         }
       }
     }
@@ -498,13 +506,19 @@ ul.task-list input[type="checkbox"] {
     font-size: 4rem;
 
     a {
-      i::before {
+      color: var(--global-text-color);
+
+      i::before,
+      svg {
         color: var(--global-text-color);
-        transition-property: all 0.2s ease-in-out;
+        transition: color 0.2s ease-in-out;
       }
 
       &:hover {
-        i::before {
+        color: var(--global-theme-color);
+
+        i::before,
+        svg {
           color: var(--global-theme-color);
         }
       }
