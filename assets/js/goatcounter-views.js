@@ -26,8 +26,8 @@
     for (const candidate of normalizePaths(path)) {
       try {
         const res = await fetch(endpoint(candidate));
-        if (!res.ok) continue;
-        const data = await res.json();
+        // GoatCounter returns 404 with {"count":"0"} for unknown/unvisited paths.
+        const data = await res.json().catch(() => null);
         if (data && data.count != null) return data.count;
       } catch (_) {
         // try next candidate
