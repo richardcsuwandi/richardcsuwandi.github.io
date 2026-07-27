@@ -619,7 +619,7 @@ Even more impressively, The AI Scientist-v2<d-cite key="yamada2025ai"></d-cite> 
 
 ### AI-Generating Algorithms
 
-[Jeff Clune](https://www.jeffclune.com/) has proposed one of the most ambitious visions: [AI-Generating Algorithms (AI-GAs)](https://arxiv.org/abs/1905.10985)<d-cite key="clune2019ai"></d-cite>, representing an alternate paradigm to the dominant "manual AI approach" where researchers attempt to discover and combine individual pieces of intelligence. Instead of hand-designing solutions, AI-GAs automatically learn how to produce general AI, following the clear trend in machine learning where learned solutions eventually replace hand-designed ones. The AI-GA approach rests on 3 pillars: 
+[Jeff Clune](https://www.jeffclune.com/) has proposed one of the most ambitious visions: [AI-Generating Algorithms (AI-GAs)](https://alphaxiv.org/abs/1905.10985)<d-cite key="clune2019ai"></d-cite>, representing an alternate paradigm to the dominant "manual AI approach" where researchers attempt to discover and combine individual pieces of intelligence. Instead of hand-designing solutions, AI-GAs automatically learn how to produce general AI, following the clear trend in machine learning where learned solutions eventually replace hand-designed ones. The AI-GA approach rests on 3 pillars: 
 
 1. **Meta-learning architectures** that can automatically discover neural network designs
 2. **Meta-learning the learning algorithms themselves** rather than using fixed optimization methods
