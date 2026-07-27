@@ -209,6 +209,27 @@ html[data-theme="dark"] .blog-post-card .alphaxiv-link-badge:hover {
   margin-bottom: 1rem;
 }
 
+.post-meta-sep {
+  margin: 0 0.35em;
+}
+
+.goatcounter-views {
+  font-variant-numeric: tabular-nums;
+}
+
+.post-views-meta {
+  max-width: 1000px;
+  margin: 0 auto 1.25rem;
+  padding: 0 1rem;
+  font-size: 0.85rem;
+  color: #60636a;
+}
+
+[data-theme="dark"] .post-views-meta,
+html[data-theme="dark"] .post-views-meta {
+  color: var(--global-text-color-light);
+}
+
 .blog-post-card-horizontal .post-description {
   font-size: 1rem !important; /* Added !important to override any conflicting styles */
   line-height: 1.6;

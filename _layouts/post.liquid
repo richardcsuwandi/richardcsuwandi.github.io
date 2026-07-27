@@ -28,6 +28,10 @@ layout: default
         {% if page.author %}by {{ page.author }}{% endif %}
         {% if page.last_updated %}, last updated in {{ page.last_updated | date: '%B %d, %Y' }}{% endif %}
         {% if page.meta %}• {{ page.meta }}{% endif %}
+        {% if site.enable_goatcounter and site.goatcounter %}
+          <span class="post-meta-sep" aria-hidden="true">·</span>
+          <span class="goatcounter-views" data-path="{{ page.url }}">…</span> views
+        {% endif %}
       </p>
 
       {% comment %} using new variable names for local scope clarity {% endcomment %}

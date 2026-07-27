@@ -1,0 +1,9 @@
+{% comment %}
+  Loads public pageview counts from GoatCounter JSON API into elements with
+  class "goatcounter-views" and a data-path attribute (or the current path).
+  Requires Settings → "Allow adding visitor counts on your website" in GoatCounter.
+{% endcomment %}
+<script>
+  window.GOATCOUNTER_CODE = {{ site.goatcounter | jsonify }};
+</script>
+<script defer src="{{ '/assets/js/goatcounter-views.js' | relative_url | bust_file_cache }}"></script>

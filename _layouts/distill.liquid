@@ -101,6 +101,20 @@
       d-byline > div {
         margin-right: 0 !important;
       }
+
+      .post-views-meta {
+        max-width: 704px;
+        margin: -0.5rem auto 1.5rem;
+        padding: 0 24px;
+        font-size: 0.85rem;
+        color: #666;
+        letter-spacing: 0.01em;
+      }
+
+      [data-theme="dark"] .post-views-meta,
+      html[data-theme="dark"] .post-views-meta {
+        color: var(--global-text-color-light, #aaa);
+      }
       
       /* Fixed table of contents - only on larger screens */
       @media (min-width: 1024px) {
@@ -190,6 +204,11 @@
       </d-title>
       {% if page.authors %}
         <d-byline></d-byline>
+      {% endif %}
+      {% if site.enable_goatcounter and site.goatcounter %}
+        <p class="post-views-meta">
+          <span class="goatcounter-views" data-path="{{ page.url }}">…</span> views
+        </p>
       {% endif %}
 
       <d-article>
