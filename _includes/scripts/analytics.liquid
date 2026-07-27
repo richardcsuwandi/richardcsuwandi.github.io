@@ -22,12 +22,3 @@
     cronitor('config', { clientKey: '{{site.cronitor_analytics}}' });
   </script>
 {% endif %}
-{% if site.enable_goatcounter and site.goatcounter %}
-  <!-- GoatCounter: privacy-friendly pageviews -->
-  <script
-    data-goatcounter="https://{{ site.goatcounter }}.goatcounter.com/count"
-    async
-    src="//gc.zgo.at/count.js"
-  ></script>
-  {% include scripts/goatcounter_views.liquid %}
-{% endif %}

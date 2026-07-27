@@ -77,13 +77,7 @@
                       <a href="{{ post.redirect | relative_url }}">{{ post.title }}</a>
                     {% endif %}
                   </h2>
-                  <div class="post-read-time">
-                    {{ read_time }} min read
-                    {% if site.enable_goatcounter and site.goatcounter %}
-                      <span class="post-meta-sep" aria-hidden="true">·</span>
-                      <span class="goatcounter-views" data-path="{{ post.url }}">…</span> views
-                    {% endif %}
-                  </div>
+                  <div class="post-read-time">{{ read_time }} min read</div>
                   <p class="post-description">{{ post.description }}</p>
                 </div>
                 
@@ -142,13 +136,7 @@
                         <a href="{{ post.redirect | relative_url }}">{{ post.title }}</a>
                       {% endif %}
                     </h2>
-                    <div class="post-read-time">
-                      {{ read_time }} min read
-                      {% if site.enable_goatcounter and site.goatcounter %}
-                        <span class="post-meta-sep" aria-hidden="true">·</span>
-                        <span class="goatcounter-views" data-path="{{ post.url }}">…</span> views
-                      {% endif %}
-                    </div>
+                    <div class="post-read-time">{{ read_time }} min read</div>
                     <p class="post-description">{{ post.description }}</p>
                   </div>
                   
