@@ -65,6 +65,11 @@
 
     <div class="clearfix">{{ content }}</div>
 
+    <!-- GP / Bayesian optimization separator -->
+    <div class="gp-separator" aria-hidden="true">
+      <svg class="gp-separator-svg" role="presentation" focusable="false"></svg>
+    </div>
+
     <!-- News -->
     {% if page.news and site.announcements.enabled %}
       <h2>
@@ -227,5 +232,6 @@
     <script src="{{ '/assets/js/navbar-scroll.js' | relative_url }}"></script>
     <script src="{{ '/assets/js/awards-expand.js' | relative_url }}"></script>
     <script src="{{ '/assets/js/scroll-animations.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/gp-separator.js' | relative_url }}"></script>
   </body>
 </html>

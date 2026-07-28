@@ -1,0 +1,134 @@
+// =============================================================================
+// GP / Bayesian optimization separator
+//
+// Decorative strip between the bio and the News section on the homepage.
+// Geometry is computed by assets/js/gp-separator.js; everything visual is here.
+// =============================================================================
+
+.gp-separator {
+  --gp-accent: #{$accent-primary};
+  --gp-band: rgba(0, 99, 201, 0.1);
+
+  position: relative;
+  clear: both;
+  width: 100%;
+  height: 110px;
+  margin: 2.5rem 0 0;
+  cursor: crosshair;
+  touch-action: manipulation; // no double-tap zoom delay on the query
+  -webkit-tap-highlight-color: transparent;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--gp-accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+html[data-theme='dark'] .gp-separator {
+  // The light-mode accent is too dark to read against the dark background.
+  --gp-accent: #{$blue-color};
+  --gp-band: rgba(104, 178, 255, 0.14);
+}
+
+// The separator already supplies the break, so the heading that follows it
+// does not need its full top margin.
+.gp-separator + h2,
+.post article .gp-separator + h2 {
+  margin-top: 1.5rem !important;
+}
+
+.gp-separator-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; // lets the credible band run off the top and bottom edges
+}
+
+.gp-band {
+  fill: var(--gp-band);
+  stroke: none;
+}
+
+// The latent objective, kept just visible enough to judge the fit against.
+.gp-truth {
+  fill: none;
+  stroke: var(--global-text-color-light);
+  stroke-width: 1.5;
+  stroke-dasharray: 2 4;
+  opacity: 0.35;
+}
+
+.gp-mean {
+  fill: none;
+  stroke: var(--gp-accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.gp-incumbent {
+  stroke: var(--global-text-color-light);
+  stroke-width: 2;
+  stroke-dasharray: 6 6;
+  opacity: 0.6;
+}
+
+.gp-obs {
+  fill: var(--global-text-color);
+}
+
+.gp-next-rule {
+  stroke: var(--global-text-color-light);
+  stroke-width: 1;
+  stroke-dasharray: 3 5;
+  opacity: 0.5;
+}
+
+.gp-next {
+  fill: var(--global-bg-color);
+  stroke: var(--gp-accent);
+  stroke-width: 2;
+}
+
+// Where the next click would land.
+.gp-cursor-rule {
+  stroke: var(--gp-accent);
+  stroke-width: 1;
+  opacity: 0.55;
+}
+
+.gp-cursor {
+  fill: var(--gp-accent);
+  opacity: 0.75;
+}
+
+.gp-label {
+  fill: var(--global-text-color-light);
+  font-family: inherit;
+  font-size: 0.7rem;
+  opacity: 0.6;
+  user-select: none;
+}
+
+.gp-hint {
+  opacity: 0.45;
+}
+
+@media (max-width: 768px) {
+  .gp-separator {
+    height: 80px;
+    margin-top: 2rem;
+  }
+}
+
+// Not enough room for the hint alongside the observation count.
+@media (max-width: 480px) {
+  .gp-hint {
+    display: none;
+  }
+}
