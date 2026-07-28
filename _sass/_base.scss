@@ -129,19 +129,18 @@ table {
 
 a,
 table.table a {
-  color: var(--global-theme-color);
-  font-weight: $font-weight-semibold !important;
+  color: var(--global-text-color);
+  font-weight: inherit; // Match surrounding text; bold stays on strong/b only
   text-decoration: underline;
-  text-decoration-color: var(--global-link-underline-color);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 2px;
-  transition: all 0.2s ease;
+  text-decoration-color: currentColor;
+  text-decoration-thickness: auto;
+  text-underline-offset: 0.15em;
+  transition: color 0.2s ease;
   
   &:hover {
-    color: var(--global-hover-color);
+    color: var(--global-text-color);
     text-decoration: underline;
-    text-decoration-color: var(--global-link-hover-underline-color);
-    text-decoration-thickness: 2px;
+    text-decoration-color: currentColor;
   }
 }
 
@@ -283,7 +282,7 @@ ul.task-list input[type="checkbox"] {
 
 .citation,
 .citation-number {
-  color: var(--global-theme-color);
+  color: var(--global-text-color);
 }
 
 // Profile

@@ -14,15 +14,15 @@ body {
   overflow-x: hidden; // prevent horizontal scrolling
 }
 
-// Global link styling
+// Global link styling: never bold; content links get underline below
 a {
   color: var(--global-text-color);
   text-decoration: none;
-  font-weight: 400;
-  transition: all 0.2s ease;
+  font-weight: inherit;
+  transition: color 0.2s ease;
   
   &:hover {
-    color: var(--global-theme-color);
+    color: var(--global-text-color);
   }
 }
 
@@ -31,29 +31,45 @@ strong, b {
   font-weight: 600; /* Use proper bold weight */
 }
 
-// About section content specific styling
-.about-content {
-  a {
-    color: var(--global-theme-color);
-    // text-decoration: underline !important;
-    font-weight: 400 !important;
-    
-    &:hover {
-      color: var(--global-theme-color);
-      text-decoration: underline;
-    }
+// Shared content-link look: black (text color) + solid underline
+@mixin content-link {
+  color: var(--global-text-color);
+  font-weight: inherit;
+  text-decoration: underline;
+  text-decoration-color: currentColor;
+  text-decoration-thickness: auto;
+  text-underline-offset: 0.15em;
+
+  &:hover {
+    color: var(--global-text-color);
+    text-decoration: underline;
+    text-decoration-color: currentColor;
   }
 }
 
-// Links in page layout - makes services page links blue like about page
-.post article {
+// About section content specific styling
+.about-content {
   a {
-    color: var(--global-theme-color);
-    font-weight: 400 !important;
-    
+    @include content-link;
+  }
+}
+
+// Links in page layout (blog posts, pages) — include Distill's d-article
+.post article,
+.post d-article,
+d-article {
+  a {
+    @include content-link;
+  }
+
+  // Heading anchors stay plain (no underline)
+  h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+    text-decoration: none;
+    border-bottom: none;
+
     &:hover {
-      color: var(--global-theme-color); 
-      text-decoration: underline;
+      text-decoration: none;
+      border-bottom: none;
     }
   }
 }
@@ -62,14 +78,7 @@ strong, b {
 .news {
   .news-item {
     a {
-      color: var(--global-theme-color);
-      // text-decoration: underline;
-      font-weight: 400;
-      
-      &:hover {
-        color: var(--global-theme-color);
-        text-decoration: underline;
-      }
+      @include content-link;
     }
   }
 }
@@ -445,21 +454,29 @@ footer {
 
 // Dark mode body link colors only
 html[data-theme='dark'] {
-  // Target main content area links only, not navbar or headers
+  // Content links: same as light mode, text color + underline (not blue)
   .container a:not(.navbar a):not(.nav-link):not(.opensource-card),
   .container-fluid a:not(.navbar a):not(.nav-link):not(.opensource-card),
   main a:not(.navbar a):not(.nav-link):not(.opensource-card),
   .content a:not(.navbar a):not(.nav-link):not(.opensource-card),
   .post-content a:not(.navbar a):not(.nav-link):not(.opensource-card),
   .wide-about-container a:not(.navbar a):not(.nav-link):not(.opensource-card),
-  .publications a:not(.navbar a):not(.nav-link),
   .news a:not(.navbar a):not(.nav-link),
   p a:not(.navbar a):not(.nav-link),
   li a:not(.navbar a):not(.nav-link):not(.opensource-card) {
-    color: #68b2ff;
-    
+    color: var(--global-text-color);
+
     &:hover {
-      color: #4da3ff;
+      color: var(--global-text-color);
+    }
+  }
+
+  // Publication button/links keep readable contrast on dark cards
+  .publications a:not(.navbar a):not(.nav-link):not(.post-title-horizontal a):not(.tag-link) {
+    color: var(--global-text-color);
+
+    &:hover {
+      color: var(--global-text-color);
     }
   }
   

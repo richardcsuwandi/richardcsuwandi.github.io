@@ -125,28 +125,20 @@ html[data-theme-setting='dark'] .navbar.scrolled {
   letter-spacing: -0.03em !important;
 }
 
-// ── Inline link animated underline ───────────────────────────────────────────
+// ── Inline content links: black + solid underline ────────────────────────────
 .post article .clearfix p a,
 .post article .about-content p a,
+.post d-article p a,
+d-article p a,
 .news .news-item p a,
 .news .news-item a {
-  position: relative;
-  text-decoration: none !important;
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background: currentColor;
-    transition: width 0.2s ease;
-  }
-
-  &:hover::after {
-    width: 100%;
-  }
+  color: var(--global-text-color);
+  font-weight: inherit;
+  text-decoration: underline;
+  text-decoration-color: currentColor;
+  text-decoration-thickness: auto;
+  text-underline-offset: 0.15em;
+  border-bottom: none;
 }
 
 // ── Social icon hover pill ────────────────────────────────────────────────────

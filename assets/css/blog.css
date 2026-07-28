@@ -186,7 +186,7 @@ html[data-theme="dark"] .blog-post-card .alphaxiv-link-badge:hover {
 .post-title-horizontal {
   font-family: 'Inter', sans-serif;
   font-size: 2rem;
-  font-weight: 900; /* Extra heavy - pushing beyond standard black for maximum thickness */
+  font-weight: 700;
   line-height: 1.2;
   margin-bottom: 0.5rem;
   margin-top: 0; /* Remove any default margin */

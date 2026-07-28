@@ -19,8 +19,8 @@
   --global-highlight-border-color: transparent;
   --global-back-to-top-bg-color: #{$grey-color};
   --global-back-to-top-text-color: #{$white-color};
-  --global-link-underline-color: transparent;
-  --global-link-hover-underline-color: transparent;
+  --global-link-underline-color: currentColor;
+  --global-link-hover-underline-color: currentColor;
   --global-accent-color-1: #{$accent-primary};
   --global-accent-color-2: #{$accent-secondary};
   --global-accent-color-3: #{$accent-tertiary};
@@ -92,8 +92,8 @@ html[data-theme='dark'] {
   --global-highlight-border-color: transparent;
   --global-back-to-top-bg-color: #{$grey-color};
   --global-back-to-top-text-color: #{$white-color};
-  --global-link-underline-color: transparent;
-  --global-link-hover-underline-color: transparent;
+  --global-link-underline-color: currentColor;
+  --global-link-hover-underline-color: currentColor;
   --global-accent-color-1: #{$accent-primary};
   --global-accent-color-2: #{$accent-secondary};
   --global-accent-color-3: #{$accent-tertiary};

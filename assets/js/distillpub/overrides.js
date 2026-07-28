@@ -1,8 +1,8 @@
 $(document).ready(function () {
   // Function to get the color based on theme
   function getCitationColor() {
-    const isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
-    return isDarkMode ? '#87CEEB' : 'var(--global-theme-color)';
+    // Match body text so citations are not blue while inline links are black
+    return 'var(--global-text-color)';
   }
   
   // Override styles of the footnotes.
