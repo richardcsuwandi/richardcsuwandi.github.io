@@ -22,7 +22,7 @@ a {
   transition: color 0.2s ease;
   
   &:hover {
-    color: var(--global-text-color);
+    color: var(--global-theme-color);
   }
 }
 
@@ -31,7 +31,7 @@ strong, b {
   font-weight: 600; /* Use proper bold weight */
 }
 
-// Shared content-link look: black (text color) + solid underline
+// Shared content-link look: black + underline; blue on hover (matches about page)
 @mixin content-link {
   color: var(--global-text-color);
   font-weight: inherit;
@@ -41,7 +41,7 @@ strong, b {
   text-underline-offset: 0.15em;
 
   &:hover {
-    color: var(--global-text-color);
+    color: var(--global-theme-color);
     text-decoration: underline;
     text-decoration-color: currentColor;
   }
@@ -454,7 +454,7 @@ footer {
 
 // Dark mode body link colors only
 html[data-theme='dark'] {
-  // Content links: same as light mode, text color + underline (not blue)
+  // Content links: text color by default, theme blue on hover
   .container a:not(.navbar a):not(.nav-link):not(.opensource-card),
   .container-fluid a:not(.navbar a):not(.nav-link):not(.opensource-card),
   main a:not(.navbar a):not(.nav-link):not(.opensource-card),
@@ -467,7 +467,7 @@ html[data-theme='dark'] {
     color: var(--global-text-color);
 
     &:hover {
-      color: var(--global-text-color);
+      color: var(--global-theme-color);
     }
   }
 
@@ -476,7 +476,7 @@ html[data-theme='dark'] {
     color: var(--global-text-color);
 
     &:hover {
-      color: var(--global-text-color);
+      color: var(--global-theme-color);
     }
   }
   

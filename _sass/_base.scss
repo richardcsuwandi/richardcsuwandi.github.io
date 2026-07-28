@@ -138,7 +138,7 @@ table.table a {
   transition: color 0.2s ease;
   
   &:hover {
-    color: var(--global-text-color);
+    color: var(--global-theme-color);
     text-decoration: underline;
     text-decoration-color: currentColor;
   }

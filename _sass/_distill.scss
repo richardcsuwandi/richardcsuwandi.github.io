@@ -28,7 +28,7 @@ d-article {
   a, p, h1, h2, h3, h4, h5, h6, li, table {
     color: var(--global-text-color) !important;
   }
-  // Match about-page links: solid text-color underline (Distill defaults to a faint border-bottom)
+  // Match about-page links: solid text-color underline; blue on hover
   a {
     text-decoration: underline !important;
     text-decoration-color: currentColor !important;
@@ -38,9 +38,10 @@ d-article {
     font-weight: inherit !important;
 
     &:hover {
-      color: var(--global-text-color) !important;
+      color: var(--global-theme-color) !important;
       border-bottom: none !important;
       text-decoration: underline !important;
+      text-decoration-color: currentColor !important;
     }
   }
   h1, h2, hr, table, table th, table td {
