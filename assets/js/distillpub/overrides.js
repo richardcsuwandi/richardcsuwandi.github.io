@@ -8,6 +8,11 @@ $(document).ready(function () {
   // Override styles of the footnotes.
   document.querySelectorAll("d-footnote").forEach(function (footnote) {
     footnote.shadowRoot.querySelector("sup > span").setAttribute("style", `color: ${getCitationColor()};`);
+    // Distill's superscript marker has visible left-side bearing. Pull it
+    // against the preceding word, then leave a small gap before following text.
+    footnote.shadowRoot
+      .querySelector("style")
+      .sheet.insertRule("sup { margin-left: -0.16em; margin-right: 0.10em; }");
     footnote.shadowRoot
       .querySelector("d-hover-box")
       .shadowRoot.querySelector("style")

@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" role="img" aria-labelledby="title desc">
+  <title id="title">Research agenda for autonomous science</title>
+  <desc id="desc">Representation enables inquiry, inquiry selects grounded experiments, and experimental evidence revises representation. Evaluation and governance constrain the entire cycle.</desc>
+  <defs>
+    <filter id="s" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#1a365d" flood-opacity=".13"/></filter>
+    <marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#64748b"/></marker>
+  </defs>
+  <rect width="1200" height="700" rx="28" fill="#f8fafc"/>
+  <text x="600" y="55" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="30" font-weight="700" fill="#172033">A research agenda for autonomous science</text>
+  <text x="600" y="88" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="17" fill="#526077">Four problems form one cycle rather than four independent capabilities</text>
+
+  <g font-family="Inter,Arial,sans-serif" filter="url(#s)">
+    <rect x="90" y="170" width="285" height="180" rx="22" fill="#dbeafe" stroke="#3973bd" stroke-width="3"/>
+    <circle cx="140" cy="220" r="25" fill="#ffffff" stroke="#3973bd" stroke-width="2"/>
+    <text x="140" y="228" text-anchor="middle" font-size="20" font-weight="700" fill="#173b6c">1</text>
+    <text x="180" y="226" font-size="23" font-weight="700" fill="#173b6c">Representation</text>
+    <text x="125" y="274" font-size="16" fill="#294d78">Discover useful variables</text>
+    <text x="125" y="302" font-size="16" fill="#294d78">and reusable mechanisms</text>
+    <text x="125" y="330" font-size="15" font-style="italic" fill="#3973bd">What should the model contain?</text>
+
+    <rect x="825" y="170" width="285" height="180" rx="22" fill="#e9d8fd" stroke="#805ad5" stroke-width="3"/>
+    <circle cx="875" cy="220" r="25" fill="#ffffff" stroke="#805ad5" stroke-width="2"/>
+    <text x="875" y="228" text-anchor="middle" font-size="20" font-weight="700" fill="#44337a">2</text>
+    <text x="915" y="226" font-size="23" font-weight="700" fill="#44337a">Inquiry</text>
+    <text x="860" y="274" font-size="16" fill="#553c9a">Generate rival explanations</text>
+    <text x="860" y="302" font-size="16" fill="#553c9a">and discriminating experiments</text>
+    <text x="860" y="330" font-size="15" font-style="italic" fill="#805ad5">What should we test next?</text>
+
+    <rect x="825" y="410" width="285" height="180" rx="22" fill="#fef3c7" stroke="#b7791f" stroke-width="3"/>
+    <circle cx="875" cy="460" r="25" fill="#ffffff" stroke="#b7791f" stroke-width="2"/>
+    <text x="875" y="468" text-anchor="middle" font-size="20" font-weight="700" fill="#744b0b">3</text>
+    <text x="915" y="466" font-size="23" font-weight="700" fill="#744b0b">Grounding</text>
+    <text x="860" y="514" font-size="16" fill="#805d1b">Execute reliably and retain</text>
+    <text x="860" y="542" font-size="16" fill="#805d1b">context, failures, and provenance</text>
+    <text x="860" y="570" font-size="15" font-style="italic" fill="#a06d16">What did the world actually show?</text>
+
+    <rect x="90" y="410" width="285" height="180" rx="22" fill="#fee2e2" stroke="#c53030" stroke-width="3"/>
+    <circle cx="140" cy="460" r="25" fill="#ffffff" stroke="#c53030" stroke-width="2"/>
+    <text x="140" y="468" text-anchor="middle" font-size="20" font-weight="700" fill="#822727">4</text>
+    <text x="180" y="455" font-size="21" font-weight="700" fill="#822727">Evaluation and</text>
+    <text x="180" y="482" font-size="21" font-weight="700" fill="#822727">governance</text>
+    <text x="125" y="526" font-size="16" fill="#9b2c2c">Measure discovery, manage risk,</text>
+    <text x="125" y="554" font-size="16" fill="#9b2c2c">and determine when to stop</text>
+    <text x="125" y="580" font-size="15" font-style="italic" fill="#c53030">Should we trust and act on it?</text>
+  </g>
+
+  <g fill="none" stroke="#64748b" stroke-width="4" marker-end="url(#a)">
+    <path d="M375 240 C545 135 655 135 825 240"/>
+    <path d="M1030 350 V410"/>
+    <path d="M825 525 C650 635 550 635 375 525"/>
+    <path d="M170 410 V350"/>
+  </g>
+  <g font-family="Inter,Arial,sans-serif" font-size="14" font-weight="700" fill="#526077" text-anchor="middle">
+    <text x="600" y="145">enables hypotheses</text>
+    <text x="1080" y="384">selects actions</text>
+    <text x="600" y="640">tests claims</text>
+    <text x="120" y="384">revises the model</text>
+  </g>
+
+  <rect x="438" y="270" width="324" height="190" rx="95" fill="#ffffff" stroke="#94a3b8" stroke-width="3"/>
+  <text x="600" y="335" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="23" font-weight="700" fill="#172033">Scientific world model</text>
+  <text x="600" y="372" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="16" fill="#526077">a shared, revisable account of</text>
+  <text x="600" y="399" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="16" fill="#526077">mechanisms, evidence, and action</text>
+</svg>
