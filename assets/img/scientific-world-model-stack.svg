@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" role="img" aria-labelledby="title desc">
+  <title id="title">The scientific world-model stack</title>
+  <desc id="desc">Three connected scopes show predictive dynamics, mechanistic explanation, and a scientific world model grounded in experimental action.</desc>
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#1a365d" flood-opacity=".13"/>
+    </filter>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#4a5568"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="680" rx="28" fill="#f8fafc"/>
+  <text x="600" y="58" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="30" font-weight="700" fill="#1a202c">From prediction to scientific understanding</text>
+  <text x="600" y="91" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="17" fill="#4a5568">Each broader scope adds new representations and scientific capabilities</text>
+
+  <g filter="url(#shadow)">
+    <rect x="115" y="135" width="970" height="135" rx="18" fill="#dbeafe" stroke="#7aa7e8" stroke-width="2"/>
+    <circle cx="180" cy="202" r="38" fill="#fff" stroke="#3973bd" stroke-width="3"/>
+    <path d="M160 211 C172 185 188 185 201 211 M158 216 H203" fill="none" stroke="#3973bd" stroke-width="4" stroke-linecap="round"/>
+    <text x="245" y="180" font-family="Inter,Arial,sans-serif" font-size="24" font-weight="700" fill="#173b6c">Predictive world model</text>
+    <text x="245" y="214" font-family="Inter,Arial,sans-serif" font-size="18" fill="#294d78">State and dynamics</text>
+    <text x="245" y="244" font-family="Inter,Arial,sans-serif" font-size="17" font-style="italic" fill="#3973bd">What happens next?</text>
+    <text x="875" y="196" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="600" fill="#173b6c">Capability added</text>
+    <text x="875" y="226" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="17" fill="#294d78">prediction and planning</text>
+  </g>
+
+  <path d="M600 270 V300" stroke="#4a5568" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="620" y="292" font-family="Inter,Arial,sans-serif" font-size="14" fill="#4a5568">adds mechanisms and interventions</text>
+
+  <g filter="url(#shadow)">
+    <rect x="115" y="310" width="970" height="135" rx="18" fill="#dcfce7" stroke="#68b584" stroke-width="2"/>
+    <circle cx="180" cy="377" r="38" fill="#fff" stroke="#348754" stroke-width="3"/>
+    <circle cx="165" cy="365" r="7" fill="#348754"/><circle cx="195" cy="365" r="7" fill="#348754"/><circle cx="180" cy="395" r="7" fill="#348754"/>
+    <path d="M171 369 L178 389 M189 369 L182 389 M172 365 H188" stroke="#348754" stroke-width="3"/>
+    <text x="245" y="355" font-family="Inter,Arial,sans-serif" font-size="24" font-weight="700" fill="#195b34">Mechanistic world model</text>
+    <text x="245" y="389" font-family="Inter,Arial,sans-serif" font-size="18" fill="#276741">Variables, mechanisms, their composition, and interventions</text>
+    <text x="245" y="419" font-family="Inter,Arial,sans-serif" font-size="17" font-style="italic" fill="#348754">Why does it happen, and what changes under intervention?</text>
+    <text x="875" y="371" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="600" fill="#195b34">Capability added</text>
+    <text x="875" y="401" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="16" fill="#276741">explanation, intervention, and transfer</text>
+  </g>
+
+  <path d="M600 445 V475" stroke="#4a5568" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="620" y="467" font-family="Inter,Arial,sans-serif" font-size="14" fill="#4a5568">adds experimental grounding</text>
+
+  <g filter="url(#shadow)">
+    <rect x="115" y="485" width="970" height="135" rx="18" fill="#fef3c7" stroke="#d7a83d" stroke-width="2"/>
+    <circle cx="180" cy="552" r="38" fill="#fff" stroke="#b7791f" stroke-width="3"/>
+    <path d="M165 530 V548 L152 574 H208 L195 548 V530 M159 558 H201" fill="none" stroke="#b7791f" stroke-width="4" stroke-linejoin="round"/>
+    <text x="245" y="530" font-family="Inter,Arial,sans-serif" font-size="24" font-weight="700" fill="#744b0b">Scientific world model</text>
+    <text x="245" y="566" font-family="Inter,Arial,sans-serif" font-size="17" fill="#805d1b">Grounds scientific beliefs in physical experiments</text>
+    <text x="245" y="606" font-family="Inter,Arial,sans-serif" font-size="17" font-style="italic" fill="#a06d16">What should we investigate next, and can we do so reliably?</text>
+    <text x="875" y="536" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="600" fill="#744b0b">Capability added</text>
+    <text x="875" y="562" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="15" fill="#805d1b">experiment selection and execution,</text>
+    <text x="875" y="584" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="15" fill="#805d1b">provenance and belief revision</text>
+  </g>
+</svg>

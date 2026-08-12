@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" role="img" aria-labelledby="title desc">
+  <title id="title">Two coupled models inside a scientific world model</title>
+  <desc id="desc">A scientific-system model and a physical-action model exchange experimental intent and grounded evidence through a harnessing layer, with governance surrounding the loop.</desc>
+  <defs>
+    <filter id="s" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#1a365d" flood-opacity=".13"/></filter>
+    <marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#64748b"/></marker>
+  </defs>
+  <rect width="1200" height="680" rx="28" fill="#f8fafc"/>
+  <text x="600" y="52" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="30" font-weight="700" fill="#172033">A scientific world model spans two worlds</text>
+  <text x="600" y="84" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="17" fill="#526077">Scientific intent must reach the bench, and physical evidence must revise scientific belief</text>
+
+  <rect x="55" y="112" width="1090" height="510" rx="28" fill="#ffffff" stroke="#94a3b8" stroke-width="3" stroke-dasharray="11 8"/>
+  <text x="85" y="148" font-family="Inter,Arial,sans-serif" font-size="16" font-weight="700" fill="#526077">SCIENTIFIC WORLD MODEL</text>
+
+  <g font-family="Inter,Arial,sans-serif" filter="url(#s)">
+    <rect x="105" y="195" width="365" height="290" rx="24" fill="#dcfce7" stroke="#348754" stroke-width="3"/>
+    <text x="287" y="240" text-anchor="middle" font-size="23" font-weight="700" fill="#195b34">Scientific-system model</text>
+    <text x="287" y="275" text-anchor="middle" font-size="16" fill="#276741">What do we believe about the system?</text>
+    <g fill="#ffffff" stroke="#348754" stroke-width="2"><circle cx="200" cy="350" r="25"/><circle cx="287" cy="325" r="25"/><circle cx="375" cy="365" r="25"/></g>
+    <path d="M224 343 L263 332 M311 336 L352 356 M220 360 L352 370" fill="none" stroke="#348754" stroke-width="3"/>
+    <text x="287" y="430" text-anchor="middle" font-size="16" fill="#276741">hypotheses, mechanisms, and uncertainty</text>
+
+    <rect x="730" y="195" width="365" height="290" rx="24" fill="#fef3c7" stroke="#b7791f" stroke-width="3"/>
+    <text x="912" y="240" text-anchor="middle" font-size="23" font-weight="700" fill="#744b0b">Physical-action model</text>
+    <text x="912" y="275" text-anchor="middle" font-size="16" fill="#805d1b">What is happening in the laboratory?</text>
+    <path d="M855 315 V350 L830 405 H995 L970 350 V315 M842 375 H983" fill="none" stroke="#b7791f" stroke-width="5" stroke-linejoin="round"/>
+    <circle cx="900" cy="365" r="8" fill="#d97706"/><circle cx="935" cy="390" r="8" fill="#d97706"/>
+    <text x="912" y="430" text-anchor="middle" font-size="16" fill="#805d1b">samples, instruments, protocols, and state</text>
+
+    <rect x="495" y="265" width="210" height="150" rx="22" fill="#e9d8fd" stroke="#805ad5" stroke-width="3"/>
+    <text x="600" y="315" text-anchor="middle" font-size="20" font-weight="700" fill="#44337a">Harnessing layer</text>
+    <text x="600" y="348" text-anchor="middle" font-size="15" fill="#553c9a">plans and provenance</text>
+    <text x="600" y="374" text-anchor="middle" font-size="15" fill="#553c9a">constraints and updates</text>
+  </g>
+
+  <path d="M470 295 H495" fill="none" stroke="#64748b" stroke-width="3" marker-end="url(#a)"/>
+  <path d="M705 295 H730" fill="none" stroke="#64748b" stroke-width="3" marker-end="url(#a)"/>
+  <path d="M730 390 H705" fill="none" stroke="#64748b" stroke-width="3" marker-end="url(#a)"/>
+  <path d="M495 390 H470" fill="none" stroke="#64748b" stroke-width="3" marker-end="url(#a)"/>
+  <text x="600" y="218" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="14" fill="#526077">experimental intent</text>
+  <text x="600" y="455" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="14" fill="#526077">observations, failures, and provenance</text>
+
+  <rect x="185" y="535" width="830" height="55" rx="16" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+  <text x="600" y="569" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="17" font-weight="700" fill="#3730a3">Governance, permissions, stopping conditions, and human judgment</text>
+</svg>
