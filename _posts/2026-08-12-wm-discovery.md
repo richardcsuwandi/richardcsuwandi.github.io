@@ -774,14 +774,14 @@ The most consequential scientific world model may therefore be judged less by ho
 If you find this post useful, please cite it as:
 
 <div class="citation-box">
-Suwandi, R. C. (Aug 2026). World Models as Engines of Scientific Discovery. Posterior Update. https://richardcsuwandi.github.io/blog/2026/wm-discovery/.
+Suwandi, R. C. (Aug 2026). World Models for Scientific Discovery. Posterior Update. https://richardcsuwandi.github.io/blog/2026/wm-discovery/.
 </div>
 
 Or in BibTeX format:
 
 ```bibtex
-@article{suwandi2026worldmodelsdiscovery,
-    title   = "World Models as Engines of Scientific Discovery",
+@article{suwandi2026wmdiscovery,
+    title   = "World Models for Scientific Discovery",
     author  = "Suwandi, Richard Cornelius",
     journal = "Posterior Update",
     year    = "2026",
