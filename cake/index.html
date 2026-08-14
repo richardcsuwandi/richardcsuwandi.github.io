@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Adaptive Kernel Design for Bayesian Optimization Is a Piece of CAKE with LLMs</title>
+  <meta name="description" content="CAKE uses large language models as genetic operators to evolve Gaussian-process kernels for adaptive, data-efficient Bayesian optimization.">
+  <meta name="theme-color" content="#0063c9">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Adaptive Kernel Design for Bayesian Optimization Is a Piece of CAKE with LLMs">
+  <meta property="og:description" content="CAKE uses large language models as genetic operators to evolve Gaussian-process kernels for adaptive, data-efficient Bayesian optimization.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="keywords" content="Bayesian optimization, Gaussian processes, kernel design, large language models, evolutionary algorithms">
+  <link rel="canonical" href="https://richardcsuwandi.github.io/cake/"><meta property="og:url" content="https://richardcsuwandi.github.io/cake/">
+  <meta property="og:image" content="https://richardcsuwandi.github.io/cake/assets/figures/social-card.webp"><meta name="twitter:image" content="https://richardcsuwandi.github.io/cake/assets/figures/social-card.webp">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2212%22%20fill%3D%22%230063c9%22%2F%3E%3Cpath%20d%3D%22M18%2045V19h17c8%200%2013%204%2013%2011%200%208-6%2012-15%2012h-7v3z%22%20fill%3D%22%23fff%22%2F%3E%3C%2Fsvg%3E">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>:root { --accent: #0063c9 }</style>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ScholarlyArticle", "headline": "Adaptive Kernel Design for Bayesian Optimization Is a Piece of CAKE with LLMs", "description": "CAKE uses large language models as genetic operators to evolve Gaussian-process kernels for adaptive, data-efficient Bayesian optimization.", "author": [{"@type": "Person", "name": "Richard Cornelius Suwandi"}, {"@type": "Person", "name": "Feng Yin"}, {"@type": "Person", "name": "Juntao Wang"}, {"@type": "Person", "name": "Renjie Li"}, {"@type": "Person", "name": "Tsung-Hui Chang"}, {"@type": "Person", "name": "Sergios Theodoridis"}], "url": "https://richardcsuwandi.github.io/cake/", "keywords": ["Bayesian optimization", "Gaussian processes", "kernel design", "large language models", "evolutionary algorithms"]}</script>
+  <script defer src="assets/site.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch color theme"><span aria-hidden="true" data-theme-icon>☾</span></button>
+  <main id="main">
+  <header class="publication-header">
+    <div class="container">
+      <h1 class="publication-title"><span class="project-title">CAKE</span><span class="paper-title">Adaptive Kernel Design for Bayesian Optimization Is a Piece of CAKE with LLMs</span></h1>
+      
+      <div class="publication-authors"><span class="author">Richard Cornelius Suwandi<sup>1</sup></span>,
+              <span class="author">Feng Yin<sup>1</sup><sup>*</sup></span>,
+              <span class="author">Juntao Wang<sup>1</sup></span>,
+              <span class="author">Renjie Li<sup>2</sup><sup>3</sup></span>,
+              <span class="author">Tsung-Hui Chang<sup>1</sup></span>,
+              <span class="author">Sergios Theodoridis<sup>4</sup></span></div>
+      <p class="publication-affiliations"><sup>1</sup>School of Artificial Intelligence, The Chinese University of Hong Kong, Shenzhen ·  <sup>2</sup>School of Science and Engineering, The Chinese University of Hong Kong, Shenzhen ·  <sup>3</sup>Holonyak Micro & Nanotechnology Lab, University of Illinois at Urbana-Champaign ·  <sup>4</sup>HERON CoE for Robotics and AI-ATHENA R.C., Greece</p>
+      <p class="publication-venue"><a href="https://neurips.cc/Conferences/2025" target="_blank" rel="noopener">NeurIPS 2025</a></p>
+      <p class="publication-notes">* Corresponding author</p>
+      <div class="publication-links"><a class="button" href="https://arxiv.org/abs/2509.17998" target="_blank" rel="noopener"><span class="button-mark" aria-hidden="true">PDF</span><span>Paper</span></a>
+            <a class="button" href="https://github.com/richardcsuwandi/cake" target="_blank" rel="noopener"><span class="button-mark" aria-hidden="true">GH</span><span>Code</span></a></div>
+    </div>
+  </header>
+  <section class="teaser"><div class="container"><figure class="media-figure"><div class="media-frame"><img src="assets/figures/cake-overview.webp" alt="CAKE workflow: an initial population of Gaussian process kernels undergoes LLM-guided crossover, mutation, fitness evaluation, and survivor selection to produce an improved population." loading="eager" decoding="async"></div><figcaption>CAKE begins with an initial population of kernels. It uses the LLM for crossover and mutation, evaluates the fitness of the proposed kernels, and advances the strongest candidates to the next generation. BAKER then selects the kernel and query for the next BO iteration.</figcaption></figure></div></section>
+  <section class="section section-light" id="abstract">
+    <div class="container content-width">
+      <h2 class="section-title">Abstract</h2>
+      <div class="abstract-copy"><p>The efficiency of Bayesian optimization (BO) depends heavily on the choice of Gaussian process (GP) kernel, which helps balance exploration and exploitation under limited evaluation budgets. Traditional BO methods often use fixed kernels or heuristic selection strategies. When the selected kernel is poorly suited to the underlying objective function, these approaches can converge slowly or produce suboptimal solutions. To address this limitation, we propose Context-Aware Kernel Evolution (CAKE), which enhances BO with large language models (LLMs). CAKE uses LLMs as crossover and mutation operators to adaptively generate and refine GP kernels based on the data observed throughout optimization. We also propose BIC-Acquisition Kernel Ranking (BAKER), which selects the most effective kernel by balancing model fit, measured by the Bayesian information criterion (BIC), with the expected improvement at each BO iteration. Extensive experiments show that CAKE-based BO consistently outperforms established baselines across a range of real-world tasks, including hyperparameter optimization, controller tuning, and photonic chip design.</p></div>
+      
+    </div>
+  </section>
+  <section class="section" id="method">
+    <div class="container">
+      <h2 class="section-title">Context-Aware Kernel Evolution</h2>
+      <p class="section-lead">Before selecting each new Bayesian optimization query, CAKE refines the Gaussian process kernel.</p>
+      <div class="content-block prose"><p>CAKE begins with a small set of randomly sampled observations and a population of six base kernels: squared exponential (SE), periodic (PER), linear (LIN), rational quadratic (RQ), Matérn-3/2 (M3), and Matérn-5/2 (M5). The observations are added to a system prompt as few-shot examples. The prompt asks the LLM to act as a Gaussian process expert, identify patterns in the observed data, and reason about kernel structures that could explain them. This process operates entirely in context and does not fine-tune or update the LLM.</p></div>
+<div class="content-block prose"><p>Each candidate is a compositional kernel built through addition and multiplication, both of which preserve kernel validity. Candidate fitness is derived from the Bayesian information criterion (BIC), which balances Gaussian process model fit against complexity. The fitness values are normalized to the interval [0, 1] across tasks.</p></div>
+<div class="content-block prose"><ol><li>Condition on the current observations: at every BO iteration, CAKE updates the prompt with all input–output pairs collected so far.</li><li>Crossover: five times per iteration, two parent kernels are sampled with probability proportional to fitness. The LLM combines them using addition or multiplication and explains the proposed structure.</li><li>Mutation: with probability 0.7, the LLM modifies the fittest kernel by replacing one base component with another. The crossover and mutation candidates are evaluated together with the existing population.</li><li>Survivor selection: CAKE retains the ten kernels with the highest normalized BIC fitness to form the next generation.</li><li>Rank and query: BAKER weights each surviving kernel in proportion to exp(−BIC), multiplies that weight by the normalized expected improvement at the kernel’s proposed query, and selects the highest-scoring kernel–query pair. The objective is evaluated and the new observation is added before the loop repeats.</li></ol></div>
+<div class="content-block prose"><p>BAKER is important because the best-fitting kernel does not necessarily propose the most useful next evaluation. Its joint ranking explicitly balances model fit with the potential optimization gain of the candidate query.</p></div>
+    </div>
+  </section>
+
+  <section class="section" id="experiments">
+    <div class="container">
+      <h2 class="section-title">Experimental Evaluation</h2>
+      <p class="section-lead">The evaluation spans heterogeneous hyperparameter landscapes, dynamic control environments, and multi-objective physical design.</p>
+      <div class="content-block prose"><p>All experiments use BoTorch, with expected improvement as the default acquisition function and gpt-4o-mini as the LLM. The evaluation compares CAKE with fixed kernels, adaptive kernel selection based on Random, Utility, or BIC criteria, deep and ensemble Gaussian processes, Compositional Kernel Search (CKS), and Automated Bayesian Optimization (ABO). Shaded regions in the plots show the standard error across independent trials.</p></div>
+<div class="content-block prose"><p>For hyperparameter optimization, HPOBench provides 60 tasks drawn from 12 OpenML datasets and five model families: logistic regression, support vector machines, random forests, XGBoost, and multilayer perceptrons. Each model and dataset pair is optimized for test accuracy over 100 trials and 20 random seeds. CAKE achieves the highest average test accuracy across all five model families. Its advantage is especially clear early in the optimization process. Averaged across HPOBench, CAKE achieves 67.5% of its eventual improvement within the first quarter of the budget and more than 83% by the halfway point.</p></div>
+<div class="content-block figure-wide"><figure class="media-figure"><div class="media-frame"><img src="assets/figures/hpobench-results.webp" alt="Five learning curves for logistic regression, SVM, random forest, XGBoost, and MLP. The black CAKE curve finishes above all comparison methods in every panel." loading="lazy" decoding="async"></div><figcaption>Average test accuracy over 20 random seeds. CAKE is shown in black, and the shaded regions indicate standard error.</figcaption></figure></div>
+    </div>
+  </section>
+
+  <section class="section" id="real-world">
+    <div class="container">
+      <h2 class="section-title">Controller Tuning and Photonic Design</h2>
+      
+      <div class="content-block prose"><p>The controller experiments evaluate adaptation to changing environments. The robot-pushing task optimizes 14 controller parameters that govern two robotic hands. The lunar-landing task optimizes 12 parameters that map an eight-dimensional state to four actions. Both tasks run for 1,000 iterations, with results averaged over ten initial conditions. CAKE achieves the highest average reward in both tasks and converges fastest in robot pushing. For lunar landing, ABO is the only baseline that also reaches the target reward of 200, although its performance fluctuates more than CAKE across difficult environments. The fixed SE and M5 kernels tend to plateau earlier.</p></div>
+<div class="content-block figure-wide"><figure class="media-figure"><div class="media-frame"><img src="assets/figures/controller-results.webp" alt="Reward curves for robot pushing and lunar lander. The black CAKE curve ends highest in both panels and exceeds the lunar-lander target score of 200." loading="lazy" decoding="async"></div><figcaption>Controller-tuning performance over 1,000 iterations, averaged across ten initial conditions.</figcaption></figure></div>
+<div class="content-block prose"><p>Photonic chip design is formulated as a multi-objective black-box problem with five competing physical indicators: Q-factor, wavelength, lasing area, power, and divergence angle. CAKE is evaluated over 250 trials and ten random initializations using expected hypervolume improvement. The comparison methods are Single-Task GP, Additive GP, CKS, and ABO. CAKE achieves the highest overall score and hypervolume, which indicates a stronger design and broader exploration of the Pareto front. It finds a substantially higher-scoring solution in fewer than 40 trials. The paper reports this result as a tenfold acceleration of the design cycle relative to the baselines.</p></div>
+<div class="content-block figure-wide"><figure class="media-figure"><div class="media-frame"><img src="assets/figures/chip-results.webp" alt="Photonic-chip optimization curves for score and hypervolume. The black CAKE curve rises fastest and finishes highest in both panels." loading="lazy" decoding="async"></div><figcaption>Average score and hypervolume over 250 trials for the multi-objective photonic-chip task.</figcaption></figure></div>
+    </div>
+  </section>
+
+  <section class="section" id="ablations">
+    <div class="container">
+      <h2 class="section-title">What Drives the Improvement?</h2>
+      <p class="section-lead">Ablations separate the contribution of LLM-guided kernel evolution from BAKER’s joint model-fit and acquisition ranking.</p>
+      <div class="content-block prose"><p>Across all 60 HPOBench tasks, the complete CAKE + BAKER configuration obtains the best average rank, 1.04. Selecting CAKE kernels with acquisition utility alone ranks second at 2.40, while a conventional genetic algorithm reaches 2.70 and CAKE with BIC alone reaches 3.02. CKS + BAKER, Adaptive + BAKER, and random recombination rank 3.12, 4.60, and 6.80, respectively. Removing either the LLM-guided evolution or BAKER therefore degrades performance.</p></div>
+<div class="content-block prose"><div class="table-scroll"><table><caption>Average rank on HPOBench over 20 random seeds. Lower values are better.</caption><thead><tr><th>Configuration</th><th>Average rank ↓</th></tr></thead><tbody><tr><td><strong>CAKE + BAKER</strong></td><td><strong>1.04</strong></td></tr><tr><td>CAKE + Utility</td><td>2.40</td></tr><tr><td>Genetic Algorithm</td><td>2.70</td></tr><tr><td>CAKE + BIC</td><td>3.02</td></tr><tr><td>CKS + BAKER</td><td>3.12</td></tr><tr><td>Adaptive + BAKER</td><td>4.60</td></tr><tr><td>Random Sampling</td><td>6.80</td></tr></tbody></table></div></div>
+<div class="content-block prose"><p>The population analysis helps explain this improvement. After one LLM edit, consisting of one crossover and mutation round, the fitness distribution already shifts toward stronger kernels. After five and ten edits, the mean fitness continues to rise while the variance narrows. Random recombination and traditional genetic operators converge more slowly and retain broader distributions with lower fitness.</p></div>
+<div class="content-block figure-wide"><figure class="media-figure"><div class="media-frame"><img src="assets/figures/fitness-progression.webp" alt="Fitness distributions after one, five, and ten edits for LLM, random, and genetic algorithm operators. LLM edits produce the strongest shift toward high fitness." loading="lazy" decoding="async"></div><figcaption>Kernel-population fitness after 1, 5, and 10 successive edits by the LLM, random recombination, and a genetic algorithm.</figcaption></figure></div>
+    </div>
+  </section>
+  <section class="citation" id="citation">
+    <div class="container">
+      <div class="citation-head"><h2>Citation</h2><button class="copy-button" type="button" data-copy-bibtex>Copy BibTeX</button></div>
+      <pre><code data-bibtex>@article{suwandi2025cake,
+  title={Adaptive Kernel Design for Bayesian Optimization Is a Piece of CAKE with LLMs},
+  author={Richard Cornelius Suwandi and Feng Yin and Juntao Wang and Renjie Li and Tsung-Hui Chang and Sergios Theodoridis},
+  journal={arXiv preprint arXiv:2509.17998},
+  year={2025}
+}</code></pre>
+    </div>
+  </section>
+  </main>
+  <footer class="site-footer"><div class="container"><p>© 2026 <a href="https://richardcsuwandi.github.io">Richard Cornelius Suwandi</a></p></div></footer>
+</body>
+</html>
