@@ -253,7 +253,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1rem;
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
   margin-top: 1.5rem;
 }
 
@@ -351,6 +351,34 @@
   opacity: 0.85;
 }
 
+.opensource-pacman {
+  display: block;
+  margin-bottom: 3rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--global-divider-color);
+  border-radius: 0.75rem;
+  background: var(--global-bg-color);
+  overflow-x: auto;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+
+  &:hover {
+    border-color: color-mix(in srgb, var(--global-theme-color) 35%, var(--global-divider-color));
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+}
+
+.opensource-pacman-img {
+  display: block;
+  width: 100%;
+  min-width: 500px;
+  height: auto;
+}
+
+.opensource-pacman-dark {
+  display: none;
+}
+
 // ============================================================================
 // Dark Mode Overrides
 // ============================================================================
@@ -361,6 +389,14 @@ html[data-theme-setting='dark'],
   .services-title {
     background: #23272b;
     color: #f3f3f3;
+  }
+
+  .opensource-pacman-light {
+    display: none;
+  }
+
+  .opensource-pacman-dark {
+    display: block;
   }
 
   .service-link {
