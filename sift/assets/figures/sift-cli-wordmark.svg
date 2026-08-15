@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 72" role="img" aria-labelledby="title">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 72" width="192" height="72" preserveAspectRatio="xMinYMid meet" role="img" aria-labelledby="title">
   <title id="title">Sift</title>
   <defs><rect id="pixel" width="12" height="12"/></defs>
   <g fill="#1687ff" shape-rendering="crispEdges">
