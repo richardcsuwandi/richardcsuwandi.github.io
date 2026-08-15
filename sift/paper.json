@@ -1,10 +1,9 @@
 {
   "title": "Find, understand, and organize your files with private local AI",
   "short_title": "Sift",
-  "subtitle": "Find what you need, understand what you have, and keep every folder organized.",
+  "subtitle": "Find what you need, understand what you have, and keep every file organized.",
   "description": "Sift is a private local file copilot for natural-language search, multimodal retrieval, and content-aware organization on macOS.",
   "canonical_url": "https://richardcsuwandi.github.io/sift/",
-  "venue": "Initial release for macOS",
   "authors": [
     {
       "name": "Richard Cornelius Suwandi",
@@ -43,7 +42,7 @@
   },
   "abstract": [
     "Sift helps you find a file when you remember its meaning but not its name. It searches filenames, document contents, and indexed images, then shows the evidence behind every result.",
-    "Sift can also make sense of a cluttered folder, propose a useful structure, and follow plain-language requests to move or rename files. It brings search, organization, and local Qwen models together in one simple macOS app."
+    "Sift can also make sense of a cluttered folder, propose a useful structure, and follow plain-language requests to move or rename files. It brings search, organization, and local AI models together in one simple app."
   ],
   "highlights": [
     {
