@@ -1,8 +1,8 @@
 {
   "title": "Find, understand, and organize your files with private local AI",
   "short_title": "Sift",
-  "subtitle": "A personal file copilot that searches what your files mean and turns every change into a plan you control.",
-  "description": "Sift is a private local file copilot for natural-language search, multimodal retrieval, and safe AI-assisted organization on macOS.",
+  "subtitle": "Find what you need, understand what you have, and keep every folder organized.",
+  "description": "Sift is a private local file copilot for natural-language search, multimodal retrieval, and content-aware organization on macOS.",
   "canonical_url": "https://richardcsuwandi.github.io/sift/",
   "venue": "Initial release for macOS",
   "authors": [
@@ -38,12 +38,12 @@
   "hero": {
     "src": "assets/video/organize.mp4",
     "poster": "assets/figures/organize-poster.webp",
-    "alt": "Sift creates a folder organization plan and presents it for review",
-    "caption": "Sift proposes a coherent folder structure, clearer filenames, and a complete before-and-after plan."
+    "alt": "Sift organizes a cluttered folder into useful categories with clearer filenames",
+    "caption": "Sift turns a cluttered folder into a coherent structure with clearer names."
   },
   "abstract": [
     "Sift helps you find a file when you remember its meaning but not its name. It searches filenames, document contents, and indexed images, then shows the evidence behind every result.",
-    "When a folder needs attention, Sift can propose a structure or follow a plain-language instruction. Nothing moves until you review the plan. You can edit destinations, skip files, apply selected changes, and undo the most recent batch. All models and file data stay on your computer."
+    "Sift can also make sense of a cluttered folder, propose a useful structure, and follow plain-language requests to move or rename files. It brings search, organization, and local Qwen models together in one simple macOS app."
   ],
   "highlights": [
     {
@@ -52,7 +52,7 @@
     },
     {
       "value": "Reviewable",
-      "label": "Every change starts as an editable plan"
+      "label": "Preview and refine changes before applying them"
     },
     {
       "value": "Multimodal",
@@ -98,33 +98,33 @@
     },
     {
       "id": "organize",
-      "title": "Turn intent into a safe plan",
-      "lead": "Organize a whole folder or simply tell Sift what outcome you want.",
+      "title": "Organize with a sentence",
+      "lead": "Clean up a whole folder or describe exactly what you want done.",
       "blocks": [
         {
           "type": "paragraph",
-          "text": "Sift reviews the complete batch and proposes categories, subfolders, and clearer filenames together. You can also ask it to move, rename, group, or trash a set of files in plain English. Both paths produce the same reviewable plan."
+          "text": "Sift looks at the complete batch and proposes categories, subfolders, and clearer filenames together. You can also ask it to move, rename, group, or trash files in plain English, then see the result in a clear before-and-after view."
         },
         {
           "type": "video",
           "src": "assets/video/move.mp4",
           "poster": "assets/figures/move-poster.webp",
-          "alt": "Sift converts a plain-language move request into an editable plan",
-          "caption": "A plain-language instruction becomes a before-and-after plan."
+          "alt": "Sift converts a plain-language request into organized file moves",
+          "caption": "A plain-language instruction moves related files where they belong."
         },
         {
           "type": "columns",
           "items": [
             {
-              "title": "Review first",
-              "text": "Nothing changes until you approve the plan."
+              "title": "Batch awareness",
+              "text": "Build useful folders across the complete collection."
             },
             {
-              "title": "Edit anything",
-              "text": "Change destinations, skip files, or apply only selected rows."
+              "title": "Natural commands",
+              "text": "Move, rename, group, or trash files in plain English."
             },
             {
-              "title": "Undo safely",
+              "title": "One-click undo",
               "text": "Reverse the latest batch, including files moved to the Trash."
             }
           ]
@@ -138,7 +138,7 @@
       "blocks": [
         {
           "type": "html",
-          "html": "<div class=\"table-scroll\"><table><thead><tr><th>Area</th><th>Sift</th><th>Existing file organizers</th></tr></thead><tbody><tr><td>Core experience</td><td>Understand, find, and organize files in one place</td><td>Primarily sort, rename, or move files</td></tr><tr><td>Search</td><td>Natural-language retrieval with visible evidence</td><td>Commonly relies on filenames, metadata, filters, or rules</td></tr><tr><td>Organization</td><td>Proposes a coherent structure from the full batch</td><td>Commonly uses predefined categories or conditions</td></tr><tr><td>Control</td><td>Editable plan, selective apply, collision protection, and undo</td><td>Preview and undo support vary by product</td></tr><tr><td>Privacy</td><td>Uses local Ollama models and keeps file contents on your Mac</td><td>AI and cloud usage vary by product</td></tr></tbody></table></div>"
+          "html": "<div class=\"table-scroll\"><table><thead><tr><th>Area</th><th>Sift</th><th>Existing file organizers</th></tr></thead><tbody><tr><td>Core experience</td><td>Understand, find, and organize files in one place</td><td>Primarily sort, rename, or move files</td></tr><tr><td>Search</td><td>Natural-language retrieval with visible evidence</td><td>Commonly relies on filenames, metadata, filters, or rules</td></tr><tr><td>Organization</td><td>Proposes a coherent structure from the full batch</td><td>Commonly uses predefined categories or conditions</td></tr><tr><td>Workflow</td><td>Plain-language requests with a clear before-and-after preview</td><td>Commonly uses menus, profiles, rules, or fixed workflows</td></tr><tr><td>Privacy</td><td>Uses local Ollama models and keeps file contents on your Mac</td><td>AI and cloud usage vary by product</td></tr></tbody></table></div>"
         },
         {
           "type": "columns",
@@ -165,14 +165,8 @@
       "lead": "The initial release supports macOS and creates a familiar app icon for everyday use.",
       "blocks": [
         {
-          "type": "list",
-          "ordered": true,
-          "items": [
-            "Install and open Ollama.",
-            "Download Sift from GitHub and unzip the folder.",
-            "Double-click Install Sift.command once to download the default local models and prepare the app.",
-            "Open Sift from the blue Sift.app icon revealed in Finder."
-          ]
+          "type": "html",
+          "html": "<ol class=\"install-steps\"><li>Install and open <a href=\"https://ollama.com/download\" target=\"_blank\" rel=\"noopener\">Ollama</a>.</li><li>Download <a href=\"https://github.com/richardcsuwandi/sift\" target=\"_blank\" rel=\"noopener\">Sift from GitHub</a>, then unzip the folder.</li><li>Double-click <a href=\"https://github.com/richardcsuwandi/sift/blob/main/Install%20Sift.command\" target=\"_blank\" rel=\"noopener\"><code>Install Sift.command</code></a> once to download the default local models and prepare the app.</li><li>Open Sift from the blue <code>Sift.app</code> icon revealed in Finder.</li></ol>"
         },
         {
           "type": "paragraph",
