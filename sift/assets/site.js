@@ -37,7 +37,7 @@ if (copyButton && bibtex && navigator.clipboard) {
     try {
       await navigator.clipboard.writeText(bibtex.textContent.trim());
       copyButton.textContent = "Copied";
-    } catch {
+    } catch (error) {
       copyButton.textContent = "Select to copy";
     }
     window.setTimeout(() => { copyButton.textContent = original; }, 1600);
