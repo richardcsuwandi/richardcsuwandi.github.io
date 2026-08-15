@@ -2,7 +2,7 @@
   "title": "Find, understand, and organize your files with private local AI",
   "short_title": "Sift",
   "subtitle": "Find what you need, understand what you have, and keep every file organized.",
-  "description": "Sift is a private local file copilot for natural-language search, multimodal retrieval, and content-aware organization on macOS.",
+  "description": "Sift is a private local file copilot with a conversational CLI for natural-language search, multimodal retrieval, and content-aware organization on macOS.",
   "canonical_url": "https://richardcsuwandi.github.io/sift/",
   "authors": [
     {
@@ -25,6 +25,8 @@
   "keywords": [
     "local AI",
     "file organizer",
+    "AI CLI",
+    "terminal file manager",
     "semantic search",
     "multimodal search",
     "Ollama",
@@ -174,6 +176,37 @@
         {
           "type": "html",
           "html": "<p class=\"section-cta\"><a class=\"button\" href=\"https://github.com/richardcsuwandi/sift#install-sift-on-macos\" target=\"_blank\" rel=\"noopener\"><span class=\"button-mark\" aria-hidden=\"true\">GET</span><span>Install Sift for macOS</span></a></p>"
+        }
+      ]
+    },
+    {
+      "id": "cli",
+      "title": "Sift in the terminal",
+      "lead": "Sift also runs as a command-line app you can talk to. It uses the same local models, the same safety checks, the same review plans, and the same undo log as the Mac app.",
+      "blocks": [
+        {
+          "type": "html",
+          "html": "<div class=\"cli-stage\">\n        <div class=\"cli-window\" aria-label=\"Example Sift command-line session\">\n          <div class=\"cli-window-bar\"><span class=\"cli-dots\" aria-hidden=\"true\"><i></i><i></i><i></i></span><span>sift ~/Downloads</span><span class=\"cli-local\">local</span></div>\n          <div class=\"cli-screen\">\n            <img class=\"cli-wordmark\" src=\"assets/figures/sift-cli-wordmark.svg\" alt=\"Sift\">\n            <div class=\"cli-meta\"><span>folder</span> /Users/you/Downloads<br><span>chat</span> qwen3:4b<br><span>index</span> 269 files</div>\n            <p class=\"cli-ready\"><b>Ready.</b> 269 files indexed</p>\n            <p><span class=\"cli-prompt\">›</span> where is my March invoice?</p>\n            <p class=\"cli-answer\">The paid Northstar invoice is in <b>scan_0042.pdf</b>. Total: $106.92.</p>\n            <p class=\"cli-result\">[1] scan_0042.pdf<br><span>/Users/you/Downloads/scan_0042.pdf</span></p>\n            <p><span class=\"cli-prompt\">›</span> move installers into Software</p>\n            <p class=\"cli-plan\">3 proposed changes &nbsp; <span>MOVE</span></p>\n            <p class=\"cli-review\">Apply 3 selected changes? <b>[y]</b> yes · <b>[n]</b> no · <b>[t N]</b> toggle · <b>[e N]</b> edit</p>\n          </div>\n        </div>\n        <div class=\"cli-intro\">\n          <h3>Install the Sift CLI</h3>\n          <p>Run these commands once. If you already have Ollama or uv, skip that install line.</p>\n          <pre class=\"cli-install\"><code># Install the tools Sift needs\ncurl -fsSL https://ollama.com/install.sh | sh\nopen -a Ollama\ncurl -LsSf https://astral.sh/uv/install.sh | sh\nsource ~/.local/bin/env\n\n# Install Sift\ngit clone https://github.com/richardcsuwandi/sift.git\ncd sift\nollama pull qwen3:4b\nollama pull qwen3-embedding:0.6b\nuv tool install .\n\n# Start Sift in a folder\nsift ~/Downloads</code></pre>\n          <div class=\"cli-agent-mode\">\n            <span class=\"cli-agent-label\">Start Sift in a folder</span>\n            <p>Sift scans the folder, then waits for your question. Ask it to find or summarize a file. Tell it how you want files organized. Sift shows the files behind every answer. Before moving or renaming anything, it shows a plan and waits for your approval. Type <code>/help</code> to see every command.</p>\n          </div>\n        </div>\n      </div>"
+        },
+        {
+          "type": "html",
+          "html": "<div class=\"cli-commands\" aria-label=\"Sift slash commands\">\n        <div><code>/scan [--images]</code><span>Rescan files; optionally read image contents.</span></div>\n        <div><code>/organize</code><span>Propose a complete folder structure.</span></div>\n        <div><code>/plan</code><span>Show a postponed plan.</span></div>\n        <div><code>/apply</code><span>Reopen a plan you postponed.</span></div>\n        <div><code>/undo</code><span>Restore the last applied batch.</span></div>\n        <div><code>/folder PATH</code><span>Switch folders and refresh their index.</span></div>\n        <div><code>/model [NAME]</code><span>Show model roles or select the chat model.</span></div>\n        <div><code>/reveal</code><span>Select the top search result in Finder.</span></div>\n        <div><code>/status</code><span>Show the folder, index, and model configuration.</span></div>\n        <div><code>/help</code><span>Show the command guide.</span></div>\n        <div><code>/clear</code><span>Clear the terminal.</span></div>\n        <div><code>/exit</code><span>Leave Sift.</span></div>\n      </div>"
+        },
+        {
+          "type": "html",
+          "html": "<p>Asking for a change does not carry it out. Sift first shows the change as a before-and-after plan, and you can approve it, decline it, switch individual rows off, edit where a file is going, or save the plan and come back to it with <code>/apply</code>. When you organize a folder, the proposed tree is drawn as each file is sorted, so you can watch where things are going to land. If you apply a batch and then change your mind, <code>/undo</code> puts every file back where it was.</p>"
+        },
+        {
+          "type": "html",
+          "html": "<p>Three local models do three different jobs: one answers questions and organizes folders, one turns your files into the embeddings that make meaning-based search work, and one reads what is inside images. Run <code>/model</code> to see which model is currently filling each role. Sift uses these by default:</p><pre><code>ollama pull qwen3:4b               # answers questions, organizes folders\nollama pull qwen3-embedding:0.6b   # meaning-based search\nollama pull qwen2.5vl:3b           # reads text and content inside images</code></pre>"
+        },
+        {
+          "type": "html",
+          "html": "<p>Sift lists every compatible model you already have in Ollama, so you can switch to a different one with <code>/model NAME</code> or from the browser app. Reading images takes a few seconds per file, which is far slower than reading text, so it only happens when you ask for it with <code>/scan --images</code>.</p>"
+        },
+        {
+          "type": "html",
+          "html": "<p>Each operation is also a plain command, for when you want a single answer or a scripted step instead of a session:</p><pre><code>sift status ~/Downloads\nsift ask \"Where is my March invoice?\" --folder ~/Downloads\nsift plan \"move all PDFs into Papers\" --folder ~/Downloads --save papers.json\nsift apply papers.json\nsift organize ~/Downloads --save organize.json\nsift reveal ~/Downloads/invoice.pdf\nsift undo</code></pre>"
         }
       ]
     }
