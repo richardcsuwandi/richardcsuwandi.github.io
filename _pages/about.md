@@ -22,8 +22,7 @@ I am broadly interested in building **sample-efficient** and **reliable** system
 - **Bayesian optimization** for sample-efficient black-box optimization and sequential 
 decision-making
 - **Gaussian processes** for probabilisitic modeling and uncertainty quantification
-- **Foundation models** for open-ended algorithm discovery and generative design in 
-science & engineering 
+- **Foundation models** for open-ended algorithm discovery and generative design
 
 I co-developed [OpenEvolve](https://github.com/algorithmicsuperintelligence/openevolve), an evolutionary coding agent for automated algorithm discovery and optimization. I also helped build [Kai](https://kai.dria.co/), an autonomous agent that can evolve codebases by finding and patching software vulnerabilities.
 
