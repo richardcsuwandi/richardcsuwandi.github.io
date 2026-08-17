@@ -20,8 +20,8 @@ I am a fully-funded **PhD student** at [School of Artificial Intelligence, CUHK-
 
 I am broadly interested in automating discovery in science and engineering. My current research explores:
 - **LLM agents** for open-ended search, code evolution, and generative design
-- **Gaussian processes** for probabilistic modeling and uncertainty quantification
 - **Bayesian optimization** and **experiment design** for sequential decision-making in expensive black-box settings
+- **Gaussian processes** for probabilistic modeling and uncertainty quantification
 
 I co-developed [OpenEvolve](https://github.com/algorithmicsuperintelligence/openevolve), an evolutionary coding agent for automated algorithm discovery and optimization. I also helped build [Kai](https://kai.dria.co/), an autonomous agent that can evolve codebases by finding and patching software vulnerabilities.
 
