@@ -287,6 +287,7 @@
     incumbent: "var(--cat-4)",
     diagnostics: "var(--cat-5)",
     trials: "var(--cat-6)",
+    score: "var(--cat-7)",
   };
 
   function mountToolUseChart(container) {

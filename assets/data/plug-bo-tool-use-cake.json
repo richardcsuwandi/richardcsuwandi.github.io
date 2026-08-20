@@ -1,0 +1,139 @@
+{
+  "categories": [
+    "submit",
+    "suggest",
+    "score",
+    "status",
+    "incumbent",
+    "diagnostics",
+    "trials"
+  ],
+  "nRuns": 17,
+  "nCalls": 1534,
+  "nEvals": 950,
+  "nTurns": 2596,
+  "totals": {
+    "submit": 950,
+    "suggest": 319,
+    "score": 25,
+    "status": 84,
+    "incumbent": 97,
+    "diagnostics": 40,
+    "trials": 19
+  },
+  "bins": [
+    {
+      "x0": 0.0,
+      "x1": 0.1,
+      "counts": {
+        "status": 19,
+        "incumbent": 10,
+        "diagnostics": 20,
+        "suggest": 65,
+        "submit": 86,
+        "trials": 12,
+        "score": 20
+      }
+    },
+    {
+      "x0": 0.1,
+      "x1": 0.2,
+      "counts": {
+        "submit": 94,
+        "status": 4,
+        "incumbent": 4,
+        "diagnostics": 5,
+        "suggest": 41,
+        "score": 5
+      }
+    },
+    {
+      "x0": 0.2,
+      "x1": 0.3,
+      "counts": {
+        "submit": 95,
+        "status": 3,
+        "suggest": 23,
+        "incumbent": 3,
+        "trials": 3,
+        "diagnostics": 1
+      }
+    },
+    {
+      "x0": 0.3,
+      "x1": 0.4,
+      "counts": {
+        "submit": 95,
+        "status": 3,
+        "suggest": 24,
+        "incumbent": 5,
+        "diagnostics": 2
+      }
+    },
+    {
+      "x0": 0.4,
+      "x1": 0.5,
+      "counts": {
+        "submit": 92,
+        "status": 1,
+        "suggest": 19,
+        "diagnostics": 2,
+        "incumbent": 4
+      }
+    },
+    {
+      "x0": 0.5,
+      "x1": 0.6,
+      "counts": {
+        "submit": 96,
+        "status": 5,
+        "suggest": 26,
+        "diagnostics": 2,
+        "incumbent": 3
+      }
+    },
+    {
+      "x0": 0.6,
+      "x1": 0.7,
+      "counts": {
+        "submit": 97,
+        "status": 5,
+        "suggest": 30,
+        "diagnostics": 5,
+        "incumbent": 7
+      }
+    },
+    {
+      "x0": 0.7,
+      "x1": 0.8,
+      "counts": {
+        "submit": 93,
+        "status": 7,
+        "suggest": 25,
+        "incumbent": 4
+      }
+    },
+    {
+      "x0": 0.8,
+      "x1": 0.9,
+      "counts": {
+        "submit": 96,
+        "status": 8,
+        "suggest": 40,
+        "incumbent": 19,
+        "diagnostics": 3
+      }
+    },
+    {
+      "x0": 0.9,
+      "x1": 1.0,
+      "counts": {
+        "submit": 106,
+        "status": 29,
+        "incumbent": 38,
+        "suggest": 26,
+        "trials": 4
+      }
+    }
+  ]
+}
