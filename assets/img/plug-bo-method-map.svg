@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 740" role="img" aria-labelledby="title desc">
+  <title id="title">A map of language-model optimization methods</title>
+  <desc id="desc">Four method families are compared by language-model access to the optimization loop and runtime control over the policy.</desc>
+  <defs>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#1a365d" flood-opacity=".13"/>
+    </filter>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#64748b"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="740" rx="28" fill="#f8fafc"/>
+  <text x="600" y="58" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="30" font-weight="700" fill="#172033">Where does the language model enter the loop?</text>
+  <text x="600" y="91" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="17" fill="#526077">Separate access to optimization context from control over runtime decisions</text>
+
+  <g transform="translate(160 135)" font-family="Inter,Arial,sans-serif">
+    <rect width="925" height="465" rx="20" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+    <rect x="462.5" width="462.5" height="232.5" rx="0" fill="#eff6ff"/>
+    <rect y="232.5" width="462.5" height="232.5" rx="0" fill="#fff7ed"/>
+    <rect x="462.5" y="232.5" width="462.5" height="232.5" rx="0" fill="#f0fdf4"/>
+    <path d="M462.5 0 V465 M0 232.5 H925" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="7 8"/>
+
+    <g font-size="13" font-weight="700" letter-spacing="1.5">
+      <text x="231" y="38" text-anchor="middle" fill="#64748b">NO SEMANTIC ACCESS</text>
+      <text x="694" y="38" text-anchor="middle" fill="#285f9d">LLM READS CONTEXT</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <circle cx="230" cy="125" r="14" fill="#64748b"/>
+      <circle cx="690" cy="125" r="16" fill="#805ad5"/>
+      <circle cx="270" cy="350" r="16" fill="#b7791f"/>
+      <circle cx="690" cy="350" r="20" fill="#3973bd" stroke="#ffffff" stroke-width="5"/>
+    </g>
+
+    <g text-anchor="middle">
+      <text x="230" y="170" font-size="21" font-weight="700" fill="#2d3748">Classical BO</text>
+      <text x="230" y="197" font-size="14" fill="#526077">fixed surrogate and policy</text>
+
+      <text x="690" y="170" font-size="21" font-weight="700" fill="#44337a">Hybrid LLM-BO</text>
+      <text x="690" y="197" font-size="14" fill="#5d477c">CAKE adapts the surrogate</text>
+
+      <text x="270" y="395" font-size="21" font-weight="700" fill="#744b0b">LLM optimizer</text>
+      <text x="270" y="422" font-size="14" fill="#805d1b">OPRO / LLAMBO / no explicit GP</text>
+
+      <text x="690" y="395" font-size="23" font-weight="700" fill="#173b6c">Agentic BO</text>
+      <text x="690" y="422" font-size="14" fill="#294d78">Sara + lenz / explicit posterior</text>
+    </g>
+
+  </g>
+
+  <g fill="none" stroke="#64748b" stroke-width="3">
+    <path d="M125 600 V145" marker-end="url(#arrow)"/>
+    <path d="M160 625 H1080" marker-end="url(#arrow)"/>
+  </g>
+
+  <g font-family="Inter,Arial,sans-serif" fill="#455468">
+    <text x="620" y="660" text-anchor="middle" font-size="16" font-weight="700">language-model access to context and decisions</text>
+    <text x="58" y="370" transform="rotate(-90 58 370)" text-anchor="middle" font-size="16" font-weight="700">runtime control over the policy</text>
+  </g>
+
+  <g font-family="Inter,Arial,sans-serif" font-size="13" fill="#526077">
+    <circle cx="420" cy="710" r="6" fill="#3973bd"/>
+    <text x="435" y="715">explicit probabilistic surrogate</text>
+    <circle cx="760" cy="710" r="6" fill="#b7791f"/>
+    <text x="775" y="715">no explicit posterior</text>
+  </g>
+</svg>

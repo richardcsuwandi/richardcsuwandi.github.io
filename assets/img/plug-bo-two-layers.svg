@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" role="img" aria-labelledby="title desc">
+  <title id="title">Belief and policy in an expensive optimization loop</title>
+  <desc id="desc">The belief layer adapts the surrogate, while the policy layer adapts how the search proceeds. Both inform the next expensive evaluation.</desc>
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#1a365d" flood-opacity=".13"/>
+    </filter>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#64748b"/>
+    </marker>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#3973bd"/>
+    </marker>
+    <marker id="arrowPurple" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#805ad5"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="680" rx="28" fill="#f8fafc"/>
+  <text x="600" y="58" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="30" font-weight="700" fill="#172033">One evaluation, two adaptive decisions</text>
+  <text x="600" y="91" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="17" fill="#526077">The model decides what the data imply; the policy decides what to do next</text>
+
+  <g font-family="Inter,Arial,sans-serif" filter="url(#shadow)">
+    <rect x="70" y="145" width="430" height="350" rx="22" fill="#e9d8fd" stroke="#805ad5" stroke-width="2"/>
+    <rect x="700" y="145" width="430" height="350" rx="22" fill="#dbeafe" stroke="#3973bd" stroke-width="2"/>
+    <circle cx="600" cy="320" r="88" fill="#fef3c7" stroke="#b7791f" stroke-width="3"/>
+  </g>
+
+  <g font-family="Inter,Arial,sans-serif">
+    <text x="105" y="190" font-size="13" font-weight="700" letter-spacing="1.8" fill="#6843a0">BELIEF LAYER</text>
+    <text x="105" y="232" font-size="24" font-weight="700" fill="#44337a">What should the</text>
+    <text x="105" y="264" font-size="24" font-weight="700" fill="#44337a">surrogate believe?</text>
+    <text x="105" y="304" font-size="16" fill="#5d477c">kernel family / posterior / uncertainty</text>
+
+    <path d="M120 390 C160 335 205 435 250 370 S355 350 445 410" fill="none" stroke="#805ad5" stroke-width="4" stroke-linecap="round"/>
+    <path d="M120 360 C165 330 205 405 250 350 S360 330 445 385" fill="none" stroke="#805ad5" stroke-width="2" stroke-dasharray="7 7" opacity=".55"/>
+    <path d="M120 420 C165 365 210 465 250 400 S360 380 445 438" fill="none" stroke="#805ad5" stroke-width="2" stroke-dasharray="7 7" opacity=".55"/>
+    <text x="105" y="470" font-size="15" font-weight="700" fill="#553287">CAKE evolves the covariance</text>
+
+    <text x="735" y="190" font-size="13" font-weight="700" letter-spacing="1.8" fill="#285f9d">POLICY LAYER</text>
+    <text x="735" y="232" font-size="24" font-weight="700" fill="#173b6c">How should the</text>
+    <text x="735" y="264" font-size="24" font-weight="700" fill="#173b6c">search change?</text>
+    <text x="735" y="304" font-size="16" fill="#294d78">bounds / acquisition / objectives</text>
+
+    <g fill="#ffffff" stroke="#3973bd" stroke-width="2.5">
+      <circle cx="780" cy="390" r="29"/>
+      <circle cx="915" cy="355" r="29"/>
+      <circle cx="1045" cy="410" r="29"/>
+    </g>
+    <path d="M809 383 L884 363 M943 367 L1017 398" fill="none" stroke="#3973bd" stroke-width="3" marker-end="url(#arrowBlue)"/>
+    <g text-anchor="middle" font-size="13" font-weight="700" fill="#173b6c">
+      <text x="780" y="395">probe</text>
+      <text x="915" y="360">revise</text>
+      <text x="1045" y="415">commit</text>
+    </g>
+    <text x="735" y="470" font-size="15" font-weight="700" fill="#174f8a">Agentic BO revises the policy</text>
+
+    <text x="600" y="296" text-anchor="middle" font-size="13" font-weight="700" letter-spacing="1.4" fill="#8b5c12">EXPENSIVE ORACLE</text>
+    <text x="600" y="337" text-anchor="middle" font-size="29" font-style="italic" fill="#744b0b">y = h(x)</text>
+    <text x="600" y="368" text-anchor="middle" font-size="14" fill="#805d1b">one evaluation spent</text>
+  </g>
+
+  <path d="M500 267 C535 245 555 239 570 240" fill="none" stroke="#805ad5" stroke-width="3" marker-end="url(#arrowPurple)"/>
+  <path d="M700 267 C665 245 645 239 630 240" fill="none" stroke="#3973bd" stroke-width="3" marker-end="url(#arrowBlue)"/>
+  <path d="M570 402 C500 540 300 565 165 500" fill="none" stroke="#64748b" stroke-width="3" marker-end="url(#arrow)"/>
+  <path d="M630 402 C700 540 900 565 1035 500" fill="none" stroke="#64748b" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <g font-family="Inter,Arial,sans-serif" font-size="14" fill="#526077" text-anchor="middle">
+    <text x="310" y="576">observations update the model</text>
+    <text x="890" y="576">evidence updates the strategy</text>
+  </g>
+</svg>

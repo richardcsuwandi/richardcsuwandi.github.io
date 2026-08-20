@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 540" role="img" aria-labelledby="title desc">
+  <title id="title">PlugBO architecture, capability-centric view</title>
+  <desc id="desc">A compact hub-and-spoke view of PlugBO. Sara controls a lenz state engine, exchanges configurations and metrics with an evaluator, and selects among CAKE, TuRBO, piBO, and LLAMBO capabilities.</desc>
+
+  <defs>
+    <marker id="arrow" markerWidth="11" markerHeight="11" refX="10" refY="5.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L11,5.5 L0,11 Z" fill="#26323c"/>
+    </marker>
+    <marker id="arrow-blue" markerWidth="11" markerHeight="11" refX="10" refY="5.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L11,5.5 L0,11 Z" fill="#477fae"/>
+    </marker>
+    <linearGradient id="archLogoFill" x1="18" y1="118" x2="112" y2="8" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#153A7A"/>
+      <stop offset="32%" stop-color="#1E6BD6"/>
+      <stop offset="58%" stop-color="#E07028"/>
+      <stop offset="100%" stop-color="#F6C56A"/>
+    </linearGradient>
+    <linearGradient id="archLogoL" x1="20" y1="110" x2="80" y2="10" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1A4B96"/>
+      <stop offset="100%" stop-color="#7EB6F0"/>
+    </linearGradient>
+    <linearGradient id="archLogoR" x1="48" y1="110" x2="116" y2="8" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#C44A14"/>
+      <stop offset="100%" stop-color="#F6C56A"/>
+    </linearGradient>
+    <clipPath id="archLogoClip">
+      <path d="M22,82 C22,104 40,118 64,118 C88,118 106,104 106,82 L106,68 C106,58.5 99.5,52 91,52 L91,26 C91,17 87,12 83,12 C79,12 75,17 75,26 L75,48 Q75,52 70,52 L58,52 Q53,52 53,48 L53,26 C53,17 49,12 45,12 C41,12 37,17 37,26 L37,52 C26.5,52 22,58.5 22,68 Z"/>
+    </clipPath>
+    <style>
+      .sans { font-family: Arial, Helvetica, sans-serif; fill: #20272d; }
+      .mono { font-family: "Courier New", Courier, monospace; font-style: normal; fill: #20272d; }
+      .title { font-size: 26px; font-weight: 700; }
+      .module { font-size: 20px; font-weight: 700; }
+      .subtitle { font-size: 12.5px; }
+      .label { font-size: 12px; font-weight: 700; letter-spacing: 0.7px; }
+      .body { font-size: 12px; }
+      .small { font-size: 10.5px; }
+      .line { fill: none; stroke: #26323c; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+      .blue-line { fill: none; stroke: #477fae; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    </style>
+  </defs>
+
+  <rect width="1200" height="540" fill="none"/>
+  <ellipse cx="645" cy="276" rx="286" ry="210" fill="#fafbfc"/>
+
+  <!-- Heading: aligned PlugBO lockup -->
+  <g transform="translate(510, 6) scale(0.72)">
+    <g transform="translate(-1.9 5.5) scale(0.45)">
+      <path d="M22,82 C22,104 40,118 64,118 C88,118 106,104 106,82 L106,68 C106,58.5 99.5,52 91,52 L91,26 C91,17 87,12 83,12 C79,12 75,17 75,26 L75,48 Q75,52 70,52 L58,52 Q53,52 53,48 L53,26 C53,17 49,12 45,12 C41,12 37,17 37,26 L37,52 C26.5,52 22,58.5 22,68 Z" fill="url(#archLogoFill)"/>
+      <g clip-path="url(#archLogoClip)">
+        <rect x="16" y="8" width="54" height="114" rx="27" fill="url(#archLogoL)" fill-opacity="0.38"/>
+        <rect x="58" y="8" width="54" height="114" rx="27" fill="url(#archLogoR)" fill-opacity="0.38"/>
+      </g>
+    </g>
+    <g transform="translate(53.8 48)" fill="#1B2430">
+      <path d="M3.996 0.0H9.395999999999999V-13.878H19.169999999999998C26.514 -13.878 30.672 -18.954 30.672 -24.948C30.672 -30.942 26.568 -36.018 19.169999999999998 -36.018H3.996ZM25.11 -24.948C25.11 -21.168 22.355999999999998 -18.63 18.468 -18.63H9.395999999999999V-31.266H18.468C22.355999999999998 -31.266 25.11 -28.727999999999998 25.11 -24.948Z M38.126 0.0H42.986V-36.018H38.126Z M70.312 0.0H75.172V-26.082H70.312V-7.344C68.854 -5.4 66.1 -3.672 63.076 -3.672C59.728 -3.672 57.568 -4.968 57.568 -9.288V-26.082H52.708V-7.668C52.708 -2.16 55.462 0.648 61.024 0.648C65.02 0.648 68.314 -1.404 70.312 -3.564Z M84.678 6.696C87.81 9.666 90.996 10.584 95.37 10.584C101.79599999999999 10.584 108.33 7.938 108.33 -1.026V-26.082H103.47V-22.302C101.364 -25.11 98.286 -26.73 94.884 -26.73C88.134 -26.73 83.274 -21.654 83.274 -13.284C83.274 -4.752 88.134 0.216 94.884 0.216C98.394 0.216 101.47200000000001 -1.674 103.47 -4.266V-0.864C103.47 4.644 99.42 6.588 95.37 6.588C91.806 6.588 89.16 5.616 87.0 3.132ZM103.47 -7.992C102.12 -5.886 99.15 -4.104 96.234 -4.104C91.374 -4.104 88.35 -7.884 88.35 -13.284C88.35 -18.63 91.374 -22.41 96.234 -22.41C99.15 -22.41 102.12 -20.682 103.47 -18.576Z M118.16 0.0H135.494C142.136 0.0 145.916 -4.05 145.916 -9.72C145.916 -14.094 142.784 -17.982 138.95 -18.576C142.244 -19.278 145.214 -22.302 145.214 -26.838C145.214 -32.076 141.488 -36.018 135.062 -36.018H118.16ZM123.56 -20.736V-31.266H134.036C137.654 -31.266 139.652 -28.944 139.652 -25.974C139.652 -23.004 137.654 -20.736 134.036 -20.736ZM123.56 -4.752V-15.984H134.306C138.302 -15.984 140.354 -13.392 140.354 -10.422C140.354 -6.912 138.086 -4.752 134.306 -4.752Z M153.1 -17.982C153.1 -7.29 160.498 0.648 171.24399999999997 0.648C181.98999999999998 0.648 189.38799999999998 -7.29 189.38799999999998 -17.982C189.38799999999998 -28.674 181.98999999999998 -36.612 171.24399999999997 -36.612C160.498 -36.612 153.1 -28.674 153.1 -17.982ZM183.826 -17.982C183.826 -10.098 178.85799999999998 -4.158 171.24399999999997 -4.158C163.522 -4.158 158.66199999999998 -10.098 158.66199999999998 -17.982C158.66199999999998 -25.919999999999998 163.522 -31.806 171.24399999999997 -31.806C178.85799999999998 -31.806 183.826 -25.919999999999998 183.826 -17.982Z"/>
+    </g>
+  </g>
+
+  <!-- Run specification -->
+  <g class="sans" transform="translate(0,-20)">
+    <rect x="42" y="110" width="258" height="112" rx="14" fill="#eef0f2" stroke="#d2d7db" stroke-width="1"/>
+    <text x="62" y="138" class="label" fill="#5d6871">RUN SPECIFICATION</text>
+    <text x="62" y="163" class="mono body">context.md + --eval</text>
+    <text x="62" y="184" class="body">space / objectives / budget</text>
+    <text x="62" y="205" class="body">provider / model / workdir</text>
+  </g>
+
+  <!-- Sara -->
+  <g class="sans" transform="translate(0,-52)">
+    <rect x="42" y="282" width="348" height="202" rx="18" fill="#dfeaf6" stroke="#aac6df" stroke-width="1.2"/>
+    <text x="64" y="315" class="module" fill="#356fae">Sara</text>
+    <text x="64" y="336" class="subtitle">campaign controller</text>
+    <rect x="272" y="300" width="94" height="25" rx="12.5" fill="#ffffff" stroke="#b8cede" stroke-width="0.8"/>
+    <text x="319" y="317" text-anchor="middle" class="mono small" fill="#506576">bash / read</text>
+
+    <rect x="64" y="365" width="82" height="42" rx="9" fill="#ffffff"/>
+    <text x="105" y="390" text-anchor="middle" class="body" font-weight="700">reason</text>
+
+    <rect x="175" y="365" width="82" height="42" rx="9" fill="#ffffff"/>
+    <text x="216" y="390" text-anchor="middle" class="body" font-weight="700">choose</text>
+
+    <rect x="286" y="365" width="82" height="42" rx="9" fill="#ffffff"/>
+    <text x="327" y="390" text-anchor="middle" class="body" font-weight="700">adapt</text>
+
+    <path d="M146,386 H169" class="blue-line" marker-end="url(#arrow-blue)"/>
+    <path d="M257,386 H280" class="blue-line" marker-end="url(#arrow-blue)"/>
+    <path d="M327,412 C318,450 120,450 105,413" class="blue-line" marker-end="url(#arrow-blue)"/>
+  </g>
+
+  <!-- Objective evaluator -->
+  <g class="sans" transform="translate(0,-72)">
+    <rect x="78" y="532" width="276" height="58" rx="12" fill="#626b72"/>
+    <text x="98" y="557" font-size="15" font-weight="700" fill="#ffffff">Objective evaluator</text>
+    <text x="98" y="577" class="mono small" style="fill:#ffffff">--eval command or ./oracle</text>
+  </g>
+
+  <!-- lenz state hub -->
+  <g class="sans" transform="translate(0,-74)">
+    <rect x="470" y="184" width="326" height="300" rx="22" fill="#fbe9da" stroke="#dfb996" stroke-width="1.3"/>
+    <text x="496" y="220" class="module" fill="#cb6b2e">lenz</text>
+    <text x="496" y="242" class="subtitle">CLI + BoTorch state engine</text>
+
+    <rect x="496" y="263" width="274" height="142" rx="12" fill="#ffffff" stroke="#ead3c1" stroke-width="0.9"/>
+    <text x="518" y="292" class="label">state.json</text>
+    <text x="748" y="292" text-anchor="end" class="mono small" fill="#7a6657">Frame</text>
+
+    <rect x="518" y="310" width="66" height="30" rx="7" fill="#fff7f0"/>
+    <text x="551" y="329" text-anchor="middle" class="mono small">space</text>
+    <rect x="594" y="310" width="66" height="30" rx="7" fill="#fff7f0"/>
+    <text x="627" y="329" text-anchor="middle" class="mono small">shelf</text>
+    <rect x="670" y="310" width="76" height="30" rx="7" fill="#fff7f0"/>
+    <text x="708" y="329" text-anchor="middle" class="mono small">plugins</text>
+
+    <rect x="518" y="350" width="104" height="30" rx="7" fill="#fff7f0"/>
+    <text x="570" y="369" text-anchor="middle" class="mono small">trials</text>
+    <rect x="632" y="350" width="114" height="30" rx="7" fill="#fff7f0"/>
+    <text x="689" y="369" text-anchor="middle" class="mono small">events</text>
+
+    <text x="633" y="396" text-anchor="middle" class="small" fill="#655f5a">set-* changes policy, never trial history</text>
+
+    <rect x="496" y="425" width="274" height="37" rx="9" fill="#35404a"/>
+    <text x="633" y="448" text-anchor="middle" class="mono small" style="fill:#ffffff">suggest / score / submit / observe / set-*</text>
+  </g>
+
+  <!-- Capability slots -->
+  <g class="sans">
+    <rect x="826" y="102" width="340" height="306" rx="22" fill="#ffffff" fill-opacity="0.76" stroke="#d7dce0" stroke-width="1"/>
+    <text x="996" y="128" text-anchor="middle" class="label" fill="#66727b">CAPABILITY SLOTS</text>
+
+    <rect x="844" y="146" width="148" height="112" rx="15" fill="#f8dfcd" stroke="#e4b995" stroke-width="1"/>
+    <text x="862" y="171" font-size="11.5" fill="#865a39">SURROGATE</text>
+    <text x="862" y="203" font-size="19" font-weight="700">CAKE</text>
+    <text x="862" y="229" font-size="11.5" fill="#75675d">default: fixed Matern</text>
+
+    <rect x="1012" y="146" width="148" height="112" rx="15" fill="#e3f0e5" stroke="#afd0b4" stroke-width="1"/>
+    <text x="1030" y="171" font-size="11.5" fill="#4d7654">REGION</text>
+    <text x="1030" y="203" font-size="19" font-weight="700">TuRBO</text>
+    <text x="1030" y="229" font-size="11.5" fill="#647269">default: box</text>
+
+    <rect x="844" y="280" width="148" height="112" rx="15" fill="#f6efd5" stroke="#d9ca8f" stroke-width="1"/>
+    <text x="862" y="305" font-size="11.5" fill="#7b6c32">PRIOR</text>
+    <text x="862" y="337" font-size="19" font-weight="700">&#960;BO</text>
+    <text x="862" y="363" font-size="11.5" fill="#726d5c">default: none</text>
+
+    <rect x="1012" y="280" width="148" height="112" rx="15" fill="#ece7f5" stroke="#c4b6dc" stroke-width="1"/>
+    <text x="1030" y="305" font-size="11.5" fill="#675783">SAMPLER</text>
+    <text x="1030" y="337" font-size="19" font-weight="700">LLAMBO</text>
+    <text x="1030" y="363" font-size="11.5" fill="#6d6875">default: BoTorch</text>
+  </g>
+
+  <!-- Run specification to Sara -->
+  <path d="M170,202 C170,213 190,216 190,224" class="line" marker-end="url(#arrow)"/>
+  <rect x="128" y="203" width="84" height="20" rx="10" fill="#ffffff"/>
+  <text x="170" y="217" text-anchor="middle" class="mono small">campaign</text>
+
+  <!-- Sara and lenz exchange -->
+  <path d="M390,281 C426,259 438,215 470,198" class="line" marker-end="url(#arrow)"/>
+  <rect x="394" y="225" width="90" height="21" rx="10" fill="#ffffff"/>
+  <text x="439" y="240" text-anchor="middle" class="mono small">lenz &lt;verb&gt;</text>
+
+  <path d="M470,328 C438,338 425,363 390,379" class="line" marker-end="url(#arrow)"/>
+  <rect x="409" y="343" width="53" height="21" rx="10" fill="#ffffff"/>
+  <text x="435" y="358" text-anchor="middle" class="mono small">JSON</text>
+
+  <!-- Evaluation loop -->
+  <path d="M154,432 C142,443 151,453 175,456" class="line" marker-end="url(#arrow)"/>
+  <rect x="88" y="435" width="56" height="19" rx="9.5" fill="#ffffff"/>
+  <text x="116" y="448" text-anchor="middle" class="mono small">config</text>
+  <path d="M295,460 C327,453 326,442 307,433" class="line" marker-end="url(#arrow)"/>
+  <rect x="331" y="435" width="59" height="19" rx="9.5" fill="#ffffff"/>
+  <text x="360" y="448" text-anchor="middle" class="mono small">metrics</text>
+
+  <!-- One clean connection to the grouped capability interface -->
+  <path d="M796,200 C810,200 814,211 826,220" class="line" marker-end="url(#arrow)"/>
+</svg>
