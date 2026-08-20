@@ -30,14 +30,6 @@
   stars: 2259
   forks: 355
 
-- name: "sift"
-  repo: "richardcsuwandi/sift"
-  url: "https://github.com/richardcsuwandi/sift"
-  description: "Find, understand, and organize your files with private local AI"
-  language: "Python"
-  stars: 0
-  forks: 0
-
 - name: "cake"
   repo: "richardcsuwandi/cake"
   url: "https://github.com/richardcsuwandi/cake"
@@ -46,9 +38,25 @@
   stars: 29
   forks: 2
 
+- name: "PlugBO"
+  repo: "richardcsuwandi/plugbo"
+  url: "https://github.com/richardcsuwandi/plugbo"
+  description: "A modular framework for agentic Bayesian optimization"
+  language: "Python"
+  stars: 0
+  forks: 0
+
 - name: "awesome-bo"
   repo: "richardcsuwandi/awesome-bo"
   url: "https://github.com/richardcsuwandi/awesome-bo"
   description: "A curated repository of awesome Bayesian optimization resources."
   stars: 14
   forks: 3
+
+- name: "sift"
+  repo: "richardcsuwandi/sift"
+  url: "https://github.com/richardcsuwandi/sift"
+  description: "Find, understand, and organize your files with private local AI"
+  language: "Python"
+  stars: 0
+  forks: 0
