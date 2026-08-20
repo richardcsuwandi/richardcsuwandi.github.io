@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 636" role="img" aria-labelledby="title desc">
+  <title id="title">Two paths for combining LLMs and Bayesian optimization</title>
+  <desc id="desc">Left path: the LLM is the optimizer. OPRO and LLAMBO propose the next query from a textual history, with no explicit posterior. Right path: the LLM occupies one slot in a standard BO loop. CAKE evolves the GP kernel while the outer policy stays fixed.</desc>
+
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="11" refY="6" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#26323c"/>
+    </marker>
+    <marker id="arrow-blue" markerWidth="12" markerHeight="12" refX="11" refY="6" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#477fae"/>
+    </marker>
+    <marker id="arrow-orange" markerWidth="12" markerHeight="12" refX="11" refY="6" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#cb6b2e"/>
+    </marker>
+    <style>
+      .sans { font-family: Arial, Helvetica, sans-serif; fill: #20272d; }
+      .mono { font-family: "Courier New", Courier, monospace; font-style: normal; fill: #20272d; }
+      .title { font-size: 32px; font-weight: 700; }
+      .module { font-size: 24px; font-weight: 700; }
+      .subtitle { font-size: 16px; }
+      .label { font-size: 14px; font-weight: 700; letter-spacing: 0.5px; }
+      .body { font-size: 17px; }
+      .small { font-size: 15px; }
+      .name { font-size: 26px; font-weight: 700; }
+      .kicker { font-size: 14px; font-weight: 700; letter-spacing: 0.4px; }
+      .desc { font-size: 15px; }
+      .line { fill: none; stroke: #26323c; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+      .blue-line { fill: none; stroke: #477fae; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+      .orange-line { fill: none; stroke: #cb6b2e; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+    </style>
+  </defs>
+
+  <rect width="1200" height="636" fill="none"/>
+
+  <g class="sans">
+    <text x="600" y="46" text-anchor="middle" class="title">Two paths</text>
+  </g>
+
+  <!-- Path A: LLM as optimizer -->
+  <g class="sans">
+    <rect x="24" y="68" width="568" height="546" rx="24" fill="#dfeaf6" stroke="#aac6df" stroke-width="1.2"/>
+    <text x="48" y="100" class="label" fill="#5d6871">PATH A</text>
+    <text x="48" y="134" class="module" fill="#356fae">LLM as optimizer</text>
+
+    <g transform="translate(0, -44)">
+    <rect x="48" y="208" width="268" height="72" rx="14" fill="#ffffff"/>
+    <text x="182" y="240" text-anchor="middle" class="body" font-weight="700">trial history as text</text>
+    <text x="182" y="264" text-anchor="middle" class="mono small" fill="#506576">prompt / table of trials</text>
+
+    <path d="M182,280 V304" class="blue-line" marker-end="url(#arrow-blue)"/>
+
+    <rect x="48" y="304" width="268" height="96" rx="14" fill="#ffffff"/>
+    <text x="68" y="340" class="body" font-weight="700">LLM</text>
+    <rect x="204" y="320" width="96" height="32" rx="16" fill="#dfeaf6" stroke="#b8cede" stroke-width="0.8"/>
+    <text x="252" y="342" text-anchor="middle" class="mono small" fill="#506576">no GP</text>
+    <text x="68" y="376" class="subtitle" fill="#5d6871">propose next configuration</text>
+
+    <path d="M182,400 V424" class="blue-line" marker-end="url(#arrow-blue)"/>
+
+    <rect x="48" y="424" width="268" height="60" rx="14" fill="#ffffff"/>
+    <text x="182" y="462" text-anchor="middle" class="mono body" font-weight="700">next x</text>
+
+    <path d="M182,484 V508" class="blue-line" marker-end="url(#arrow-blue)"/>
+
+    <rect x="48" y="508" width="268" height="76" rx="14" fill="#626b72"/>
+    <text x="68" y="542" font-size="18" font-weight="700" fill="#ffffff">evaluate</text>
+    <text x="68" y="568" class="mono small" style="fill:#ffffff">append to textual history</text>
+
+    <text x="340" y="224" class="label" fill="#66727b">REPRESENTATIVE WORKS</text>
+
+    <rect x="336" y="240" width="232" height="156" rx="16" fill="#f6efd5" stroke="#d9ca8f" stroke-width="1"/>
+    <text x="356" y="274" class="kicker" fill="#7b6c32">TRAJECTORY PROMPT</text>
+    <text x="356" y="314" class="name">OPRO</text>
+    <text x="356" y="348" class="desc" fill="#726d5c">score so far,</text>
+    <text x="356" y="370" class="desc" fill="#726d5c">then emit x</text>
+
+    <rect x="336" y="412" width="232" height="172" rx="16" fill="#ece7f5" stroke="#c4b6dc" stroke-width="1"/>
+    <text x="356" y="448" class="kicker" fill="#675783">HISTORY AS A TABLE</text>
+    <text x="356" y="490" class="name">LLAMBO</text>
+    <text x="356" y="526" class="desc" fill="#6d6875">prompt for a</text>
+    <text x="356" y="548" class="desc" fill="#6d6875">promising point</text>
+    </g>
+  </g>
+
+  <!-- Path B: LLM in one component -->
+  <g class="sans">
+    <rect x="608" y="68" width="568" height="546" rx="24" fill="#eef0f2" stroke="#d2d7db" stroke-width="1.2"/>
+    <text x="632" y="100" class="label" fill="#5d6871">PATH B</text>
+    <text x="632" y="134" class="module" fill="#cb6b2e">LLM in one component</text>
+
+    <g transform="translate(0, -44)">
+    <rect x="632" y="208" width="216" height="72" rx="14" fill="#ffffff" stroke="#d2d7db" stroke-width="1"/>
+    <text x="740" y="240" text-anchor="middle" class="body" font-weight="700">observations D_t</text>
+    <text x="740" y="264" text-anchor="middle" class="mono small" fill="#5d6871">standard BO loop</text>
+
+    <path d="M740,280 V304" class="line" marker-end="url(#arrow)"/>
+
+    <rect x="632" y="304" width="216" height="96" rx="14" fill="#fff7f0" stroke="#ead3c1" stroke-width="0.9"/>
+    <text x="652" y="344" class="body" font-weight="700">GP surrogate</text>
+    <text x="652" y="376" class="subtitle" fill="#655f5a">mean and variance</text>
+
+    <path d="M740,400 V424" class="line" marker-end="url(#arrow)"/>
+
+    <rect x="632" y="424" width="216" height="60" rx="14" fill="#ffffff" stroke="#d2d7db" stroke-width="1"/>
+    <text x="740" y="462" text-anchor="middle" class="body" font-weight="700">acquisition  &#x3b1;</text>
+
+    <path d="M740,484 V508" class="line" marker-end="url(#arrow)"/>
+
+    <rect x="632" y="508" width="216" height="76" rx="14" fill="#626b72"/>
+    <text x="652" y="542" font-size="18" font-weight="700" fill="#ffffff">evaluate</text>
+    <text x="652" y="568" class="mono small" style="fill:#ffffff">&#x3a0;0 fixed in advance</text>
+
+    <text x="948" y="224" class="label" fill="#66727b">OCCUPIED SLOT</text>
+
+    <rect x="944" y="240" width="208" height="344" rx="16" fill="#f8dfcd" stroke="#e4b995" stroke-width="1"/>
+    <text x="964" y="278" class="kicker" fill="#865a39">SURROGATE</text>
+    <text x="964" y="322" class="name">CAKE</text>
+    <text x="964" y="358" class="desc" fill="#75675d">evolves the</text>
+    <text x="964" y="380" class="desc" fill="#75675d">GP kernel</text>
+
+    <rect x="964" y="406" width="168" height="44" rx="10" fill="#ffffff"/>
+    <text x="1048" y="434" text-anchor="middle" class="mono small">evolve kernel</text>
+
+    <text x="1048" y="480" text-anchor="middle" class="small" fill="#75675d">the rest of the loop</text>
+    <text x="1048" y="504" text-anchor="middle" class="small" fill="#75675d">stays fixed</text>
+    </g>
+  </g>
+
+  <!-- CAKE feeds only the GP kernel -->
+  <g transform="translate(0, -44)">
+  <path d="M944,344 H852" class="orange-line" marker-end="url(#arrow-orange)"/>
+  <rect x="856" y="328" width="80" height="32" rx="16" fill="#ffffff"/>
+  <text x="896" y="350" text-anchor="middle" class="mono small">kernel</text>
+  </g>
+</svg>
