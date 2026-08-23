@@ -1,0 +1,92 @@
+// =============================================================================
+// Evolutionary search separator
+//
+// Decorative panel illustrating the model-select-update loop: a population
+// evolves generation by generation toward a hidden objective, and a click
+// relocates the objective so the search visibly re-converges. Geometry is
+// computed by assets/js/discovery-separator.js; everything visual is here.
+// Mirrors the visual grammar of _gp-separator.scss (same accent pattern,
+// same hollow-marker and label styling) so the two panels read as one family.
+// =============================================================================
+
+.discovery-separator {
+  --discovery-accent: #{$accent-primary};
+
+  position: relative;
+  clear: both;
+  width: 100%;
+  height: 110px;
+  margin: 2.5rem 0 0;
+  cursor: crosshair;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--discovery-accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+html[data-theme='dark'] .discovery-separator {
+  --discovery-accent: #{$blue-color};
+}
+
+// The separator already supplies the break, so the heading that follows it
+// does not need its full top margin.
+.discovery-separator + h2,
+.post article .discovery-separator + h2 {
+  margin-top: 1.5rem !important;
+}
+
+.discovery-separator-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.discovery-target {
+  fill: var(--global-bg-color);
+  stroke: var(--discovery-accent);
+  stroke-width: 2;
+  opacity: 0.85;
+}
+
+.discovery-dot {
+  fill: var(--global-text-color-light);
+  opacity: 0.55;
+}
+
+.discovery-current {
+  fill: var(--discovery-accent);
+}
+
+.discovery-label {
+  fill: var(--global-text-color-light);
+  font-family: inherit;
+  font-size: 0.7rem;
+  opacity: 0.6;
+  user-select: none;
+}
+
+.discovery-hint {
+  opacity: 0.45;
+}
+
+@media (max-width: 768px) {
+  .discovery-separator {
+    height: 80px;
+    margin-top: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .discovery-hint {
+    display: none;
+  }
+}

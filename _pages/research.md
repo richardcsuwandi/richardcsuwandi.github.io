@@ -55,6 +55,12 @@ nav_order: 0
 
 My research develops **adaptive intelligence for scientific discovery and engineering design**: AI systems that build a model of an unknown environment, select the next experiment worth running under a limited budget, and update their beliefs as new evidence arrives. Below, I highlight key contributions from my research, organized by topic.
 
+<!-- GP / Bayesian optimization separator -->
+<div class="gp-separator" aria-hidden="true">
+  <svg class="gp-separator-svg" role="presentation" focusable="false"></svg>
+</div>
+<script src="{{ '/assets/js/gp-separator.js' | relative_url }}"></script>
+
 ### Scalable and robust surrogate learning
 
 Gaussian processes (GPs) are a natural choice for surrogate modeling of an unknown environment, since they provide predictions along with calibrated uncertainty estimates from small amounts of data, a property that is essential when every experiment is costly. Their practicality, however, is limited by the kernel, the function that encodes assumptions about how the environment behaves. As models are made more expressive, choosing and tuning a kernel becomes slow, high-dimensional, and numerically unstable. I address this limitation from two directions. First, I design [grid spectral mixture (GSM) kernels](#suwandi2022gaussian) that scale to multidimensional data, and, building on a sparse structure I identify in how they are trained, develop [SLIM-KL](#suwandi2023gaussian), a distributed learning method that allows multiple parties to jointly train expressive GPs without sharing their raw data. Second, I develop [ZAP](#suwandi2026breaking), an optimizer that estimates a model's full gradient from only two evaluations of the training loss, regardless of the number of hyperparameters, which makes tuning tractable even for large models where computing gradients directly is impractical.
