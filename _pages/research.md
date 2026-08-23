@@ -17,6 +17,12 @@ nav_order: 0
     max-width: 75% !important;
 }
 
+@media (max-width: 768px) {
+    .container.mt-5 {
+        max-width: 95% !important;
+    }
+}
+
 /* Compact publication cards for inline use within the topic sections below */
 .research-pubs .blog-post-card-horizontal {
     padding: 1.1rem 1.25rem;
@@ -47,7 +53,7 @@ nav_order: 0
 }
 </style>
 
-My research develops **adaptive intelligence for scientific discovery and engineering design**: AI systems that build a model of an unknown environment, select the next experiment worth running under a limited budget, and update their beliefs as new evidence arrives. Bayesian optimization is the core loop behind this work: a probabilistic model captures what is currently known, a decision policy selects the next experiment, and the result feeds back into both the model and the next decision. Below, I highlight key contributions from my research, organized by topic.
+My research develops **adaptive intelligence for scientific discovery and engineering design**: AI systems that build a model of an unknown environment, select the next experiment worth running under a limited budget, and update their beliefs as new evidence arrives. Below, I highlight key contributions from my research, organized by topic.
 
 ### Scalable and robust surrogate learning
 
