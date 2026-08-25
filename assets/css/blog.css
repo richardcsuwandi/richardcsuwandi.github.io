@@ -99,6 +99,19 @@ html[data-theme="dark"] .publication-venue .presentation-badge {
   border-color: color-mix(in srgb, var(--global-theme-color) 45%, transparent);
 }
 
+.publication-venue .presentation-badge-preprint {
+  color: #b45309;
+  background: color-mix(in srgb, #d97706 12%, transparent);
+  border-color: color-mix(in srgb, #d97706 38%, transparent);
+}
+
+[data-theme="dark"] .publication-venue .presentation-badge-preprint,
+html[data-theme="dark"] .publication-venue .presentation-badge-preprint {
+  color: #fbbf24;
+  background: color-mix(in srgb, #d97706 22%, transparent);
+  border-color: color-mix(in srgb, #d97706 50%, transparent);
+}
+
 /* Dark mode specific styling for tags */
 [data-theme="dark"] .post-tags-left .tag-link,
 html[data-theme="dark"] .post-tags-left .tag-link {

@@ -100,6 +100,8 @@
           <span class="publication-venue-text">
             {% if presentation_kind == 'oral' %}
               <span class="presentation-badge presentation-badge-oral">ORAL</span>
+            {% elsif presentation_kind == 'preprint' %}
+              <span class="presentation-badge presentation-badge-preprint">PREPRINT</span>
             {% endif %}
             {% if entry.type == 'article' %}
               <em>{{ entry.journal }}</em>, {{ entry.year }}
