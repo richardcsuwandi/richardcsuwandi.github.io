@@ -1,3 +1,12 @@
+- name: "OpenEvolve"
+  repo: "algorithmicsuperintelligence/openevolve"
+  url: "https://github.com/algorithmicsuperintelligence/openevolve"
+  description: "Open-source implementation of AlphaEvolve"
+  language: "Python"
+  stars: 6769
+  forks: 1089
+
+
 - name: "cake"
   repo: "richardcsuwandi/cake"
   url: "https://github.com/richardcsuwandi/cake"
@@ -44,14 +53,6 @@
   language: "Python"
   stars: 0
   forks: 0
-
-- name: "OpenEvolve"
-  repo: "algorithmicsuperintelligence/openevolve"
-  url: "https://github.com/algorithmicsuperintelligence/openevolve"
-  description: "Open-source implementation of AlphaEvolve"
-  language: "Python"
-  stars: 6769
-  forks: 1089
 
 - name: "PyCaret"
   repo: "pycaret/pycaret"
