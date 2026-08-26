@@ -1,25 +1,40 @@
-<div class="publications">
+<div class="publications selected-papers-list">
   {% bibliography --group_by none --query @*[selected=true]* --sort_by year --order descending %}
 </div>
 
 <style>
   /* Additional styling for publications */
-  .publication-authors {
-    font-size: 1rem;
+  .selected-papers-list .publication-authors {
+    font-size: 0.82rem;
     color: var(--global-text-color);
     margin-bottom: 0.5rem;
     font-weight: 400;
     line-height: 1.4;
   }
-  
-  .publication-venue {
-    font-size: 1rem;
+
+  .selected-papers-list .publication-venue {
+    font-size: 0.82rem;
     color: #60636a;
     font-style: italic;
     margin: 0;
     line-height: 1.4;
   }
-  
+
+  .selected-papers-list .post-date {
+    font-size: 0.72rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .selected-papers-list .post-tags-left .tag-link {
+    font-size: 0.56rem;
+    padding: 0.2rem 0.42rem;
+  }
+
+  .selected-papers-list .blog-post-card-horizontal {
+    padding: 0.85rem 1rem;
+    margin-bottom: 0.75rem;
+  }
+
   /* Abstract styling */
   .publication-abstract {
     margin-top: 1rem;
@@ -59,8 +74,8 @@
   }
   
   /* Adjust title font size for better fit */
-  .post-title-horizontal {
-    font-size: 1.6rem !important;
+  .selected-papers-list .post-title-horizontal {
+    font-size: 1.3rem !important;
     line-height: 1.25 !important;
   }
   

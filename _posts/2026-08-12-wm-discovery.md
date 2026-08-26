@@ -2,11 +2,10 @@
 layout: distill
 title: "World Models for Scientific Discovery"
 date: 2026-08-12 10:00:00 +0700
-description: How world models could transform AI from predictive systems into scientists that can explain, experiment, and discover
+description: Why prediction alone is not discovery, and what world models need to support explanation, experimentation, and abduction
 tags: [WORLD MODELS, SCIENTIFIC DISCOVERY]
 giscus_comments: true
 related_posts: false
-thumbnail: /assets/img/wm-discovery.png
 future: true
 htmlwidgets: true
 
@@ -774,7 +773,7 @@ The most consequential scientific world model may therefore be judged less by ho
 If you find this post useful, please cite it as:
 
 <div class="citation-box">
-Suwandi, R. C. (Aug 2026). World Models for Scientific Discovery. Posterior Update. https://richardcsuwandi.github.io/blog/2026/wm-discovery/.
+Suwandi, R. C. (Aug 2026). World Models for Scientific Discovery. https://richardcsuwandi.github.io/blog/2026/wm-discovery/.
 </div>
 
 Or in BibTeX format:
@@ -783,7 +782,6 @@ Or in BibTeX format:
 @article{suwandi2026wmdiscovery,
     title   = "World Models for Scientific Discovery",
     author  = "Suwandi, Richard Cornelius",
-    journal = "Posterior Update",
     year    = "2026",
     month   = "Aug",
     url     = "https://richardcsuwandi.github.io/blog/2026/wm-discovery/"

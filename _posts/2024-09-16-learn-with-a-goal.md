@@ -1,12 +1,11 @@
 ---
 layout: distill
-title: Learning With a Goal
+title: "A Unified View of Bayesian Optimization and Active Learning"
 date: 2024-09-16 00:00:00 +0700
-description: A unified perspective of Bayesian optimization and active learning
+description: Unifying Bayesian optimization and active learning as goal-driven adaptive sampling
 tags: [ACTIVE LEARNING, BAYESIAN OPTIMIZATION]
 giscus_comments: true
 related_posts: false
-thumbnail: /assets/img/race.png
 future: true
 htmlwidgets: true
 
@@ -545,7 +544,7 @@ BO and AL have traditionally been viewed as distinct fields with separate goals 
 If you find this post useful, please cite it as:
 
 <div class="citation-box">
-Suwandi, R. C. (Sep 2024). Learning With a Goal. Posterior Update. https://richardcsuwandi.github.io/blog/2024/learn-with-a-goal/.
+Suwandi, R. C. (Sep 2024). Learning With a Goal. https://richardcsuwandi.github.io/blog/2024/learn-with-a-goal/.
 </div>
 
 Or in BibTeX format:
@@ -554,7 +553,6 @@ Or in BibTeX format:
 @article{suwandi2024learnwithagoal,
     title   = "Learning With a Goal",
     author  = "Suwandi, Richard Cornelius",
-    journal = "Posterior Update",
     year    = "2024",
     month   = "Sep",
     url     = "https://richardcsuwandi.github.io/blog/2024/learn-with-a-goal/"

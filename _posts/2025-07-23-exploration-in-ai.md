@@ -1,12 +1,11 @@
 ---
 layout: distill
-title: The Science of Intelligent Exploration
+title: Exploration as a Path to General Intelligence
 date: 2025-07-23 10:00:00 +0700
-description: Why we need to re-center exploration in AI
+description: Why exploration, not just exploitation, may be the missing ingredient in current AI systems
 tags: [OPEN-ENDEDNESS, EXPLORATION]
 giscus_comments: true
 related_posts: false
-thumbnail: /assets/img/flashlight.png
 future: true
 htmlwidgets: true
 
@@ -660,7 +659,7 @@ Intelligent exploration lies at the heart of discovery, creativity, and adaptati
 If you find this post useful, please cite it as:
 
 <div class="citation-box">
-Suwandi, R. C. (Jul 2025). The Science of Intelligent Exploration. Posterior Update. https://richardcsuwandi.github.io/blog/2025/exploration-in-ai/.
+Suwandi, R. C. (Jul 2025). The Science of Intelligent Exploration. https://richardcsuwandi.github.io/blog/2025/exploration-in-ai/.
 </div>
 
 Or in BibTeX format:
@@ -669,7 +668,6 @@ Or in BibTeX format:
 @article{suwandi2025explorationai,
     title   = "The Science of Intelligent Exploration",
     author  = "Suwandi, Richard Cornelius",
-    journal = "Posterior Update",
     year    = "2025",
     month   = "Jul",
     url     = "https://richardcsuwandi.github.io/blog/2025/exploration-in-ai/"

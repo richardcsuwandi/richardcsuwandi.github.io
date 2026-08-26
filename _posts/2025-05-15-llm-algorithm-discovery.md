@@ -1,12 +1,11 @@
 ---
 layout: distill
-title: Can We Use AI to Discover Better Algorithms?
+title: Algorithm Discovery with Large Language Models
 date: 2025-05-15 10:00:00 +0700
-description: A review of FunSearch and AlphaEvolve
+description: How large language models search program space to discover new algorithms
 tags: [AGENTS, LARGE LANGUAGE MODELS]
 giscus_comments: true
 related_posts: false
-thumbnail: /assets/img/evolution.png
 future: true
 htmlwidgets: true
 
@@ -600,7 +599,7 @@ The development of FunSearch<d-cite key="romera2024mathematical"></d-cite> and A
 If you find this post useful, please cite it as:
 
 <div class="citation-box">
-Suwandi, R. C. (May 2025). Can We Use AI to Discover Better Algorithms? Posterior Update. https://richardcsuwandi.github.io/blog/2025/llm-algorithm-discovery/.
+Suwandi, R. C. (May 2025). Can We Use AI to Discover Better Algorithms? https://richardcsuwandi.github.io/blog/2025/llm-algorithm-discovery/.
 </div>
 
 Or in BibTeX format:
@@ -609,7 +608,6 @@ Or in BibTeX format:
 @article{suwandi2025algorithmdiscovery,
     title   = "Can We Use AI to Discover Better Algorithms?",
     author  = "Suwandi, Richard Cornelius",
-    journal = "Posterior Update",
     year    = "2025",
     month   = "May",
     url     = "https://richardcsuwandi.github.io/blog/2025/llm-algorithm-discovery/"

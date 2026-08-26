@@ -13,18 +13,39 @@
       <meta http-equiv="refresh" content="3; url={{ redirect }}">
     {% endif %}
     {% include head.liquid %}
+    <style>
+      /* Slightly larger blog cards than the compact research/publications cards */
+      .blog-posts .post-title-horizontal,
+      .featured-posts .post-title-horizontal {
+        font-size: 1.45rem;
+        margin-bottom: 0.4rem;
+      }
+      .blog-posts .post-date,
+      .featured-posts .post-date {
+        font-size: 0.85rem;
+        margin-bottom: 0.65rem;
+      }
+      .blog-posts .post-tags-left .tag-link,
+      .featured-posts .post-tags-left .tag-link {
+        font-size: 0.66rem;
+        padding: 0.28rem 0.52rem;
+      }
+      .blog-posts .blog-post-card-horizontal,
+      .featured-posts .blog-post-card-horizontal {
+        padding: 1.3rem 1.5rem;
+        margin-bottom: 1.1rem;
+      }
+      .blog-posts .post-description,
+      .featured-posts .post-description {
+        font-size: 0.98rem !important;
+      }
+    </style>
   </head>
 
   <!-- Body -->
   <body class="{% if site.navbar_fixed %}fixed-top-nav{% endif %} {% unless site.footer_fixed %}sticky-bottom-footer{% endunless %}">
     <!-- Header -->
     {% include header.liquid %}
-
-    <!-- Landing Section -->
-    <div class="landing-section text-center">
-      <img src="{{ '/assets/img/logo_light.png' | relative_url }}" alt="Logo" class="landing-logo light-mode-logo">
-      <img src="{{ '/assets/img/logo_dark.png' | relative_url }}" alt="Logo" class="landing-logo dark-mode-logo">
-    </div>
 
     <!-- Content -->
     <div class="container-fluid" px-4 role="main">
@@ -67,7 +88,7 @@
                 </div>
                 
                 <!-- Middle column: Title, Read time, Description -->
-                <div class="col-md-6 post-middle-section">
+                <div class="col-md-{% if post.thumbnail %}6{% else %}10{% endif %} post-middle-section">
                   <h2 class="post-title-horizontal">
                     {% if post.redirect == blank %}
                       <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
@@ -80,13 +101,13 @@
                   <div class="post-read-time">{{ read_time }} min read</div>
                   <p class="post-description">{{ post.description }}</p>
                 </div>
-                
+
+                {% if post.thumbnail %}
                 <!-- Right column: Thumbnail -->
                 <div class="col-md-4 post-right-section">
-                  {% if post.thumbnail %}
-                    <img src="{{post.thumbnail | relative_url}}" alt="{{ post.title | escape }} thumbnail" class="post-thumbnail">
-                  {% endif %}
+                  <img src="{{post.thumbnail | relative_url}}" alt="{{ post.title | escape }} thumbnail" class="post-thumbnail">
                 </div>
+                {% endif %}
               </div>
             </div>
             {% endfor %}
@@ -126,7 +147,7 @@
                     {% endif %}
                   </div>
                   <!-- Middle column: Title, Read time, Description -->
-                  <div class="col-md-6 post-middle-section">
+                  <div class="col-md-{% if post.thumbnail %}6{% else %}10{% endif %} post-middle-section">
                     <h2 class="post-title-horizontal">
                       {% if post.redirect == blank %}
                         <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
@@ -139,13 +160,13 @@
                     <div class="post-read-time">{{ read_time }} min read</div>
                     <p class="post-description">{{ post.description }}</p>
                   </div>
-                  
+
+                  {% if post.thumbnail %}
                   <!-- Right column: Thumbnail -->
                   <div class="col-md-4 post-right-section">
-                    {% if post.thumbnail %}
-                      <img src="{{post.thumbnail | relative_url}}" alt="{{ post.title | escape }} thumbnail" class="post-thumbnail">
-                    {% endif %}
+                    <img src="{{post.thumbnail | relative_url}}" alt="{{ post.title | escape }} thumbnail" class="post-thumbnail">
                   </div>
+                  {% endif %}
                 </div>
               </div>
             {%- endfor -%}

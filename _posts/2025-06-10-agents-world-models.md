@@ -1,12 +1,11 @@
 ---
 layout: distill
-title: No World Model, No General AI
+title: Do Agents Need a World Model?
 date: 2025-06-11 10:00:00 +0700
-description: From Ilya's prediction to Google DeepMind's proof
+description: From Ilya Sutskever's conjecture to DeepMind's formal argument for world models in general agents
 tags: [AGENTS, REINFORCEMENT LEARNING]
 giscus_comments: true
 related_posts: false
-thumbnail: /assets/img/robot_world.png
 future: true
 htmlwidgets: true
 
@@ -610,7 +609,7 @@ If general agents must learn world models, and superhuman intelligence requires 
 If you find this post useful, please cite it as:
 
 <div class="citation-box">
-Suwandi, R. C. (Jun 2025). No World Model, No General AI. Posterior Update. https://richardcsuwandi.github.io/blog/2025/agents-world-models/.
+Suwandi, R. C. (Jun 2025). No World Model, No General AI. https://richardcsuwandi.github.io/blog/2025/agents-world-models/.
 </div>
 
 Or in BibTeX format:
@@ -619,7 +618,6 @@ Or in BibTeX format:
 @article{suwandi2025agentsworldmodels,
     title   = "No World Model, No General AI",
     author  = "Suwandi, Richard Cornelius",
-    journal = "Posterior Update",
     year    = "2025",
     month   = "Jun",
     url     = "https://richardcsuwandi.github.io/blog/2025/agents-world-models/"

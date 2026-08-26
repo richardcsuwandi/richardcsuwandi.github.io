@@ -5,9 +5,9 @@
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.2s ease;
-  padding: 1.5rem; /* Reduced from 2rem to make cards shorter */
-  margin-bottom: 1.5rem; /* Reduced from 2rem */
-  min-height: 140px; /* Set a minimum height to keep cards compact */
+  padding: 1.1rem 1.25rem;
+  margin-bottom: 1rem;
+  min-height: auto;
 }
 
 .blog-post-card-horizontal:hover {
@@ -34,9 +34,9 @@ html[data-theme="dark"] .blog-post-card-horizontal:hover {
 }
 
 .post-date {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: var(--global-text-color-light);
-  margin-bottom: 1rem;
+  margin-bottom: 0.6rem;
   font-weight: 500;
   line-height: 1.2; /* Match title line height */
 }
@@ -79,9 +79,9 @@ html[data-theme="dark"] .blog-post-card-horizontal:hover {
   background-color: #54667d;
   border: 1px solid var(--global-divider-color);
   border-radius: 5px; /* Reduced from 8px for more rectangular look */
-  padding: 0.3rem 0.6rem; /* Reduced padding for smaller tags */
+  padding: 0.25rem 0.5rem;
   text-decoration: none;
-  font-size: 0.65rem; /* Reduced from 0.9rem */
+  font-size: 0.62rem;
   transition: all 0.3s ease;
   line-height: 1.4;
   font-weight: 500;
@@ -198,10 +198,10 @@ html[data-theme="dark"] .blog-post-card .alphaxiv-link-badge:hover {
 
 .post-title-horizontal {
   font-family: 'Inter', sans-serif;
-  font-size: 2rem;
+  font-size: 1.3rem;
   font-weight: 700;
-  line-height: 1.2;
-  margin-bottom: 0.5rem;
+  line-height: 1.25;
+  margin-bottom: 0.35rem;
   margin-top: 0; /* Remove any default margin */
   color: var(--global-text-color);
 }
@@ -223,8 +223,8 @@ html[data-theme="dark"] .blog-post-card .alphaxiv-link-badge:hover {
 }
 
 .blog-post-card-horizontal .post-description {
-  font-size: 1rem !important; /* Added !important to override any conflicting styles */
-  line-height: 1.6;
+  font-size: 0.9rem !important; /* Added !important to override any conflicting styles */
+  line-height: 1.5;
   font-weight: 400;
   color: #60636a;
   margin: 0;
@@ -235,13 +235,13 @@ html[data-theme="dark"] .blog-post-card .alphaxiv-link-badge:hover {
   display: flex;
   align-items: flex-start; /* Align to top instead of center */
   justify-content: center;
-  padding-top: 0.25rem; /* Slight offset to align with content */
+  padding-top: 0;
 }
 
 .post-thumbnail {
   width: 100%;
   max-width: 100%; /* Allow full width of the column */
-  height: 200px; /* Reduced height to match card min-height */
+  height: 170px;
   object-fit: cover;
   border-radius: 8px;
 }
@@ -250,6 +250,7 @@ html[data-theme="dark"] .blog-post-card .alphaxiv-link-badge:hover {
   width: 100%;
   max-width: 100%; /* Ensure image fits within container */
   height: auto; /* Maintain aspect ratio */
+  max-height: 190px;
   object-fit: contain; /* Scale image to fit completely within container without cropping */
   border-radius: 8px;
   display: block; /* Ensure proper block behavior */
@@ -328,33 +329,33 @@ html[data-theme="dark"] .blog-post-card .alphaxiv-link-badge:hover {
 /* Responsive adjustments */
 @media (max-width: 992px) {
   .blog-post-card-horizontal {
-    padding: 1.5rem;
+    padding: 1.1rem;
   }
-  
+
   .post-left-section,
   .post-middle-section {
     padding-right: 1rem;
   }
-  
+
   .post-title-horizontal {
-    font-size: 1.75rem;
+    font-size: 1.2rem;
   }
-  
+
   .post-thumbnail {
-    max-width: 200px;
-    height: 140px;
+    max-width: 160px;
+    height: 110px;
   }
-  
+
   .landing-logo {
     max-width: 250px;
   }
-  
+
   .landing-section {
     padding: 4rem 0 3rem 0;
   }
-  
+
   .blog-post-card-horizontal .post-description {
-    font-size: 1.1rem !important;
+    font-size: 0.85rem !important;
   }
   
   /* Fix tag wrapping on iPad/tablet screens */
@@ -399,50 +400,50 @@ html[data-theme="dark"] .blog-post-card .alphaxiv-link-badge:hover {
 
 @media (max-width: 768px) {
   .blog-post-card-horizontal {
-    padding: 1rem;
+    padding: 0.9rem;
   }
-  
+
   .blog-post-card-horizontal .row {
     flex-direction: column;
   }
-  
+
   .post-left-section,
   .post-middle-section,
   .post-right-section {
     padding-right: 0;
     padding-top: 0;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
   }
-  
+
   .post-tags-left {
     flex-direction: row;
     flex-wrap: wrap;
     gap: 0.65rem;
   }
-  
+
   .post-title-horizontal {
-    font-size: 1.5rem;
+    font-size: 1.15rem;
   }
-  
+
   .post-thumbnail {
     max-width: 100%;
-    height: 200px;
+    height: 150px;
   }
-  
+
   .landing-logo {
     max-width: 200px;
   }
-  
+
   .landing-section {
     padding: 3rem 0 2rem 0;
   }
-  
+
   .landing-subtitle {
     font-size: 1.1rem;
   }
-  
+
   .blog-post-card-horizontal .post-description {
-    font-size: 1rem !important;
+    font-size: 0.85rem !important;
   }
 }
 

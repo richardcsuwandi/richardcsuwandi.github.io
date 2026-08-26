@@ -1,12 +1,11 @@
 ---
 layout: distill
-title: The Dream Machines
+title: Learning to Simulate and Act in the Physical World
 date: 2025-08-11 10:00:00 +0700
-description: How AI is learning to simulate our physical world
-tags: [WORLD MODEL, OPEN-ENDEDNESS]
+description: How interactive world models are built, and how agents learn inside them
+tags: [WORLD MODELS, OPEN-ENDEDNESS]
 giscus_comments: true
 related_posts: false
-thumbnail: /assets/img/dream_machines.png
 future: true
 htmlwidgets: true
 
@@ -687,7 +686,7 @@ Yet perhaps the most exciting part is what we *cannot yet* imagine. We are likel
 If you find this post useful, please cite it as:
 
 <div class="citation-box">
-Suwandi, R. C. (Aug 2025). The Dream Machines. Posterior Update. https://richardcsuwandi.github.io/blog/2025/dream-machines/.
+Suwandi, R. C. (Aug 2025). The Dream Machines. https://richardcsuwandi.github.io/blog/2025/dream-machines/.
 </div>
 
 Or in BibTeX format:
@@ -696,7 +695,6 @@ Or in BibTeX format:
 @article{suwandi2025dream,
     title   = "The Dream Machines",
     author  = "Suwandi, Richard Cornelius",
-    journal = "Posterior Update",
     year    = "2025",
     month   = "Aug",
     url     = "https://richardcsuwandi.github.io/blog/2025/dream-machines/"

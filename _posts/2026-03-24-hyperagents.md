@@ -1,12 +1,11 @@
 ---
 layout: distill
-title: "AI That Evolves Its Own Evolution"
+title: Metacognitive Self-Modification in Self-Improving Agents
 date: 2026-03-24 10:00:00 +0700
-description: A deep dive into Hyperagents and metacognitive self-modification 
+description: How Hyperagents extends the Darwin-Gödel Machine by letting agents modify their own improvement process
 tags: [AGENTS, LARGE LANGUAGE MODELS]
 giscus_comments: true
 related_posts: false
-thumbnail: /assets/img/improve_improve.png
 future: true
 htmlwidgets: true
 
@@ -712,7 +711,7 @@ In the [DGM post](https://richardcsuwandi.github.io/blog/2025/dgm/), I framed th
 If you find this post useful, please cite it as:
 
 <div class="citation-box">
-Suwandi, R. C. (Mar 2026). AI That Evolves Its Own Evolution. Posterior Update. https://richardcsuwandi.github.io/blog/2026/hyperagents/.
+Suwandi, R. C. (Mar 2026). AI That Evolves Its Own Evolution. https://richardcsuwandi.github.io/blog/2026/hyperagents/.
 </div>
 
 Or in BibTeX format:
@@ -721,7 +720,6 @@ Or in BibTeX format:
 @article{suwandi2026hyperagents,
     title   = "AI That Evolves Its Own Evolution",
     author  = "Suwandi, Richard Cornelius",
-    journal = "Posterior Update",
     year    = "2026",
     month   = "Mar",
     url     = "https://richardcsuwandi.github.io/blog/2026/hyperagents/"
