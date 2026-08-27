@@ -30,12 +30,8 @@ nav_order: 0
     margin-bottom: 1rem;
 }
 .research-pubs .post-title-horizontal {
-    font-size: 1.3rem !important;
+    font-size: 1.4rem !important;
     margin-bottom: 0.35rem;
-}
-.research-pubs .publication-authors,
-.research-pubs .publication-venue {
-    font-size: 0.9rem;
 }
 .research-pubs .post-date {
     font-size: 0.8rem;

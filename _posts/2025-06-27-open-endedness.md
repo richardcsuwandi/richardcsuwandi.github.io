@@ -3,6 +3,7 @@ layout: distill
 title: The Quest for Open-Endedness in AI
 date: 2025-06-27 10:00:00 +0700
 description: Tracing open-endedness from cybernetics to modern open-ended learning systems
+thumbnail: /assets/img/post_thumbnails/open-endedness.png
 tags: [AGENTS, OPEN-ENDEDNESS]
 giscus_comments: true
 related_posts: false

@@ -5,46 +5,7 @@
   language: "Python"
   stars: 6769
   forks: 1089
-
-
-- name: "cake"
-  repo: "richardcsuwandi/cake"
-  url: "https://github.com/richardcsuwandi/cake"
-  description: "[NeurIPS 2025] Context-Aware Kernel Evolution (CAKE)"
-  language: "Python"
-  stars: 29
-  forks: 2
-
-- name: "PlugBO"
-  repo: "richardcsuwandi/plugbo"
-  url: "https://github.com/richardcsuwandi/plugbo"
-  description: "A modular framework for agentic Bayesian optimization"
-  language: "Python"
-  stars: 0
-  forks: 0
-
-- name: "awesome-bo"
-  repo: "richardcsuwandi/awesome-bo"
-  url: "https://github.com/richardcsuwandi/awesome-bo"
-  description: "A curated repository of awesome Bayesian optimization resources."
-  stars: 14
-  forks: 3
-
-- name: "zap"
-  repo: "richardcsuwandi/zap"
-  url: "https://github.com/richardcsuwandi/zap"
-  description: "[ICASSP 2026] Zeroth-order adaptive perturbation for scalable Gaussian process training"
-  language: "Python"
-  stars: 0
-  forks: 0
-
-- name: "grape"
-  repo: "richardcsuwandi/grape"
-  url: "https://github.com/richardcsuwandi/grape"
-  description: "A two-stage local method for query-efficient high-dimensional Bayesian optimization"
-  language: "Python"
-  stars: 0
-  forks: 0
+  category: "Agentic AI Tools"
 
 - name: "sift"
   repo: "richardcsuwandi/sift"
@@ -53,6 +14,51 @@
   language: "Python"
   stars: 0
   forks: 0
+  category: "Agentic AI Tools"
+
+- name: "cake"
+  repo: "richardcsuwandi/cake"
+  url: "https://github.com/richardcsuwandi/cake"
+  description: "[NeurIPS 2025] Context-Aware Kernel Evolution (CAKE)"
+  language: "Python"
+  stars: 29
+  forks: 2
+  category: "Bayesian Optimization"
+
+- name: "PlugBO"
+  repo: "richardcsuwandi/plugbo"
+  url: "https://github.com/richardcsuwandi/plugbo"
+  description: "A modular framework for agentic Bayesian optimization"
+  language: "Python"
+  stars: 0
+  forks: 0
+  category: "Bayesian Optimization"
+
+- name: "awesome-bo"
+  repo: "richardcsuwandi/awesome-bo"
+  url: "https://github.com/richardcsuwandi/awesome-bo"
+  description: "A curated repository of awesome Bayesian optimization resources."
+  stars: 14
+  forks: 3
+  category: "Bayesian Optimization"
+
+- name: "zap"
+  repo: "richardcsuwandi/zap"
+  url: "https://github.com/richardcsuwandi/zap"
+  description: "[ICASSP 2026] Zeroth-order adaptive perturbation for scalable Gaussian process training"
+  language: "Python"
+  stars: 0
+  forks: 0
+  category: "Bayesian Optimization"
+
+- name: "grape"
+  repo: "richardcsuwandi/grape"
+  url: "https://github.com/richardcsuwandi/grape"
+  description: "A two-stage local method for query-efficient high-dimensional Bayesian optimization"
+  language: "Python"
+  stars: 0
+  forks: 0
+  category: "Bayesian Optimization"
 
 - name: "PyCaret"
   repo: "pycaret/pycaret"
@@ -61,6 +67,7 @@
   language: "Python"
   stars: 9828
   forks: 1852
+  category: "ML & Optimization Libraries"
 
 - name: "pymoo"
   repo: "anyoptimization/pymoo"
@@ -69,6 +76,7 @@
   language: "Python"
   stars: 2922
   forks: 479
+  category: "ML & Optimization Libraries"
 
 - name: "feature_engine"
   repo: "feature-engine/feature_engine"
@@ -77,3 +85,4 @@
   language: "Python"
   stars: 2259
   forks: 355
+  category: "ML & Optimization Libraries"

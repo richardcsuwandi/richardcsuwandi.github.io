@@ -1,0 +1,230 @@
+// Blog search + tag filter toolbar
+
+.blog-toolbar-bleed {
+  position: sticky;
+  top: 56px; // matches fixed navbar height, see body.fixed-top-nav
+  width: 100%;
+  z-index: 20;
+  background: var(--global-bg-color);
+  border-bottom: 1px solid var(--global-divider-color);
+  padding: 0.9rem 0 1rem;
+  box-sizing: border-box;
+}
+
+.blog-toolbar {
+  display: flex;
+  gap: 0.45rem;
+  align-items: stretch;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.blog-toolbar-main {
+  flex: 1 1 auto;
+  min-width: 0;
+  background: #f1f2f4;
+  border-radius: 10px;
+  padding: 0.8rem 1.15rem 0.95rem;
+  min-height: 5.4rem;
+}
+
+.blog-toolbar-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--global-text-color);
+  margin: 0 0 0.55rem;
+  line-height: 1.2;
+}
+
+.blog-toolbar-panel[hidden] {
+  display: none !important;
+}
+
+.blog-search-input {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  border: none;
+  background: #fff;
+  border-radius: 8px;
+  padding: 0.55rem 0.85rem;
+  font-size: 1rem;
+  line-height: 1.4;
+  color: var(--global-text-color);
+  font-family: inherit;
+
+  &::placeholder {
+    color: #9aa0a6;
+  }
+
+  &:focus {
+    outline: 2px solid var(--global-theme-color);
+    outline-offset: 1px;
+  }
+}
+
+.blog-filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.blog-filter-chip {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid transparent;
+  background: #e4e5e9;
+  color: #3a3d42 !important;
+  text-decoration: none !important;
+  border-radius: 8px;
+  padding: 0.38rem 0.8rem;
+  font-size: 0.7rem;
+  font-weight: 650;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  line-height: 1.3;
+  cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+
+  &:hover {
+    background: #d8d9de;
+    color: #111 !important;
+    text-decoration: none !important;
+  }
+
+  &.is-active {
+    background: color-mix(in srgb, var(--global-theme-color) 12%, #fff);
+    border-color: color-mix(in srgb, var(--global-theme-color) 45%, transparent);
+    color: var(--global-link-color) !important;
+  }
+}
+
+.blog-toolbar-modes {
+  display: flex;
+  flex: 0 0 3.15rem;
+  width: 3.15rem;
+  min-width: 3.15rem;
+  flex-shrink: 0;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.blog-mode-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 0;
+  width: 100%;
+  min-height: 44px;
+  border: none;
+  border-radius: 10px;
+  background: #f1f2f4;
+  color: #5c6066;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.18s ease, color 0.18s ease;
+
+  i {
+    font-size: 1.05rem;
+  }
+
+  &:hover {
+    background: #e6e7ea;
+    color: var(--global-text-color);
+  }
+
+  &.is-active {
+    background: #e4e5e8;
+    color: var(--global-theme-color);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--global-theme-color);
+    outline-offset: 2px;
+  }
+}
+
+.blog-empty {
+  display: none;
+  text-align: center;
+  padding: 2.5rem 1rem 1rem;
+  color: var(--global-text-color-light);
+}
+
+.tag-link {
+  cursor: pointer;
+}
+
+html[data-theme='dark'],
+html[data-theme-setting='dark'] {
+  .blog-toolbar-main,
+  .blog-mode-btn {
+    background: #242424;
+  }
+
+  .blog-mode-btn {
+    color: #c5c9ce;
+
+    &:hover,
+    &.is-active {
+      background: #2e2e2e;
+      color: #68b2ff;
+    }
+  }
+
+  .blog-search-input {
+    background: #1a1a1a;
+    color: var(--global-text-color);
+    border: 1px solid #333;
+  }
+
+  .blog-filter-chip {
+    background: #2e2e2e;
+    color: #d0d4d8 !important;
+
+    &:hover {
+      background: #3a3a3a;
+      color: #fff !important;
+    }
+
+    &.is-active {
+      background: rgba(104, 178, 255, 0.14);
+      border-color: rgba(104, 178, 255, 0.4);
+      color: #68b2ff !important;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .blog-toolbar {
+    flex-wrap: wrap;
+  }
+
+  .blog-toolbar-main {
+    flex: 1 1 100%;
+  }
+
+  .blog-toolbar-modes {
+    flex: 1 1 100%;
+    width: 100%;
+    min-width: 0;
+    flex-direction: row;
+    height: 2.75rem;
+  }
+
+  .blog-mode-btn {
+    min-height: 2.75rem;
+  }
+
+  .blog-toolbar-main {
+    padding: 0.7rem 0.9rem 0.85rem;
+  }
+
+  .blog-toolbar-title {
+    font-size: 1.05rem;
+  }
+}

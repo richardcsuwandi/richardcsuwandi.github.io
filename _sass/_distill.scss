@@ -28,20 +28,17 @@ d-article {
   a, p, h1, h2, h3, h4, h5, h6, li, table {
     color: var(--global-text-color) !important;
   }
-  // Match about-page links: solid text-color underline; blue on hover
+  // Match about-page links: blue, no underline
   a {
-    text-decoration: underline !important;
-    text-decoration-color: currentColor !important;
-    text-decoration-thickness: auto !important;
-    text-underline-offset: 0.15em !important;
+    color: var(--global-link-color) !important;
+    text-decoration: none !important;
     border-bottom: none !important;
     font-weight: inherit !important;
 
     &:hover {
-      color: var(--global-theme-color) !important;
+      color: var(--global-link-hover-color) !important;
       border-bottom: none !important;
-      text-decoration: underline !important;
-      text-decoration-color: currentColor !important;
+      text-decoration: none !important;
     }
   }
   h1, h2, hr, table, table th, table td {

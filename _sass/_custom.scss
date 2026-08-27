@@ -14,7 +14,7 @@ body {
   overflow-x: hidden; // prevent horizontal scrolling
 }
 
-// Global link styling: never bold; content links get underline below
+// Global link styling: never bold; content links are blue with no underline
 a {
   color: var(--global-text-color);
   text-decoration: none;
@@ -31,19 +31,15 @@ strong, b {
   font-weight: 600; /* Use proper bold weight */
 }
 
-// Shared content-link look: black + underline; blue on hover (matches about page)
+// Shared content-link look: blue, no underline
 @mixin content-link {
-  color: var(--global-text-color);
+  color: var(--global-link-color);
   font-weight: inherit;
-  text-decoration: underline;
-  text-decoration-color: currentColor;
-  text-decoration-thickness: auto;
-  text-underline-offset: 0.15em;
+  text-decoration: none;
 
   &:hover {
-    color: var(--global-theme-color);
-    text-decoration: underline;
-    text-decoration-color: currentColor;
+    color: var(--global-link-hover-color);
+    text-decoration: none;
   }
 }
 
@@ -62,12 +58,14 @@ d-article {
     @include content-link;
   }
 
-  // Heading anchors stay plain (no underline)
+  // Heading anchors stay plain (section titles, not inline links)
   h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+    color: inherit;
     text-decoration: none;
     border-bottom: none;
 
     &:hover {
+      color: var(--global-theme-color);
       text-decoration: none;
       border-bottom: none;
     }
@@ -76,10 +74,9 @@ d-article {
 
 // News section styling
 .news {
-  .news-item {
-    a {
-      @include content-link;
-    }
+  .news-item a,
+  .news-content a {
+    @include content-link;
   }
 }
 
@@ -384,7 +381,7 @@ footer {
   
   // Publication authors styling
   .publication-authors {
-    font-size: 0.95rem;
+    font-size: 1.05rem;
     color: var(--global-text-color);
     margin-bottom: 0.5rem;
     line-height: 1.4;
@@ -402,9 +399,9 @@ footer {
     }
   }
   
-  // Publication venue styling  
+  // Publication venue styling
   .publication-venue {
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: var(--global-text-color); // Changed from text-color-light to avoid gray
     font-style: italic;
     line-height: 1.3;
@@ -454,20 +451,22 @@ footer {
 
 // Dark mode body link colors only
 html[data-theme='dark'] {
-  // Content links: text color by default, theme blue on hover
-  .container a:not(.navbar a):not(.nav-link):not(.opensource-card),
-  .container-fluid a:not(.navbar a):not(.nav-link):not(.opensource-card),
-  main a:not(.navbar a):not(.nav-link):not(.opensource-card),
-  .content a:not(.navbar a):not(.nav-link):not(.opensource-card),
-  .post-content a:not(.navbar a):not(.nav-link):not(.opensource-card),
-  .wide-about-container a:not(.navbar a):not(.nav-link):not(.opensource-card),
+  // Content links: blue, no underline
+  .container a:not(.navbar a):not(.nav-link):not(.opensource-card):not(.opensource-pacman),
+  .container-fluid a:not(.navbar a):not(.nav-link):not(.opensource-card):not(.opensource-pacman),
+  main a:not(.navbar a):not(.nav-link):not(.opensource-card):not(.opensource-pacman),
+  .content a:not(.navbar a):not(.nav-link):not(.opensource-card):not(.opensource-pacman),
+  .post-content a:not(.navbar a):not(.nav-link):not(.opensource-card):not(.opensource-pacman),
+  .wide-about-container a:not(.navbar a):not(.nav-link):not(.opensource-card):not(.opensource-pacman),
   .news a:not(.navbar a):not(.nav-link),
   p a:not(.navbar a):not(.nav-link),
   li a:not(.navbar a):not(.nav-link):not(.opensource-card) {
-    color: var(--global-text-color);
+    color: var(--global-link-color);
+    text-decoration: none;
 
     &:hover {
-      color: var(--global-theme-color);
+      color: var(--global-link-hover-color);
+      text-decoration: none;
     }
   }
 

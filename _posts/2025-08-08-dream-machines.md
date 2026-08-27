@@ -3,6 +3,7 @@ layout: distill
 title: Learning to Simulate and Act in the Physical World
 date: 2025-08-11 10:00:00 +0700
 description: How interactive world models are built, and how agents learn inside them
+thumbnail: /assets/img/post_thumbnails/dream-machines.png
 tags: [WORLD MODELS, OPEN-ENDEDNESS]
 giscus_comments: true
 related_posts: false
@@ -526,9 +527,6 @@ The path to interactive world generation began with a crucial realization: the m
 </div>
 
 Google's [Veo 3](https://deepmind.google/models/veo/)<d-cite key="veo3"></d-cite> pushed these capabilities further, offering unprecedented creative control through reference images, camera movement specifications, and synchronized audio generation. The result was a new genre of AI-generated content, including entirely novel forms like AI [ASMR](https://en.wikipedia.org/wiki/ASMR) videos that pushed the boundaries of synthetic media.
-
-
-{% include youtube.html id="PQr5TRbheAU" %}
 
 Yet for all their sophistication, these systems shared a fundamental limitation that highlighted the next frontier. You could watch their generated worlds, but you couldn't inhabit them<d-footnote>While AI models like Sora and Veo can generate stunning, immersive scenes, they lack the interactivity to let users freely explore or alter the environment in real time.</d-footnote>.  This gap between observation and interaction represents one of the most significant challenges in AI today: how do we move from systems that generate convincing simulations to systems that generate inhabitable realities? The answer lies in understanding the so-called "world models"—AI systems that don't just generate plausible content, but maintain consistent internal representations of how worlds work.
 

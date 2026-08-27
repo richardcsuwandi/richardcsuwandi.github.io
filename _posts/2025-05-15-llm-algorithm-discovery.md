@@ -3,6 +3,7 @@ layout: distill
 title: Algorithm Discovery with Large Language Models
 date: 2025-05-15 10:00:00 +0700
 description: How large language models search program space to discover new algorithms
+thumbnail: /assets/img/post_thumbnails/llm-algorithm-discovery.png
 tags: [AGENTS, LARGE LANGUAGE MODELS]
 giscus_comments: true
 related_posts: false

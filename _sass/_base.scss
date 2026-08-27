@@ -127,20 +127,27 @@ table {
   }
 }
 
-a,
-table.table a {
+a {
   color: var(--global-text-color);
   font-weight: inherit; // Match surrounding text; bold stays on strong/b only
-  text-decoration: underline;
-  text-decoration-color: currentColor;
-  text-decoration-thickness: auto;
-  text-underline-offset: 0.15em;
+  text-decoration: none;
   transition: color 0.2s ease;
   
   &:hover {
     color: var(--global-theme-color);
-    text-decoration: underline;
-    text-decoration-color: currentColor;
+    text-decoration: none;
+  }
+}
+
+table.table a {
+  color: var(--global-link-color);
+  font-weight: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: var(--global-link-hover-color);
+    text-decoration: none;
   }
 }
 

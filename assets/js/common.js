@@ -92,50 +92,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
   
-  // Animate headings on scroll
-  const animateOnScroll = () => {
-    const elements = document.querySelectorAll('h1, h2, h3, .fade-in-element');
-    
-    elements.forEach(element => {
-      const elementPosition = element.getBoundingClientRect().top;
-      const screenPosition = window.innerHeight / 1.2;
-      
-      if (elementPosition < screenPosition) {
-        element.classList.add('visible');
-      }
-    });
-  };
-  
-  // Add visible class to CSS
-  const style = document.createElement('style');
-  style.innerHTML = `
-    .fade-in-element {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    h1, h2, h3 {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    h1.visible, h2.visible, h3.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  `;
-  document.head.appendChild(style);
-  
-  // Run on initial load
-  animateOnScroll();
-  
-  // Run on scroll
-  window.addEventListener('scroll', animateOnScroll);
-  
   // Add active state to current nav item
   const currentPath = window.location.pathname;
   document.querySelectorAll('.nav-item a').forEach(link => {

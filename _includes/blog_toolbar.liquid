@@ -1,0 +1,46 @@
+{% assign all_blog_tags = "" | split: "" %}
+{% for tag_item_pair in site.tags %}
+  {% assign all_blog_tags = all_blog_tags | push: tag_item_pair[0] %}
+{% endfor %}
+{% assign all_blog_tags = all_blog_tags | sort_natural %}
+
+<div class="blog-toolbar-bleed">
+  <div class="blog-toolbar" data-mode="search">
+    <div class="blog-toolbar-main">
+      <div class="blog-toolbar-panel" data-panel="search">
+        <div class="blog-toolbar-title" id="blog-search-label">Search</div>
+        <input
+          id="blog-search-input"
+          class="blog-search-input"
+          type="search"
+          placeholder="Search posts"
+          autocomplete="off"
+          spellcheck="false"
+          aria-labelledby="blog-search-label"
+        >
+      </div>
+      <div class="blog-toolbar-panel" data-panel="filter" hidden>
+        <div class="blog-toolbar-title" id="blog-filter-label">Filter</div>
+        <div class="blog-filter-chips" role="group" aria-labelledby="blog-filter-label">
+          {% for tag_name in all_blog_tags %}
+            {% assign tag_slug = tag_name | slugify %}
+            <a
+              class="blog-filter-chip"
+              href="{{ '/blog/' | relative_url }}?tag={{ tag_slug }}"
+              data-tag="{{ tag_slug }}"
+              aria-pressed="false"
+            >{{ tag_name }}</a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <div class="blog-toolbar-modes">
+      <button type="button" class="blog-mode-btn is-active" data-mode="search" aria-label="Search posts">
+        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+      </button>
+      <button type="button" class="blog-mode-btn" data-mode="filter" aria-label="Filter by tags">
+        <i class="fa-solid fa-filter" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+</div>

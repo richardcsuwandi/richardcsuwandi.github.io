@@ -8,37 +8,6 @@ html {
   scroll-behavior: smooth;
 }
 
-// ── Scroll-reveal system ──────────────────────────────────────────────────────
-// Only active when JS adds .reveal-js-enabled to <body>
-body.reveal-js-enabled {
-  .reveal {
-    opacity: 0;
-    transform: translateY(22px);
-    transition: opacity 0.55s ease, transform 0.55s ease;
-
-    &.revealed {
-      opacity: 1;
-      transform: none;
-    }
-  }
-
-  // Stagger helper for sibling groups
-  @for $i from 1 through 12 {
-    .reveal-stagger > *:nth-child(#{$i}) {
-      transition-delay: #{($i - 1) * 70}ms;
-    }
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  body.reveal-js-enabled .reveal,
-  body.reveal-js-enabled .reveal.revealed {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-  }
-}
-
 // ── Navbar glass effect on scroll ─────────────────────────────────────────────
 .navbar {
   transition: background-color 0.3s ease, backdrop-filter 0.3s ease,
@@ -97,48 +66,28 @@ html[data-theme-setting='dark'] .navbar.scrolled {
   }
 }
 
-// ── Section heading accent ────────────────────────────────────────────────────
-.post article h2 {
-  position: relative;
-  padding-bottom: 0.75rem !important;
-  margin-bottom: 1.75rem !important;
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 36px;
-    height: 2.5px;
-    background: linear-gradient(90deg, var(--global-theme-color), transparent);
-    border-radius: 2px;
-    transition: width 0.3s ease;
-  }
-
-  &:hover::after {
-    width: 64px;
-  }
-}
-
 // ── Post title gradient ───────────────────────────────────────────────────────
 .post-header .post-title {
   letter-spacing: -0.03em !important;
 }
 
-// ── Inline content links: black + solid underline ────────────────────────────
+// ── Inline content links: blue, no underline ─────────────────────────────────
 .post article .clearfix p a,
 .post article .about-content p a,
 .post d-article p a,
 d-article p a,
 .news .news-item p a,
-.news .news-item a {
-  color: var(--global-text-color);
+.news .news-item a,
+.news .news-content a {
+  color: var(--global-link-color);
   font-weight: inherit;
-  text-decoration: underline;
-  text-decoration-color: currentColor;
-  text-decoration-thickness: auto;
-  text-underline-offset: 0.15em;
+  text-decoration: none;
   border-bottom: none;
+
+  &:hover {
+    color: var(--global-link-hover-color);
+    text-decoration: none;
+  }
 }
 
 // ── Social icon hover pill ────────────────────────────────────────────────────
@@ -310,10 +259,6 @@ button:focus-visible,
 
 // ── Responsive: tighten section gap on mobile ─────────────────────────────────
 @media (max-width: 768px) {
-  .post article h2::after {
-    width: 28px;
-  }
-
   .contact-icons a {
     width: 40px;
     height: 40px;

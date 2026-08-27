@@ -9,7 +9,12 @@ nav_order: 6
 
 #### Teaching Assistant
 {% for teaching in site.data.services.teaching %}
-- {{ teaching.semester }}, [{{ teaching.course }}]({{ teaching.url }}), {{ teaching.institution }}
+- {{ teaching.role | default: "Teaching Assistant" }}, {{ teaching.semester }}, {% if teaching.url %}[{{ teaching.course }}]({{ teaching.url }}){% else %}{{ teaching.course }}{% endif %}, {{ teaching.institution }}
+{% endfor %}
+
+#### Organizational Experience
+{% for org in site.data.services.organizations %}
+- {{ org.role }}, {% if org.url %}[{{ org.name }}]({{ org.url }}){% else %}{{ org.name }}{% endif %} ({{ org.years }})
 {% endfor %}
 
 #### Reviewer

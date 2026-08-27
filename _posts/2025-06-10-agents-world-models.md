@@ -3,6 +3,7 @@ layout: distill
 title: Do Agents Need a World Model?
 date: 2025-06-11 10:00:00 +0700
 description: From Ilya Sutskever's conjecture to DeepMind's formal argument for world models in general agents
+thumbnail: /assets/img/post_thumbnails/agents-world-models.png
 tags: [AGENTS, REINFORCEMENT LEARNING]
 giscus_comments: true
 related_posts: false

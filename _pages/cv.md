@@ -1,8 +1,8 @@
 ---
 layout: cv
 permalink: /assets/pdf/cv.pdf
-title: CV
-nav: true
+title: Richard's CV
+nav: false
 nav_order: 7
 cv_pdf: cv.pdf
 description:

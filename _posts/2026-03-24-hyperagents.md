@@ -3,6 +3,7 @@ layout: distill
 title: Metacognitive Self-Modification in Self-Improving Agents
 date: 2026-03-24 10:00:00 +0700
 description: How Hyperagents extends the Darwin-Gödel Machine by letting agents modify their own improvement process
+thumbnail: /assets/img/post_thumbnails/hyperagents.png
 tags: [AGENTS, LARGE LANGUAGE MODELS]
 giscus_comments: true
 related_posts: false

@@ -3,6 +3,7 @@ layout: distill
 title: "World Models for Scientific Discovery"
 date: 2026-08-12 10:00:00 +0700
 description: Why prediction alone is not discovery, and what world models need to support explanation, experimentation, and abduction
+thumbnail: /assets/img/post_thumbnails/wm-discovery.png
 tags: [WORLD MODELS, SCIENTIFIC DISCOVERY]
 giscus_comments: true
 related_posts: false

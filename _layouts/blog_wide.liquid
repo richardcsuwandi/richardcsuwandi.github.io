@@ -22,13 +22,17 @@
       }
       .blog-posts .post-date,
       .featured-posts .post-date {
-        font-size: 0.85rem;
+        font-size: 1rem;
         margin-bottom: 0.65rem;
+      }
+      .blog-posts .post-read-time,
+      .featured-posts .post-read-time {
+        font-size: 0.95rem;
       }
       .blog-posts .post-tags-left .tag-link,
       .featured-posts .post-tags-left .tag-link {
-        font-size: 0.66rem;
-        padding: 0.28rem 0.52rem;
+        font-size: 0.78rem;
+        padding: 0.32rem 0.6rem;
       }
       .blog-posts .blog-post-card-horizontal,
       .featured-posts .blog-post-card-horizontal {
@@ -37,7 +41,7 @@
       }
       .blog-posts .post-description,
       .featured-posts .post-description {
-        font-size: 0.98rem !important;
+        font-size: 1.05rem !important;
       }
     </style>
   </head>
@@ -54,6 +58,7 @@
           <!-- {% include tags_sidebar.liquid %} -->
         <!-- </div> -->
         <div class="col-md-9"> <!-- Main content - Perfectly centered -->
+          {% include blog_toolbar.liquid %}
           {% assign featured_posts = site.posts | where: "featured", "true" %}
           {% if featured_posts.size > 0 %}
           <div class="featured-posts mb-5">
@@ -70,8 +75,9 @@
               {% assign temp_slugified_tags_array = temp_slugified_tags_array | push: captured_slug %}
             {% endfor %}
             {% assign post_tags_for_data_attr = temp_slugified_tags_array | join: ',' %}
+            {% capture post_search_text %}{{ post.title }} {{ post.description }} {{ post.tags | join: ' ' }} {{ post.content | strip_html | strip_newlines | truncate: 2500 }}{% endcapture %}
 
-            <div class="blog-post-card-horizontal mb-4" data-tags="{{ post_tags_for_data_attr }}">
+            <div class="blog-post-card-horizontal blog-post-card mb-4" data-tags="{{ post_tags_for_data_attr }}" data-search="{{ post_search_text | strip | escape }}">
               <div class="row g-0 align-items-start">
                 <!-- Left column: Date and Tags -->
                 <div class="col-md-2 post-left-section">
@@ -79,7 +85,7 @@
                   {% if post.tags.size > 0 %}
                   <div class="post-tags-left">
                     {% for tag in post.tags %}
-                    <a href="{{ tag | slugify | prepend: '/blog/tag/' | relative_url }}" class="tag-link">
+                    <a href="{{ '/blog/' | relative_url }}?tag={{ tag | slugify }}" class="tag-link" data-tag="{{ tag | slugify }}">
                       {{ tag }}
                     </a>
                     {% endfor %}
@@ -130,8 +136,9 @@
                 {% assign temp_slugified_tags_array = temp_slugified_tags_array | push: captured_slug %}
               {% endfor %}
               {% assign post_tags_for_data_attr = temp_slugified_tags_array | join: ',' %}
+              {% capture post_search_text %}{{ post.title }} {{ post.description }} {{ post.tags | join: ' ' }} {{ post.content | strip_html | strip_newlines | truncate: 2500 }}{% endcapture %}
 
-              <div class="blog-post-card-horizontal blog-post-card mb-4" data-tags="{{ post_tags_for_data_attr }}">
+              <div class="blog-post-card-horizontal blog-post-card mb-4" data-tags="{{ post_tags_for_data_attr }}" data-search="{{ post_search_text | strip | escape }}">
                 <div class="row g-0 align-items-start">
                   <!-- Left column: Date and Tags -->
                   <div class="col-md-2 post-left-section">
@@ -139,9 +146,9 @@
                     {% if post.tags.size > 0 %}
                     <div class="post-tags-left">
                       {% for tag in post.tags %}
-                      <span class="tag-link">
+                      <a href="{{ '/blog/' | relative_url }}?tag={{ tag | slugify }}" class="tag-link" data-tag="{{ tag | slugify }}">
                         {{ tag }}
-                      </span>
+                      </a>
                       {% endfor %}
                     </div>
                     {% endif %}
@@ -172,8 +179,8 @@
             {%- endfor -%}
           </div>
 
-          <div id="no-posts-found-message" style="display: none; text-align: center; margin-top: 20px;">
-            <p class="lead text-muted">no posts found matching the selected tag.</p>
+          <div id="no-posts-found-message" class="blog-empty">
+            <p>No posts match that search.</p>
           </div>
 
           {% if page.pagination.enabled %}
@@ -211,53 +218,6 @@
     
     <!-- Custom scripts -->
     <script src="{{ '/assets/js/navbar-scroll.js' | relative_url }}"></script>
-
-    <script>
-      function setActiveTag(clickedElement) {
-        // Remove active class from all tag links
-        document.querySelectorAll('.tags-sidebar .nav-link').forEach(link => {
-          link.classList.remove('active-tag-filter');
-        });
-        // Add active class to the clicked link
-        if (clickedElement) {
-          clickedElement.classList.add('active-tag-filter');
-        }
-      }
-
-      function filterPostsByTag(selectedTagSlug) {
-        const allPostCards = document.querySelectorAll('.blog-post-card');
-        let postsFound = false;
-
-        allPostCards.forEach(cardCol => {
-          const rawDataTags = cardCol.dataset.tags;
-
-          if (selectedTagSlug === null) { // Show all
-            cardCol.style.display = 'block';
-            postsFound = true;
-          } else {
-            const cardTags = rawDataTags ? rawDataTags.split(',') : [];
-            if (cardTags.includes(selectedTagSlug)) {
-              cardCol.style.display = 'block';
-              postsFound = true;
-            } else {
-              cardCol.style.display = 'none';
-            }
-          }
-        });
-
-        const noResultsMessage = document.getElementById('no-posts-found-message');
-        if (noResultsMessage) {
-          noResultsMessage.style.display = postsFound ? 'none' : 'block';
-        }
-      }
-
-      // Set the "Show All" as active by default on page load
-      document.addEventListener('DOMContentLoaded', function() {
-        const showAllLink = document.getElementById('show-all-tags');
-        if (showAllLink) {
-          setActiveTag(showAllLink);
-        }
-      });
-    </script>
+    <script src="{{ '/assets/js/blog-search.js' | relative_url }}"></script>
   </body>
 </html> 

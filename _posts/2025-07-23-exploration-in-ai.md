@@ -3,7 +3,8 @@ layout: distill
 title: Exploration as a Path to General Intelligence
 date: 2025-07-23 10:00:00 +0700
 description: Why exploration, not just exploitation, may be the missing ingredient in current AI systems
-tags: [OPEN-ENDEDNESS, EXPLORATION]
+thumbnail: /assets/img/post_thumbnails/exploration-in-ai.png
+tags: [OPEN-ENDEDNESS, AGENTS]
 giscus_comments: true
 related_posts: false
 future: true

@@ -19,6 +19,8 @@
   --global-highlight-border-color: transparent;
   --global-back-to-top-bg-color: #{$grey-color};
   --global-back-to-top-text-color: #{$white-color};
+  --global-link-color: #{$accent-primary};
+  --global-link-hover-color: #004ea0;
   --global-link-underline-color: currentColor;
   --global-link-hover-underline-color: currentColor;
   --global-accent-color-1: #{$accent-primary};
@@ -92,6 +94,8 @@ html[data-theme='dark'] {
   --global-highlight-border-color: transparent;
   --global-back-to-top-bg-color: #{$grey-color};
   --global-back-to-top-text-color: #{$white-color};
+  --global-link-color: #{$blue-color};
+  --global-link-hover-color: #93c9ff;
   --global-link-underline-color: currentColor;
   --global-link-hover-underline-color: currentColor;
   --global-accent-color-1: #{$accent-primary};

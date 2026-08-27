@@ -5,6 +5,10 @@
 #
 # To add a new award, add an entry with year, title, and description fields
 
+- year: "2025"
+  title: "2nd Prize Award, Doctoral Research and AI Conference, CUHK-Shenzhen"
+  description: "Awarded for research presented at the Doctoral Research and AI Conference at CUHK-Shenzhen."
+
 - year: "2024, 2025"
   title: "IEEE Signal Processing Society Scholarship"
   description: "A scholarship worth US$7,000 for up to three years of consecutive support to students who have expressed interest and commitment to pursuing signal processing education and real-world career experiences."
@@ -25,7 +29,7 @@
   title: "School of Data Science Dean's List Award, CUHK-Shenzhen"
   description: "The award is given by the Dean and the School to students who attained a year GPA of 3.5 or above (out of 4.0) as a recognition of hard work and outstanding academic performance."
 
-- year: "2020, 2021"
+- year: "2020, 2021, 2025"
   title: "Guangdong Government Outstanding International Student Scholarship"
   description: "The scholarship is awarded to outstanding international students in colleges and universities across the Guangdong province."
 
