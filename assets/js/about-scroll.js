@@ -1,6 +1,11 @@
 // Clamp about-page Research / Projects lists so a few items (or rows) stay
 // visible and the rest scroll inside the section.
+// Nested overflow regions trap the wheel at their edges; chain leftover
+// delta to the page so scrolling can continue past the last (or first) item.
 (function () {
+  var NESTED_SCROLL_SELECTOR = ".about-scroll, .news-container, .awards-scrollable";
+  var BOUNDARY = 1;
+
   function heightToElement(container, el) {
     var cRect = container.getBoundingClientRect();
     var eRect = el.getBoundingClientRect();
@@ -80,9 +85,86 @@
     });
   }
 
+  function normalizeDeltaY(e) {
+    if (e.deltaMode === 1) return e.deltaY * 16;
+    if (e.deltaMode === 2) return e.deltaY * window.innerHeight;
+    return e.deltaY;
+  }
+
+  function scrollPageBy(deltaY) {
+    var html = document.documentElement;
+    var prev = html.style.scrollBehavior;
+    html.style.scrollBehavior = "auto";
+    try {
+      window.scrollBy({ top: deltaY, left: 0, behavior: "instant" });
+    } catch (err) {
+      window.scrollBy(0, deltaY);
+    }
+    html.style.scrollBehavior = prev;
+  }
+
+  function chainScroll(el, deltaY, event) {
+    if (!deltaY) return false;
+    var maxScroll = el.scrollHeight - el.clientHeight;
+    if (maxScroll <= BOUNDARY) {
+      scrollPageBy(deltaY);
+      if (event.cancelable) event.preventDefault();
+      return true;
+    }
+    var next = el.scrollTop + deltaY;
+    var clamped = Math.min(maxScroll, Math.max(0, next));
+    var leftover = next - clamped;
+    if (leftover === 0) return false;
+    el.scrollTop = clamped;
+    scrollPageBy(leftover);
+    if (event.cancelable) event.preventDefault();
+    return true;
+  }
+
+  function enableScrollChain(el) {
+    if (el.dataset.scrollChain === "1") return;
+    el.dataset.scrollChain = "1";
+
+    el.addEventListener(
+      "wheel",
+      function (e) {
+        if (e.ctrlKey || e.metaKey) return;
+        if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+        chainScroll(el, normalizeDeltaY(e), e);
+      },
+      { passive: false }
+    );
+
+    var lastTouchY = 0;
+    el.addEventListener(
+      "touchstart",
+      function (e) {
+        if (!e.touches.length) return;
+        lastTouchY = e.touches[0].clientY;
+      },
+      { passive: true }
+    );
+    el.addEventListener(
+      "touchmove",
+      function (e) {
+        if (!e.touches.length) return;
+        var y = e.touches[0].clientY;
+        var deltaY = lastTouchY - y;
+        lastTouchY = y;
+        chainScroll(el, deltaY, e);
+      },
+      { passive: false }
+    );
+  }
+
+  function setupScrollChain() {
+    document.querySelectorAll(NESTED_SCROLL_SELECTOR).forEach(enableScrollChain);
+  }
+
   function start() {
     apply();
     setupObservers();
+    setupScrollChain();
   }
 
   if (document.readyState === "loading") {
