@@ -204,6 +204,8 @@ html[data-theme-setting='dark'] .news-card,
   font-size: clamp(1.5rem, 8cqw, 2.3rem);
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
   text-decoration: none !important;
+  cursor: pointer;
+  overflow: visible;
   z-index: 2;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 
@@ -213,27 +215,39 @@ html[data-theme-setting='dark'] .news-card,
     color: #000 !important;
   }
 
-}
+  &:focus-visible {
+    outline: 2px solid var(--global-theme-color, #0063c9);
+    outline-offset: 3px;
+  }
 
-.profile-cv-tooltip {
-  position: absolute;
-  top: calc(100% + 0.6rem);
-  left: 50%;
-  transform: translateX(-50%) translateY(-6px);
-  color: #000;
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 0.03em;
-  white-space: nowrap;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.18s ease, transform 0.18s ease;
-  z-index: 5;
-}
+  // Avoid calc(100% + x): compressed Sass strips the spaces around +,
+  // which makes the declaration invalid and parks the label on the icon.
+  &::after {
+    content: "CV";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-top: 0.55rem;
+    transform: translateX(-50%) translateY(-6px);
+    color: #000;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    line-height: 1;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s ease;
+    z-index: 5;
+  }
 
-.profile-cv-badge:hover .profile-cv-tooltip {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
+  &:hover::after,
+  &:focus-visible::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+  }
 }
 
 html[data-theme='dark'],
@@ -248,10 +262,10 @@ html[data-theme-setting='dark'],
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
       color: #f0f0f0 !important;
     }
-  }
 
-  .profile-cv-tooltip {
-    color: #f0f0f0;
+    &::after {
+      color: #f0f0f0;
+    }
   }
 }
 
