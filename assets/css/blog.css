@@ -34,17 +34,19 @@ html[data-theme="dark"] .blog-post-card-horizontal:hover {
 }
 
 .post-date {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: var(--global-text-color-light);
   margin-bottom: 0.6rem;
   font-weight: 500;
   line-height: 1.2; /* Match title line height */
+  white-space: nowrap;
 }
 
 .post-tags-left {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  align-items: flex-start;
+  gap: 0.4rem;
 }
 
 .publication-venue .publication-venue-line {
@@ -74,17 +76,22 @@ html[data-theme="dark"] .blog-post-card-horizontal:hover {
 }
 
 .post-tags-left .tag-link {
-  display: block;
+  display: inline-block;
   color: #ffffff;
   background-color: #54667d;
   border: 1px solid var(--global-divider-color);
   border-radius: 5px; /* Reduced from 8px for more rectangular look */
-  padding: 0.25rem 0.5rem;
+  padding: 0.2rem 0.45rem;
   text-decoration: none;
-  font-size: 0.62rem;
+  font-size: 0.58rem;
   transition: all 0.3s ease;
   line-height: 1.4;
   font-weight: 500;
+  white-space: nowrap;
+  width: max-content;
+  max-width: none;
+  overflow: visible;
+  flex-shrink: 0;
 }
 
 .post-tags-left .tag-link:hover {
@@ -127,7 +134,7 @@ html[data-theme="dark"] .post-tags-left .tag-link:hover {
   border-color: var(--global-theme-color);
 }
 
-/* alphaXiv link badge (matches official "View on alphaXiv" pill) */
+/* alphaXiv link badge (matches official "alphaXiv" pill) */
 .alphaxiv-link-badge {
   display: inline-flex;
   align-items: center;
@@ -236,14 +243,17 @@ html[data-theme="dark"] .blog-post-card .alphaxiv-link-badge:hover {
   align-items: flex-start; /* Align to top instead of center */
   justify-content: center;
   padding-top: 0;
+  min-width: 0;
 }
 
 .post-thumbnail {
-  width: 100%;
-  max-width: 100%; /* Allow full width of the column */
-  height: 170px;
-  object-fit: cover;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 170px;
+  object-fit: contain;
   border-radius: 8px;
+  display: block;
 }
 
 .paper-thumbnail {
@@ -326,6 +336,27 @@ html[data-theme="dark"] .blog-post-card .alphaxiv-link-badge:hover {
   border-color: var(--global-theme-color);
 }
 
+/* Date/tags keep a fixed content width; the thumbnail scales in the leftover space. */
+@media (min-width: 992px) {
+  .blog-post-card-horizontal .row {
+    display: grid;
+    grid-template-columns: max-content minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .blog-post-card-horizontal .row:has(.post-right-section) {
+    grid-template-columns: max-content minmax(0, 1fr) minmax(140px, 28%);
+  }
+
+  .blog-post-card-horizontal .post-left-section,
+  .blog-post-card-horizontal .post-middle-section,
+  .blog-post-card-horizontal .post-right-section {
+    width: auto !important;
+    max-width: none;
+    min-width: 0;
+  }
+}
+
 /* Responsive adjustments */
 @media (max-width: 992px) {
   .blog-post-card-horizontal {
@@ -341,11 +372,6 @@ html[data-theme="dark"] .blog-post-card .alphaxiv-link-badge:hover {
     font-size: 1.2rem;
   }
 
-  .post-thumbnail {
-    max-width: 160px;
-    height: 110px;
-  }
-
   .landing-logo {
     max-width: 250px;
   }
@@ -357,53 +383,21 @@ html[data-theme="dark"] .blog-post-card .alphaxiv-link-badge:hover {
   .blog-post-card-horizontal .post-description {
     font-size: 0.85rem !important;
   }
-  
-  /* Fix tag wrapping on iPad/tablet screens */
-  .post-tags-left {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    max-width: 100%;
-  }
-  
-  .post-tags-left .tag-link {
-    flex-shrink: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100%;
-  }
 }
 
-/* iPad specific adjustments */
-@media (min-width: 769px) and (max-width: 1024px) {
+@media (min-width: 992px) and (max-width: 1024px) {
   .post-left-section {
     padding-right: 0.75rem;
   }
-  
-  .post-tags-left {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-    max-width: 100%;
-  }
-  
-  .post-tags-left .tag-link {
-    font-size: 0.6rem;
-    padding: 0.25rem 0.5rem;
-    max-width: 100%;
-    word-break: break-word;
-    overflow-wrap: break-word;
-  }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 991px) {
   .blog-post-card-horizontal {
     padding: 0.9rem;
   }
 
   .blog-post-card-horizontal .row {
+    display: flex;
     flex-direction: column;
   }
 
@@ -413,12 +407,15 @@ html[data-theme="dark"] .blog-post-card .alphaxiv-link-badge:hover {
     padding-right: 0;
     padding-top: 0;
     margin-bottom: 0.75rem;
+    width: 100% !important;
+    max-width: 100%;
+    flex: 0 0 auto;
   }
 
   .post-tags-left {
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 0.65rem;
+    gap: 0.4rem;
   }
 
   .post-title-horizontal {
@@ -427,7 +424,7 @@ html[data-theme="dark"] .blog-post-card .alphaxiv-link-badge:hover {
 
   .post-thumbnail {
     max-width: 100%;
-    height: 150px;
+    max-height: 180px;
   }
 
   .landing-logo {
