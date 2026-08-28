@@ -360,6 +360,13 @@ html[data-theme="dark"] .blog-post-card .alphaxiv-link-badge:hover {
   .blog-post-card-horizontal .post-left-section {
     width: 11.5rem !important;
   }
+
+  .blog-post-card-horizontal .post-tags-left,
+  .blog-post-card-horizontal .post-tags-left .tag-link {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
 }
 
 /* Responsive adjustments */
