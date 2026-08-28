@@ -45,8 +45,9 @@ html[data-theme="dark"] .blog-post-card-horizontal:hover {
 .post-tags-left {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: stretch;
   gap: 0.4rem;
+  width: 100%;
 }
 
 .publication-venue .publication-venue-line {
@@ -76,21 +77,20 @@ html[data-theme="dark"] .blog-post-card-horizontal:hover {
 }
 
 .post-tags-left .tag-link {
-  display: inline-block;
+  display: block;
   color: #ffffff;
   background-color: #54667d;
   border: 1px solid var(--global-divider-color);
   border-radius: 5px; /* Reduced from 8px for more rectangular look */
-  padding: 0.2rem 0.45rem;
+  padding: 0.2rem 0.55rem;
   text-decoration: none;
   font-size: 0.58rem;
   transition: all 0.3s ease;
   line-height: 1.4;
   font-weight: 500;
   white-space: nowrap;
-  width: max-content;
-  max-width: none;
-  overflow: visible;
+  box-sizing: border-box;
+  text-align: center;
   flex-shrink: 0;
 }
 
@@ -336,16 +336,17 @@ html[data-theme="dark"] .blog-post-card .alphaxiv-link-badge:hover {
   border-color: var(--global-theme-color);
 }
 
-/* Date/tags keep a fixed content width; the thumbnail scales in the leftover space. */
+/* Shared meta column so titles start on the same x across cards.
+   Wide enough for "BAYESIAN OPTIMIZATION" / "LARGE LANGUAGE MODELS". */
 @media (min-width: 992px) {
   .blog-post-card-horizontal .row {
     display: grid;
-    grid-template-columns: max-content minmax(0, 1fr);
+    grid-template-columns: 11.5rem minmax(0, 1fr);
     align-items: start;
   }
 
   .blog-post-card-horizontal .row:has(.post-right-section) {
-    grid-template-columns: max-content minmax(0, 1fr) minmax(140px, 28%);
+    grid-template-columns: 11.5rem minmax(0, 1fr) minmax(140px, 28%);
   }
 
   .blog-post-card-horizontal .post-left-section,
@@ -354,6 +355,10 @@ html[data-theme="dark"] .blog-post-card .alphaxiv-link-badge:hover {
     width: auto !important;
     max-width: none;
     min-width: 0;
+  }
+
+  .blog-post-card-horizontal .post-left-section {
+    width: 11.5rem !important;
   }
 }
 
@@ -415,7 +420,15 @@ html[data-theme="dark"] .blog-post-card .alphaxiv-link-badge:hover {
   .post-tags-left {
     flex-direction: row;
     flex-wrap: wrap;
+    align-items: flex-start;
     gap: 0.4rem;
+    width: auto;
+    min-width: 0;
+  }
+
+  .post-tags-left .tag-link {
+    display: inline-block;
+    width: auto;
   }
 
   .post-title-horizontal {

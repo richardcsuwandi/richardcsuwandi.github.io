@@ -3,6 +3,20 @@ document.addEventListener('DOMContentLoaded', function () {
   var navbar = document.getElementById('navbar');
   var menuToggle = document.querySelector('.navbar-toggler');
   var menuContent = document.querySelector('#navbarNav');
+  var desktopMin = 992;
+
+  function closeMenu() {
+    if (!menuToggle || !menuContent) return;
+    menuContent.classList.remove('show');
+    menuToggle.classList.add('collapsed');
+    menuToggle.setAttribute('aria-expanded', 'false');
+  }
+
+  function openMenu() {
+    menuContent.classList.add('show');
+    menuToggle.classList.remove('collapsed');
+    menuToggle.setAttribute('aria-expanded', 'true');
+  }
 
   if (navbar) {
     window.addEventListener('scroll', function () {
@@ -17,14 +31,11 @@ document.addEventListener('DOMContentLoaded', function () {
   if (menuToggle && menuContent) {
     menuToggle.addEventListener('click', function (e) {
       e.preventDefault();
+      e.stopPropagation();
       if (menuContent.classList.contains('show')) {
-        menuContent.classList.remove('show');
-        menuToggle.classList.add('collapsed');
-        menuToggle.setAttribute('aria-expanded', 'false');
+        closeMenu();
       } else {
-        menuContent.classList.add('show');
-        menuToggle.classList.remove('collapsed');
-        menuToggle.setAttribute('aria-expanded', 'true');
+        openMenu();
       }
     });
 
@@ -34,9 +45,21 @@ document.addEventListener('DOMContentLoaded', function () {
         !menuToggle.contains(e.target) &&
         menuContent.classList.contains('show')
       ) {
-        menuContent.classList.remove('show');
-        menuToggle.classList.add('collapsed');
-        menuToggle.setAttribute('aria-expanded', 'false');
+        closeMenu();
+      }
+    });
+
+    menuContent.querySelectorAll('a.nav-link').forEach(function (link) {
+      link.addEventListener('click', function () {
+        if (window.innerWidth < desktopMin) {
+          closeMenu();
+        }
+      });
+    });
+
+    window.addEventListener('resize', function () {
+      if (window.innerWidth >= desktopMin) {
+        closeMenu();
       }
     });
   }

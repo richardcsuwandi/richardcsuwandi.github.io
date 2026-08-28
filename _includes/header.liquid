@@ -11,62 +11,110 @@
       max-width: 75% !important;
       padding: 0 2rem !important;
     }
-    
-    @media (max-width: 768px) {
+
+    @media (max-width: 1199.98px) {
       #navbar .container {
         max-width: 95% !important;
         padding: 0 1rem !important;
       }
     }
-    
+
     #navbar .navbar-nav .nav-link {
       padding: 0.25rem 0.75rem !important;
       margin: 0 !important;
+      font-weight: normal !important;
     }
-    
+
     #navbar .navbar-brand.social {
       margin: 0 !important;
       padding: 0.25rem 0 !important;
+      min-width: 0;
     }
-    
+
     #navbar .navbar-brand.social a {
       margin: 0 0.25rem !important;
     }
-    
+
     #navbar .toggle-container {
       margin: 0 !important;
       padding: 0.25rem 0 !important;
       margin-top: -0.5rem !important;
     }
-    
-    /* Fix toggle button alignment on mobile */
-    @media (max-width: 991px) {
+
+    #navbar .navbar-toggler {
+      padding: 0.5rem !important;
+      border: none !important;
+      min-width: 44px;
+      min-height: 44px;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Collapse to hamburger before social icons + links overflow */
+    @media (max-width: 991.98px) {
+      #navbar .navbar-toggler {
+        display: flex !important;
+      }
+
+      #navbar {
+        background-color: var(--global-bg-color) !important;
+      }
+
+      #navbar .navbar-collapse {
+        width: 100%;
+        flex-basis: 100%;
+        padding: 0.35rem 0 0.6rem;
+        background-color: var(--global-bg-color);
+      }
+
+      #navbar .navbar-collapse.show {
+        border-top: 1px solid var(--global-divider-color);
+      }
+
+      #navbar .navbar-nav {
+        align-items: flex-end;
+        padding-top: 0.15rem;
+      }
+
+      #navbar .navbar-nav .nav-item {
+        width: 100%;
+      }
+
+      #navbar .navbar-nav .nav-link {
+        display: block;
+        padding: 0.7rem 0.5rem !important;
+      }
+
       #navbar .toggle-container {
         margin-top: 0 !important;
         display: flex !important;
         align-items: center !important;
-        height: 100% !important;
+        justify-content: flex-end;
+        width: 100%;
+        height: auto !important;
       }
-      
+
       #navbar .toggle-container button {
         margin: 0 !important;
         padding: 0.5rem !important;
       }
     }
-    
-    #navbar .navbar-toggler {
-      padding: 0.25rem 0 !important;
-      border: none !important;
-    }
-    
-    /* Make navbar links regular weight, not bold */
-    #navbar .navbar-nav .nav-link {
-      font-weight: normal !important;
+
+    @media (max-width: 400px) {
+      #navbar .navbar-brand.social {
+        font-size: 1.35rem;
+      }
+
+      #navbar .navbar-brand.social a {
+        margin: 0 0.15rem !important;
+      }
     }
   </style>
   
   <!-- Nav Bar -->
-  <nav id="navbar" class="navbar navbar-light navbar-expand-sm {% if site.navbar_fixed %}fixed-top{% else %}sticky-top{% endif %}" role="navigation">
+  <nav id="navbar" class="navbar navbar-light navbar-expand-lg {% if site.navbar_fixed %}fixed-top{% else %}sticky-top{% endif %}" role="navigation">
     <div class="container">
   
       {% if site.enable_navbar_social %}
@@ -77,8 +125,6 @@
       <button
         class="navbar-toggler collapsed ml-auto"
         type="button"
-        data-toggle="collapse"
-        data-target="#navbarNav"
         aria-controls="navbarNav"
         aria-expanded="false"
         aria-label="Toggle navigation"

@@ -103,14 +103,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
   
-  // Toggle mobile menu with animation
-  const navbarToggler = document.querySelector('.navbar-toggler');
-  if (navbarToggler) {
-    navbarToggler.addEventListener('click', () => {
-      document.querySelector('.navbar-collapse').classList.toggle('show');
-    });
-  }
-  
   // Add image zoom effect on hover where appropriate
   document.querySelectorAll('.projects img, .publications img').forEach(img => {
     img.addEventListener('mouseenter', () => {
