@@ -36,8 +36,8 @@
 
 - name: "awesome-bo"
   repo: "richardcsuwandi/awesome-bo"
-  url: "https://github.com/richardcsuwandi/awesome-bo"
-  description: "A curated repository of awesome Bayesian optimization resources."
+  url: "https://richardcsuwandi.github.io/awesome-bo/"
+  description: "Curated books, papers, and software for Bayesian optimization"
   stars: 14
   forks: 3
   category: "Bayesian Optimization"

@@ -23,6 +23,7 @@ I'm a fully-funded **PhD student** at [School of Artificial Intelligence, CUHK-S
 - [PlugBO](https://github.com/richardcsuwandi/plugbo), a modular framework that lets an agent adapt the optimization configuration on the fly
 - [OpenEvolve](https://github.com/algorithmicsuperintelligence/openevolve), an evolutionary coding agent for discovering and optimizing algorithms
 - [Kai](https://github.com/firstbatchxyz/kai), an autonomous agent that finds and patches software vulnerabilities
+- [Awesome Bayesian Optimization](https://richardcsuwandi.github.io/awesome-bo/), a curated list of books, papers, software, and other resources for Bayesian optimization
 {: .about-highlights}
 
 **Some other things worth mentioning:**
