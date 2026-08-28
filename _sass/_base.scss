@@ -341,7 +341,10 @@ ul.task-list input[type="checkbox"] {
 
 .post-description {
   margin-bottom: 2rem;
-  font-size: 0.875rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.8;
 
   a {
     color: inherit;
@@ -350,6 +353,20 @@ ul.task-list input[type="checkbox"] {
       color: var(--global-theme-color);
       text-decoration: none;
     }
+  }
+}
+
+// Match the About page subtitle ("PhD Student at School of AI, CUHK-Shenzhen")
+.post-header .post-description {
+  font-size: 1.1rem;
+  letter-spacing: 0.01em;
+  color: var(--global-text-color);
+  opacity: 0.75;
+
+  strong,
+  b {
+    color: inherit;
+    font-weight: 600;
   }
 }
 

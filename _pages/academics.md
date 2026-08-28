@@ -22,11 +22,6 @@ nav_order: 2
     }
 }
 
-/* Match the description font size to the Research page's body-text size
-    instead of the small .post-description subtitle style used elsewhere. */
-.post-description {
-    font-size: 1rem;
-}
 </style>
 
 <h2>Education</h2>

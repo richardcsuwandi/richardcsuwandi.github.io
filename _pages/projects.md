@@ -25,10 +25,25 @@ horizontal: false
     }
 }
 
-/* Match the description font size to the Research page's intro paragraph
-    instead of the small .post-description subtitle style used elsewhere. */
-.post-description {
-    font-size: 1rem;
+.opensource-title {
+    font-size: 1.1rem !important;
+}
+
+.opensource-description {
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+}
+
+.opensource-stats {
+    font-size: 0.9rem !important;
+}
+
+.opensource-grid {
+    margin-top: 0.75rem;
+}
+
+.post article .opensource-grid + h2 {
+    margin-top: 3rem !important;
 }
 </style>
 
@@ -36,7 +51,7 @@ horizontal: false
 {% for category in project_categories %}
 {% assign category_projects = site.data.opensource | where: "category", category %}
 {% if category_projects.size > 0 %}
-<h3>{{ category }}</h3>
+<h2>{{ category }}</h2>
 <div class="opensource-grid">
 {% for item in category_projects %}
 {% include opensource_repo.liquid item=item %}
