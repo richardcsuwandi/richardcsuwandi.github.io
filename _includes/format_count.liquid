@@ -1,0 +1,9 @@
+{%- assign count = include.n | plus: 0 -%}
+{%- if count >= 10000 -%}
+{{- count | divided_by: 1000 -}}k
+{%- elsif count >= 1000 -%}
+{%- assign tenths = count | divided_by: 100.0 | round -%}
+{{- tenths | divided_by: 10.0 | replace: ".0", "" -}}k
+{%- else -%}
+{{- count -}}
+{%- endif -%}
