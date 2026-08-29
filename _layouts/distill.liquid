@@ -124,7 +124,17 @@
         }
       }
       
-      /* TOC styling - bold sections, regular subsections */
+      /* TOC styling: keep entries as links, but render them in body text color */
+      d-contents nav a {
+        color: var(--global-text-color) !important;
+      }
+
+      d-contents nav a:hover,
+      d-contents nav a:visited,
+      d-contents nav a:active {
+        color: var(--global-text-color) !important;
+      }
+
       d-contents nav > div > a {
         font-weight: bold !important;
       }
@@ -237,6 +247,9 @@
     {% include scripts/progressBar.liquid %}
     {% if page.regret_charts %}
       <script defer src="{{ '/assets/js/plug-bo-regret-charts.js' | relative_url | bust_file_cache }}"></script>
+    {% endif %}
+    {% if page.exploration_viz %}
+      <script defer src="{{ '/assets/js/coherent-exploration-viz.js' | relative_url | bust_file_cache }}"></script>
     {% endif %}
   </body>
 </html>

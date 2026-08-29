@@ -19,7 +19,7 @@ I'm a fully-funded **PhD student** at [School of Artificial Intelligence, CUHK-S
 **What I'm currently working on:**
 {: .about-lead}
 
-- [Adaptive intelligence](/research/) for scientific discovery and engineering design
+- [Adaptive intelligence](/research/) for sequential decision-making and optimization
 - [PlugBO](https://github.com/richardcsuwandi/plugbo), a modular framework that lets an agent adapt the optimization configuration on the fly
 - [OpenEvolve](https://github.com/algorithmicsuperintelligence/openevolve), an evolutionary coding agent for discovering and optimizing algorithms
 - [Kai](https://github.com/firstbatchxyz/kai), an autonomous agent that finds and patches software vulnerabilities

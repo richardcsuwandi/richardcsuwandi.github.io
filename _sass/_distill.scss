@@ -71,9 +71,16 @@ d-article {
       a {
         border-bottom: none !important;
         text-decoration: none !important;
+        color: var(--global-text-color) !important;
+        &:hover,
+        &:visited,
+        &:active {
+          color: var(--global-text-color) !important;
+          border-bottom: none !important;
+          text-decoration: none !important;
+        }
         &:hover {
           border-bottom: 1px solid var(--global-text-color) !important;
-          text-decoration: none !important;
         }
       }
       h3 {

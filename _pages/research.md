@@ -3,7 +3,7 @@ layout: page
 permalink: /research/
 title: Research
 description: >-
-  My research develops **adaptive intelligence for scientific discovery and engineering design**: AI systems that build a model of an unknown environment, select the next experiment worth running under a limited budget, and update their beliefs as new evidence arrives. Below, I highlight key contributions from my research, organized by topic.
+  My research develops **adaptive intelligence for sequential decision-making and optimization**: systems that model an unknown objective, choose the next query under a limited budget, and update their beliefs as new evidence arrives. Bayesian optimization is the main setting; the same loop covers surrogate learning, kernel design, and related sequential problems. Below, I highlight key contributions from my research, organized by topic.
 nav: true
 nav_order: 0
 ---
