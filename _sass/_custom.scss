@@ -145,6 +145,106 @@ d-article {
     margin-top: 1.25rem;
     margin-bottom: 1.25rem;
   }
+
+  .citation-box {
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 20px 0;
+    font-family: "SF Mono", Monaco, "Inconsolata", "Fira Mono", monospace;
+    font-size: 0.9em;
+    line-height: 1.6;
+    overflow-x: auto;
+    color: #2d3748;
+  }
+
+  .highlight {
+    background-color: #f8f8f8;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    margin: 20px 0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+
+  .highlight pre {
+    background-color: transparent !important;
+    border: none !important;
+    border-radius: 0;
+    padding: 16px 20px;
+    margin: 0 !important;
+    overflow-x: auto;
+    box-shadow: none !important;
+    color: #2d3748;
+  }
+
+  pre {
+    color: #2d3748;
+    background-color: #f8f8f8;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    margin: 20px 0;
+    padding: 16px 20px;
+    overflow-x: auto;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+
+  pre code {
+    background-color: transparent;
+    color: #2d3748;
+    padding: 0;
+    border: none;
+    font-size: 0.85em;
+    line-height: 1.6;
+    font-weight: 400;
+    display: block;
+  }
+
+  pre.bibtex::before,
+  pre.language-bibtex::before {
+    content: "BibTeX";
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    background-color: rgba(0, 0, 0, 0.1);
+    color: #666;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.75em;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+}
+
+html[data-theme="dark"] d-article .citation-box {
+  background-color: #2d3748;
+  color: #e2e8f0;
+}
+
+html[data-theme="dark"] d-article .highlight {
+  background-color: #1a202c !important;
+  border: 1px solid #2d3748 !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="dark"] d-article pre,
+html[data-theme="dark"] d-article .highlight pre {
+  background-color: #1a202c !important;
+  border-color: #2d3748 !important;
+  color: #e2e8f0;
+}
+
+html[data-theme="dark"] d-article pre code {
+  background-color: transparent !important;
+  color: #e2e8f0 !important;
+}
+
+html[data-theme="dark"] d-article pre.bibtex::before,
+html[data-theme="dark"] d-article pre.language-bibtex::before {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #a0aec0;
 }
 
 p {

@@ -3,7 +3,7 @@ layout: page
 permalink: /research/
 title: Research
 description: >-
-  My research develops **adaptive intelligence for sequential decision-making and optimization**: systems that model an unknown objective, choose the next query under a limited budget, and update their beliefs as new evidence arrives. Bayesian optimization is the main setting; the same loop covers surrogate learning, kernel design, and related sequential problems. Below, I highlight key contributions from my research, organized by topic.
+  My research develops **adaptive intelligence for sequential decision-making and optimization**: systems that model an unknown objective, choose the next query under a limited budget, and update their beliefs as new evidence arrives. Below, I highlight key contributions from my research, organized by topic.
 nav: true
 nav_order: 0
 ---
@@ -64,7 +64,69 @@ nav_order: 0
 .post article .research-pubs + h2 {
     margin-top: 4.5rem !important;
 }
+
+/* Three-line clamp with inline "read more..." (see assets/js/research-readmore.js).
+   The toggle matches .more-authors-toggle: gray, underlined, theme-color hover. */
+.research-clamp {
+    position: relative;
+}
+
+.research-clamp > p {
+    margin-bottom: 0;
+}
+
+.post article .research-clamp {
+    margin-bottom: 1.5rem;
+}
+
+.research-clamp.is-clamped > p {
+    max-height: var(--clamp-height);
+    overflow: hidden;
+}
+
+.research-clamp-toggle {
+    appearance: none;
+    -webkit-appearance: none;
+    display: inline;
+    margin: 0;
+    border: 0;
+    background: none;
+    padding: 0;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    color: #999;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.research-clamp-toggle:hover,
+.research-clamp-toggle:focus-visible {
+    color: var(--global-theme-color);
+}
+
+.research-clamp-toggle:focus-visible {
+    outline: 2px solid #999;
+    outline-offset: 2px;
+}
+
+.research-clamp.is-clamped .research-clamp-toggle {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    padding: 0 0 0 3.5em;
+    background: linear-gradient(
+        to right,
+        transparent 0%,
+        var(--global-bg-color) 2.6em,
+        var(--global-bg-color) 100%
+    );
+}
 </style>
+<script defer src="{{ '/assets/js/research-readmore.js' | relative_url }}"></script>
 
 <!-- GP / Bayesian optimization separator -->
 <div class="gp-separator" aria-hidden="true">
