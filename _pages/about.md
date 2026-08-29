@@ -29,7 +29,7 @@ I'm a fully-funded **PhD student** at [School of Artificial Intelligence, CUHK-S
 **Some other things worth mentioning:**
 {: .about-lead}
 
-- I co-founded the [Institute for AI-driven Discovery of Algorithms (AIDDA)](https://algorithmdiscovery.org/)
+- I co-founded the [Institute for AI-Driven Discovery of Algorithms (AIDDA)](https://algorithmdiscovery.org/)
 - I am dev ambassador at [Qwen](https://qwen.ai/ambassador) (Alibaba Cloud)
 - I am a recipient of the [IEEE Signal Processing Society Scholarship](https://signalprocessingsociety.org/community-involvement/sps-scholarship-program) and the [Guangdong Government Outstanding International Student Scholarship](https://iie-en.gdufs.edu.cn/Scholarship/Guangdong_Province_Government_International_Stud.htm)
 - I also received research funding from the [Shenzhen Universiade International Scholarship Foundation](https://www.suisf.org.cn/)
