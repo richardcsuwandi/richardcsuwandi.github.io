@@ -141,6 +141,76 @@ html[data-theme-setting='dark'] .news-card,
   }
 }
 
+.about-contact {
+  clear: both;
+  width: 100%;
+  max-width: none;
+  box-sizing: border-box;
+  margin: 0.9rem 0 0;
+  padding: 1.05rem 1.1rem 1.1rem;
+  background: var(--global-card-bg-color, #fff);
+  border: 1px solid var(--global-divider-color, #e3e3e3);
+  border-radius: 0.85rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.about-contact p {
+  margin: 0 0 0.85rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--global-text-color, #333);
+  text-align: left;
+}
+
+.about-contact-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.55rem 1rem;
+  border-radius: 0.65rem;
+  background: #e8eaed;
+  color: #111 !important;
+  font-size: 0.98rem;
+  font-weight: 700;
+  text-decoration: none !important;
+  cursor: pointer;
+  transition: background 0.18s ease, transform 0.18s ease;
+}
+
+.about-contact-btn:hover {
+  background: #dcdfe4;
+  color: #111 !important;
+  transform: translateY(-1px);
+}
+
+.about-contact-btn:focus-visible {
+  outline: 2px solid var(--global-theme-color, #0063c9);
+  outline-offset: 2px;
+}
+
+html[data-theme='dark'] .about-contact,
+html[data-theme-setting='dark'] .about-contact,
+[data-theme='dark'] .about-contact {
+  background: #1a1a1a;
+  border-color: #333;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+html[data-theme='dark'] .about-contact-btn,
+html[data-theme-setting='dark'] .about-contact-btn,
+[data-theme='dark'] .about-contact-btn {
+  background: #2a2a2a;
+  color: #f0f0f0 !important;
+}
+
+html[data-theme='dark'] .about-contact-btn:hover,
+html[data-theme-setting='dark'] .about-contact-btn:hover,
+[data-theme='dark'] .about-contact-btn:hover {
+  background: #353535;
+  color: #fff !important;
+}
+
 .post-header .post-title {
   font-size: 3rem !important;
   font-weight: 700 !important;
@@ -174,7 +244,6 @@ html[data-theme-setting='dark'] .news-card,
 
 .profile {
   position: relative;
-  container-type: inline-size;
   margin-left: 2rem !important;
   margin-bottom: 1.5rem !important;
 
@@ -183,30 +252,36 @@ html[data-theme-setting='dark'] .news-card,
   }
 }
 
+.profile-photo-wrap {
+  position: relative;
+  display: block;
+  container-type: inline-size;
+}
+
 .profile-photo {
   display: block;
-  -webkit-mask-image: radial-gradient(circle clamp(18px, 9cqw, 30px) at 100% 100%, transparent 98%, #000 100%);
-  mask-image: radial-gradient(circle clamp(18px, 9cqw, 30px) at 100% 100%, transparent 98%, #000 100%);
+  -webkit-mask-image: radial-gradient(circle clamp(2.15rem, 11.5cqw, 3.35rem) at 100% 100%, transparent 98%, #000 100%);
+  mask-image: radial-gradient(circle clamp(2.15rem, 11.5cqw, 3.35rem) at 100% 100%, transparent 98%, #000 100%);
 }
 
 .profile-cv-badge {
   position: absolute;
-  right: -0.6rem;
-  bottom: -0.6rem;
+  right: -0.12rem;
+  bottom: -0.12rem;
   display: flex;
   align-items: center;
   justify-content: center;
   width: clamp(3.6rem, 19cqw, 5.8rem);
   height: clamp(3.6rem, 19cqw, 5.8rem);
   border-radius: 24%;
-  background: var(--global-card-bg-color, #fff);
+  background: #fff;
   color: #000 !important;
   font-size: clamp(1.5rem, 8cqw, 2.3rem);
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
   text-decoration: none !important;
   cursor: pointer;
   overflow: visible;
-  z-index: 2;
+  z-index: 3;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 
   &:hover {
@@ -726,5 +801,17 @@ html[data-theme-setting='dark'],
     margin-bottom: 1.5rem !important;
     float: none !important;
     text-align: center;
+  }
+
+  .profile-photo-wrap {
+    max-width: 16.5rem;
+    margin-inline: auto;
+  }
+
+  .about-contact {
+    max-width: 16.5rem;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
   }
 }
