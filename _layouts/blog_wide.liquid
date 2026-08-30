@@ -67,45 +67,7 @@
             {% assign post_tags_for_data_attr = temp_slugified_tags_array | join: ',' %}
             {% capture post_search_text %}{{ post.title }} {{ post.description }} {{ post.tags | join: ' ' }} {{ post.content | strip_html | strip_newlines | truncate: 2500 }}{% endcapture %}
 
-            <div class="blog-post-card-horizontal blog-post-card mb-4" data-tags="{{ post_tags_for_data_attr }}" data-search="{{ post_search_text | strip | escape }}">
-              <div class="row g-0 align-items-start">
-                <!-- Left column: Date and Tags -->
-                <div class="col-md-2 post-left-section">
-                  <div class="post-date">{{ post.date | date: '%b %d, %Y' }}</div>
-                  {% if post.tags.size > 0 %}
-                  <div class="post-tags-left">
-                    {% for tag in post.tags %}
-                    <a href="{{ '/blog/' | relative_url }}?tag={{ tag | slugify }}" class="tag-link" data-tag="{{ tag | slugify }}">
-                      {{ tag }}
-                    </a>
-                    {% endfor %}
-                  </div>
-                  {% endif %}
-                </div>
-                
-                <!-- Middle column: Title, Read time, Description -->
-                <div class="col-md-{% if post.thumbnail %}6{% else %}10{% endif %} post-middle-section">
-                  <h2 class="post-title-horizontal">
-                    {% if post.redirect == blank %}
-                      <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-                    {% elsif post.redirect contains '://' %}
-                      <a href="{{ post.redirect }}" target="_blank">{{ post.title }}</a>
-                    {% else %}
-                      <a href="{{ post.redirect | relative_url }}">{{ post.title }}</a>
-                    {% endif %}
-                  </h2>
-                  <div class="post-read-time">{{ read_time }} min read</div>
-                  <p class="post-description">{{ post.description }}</p>
-                </div>
-
-                {% if post.thumbnail %}
-                <!-- Right column: Thumbnail -->
-                <div class="col-md-4 post-right-section">
-                  <img src="{{post.thumbnail | relative_url}}" alt="{{ post.title | escape }} thumbnail" class="post-thumbnail">
-                </div>
-                {% endif %}
-              </div>
-            </div>
+            {% include blog_post_card.liquid %}
             {% endfor %}
           </div>
           <hr>
@@ -128,44 +90,7 @@
               {% assign post_tags_for_data_attr = temp_slugified_tags_array | join: ',' %}
               {% capture post_search_text %}{{ post.title }} {{ post.description }} {{ post.tags | join: ' ' }} {{ post.content | strip_html | strip_newlines | truncate: 2500 }}{% endcapture %}
 
-              <div class="blog-post-card-horizontal blog-post-card mb-4" data-tags="{{ post_tags_for_data_attr }}" data-search="{{ post_search_text | strip | escape }}">
-                <div class="row g-0 align-items-start">
-                  <!-- Left column: Date and Tags -->
-                  <div class="col-md-2 post-left-section">
-                    <div class="post-date">{{ post.date | date: '%b %d, %Y' }}</div>
-                    {% if post.tags.size > 0 %}
-                    <div class="post-tags-left">
-                      {% for tag in post.tags %}
-                      <a href="{{ '/blog/' | relative_url }}?tag={{ tag | slugify }}" class="tag-link" data-tag="{{ tag | slugify }}">
-                        {{ tag }}
-                      </a>
-                      {% endfor %}
-                    </div>
-                    {% endif %}
-                  </div>
-                  <!-- Middle column: Title, Read time, Description -->
-                  <div class="col-md-{% if post.thumbnail %}6{% else %}10{% endif %} post-middle-section">
-                    <h2 class="post-title-horizontal">
-                      {% if post.redirect == blank %}
-                        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-                      {% elsif post.redirect contains '://' %}
-                        <a href="{{ post.redirect }}" target="_blank">{{ post.title }}</a>
-                      {% else %}
-                        <a href="{{ post.redirect | relative_url }}">{{ post.title }}</a>
-                      {% endif %}
-                    </h2>
-                    <div class="post-read-time">{{ read_time }} min read</div>
-                    <p class="post-description">{{ post.description }}</p>
-                  </div>
-
-                  {% if post.thumbnail %}
-                  <!-- Right column: Thumbnail -->
-                  <div class="col-md-4 post-right-section">
-                    <img src="{{post.thumbnail | relative_url}}" alt="{{ post.title | escape }} thumbnail" class="post-thumbnail">
-                  </div>
-                  {% endif %}
-                </div>
-              </div>
+              {% include blog_post_card.liquid %}
             {%- endfor -%}
           </div>
 
