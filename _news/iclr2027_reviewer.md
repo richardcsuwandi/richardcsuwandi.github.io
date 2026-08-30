@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-✨ Invited to serve as a **reviewer** for [ICLR 2027](https://iclr.cc)!
+Invited to serve as a **reviewer** for [ICLR 2027](https://iclr.cc)

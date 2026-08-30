@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-✨ Invited to serve as a **reviewer** for [ICASSP 2026](https://2026.ieeeicassp.org/)!
+Invited to serve as a **reviewer** for [ICASSP 2026](https://2026.ieeeicassp.org/)

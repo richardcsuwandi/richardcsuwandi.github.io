@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-🏆 Received **research funding** from the [Shenzhen Universiade International Scholarship Foundation](https://www.suisf.org.cn/)!
+Received **research funding** from the [Shenzhen Universiade International Scholarship Foundation](https://www.suisf.org.cn/)

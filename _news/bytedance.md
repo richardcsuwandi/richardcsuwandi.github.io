@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-💻 Joined [ByteDance's](https://bytedance.com/en) Creation & Music Recommendation Team as a **Research Intern** to work on generative recommendation, LLM4Rec, and AIGC-powered content discovery!
+Joined [ByteDance's](https://bytedance.com/en) Creation & Music Recommendation Team as a **Research Intern** to work on generative recommendation, LLM4Rec, and AIGC-powered content discovery

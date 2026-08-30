@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-🎉 Joined Qwen as a [dev ambassador](https://qwen.ai/ambassador)!
+Joined Qwen as a [dev ambassador](https://qwen.ai/ambassador)

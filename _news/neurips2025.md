@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-🎉 Our paper titled ["Adaptive Kernel Design for Bayesian Optimization Is a Piece of CAKE with LLMs"](https://arxiv.org/abs/2509.17998) has been accepted to **NeurIPS 2025**!
+Our paper titled ["Adaptive Kernel Design for Bayesian Optimization Is a Piece of CAKE with LLMs"](https://arxiv.org/abs/2509.17998) has been accepted to **NeurIPS 2025**

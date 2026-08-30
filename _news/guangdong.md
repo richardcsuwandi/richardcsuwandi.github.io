@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-🏆 Selected as the **recipient** of the [Guangdong Government Outstanding International Student Scholarship](https://iie-en.gdufs.edu.cn/Scholarship/Guangdong_Province_Government_International_Stud.htm)
+Selected as the **recipient** of the [Guangdong Government Outstanding International Student Scholarship](https://iie-en.gdufs.edu.cn/Scholarship/Guangdong_Province_Government_International_Stud.htm)

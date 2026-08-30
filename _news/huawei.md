@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-💻 Joined [Huawei](https://www.huawei.com/en/) as a **Research Intern** to work on 5G network optimization!
+Joined [Huawei](https://www.huawei.com/en/) as a **Research Intern** to work on 5G network optimization

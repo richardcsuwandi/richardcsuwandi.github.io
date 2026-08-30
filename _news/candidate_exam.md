@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-🎓 Successfully passed my PhD candidate exam!
+Successfully passed my PhD candidate exam
