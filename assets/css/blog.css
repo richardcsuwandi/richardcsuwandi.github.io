@@ -34,7 +34,7 @@ html[data-theme="dark"] .blog-post-card-horizontal:hover {
 }
 
 .post-date {
-  font-size: 0.75rem;
+  font-size: 1.05rem;
   color: var(--global-text-color-light);
   margin-bottom: 0.6rem;
   font-weight: 500;
@@ -117,6 +117,45 @@ html[data-theme="dark"] .publication-venue .presentation-badge {
   color: #b45309;
   background: color-mix(in srgb, #d97706 12%, transparent);
   border-color: color-mix(in srgb, #d97706 38%, transparent);
+}
+
+.talk-card .presentation-badge {
+  display: inline-block;
+  font-style: normal;
+  font-size: 0.74em;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  margin-right: 0.4em;
+  padding: 0.06em 0.34em;
+  border-radius: 3px;
+  line-height: 1.2;
+  vertical-align: baseline;
+  color: var(--global-theme-color);
+  background: color-mix(in srgb, var(--global-theme-color) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--global-theme-color) 38%, transparent);
+}
+
+.publication-venue .presentation-badge-award,
+.talk-card .presentation-badge-award {
+  color: #854d0e;
+  background: color-mix(in srgb, #eab308 18%, transparent);
+  border-color: color-mix(in srgb, #eab308 55%, transparent);
+}
+
+[data-theme="dark"] .talk-card .presentation-badge,
+html[data-theme="dark"] .talk-card .presentation-badge {
+  background: color-mix(in srgb, var(--global-theme-color) 18%, transparent);
+  border-color: color-mix(in srgb, var(--global-theme-color) 45%, transparent);
+}
+
+[data-theme="dark"] .publication-venue .presentation-badge-award,
+html[data-theme="dark"] .publication-venue .presentation-badge-award,
+[data-theme="dark"] .talk-card .presentation-badge-award,
+html[data-theme="dark"] .talk-card .presentation-badge-award {
+  color: #fde047;
+  background: color-mix(in srgb, #eab308 24%, transparent);
+  border-color: color-mix(in srgb, #facc15 55%, transparent);
 }
 
 [data-theme="dark"] .publication-venue .presentation-badge-preprint,

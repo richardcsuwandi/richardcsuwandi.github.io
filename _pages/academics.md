@@ -4,7 +4,7 @@ permalink: /academics/
 title: Academics
 description: Education, honors & awards, teaching experience, and academic service
 nav: true
-nav_order: 2
+nav_order: 3
 ---
 
 <!-- _pages/academics.md -->

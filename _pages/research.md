@@ -36,7 +36,7 @@ nav_order: 0
     margin-bottom: 0.35rem;
 }
 .research-pubs .post-date {
-    font-size: 0.8rem;
+    font-size: 1.05rem;
     margin-bottom: 0.6rem;
 }
 .research-pubs .post-tags-left .tag-link {

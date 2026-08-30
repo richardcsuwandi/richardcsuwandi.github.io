@@ -45,6 +45,7 @@
   website={https://ieeexplore.ieee.org/document/11463847},
   code={https://github.com/richardcsuwandi/zap},
   alphaxiv={https://www.alphaxiv.org/abs/2607.zap},
+  slides={icassp2026_slides.pdf},
   tldr={Training a Gaussian process gets expensive as the number of hyperparameters grows. ZAP estimates the full gradient from two loss evaluations, independent of dimension, with about 20x lower error and 118x less optimization time.},
   abstract={Hyperparameter optimization remains a core challenge in training Gaussian processes (GPs), primarily due to the high computational cost and numerical instabilities associated with gradient-based optimizers. These issues are exacerbated in high-dimensional spaces, where the optimization landscapes become increasingly complex and difficult to navigate efficiently. We propose zeroth-order adaptive perturbation (ZAP), a scalable gradient-free algorithm that leverages simultaneous perturbations sampled from a Bernoulli distribution to obtain accurate gradient estimates with only two function evaluations per iteration, regardless of the hyperparameter dimensionality. Our theoretical analysis establishes that the gradient estimator is asymptotically unbiased and that ZAP converges to a stationary point under standard assumptions. Empirically, ZAP outperforms state-of-the-art gradient-based and gradient-free baselines on real-world datasets, achieving an average of 20 times reduction in mean-squared-error and a 118 times speedup in optimization time.}
 }
@@ -92,6 +93,7 @@
   thread={https://x.com/richardcsuwandi/status/1970856650048462946},
   code={https://github.com/richardcsuwandi/cake},
   poster={neurips2025_poster.pdf},
+  slides={neurips2025_slides.pdf},
   preview={cake.png},
   selected={true},
   tldr={A poorly chosen GP kernel slows Bayesian optimization. CAKE uses an LLM to evolve kernels during the search, and BAKER picks which one to query next, improving hyperparameter optimization, controller tuning, and photonic chip design.},
