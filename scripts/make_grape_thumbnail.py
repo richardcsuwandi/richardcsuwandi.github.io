@@ -95,10 +95,10 @@ def main() -> None:
             f'<g opacity="0">{fade(t0)}{arrow(end, color, width, dashed)}</g>'
         )
 
-    # Match other paper thumbnails (16:9). Content is compact; extra width is padding.
+    # Match other paper thumbnails (16:9). Extra left room for the stacked label.
     vb_h = 288
     vb_w = int(round(vb_h * 16 / 9))
-    vb_x, vb_y = 4, 68
+    vb_x, vb_y = -36, 68
 
     svg = f'''<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="{vb_x} {vb_y} {vb_w} {vb_h}"
@@ -136,10 +136,13 @@ def main() -> None:
     <circle cx="{sx(steep[0]):.1f}" cy="{sy(steep[1]):.1f}" r="4.3" fill="#fff"/>
   </g>
   <g opacity="0">{fade(0.78)}
-    <text x="{sx(steep[0]) + 36:.1f}" y="{sy(steep[1]) - 28:.1f}"
-          fill="#9a3d40" font-size="25" font-weight="700"
+    <text x="{sx(steep[0]) - 22:.1f}" y="{sy(steep[1]) - 10:.1f}"
+          text-anchor="end" fill="#9a3d40" font-size="25" font-weight="700"
           font-family="ui-sans-serif, system-ui, sans-serif"
-          stroke="#f7f7f7" stroke-width="4" paint-order="stroke">steep progress</text>
+          stroke="#f7f7f7" stroke-width="4" paint-order="stroke">
+      <tspan x="{sx(steep[0]) - 22:.1f}" dy="0">steep</tspan>
+      <tspan x="{sx(steep[0]) - 22:.1f}" dy="28">progress</tspan>
+    </text>
   </g>
   <circle cx="{sx(XT[0]):.1f}" cy="{sy(XT[1]):.1f}" r="11.5" fill="{PURPLE}"/>
   <circle cx="{sx(XT[0]):.1f}" cy="{sy(XT[1]):.1f}" r="4.5" fill="#fff"/>
