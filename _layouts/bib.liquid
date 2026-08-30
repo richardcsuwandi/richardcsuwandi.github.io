@@ -1,5 +1,5 @@
 <div class="blog-post-card-horizontal mb-4" id="{{ entry.key }}">
-  <div class="row g-0 align-items-start">
+  <div class="row g-0">
     <!-- Left column: Date and Tags -->
     <div class="col-md-2 post-left-section">
       <div class="post-date">
@@ -15,14 +15,52 @@
         {% if entry.abstract %}
           <span class="tag-link" onclick="toggleAbstract('{{ entry.key }}')" style="cursor: pointer;">ABSTRACT</span>
         {% endif %}
-        {% if entry.website %}
-          <a href="{{ entry.website }}" target="_blank" class="tag-link">PAPER</a>
-        {% endif %}
         {% if entry.slides %}
           <a href="{{ '/assets/pdf/' | append: entry.slides | relative_url }}" target="_blank" class="tag-link">SLIDES</a>
         {% endif %}
         {% if entry.poster %}
           <a href="{{ '/assets/pdf/' | append: entry.poster | relative_url }}" target="_blank" class="tag-link">POSTER</a>
+        {% endif %}
+        {% if entry.website %}
+          {% assign venue_text = '' %}
+          {% if entry.journal %}{% assign venue_text = venue_text | append: entry.journal | append: ' ' %}{% endif %}
+          {% if entry.booktitle %}{% assign venue_text = venue_text | append: entry.booktitle | append: ' ' %}{% endif %}
+          {% if entry.organization %}{% assign venue_text = venue_text | append: entry.organization | append: ' ' %}{% endif %}
+          {% if entry.publisher %}{% assign venue_text = venue_text | append: entry.publisher | append: ' ' %}{% endif %}
+          {% assign venue_text = venue_text | downcase %}
+          {% assign presentation_kind = entry.presentation | default: '' | downcase | strip %}
+          {% assign paper_venue = 'default' %}
+          {% if presentation_kind == 'preprint' or venue_text contains 'arxiv' %}
+            {% assign paper_venue = 'arxiv' %}
+          {% elsif venue_text contains 'neurips' or venue_text contains 'neural information processing' %}
+            {% assign paper_venue = 'neurips' %}
+          {% elsif venue_text contains 'icml' or venue_text contains 'international conference on machine learning' %}
+            {% assign paper_venue = 'icml' %}
+          {% elsif venue_text contains 'ieee' or venue_text contains 'icassp' or venue_text contains 'fusion' or venue_text contains 'tnnls' or venue_text contains 'neural networks and learning systems' %}
+            {% assign paper_venue = 'ieee' %}
+          {% endif %}
+          <a
+            href="{{ entry.website }}"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="view-paper-badge view-paper-badge-{{ paper_venue }}"
+            aria-label="View paper"
+          >
+            {% if paper_venue == 'arxiv' %}
+              <img class="venue-mark" src="{{ '/assets/img/venues/arxiv.svg' | relative_url }}" alt="" width="16" height="22">
+            {% elsif paper_venue == 'ieee' %}
+              <img class="venue-mark" src="{{ '/assets/img/venues/ieee.png' | relative_url }}" alt="" width="18" height="18">
+            {% elsif paper_venue == 'icml' %}
+              <img class="venue-mark" src="{{ '/assets/img/venues/icml.svg' | relative_url }}" alt="" width="18" height="18">
+            {% elsif paper_venue == 'neurips' %}
+              <img class="venue-mark" src="{{ '/assets/img/venues/neurips.svg' | relative_url }}" alt="" width="18" height="18">
+            {% else %}
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path fill="currentColor" d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zm0 2.5L19.5 10H14z"></path>
+              </svg>
+            {% endif %}
+            <span>View paper</span>
+          </a>
         {% endif %}
         {% if entry.alphaxiv %}
           <a
@@ -144,8 +182,16 @@
     <!-- Right column: Preview Image -->
     <div class="col-md-4 post-right-section">
       {% if entry.preview %}
+        {% assign preview_ext = entry.preview | split: '.' | last | downcase %}
         {% if entry.preview contains '://' %}
           <img src="{{ entry.preview }}" alt="{{ entry.title | escape }} preview" class="paper-thumbnail">
+        {% elsif preview_ext == 'svg' %}
+          <object
+            type="image/svg+xml"
+            data="{{ '/assets/img/publication_preview/' | append: entry.preview | relative_url }}"
+            class="paper-thumbnail paper-thumbnail-svg"
+            aria-label="{{ entry.title | escape }} preview"
+          ></object>
         {% else %}
           <img src="{{ '/assets/img/publication_preview/' | append: entry.preview | relative_url }}" 
                alt="{{ entry.title | escape }} preview" class="paper-thumbnail">

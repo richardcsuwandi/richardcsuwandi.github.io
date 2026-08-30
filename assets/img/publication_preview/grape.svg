@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="4 68 512 288"
+     role="img" aria-label="GRAPE progress-aware exploitation">
+  <title>GRAPE Stage 2</title>
+  <defs>
+    <marker id="ah-b0b0b0" markerWidth="7" markerHeight="7" refX="5.4" refY="3.5" orient="auto"><path d="M0,0.6 L6.2,3.5 L0,6.4 z" fill="#b0b0b0"/></marker>
+    <marker id="ah-9a9a9a" markerWidth="7" markerHeight="7" refX="5.4" refY="3.5" orient="auto"><path d="M0,0.6 L6.2,3.5 L0,6.4 z" fill="#9a9a9a"/></marker>
+    <marker id="ah-ba6265" markerWidth="7" markerHeight="7" refX="5.4" refY="3.5" orient="auto"><path d="M0,0.6 L6.2,3.5 L0,6.4 z" fill="#ba6265"/></marker>
+    <marker id="ah-C44E52" markerWidth="7" markerHeight="7" refX="5.4" refY="3.5" orient="auto"><path d="M0,0.6 L6.2,3.5 L0,6.4 z" fill="#C44E52"/></marker>
+    <marker id="ah-ae7b7d" markerWidth="7" markerHeight="7" refX="5.4" refY="3.5" orient="auto"><path d="M0,0.6 L6.2,3.5 L0,6.4 z" fill="#ae7b7d"/></marker>
+    <marker id="ah-5a5a5a" markerWidth="7" markerHeight="7" refX="5.4" refY="3.5" orient="auto"><path d="M0,0.6 L6.2,3.5 L0,6.4 z" fill="#5a5a5a"/></marker>
+  </defs>
+  <rect x="4" y="68" width="512" height="288" fill="#f7f7f7"/>
+  <ellipse cx="-70.0" cy="545.0" rx="220.0" ry="165.0" fill="none" stroke="#c8c8c8" stroke-width="2.4"/><ellipse cx="-70.0" cy="545.0" rx="305.0" ry="230.0" fill="none" stroke="#c8c8c8" stroke-width="2.4"/><ellipse cx="-70.0" cy="545.0" rx="390.0" ry="295.0" fill="none" stroke="#c8c8c8" stroke-width="2.4"/><ellipse cx="-70.0" cy="545.0" rx="475.0" ry="360.0" fill="none" stroke="#c8c8c8" stroke-width="2.4"/><ellipse cx="-70.0" cy="545.0" rx="560.0" ry="425.0" fill="none" stroke="#c8c8c8" stroke-width="2.4"/>
+  <g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.06;0.08;0.92;1" dur="9s" repeatCount="indefinite"/>
+    <path d="M 355.0,200.0 L 187.1,82.4 A 205.0 205.0 0 0 0 268.4,385.8 Z" fill="#C44E52" fill-opacity="0.08"/>
+  </g>
+  <g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.08;0.10;0.92;1" dur="9s" repeatCount="indefinite"/><line x1="355.0" y1="200.0" x2="265.8" y2="119.7" stroke="#5a5a5a" stroke-width="5.2" stroke-linecap="round" marker-end="url(#ah-5a5a5a)" stroke-dasharray="10 7"/></g><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.30;0.32;0.92;1" dur="9s" repeatCount="indefinite"/><line x1="355.0" y1="200.0" x2="241.7" y2="147.2" stroke="#b0b0b0" stroke-width="4.4" stroke-linecap="round" marker-end="url(#ah-b0b0b0)"/></g><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.38;0.40;0.92;1" dur="9s" repeatCount="indefinite"/><line x1="355.0" y1="200.0" x2="218.1" y2="170.9" stroke="#9a9a9a" stroke-width="4.6" stroke-linecap="round" marker-end="url(#ah-9a9a9a)"/></g><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.46;0.48;0.92;1" dur="9s" repeatCount="indefinite"/><line x1="355.0" y1="200.0" x2="201.5" y2="221.6" stroke="#ae7b7d" stroke-width="5.0" stroke-linecap="round" marker-end="url(#ah-ae7b7d)"/></g><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.54;0.56;0.92;1" dur="9s" repeatCount="indefinite"/><line x1="355.0" y1="200.0" x2="280.8" y2="318.7" stroke="#ba6265" stroke-width="5.4" stroke-linecap="round" marker-end="url(#ah-ba6265)"/></g>
+  <g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.20;0.22;0.92;1" dur="9s" repeatCount="indefinite"/>
+    <text x="257.8" y="111.7"
+          text-anchor="end" fill="#5a5a5a" font-size="25" font-weight="600"
+          font-family="ui-sans-serif, system-ui, sans-serif"
+          stroke="#f7f7f7" stroke-width="4" paint-order="stroke">certain, shallow</text>
+  </g>
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1;0"
+             keyTimes="0;0.60;0.62;0.92;1" dur="9s" repeatCount="indefinite"/>
+    <line x1="355.0" y1="200.0"
+          x2="178.9" y2="323.3"
+          stroke="#C44E52" stroke-width="8.4" stroke-linecap="round"
+          marker-end="url(#ah-C44E52)" pathLength="1"
+          stroke-dasharray="1" stroke-dashoffset="1">
+      <animate attributeName="stroke-dashoffset" values="1;1;0;0;1"
+               keyTimes="0;0.62;0.72;0.92;1" dur="9s" repeatCount="indefinite"/>
+    </line>
+  </g>
+  <g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.72;0.74;0.92;1" dur="9s" repeatCount="indefinite"/>
+    <circle cx="178.9" cy="323.3" r="11" fill="#9467BD" fill-opacity="0.85"/>
+    <circle cx="178.9" cy="323.3" r="4.3" fill="#fff"/>
+  </g>
+  <g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.76;0.78;0.92;1" dur="9s" repeatCount="indefinite"/>
+    <text x="214.9" y="295.3"
+          fill="#9a3d40" font-size="25" font-weight="700"
+          font-family="ui-sans-serif, system-ui, sans-serif"
+          stroke="#f7f7f7" stroke-width="4" paint-order="stroke">steep progress</text>
+  </g>
+  <circle cx="355.0" cy="200.0" r="11.5" fill="#9467BD"/>
+  <circle cx="355.0" cy="200.0" r="4.5" fill="#fff"/>
+</svg>

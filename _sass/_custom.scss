@@ -571,7 +571,7 @@ html[data-theme='dark'] {
   }
 
   // Publication button/links keep readable contrast on dark cards
-  .publications a:not(.navbar a):not(.nav-link):not(.post-title-horizontal a):not(.tag-link) {
+  .publications a:not(.navbar a):not(.nav-link):not(.post-title-horizontal a):not(.tag-link):not(.view-paper-badge):not(.alphaxiv-link-badge):not(.github-code-badge):not(.x-thread-badge) {
     color: var(--global-text-color);
 
     &:hover {
@@ -608,7 +608,7 @@ html[data-theme='dark'] {
    }
 
    // Dark mode blog post content links
-   .blog-post-card a
+   .blog-post-card a:not(.view-paper-badge):not(.alphaxiv-link-badge):not(.github-code-badge):not(.x-thread-badge)
    {
      color: #ffffff !important;
      

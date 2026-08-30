@@ -134,6 +134,141 @@ html[data-theme="dark"] .post-tags-left .tag-link:hover {
   border-color: var(--global-theme-color);
 }
 
+/* View paper badge (same pill as GitHub / alphaXiv / thread; color by venue) */
+.view-paper-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  width: fit-content;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin-top: 0.15rem;
+  padding: 0.28rem 0.7rem;
+  border: 1px solid #d8d8d8;
+  border-radius: 999px;
+  background: #ffffff !important;
+  color: #222222 !important;
+  text-decoration: none !important;
+  font-size: 0.68rem;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: visible;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.view-paper-badge span {
+  color: inherit !important;
+  line-height: 1.2;
+}
+
+.view-paper-badge svg,
+.view-paper-badge .venue-mark {
+  width: 0.78rem;
+  height: 0.78rem;
+  flex-shrink: 0;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+  overflow: visible;
+}
+
+.view-paper-badge:hover {
+  text-decoration: none !important;
+  background: #ffffff !important;
+  transform: translateY(-1px);
+}
+
+.view-paper-badge-ieee {
+  color: #00629b !important;
+}
+
+.view-paper-badge-ieee:hover {
+  border-color: #00629b;
+  box-shadow: 0 1px 4px rgba(0, 98, 155, 0.22);
+  color: #00629b !important;
+}
+
+.view-paper-badge-icml {
+  color: #111111 !important;
+}
+
+.view-paper-badge-icml:hover {
+  border-color: #111111;
+  box-shadow: 0 1px 4px rgba(17, 17, 17, 0.2);
+  color: #111111 !important;
+}
+
+.view-paper-badge-neurips {
+  color: #68448b !important;
+}
+
+.view-paper-badge-neurips:hover {
+  border-color: #68448b;
+  box-shadow: 0 1px 4px rgba(104, 68, 139, 0.28);
+  color: #68448b !important;
+}
+
+.view-paper-badge-arxiv {
+  color: #b31b1b !important;
+}
+
+.view-paper-badge-arxiv:hover {
+  border-color: #b31b1b;
+  box-shadow: 0 1px 4px rgba(179, 27, 27, 0.22);
+  color: #b31b1b !important;
+}
+
+.view-paper-badge-default:hover {
+  border-color: #222222;
+  box-shadow: 0 1px 4px rgba(34, 34, 34, 0.18);
+  color: #222222 !important;
+}
+
+[data-theme="dark"] .view-paper-badge,
+html[data-theme="dark"] .view-paper-badge,
+html[data-theme="dark"] .publications .view-paper-badge,
+html[data-theme="dark"] .blog-post-card .view-paper-badge {
+  background: #ffffff !important;
+  border-color: #d8d8d8;
+}
+
+[data-theme="dark"] .view-paper-badge-ieee,
+html[data-theme="dark"] .view-paper-badge-ieee,
+html[data-theme="dark"] .publications .view-paper-badge-ieee,
+html[data-theme="dark"] .blog-post-card .view-paper-badge-ieee {
+  color: #00629b !important;
+}
+
+[data-theme="dark"] .view-paper-badge-icml,
+html[data-theme="dark"] .view-paper-badge-icml,
+html[data-theme="dark"] .publications .view-paper-badge-icml,
+html[data-theme="dark"] .blog-post-card .view-paper-badge-icml {
+  color: #111111 !important;
+}
+
+[data-theme="dark"] .view-paper-badge-neurips,
+html[data-theme="dark"] .view-paper-badge-neurips,
+html[data-theme="dark"] .publications .view-paper-badge-neurips,
+html[data-theme="dark"] .blog-post-card .view-paper-badge-neurips {
+  color: #68448b !important;
+}
+
+[data-theme="dark"] .view-paper-badge-arxiv,
+html[data-theme="dark"] .view-paper-badge-arxiv,
+html[data-theme="dark"] .publications .view-paper-badge-arxiv,
+html[data-theme="dark"] .blog-post-card .view-paper-badge-arxiv {
+  color: #b31b1b !important;
+}
+
+[data-theme="dark"] .view-paper-badge:hover,
+html[data-theme="dark"] .view-paper-badge:hover,
+html[data-theme="dark"] .publications .view-paper-badge:hover,
+html[data-theme="dark"] .blog-post-card .view-paper-badge:hover {
+  background: #ffffff !important;
+}
+
 /* alphaXiv link badge (matches official "alphaXiv" pill) */
 .alphaxiv-link-badge {
   display: inline-flex;
@@ -385,8 +520,9 @@ html[data-theme-setting="dark"] .publication-abstract .abstract-heading,
 /* Right section - Thumbnail */
 .post-right-section {
   display: flex;
-  align-items: flex-start; /* Align to top instead of center */
+  align-items: center;
   justify-content: center;
+  align-self: stretch;
   padding-top: 0;
   min-width: 0;
 }
@@ -409,6 +545,10 @@ html[data-theme-setting="dark"] .publication-abstract .abstract-heading,
   object-fit: contain; /* Scale image to fit completely within container without cropping */
   border-radius: 8px;
   display: block; /* Ensure proper block behavior */
+}
+
+object.paper-thumbnail-svg {
+  pointer-events: none;
 }
 
 
@@ -487,7 +627,7 @@ html[data-theme-setting="dark"] .publication-abstract .abstract-heading,
   .blog-post-card-horizontal .row {
     display: grid;
     grid-template-columns: 11.5rem minmax(0, 1fr);
-    align-items: start;
+    align-items: stretch;
   }
 
   .blog-post-card-horizontal .row:has(.post-right-section) {
