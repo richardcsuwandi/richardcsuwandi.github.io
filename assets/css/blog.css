@@ -196,6 +196,151 @@ html[data-theme="dark"] .blog-post-card .alphaxiv-link-badge:hover {
   border-color: #6b2d2d;
 }
 
+/* X thread badge (same pill as alphaXiv: grey border, brand color on hover) */
+.x-thread-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  width: fit-content;
+  max-width: 100%;
+  margin-top: 0.15rem;
+  padding: 0.28rem 0.7rem;
+  border: 1px solid #d8d8d8;
+  border-radius: 999px;
+  background: #ffffff !important;
+  color: #000000 !important;
+  text-decoration: none !important;
+  font-size: 0.68rem;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.x-thread-badge span {
+  color: inherit !important;
+}
+
+.x-thread-badge svg {
+  width: 0.72rem;
+  height: 0.72rem;
+  flex-shrink: 0;
+  color: inherit;
+}
+
+.x-thread-badge:hover {
+  border-color: #000000;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+  color: #000000 !important;
+  background: #ffffff !important;
+  text-decoration: none !important;
+  transform: translateY(-1px);
+}
+
+[data-theme="dark"] .x-thread-badge,
+html[data-theme="dark"] .x-thread-badge,
+html[data-theme="dark"] .publications .x-thread-badge,
+html[data-theme="dark"] .blog-post-card .x-thread-badge {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border-color: #d8d8d8;
+}
+
+[data-theme="dark"] .x-thread-badge:hover,
+html[data-theme="dark"] .x-thread-badge:hover,
+html[data-theme="dark"] .publications .x-thread-badge:hover,
+html[data-theme="dark"] .blog-post-card .x-thread-badge:hover {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border-color: #000000;
+}
+
+/* GitHub code badge (same pill: grey border, GitHub color on hover) */
+.github-code-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  width: fit-content;
+  max-width: 100%;
+  margin-top: 0.15rem;
+  padding: 0.28rem 0.7rem;
+  border: 1px solid #d8d8d8;
+  border-radius: 999px;
+  background: #ffffff !important;
+  color: #181717 !important;
+  text-decoration: none !important;
+  font-size: 0.68rem;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.github-code-badge span {
+  color: inherit !important;
+}
+
+.github-code-badge svg {
+  width: 0.78rem;
+  height: 0.78rem;
+  flex-shrink: 0;
+  color: inherit;
+}
+
+.github-code-badge:hover {
+  border-color: #181717;
+  box-shadow: 0 1px 4px rgba(24, 23, 23, 0.18);
+  color: #181717 !important;
+  background: #ffffff !important;
+  text-decoration: none !important;
+  transform: translateY(-1px);
+}
+
+[data-theme="dark"] .github-code-badge,
+html[data-theme="dark"] .github-code-badge,
+html[data-theme="dark"] .publications .github-code-badge,
+html[data-theme="dark"] .blog-post-card .github-code-badge {
+  background: #ffffff !important;
+  color: #181717 !important;
+  border-color: #d8d8d8;
+}
+
+[data-theme="dark"] .github-code-badge:hover,
+html[data-theme="dark"] .github-code-badge:hover,
+html[data-theme="dark"] .publications .github-code-badge:hover,
+html[data-theme="dark"] .blog-post-card .github-code-badge:hover {
+  background: #ffffff !important;
+  color: #181717 !important;
+  border-color: #181717;
+}
+
+.publication-abstract .abstract-heading {
+  margin: 0 0 0.7rem 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #111;
+}
+
+.publication-abstract .abstract-heading:not(:first-child) {
+  margin-top: 1.5rem;
+}
+
+.publication-abstract .publication-tldr {
+  margin: 0;
+}
+
+.publication-abstract .abstract-content p {
+  margin-bottom: 0;
+}
+
+html[data-theme="dark"] .publication-abstract .abstract-heading,
+html[data-theme-setting="dark"] .publication-abstract .abstract-heading,
+[data-theme="dark"] .publication-abstract .abstract-heading {
+  color: #f0f0f0;
+}
+
 /* Removed hashtag icon styling as icons are no longer used */
 
 /* Middle section - Title, Read time, Description */

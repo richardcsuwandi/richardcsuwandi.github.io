@@ -13,11 +13,16 @@
     border-top: 3px solid var(--global-theme-color, #60636a);
   }
   
-  .abstract-content h4 {
-    margin: 0 0 0.5rem 0;
+  .abstract-content h4,
+  .abstract-content .abstract-heading {
+    margin: 0 0 0.7rem 0;
     font-size: 1.1rem;
     font-weight: 600;
-    color: var(--global-theme-color, #60636a);
+    color: #111;
+  }
+
+  .abstract-content .abstract-heading:not(:first-child) {
+    margin-top: 1.5rem;
   }
   
   .abstract-content p {
@@ -26,6 +31,19 @@
     line-height: 1.5;
     color: var(--global-text-color, #333);
     text-align: justify;
+  }
+
+  .abstract-content .publication-tldr {
+    margin: 0;
+  }
+
+  html[data-theme='dark'] .abstract-content h4,
+  html[data-theme-setting="dark"] .abstract-content h4,
+  [data-theme="dark"] .abstract-content h4,
+  html[data-theme='dark'] .abstract-content .abstract-heading,
+  html[data-theme-setting="dark"] .abstract-content .abstract-heading,
+  [data-theme="dark"] .abstract-content .abstract-heading {
+    color: #f0f0f0;
   }
   
   /* All tag links styling */

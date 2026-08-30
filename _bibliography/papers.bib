@@ -13,6 +13,8 @@
   website={hhttps://arxiv.org/abs/2608.25116},
   code={https://github.com/richardcsuwandi/grape},
   alphaxiv={https://www.alphaxiv.org/abs/2608.grape},
+  thread={https://x.com/richardcsuwandi/status/2091998173892161769},
+  tldr={Local Bayesian optimization often takes tiny steps that are almost sure to descend. GRAPE first sharpens the local gradient, then moves in the direction with the largest expected decrease, giving a 5.4x speedup on adversarial attacks and 3.8 log-units better regret on LLM prompt optimization.},
   abstract={Optimizing expensive, high-dimensional black-box functions remains a central challenge in modern machine learning and scientific discovery. While local Bayesian optimization mitigates the curse of dimensionality, existing techniques often prioritize the probability of descent over the magnitude of progress. This leads to overly conservative steps that yield negligible improvement, wasting queries on directions that are nearly certain to descend but offer little decrease. We introduce Gradient Refinement and Progress-Aware Exploitation (GRAPE), a two-stage framework that first sharpens the local gradient posterior via a closed-form acquisition function, then selects update directions by maximizing the expected decrease conditional on descent. Theoretical analysis proves that this gradient refinement stage monotonically minimizes local uncertainty and that the progress-aware direction converges to true steepest descent as the posterior sharpens. Empirically, GRAPE demonstrates superior query efficiency across high-dimensional tasks: in black-box adversarial attacks, it achieves an average 5.4× speedup over baselines, and on large language model prompt optimization tasks, it outperforms the second best method by a reduction of 3.8 log-units in the final average regret.}
 }
 
@@ -26,6 +28,7 @@
   preview={mimomamba.png},
   website={https://openreview.net/forum?id=UmQ07sj13y},
   alphaxiv={https://www.alphaxiv.org/abs/2607.mimomamba-matrix-valued-attention},
+  tldr={Mamba's state-space duality is limited to single-input systems, so dimensions cannot mix inside the state. MIMOMamba extends it to MIMO with a matrix polynomial, matching or beating Transformers at about one-third the parameters.},
   abstract={The state space duality (SSD) framework, central to modern state-space models (SSMs) such as Mamba, has established an efficient attention-like mechanism by leveraging the commutative property of linear recurrences. However, existing formulations are limited to single-input single-output (SISO) systems that enforce commutativity with a restrictive scalar-identity constraint, which prevents cross-dimensional interactions within the state dynamics. In this work, we generalize SSD to the multi-input multi-output (MIMO) setting by introducing a matrix polynomial parameterization. This approach not only provides a principled way to ensure commutativity for generalized duality but also induces a shared algebraic structure across state transitions, thereby significantly reducing parameter redundancy. Building on this foundation, we present MIMOMamba, a multi-head SSM architecture that captures rich cross-dimensional dynamics while retaining linear-time training. Empirical results on a sequence modeling benchmark show that MIMOMamba matches or exceeds the performance of standard Transformers with only approximately one-third the parameters of the baseline.}
 }
 
@@ -42,6 +45,7 @@
   website={https://ieeexplore.ieee.org/document/11463847},
   code={https://github.com/richardcsuwandi/zap},
   alphaxiv={https://www.alphaxiv.org/abs/2607.zap},
+  tldr={Training a Gaussian process gets expensive as the number of hyperparameters grows. ZAP estimates the full gradient from two loss evaluations, independent of dimension, with about 20x lower error and 118x less optimization time.},
   abstract={Hyperparameter optimization remains a core challenge in training Gaussian processes (GPs), primarily due to the high computational cost and numerical instabilities associated with gradient-based optimizers. These issues are exacerbated in high-dimensional spaces, where the optimization landscapes become increasingly complex and difficult to navigate efficiently. We propose zeroth-order adaptive perturbation (ZAP), a scalable gradient-free algorithm that leverages simultaneous perturbations sampled from a Bernoulli distribution to obtain accurate gradient estimates with only two function evaluations per iteration, regardless of the hyperparameter dimensionality. Our theoretical analysis establishes that the gradient estimator is asymptotically unbiased and that ZAP converges to a stationary point under standard assumptions. Empirically, ZAP outperforms state-of-the-art gradient-based and gradient-free baselines on real-world datasets, achieving an average of 20 times reduction in mean-squared-error and a 118 times speedup in optimization time.}
 }
 
@@ -57,6 +61,7 @@
   selected={true},
   poster={poster_fedmf.pdf},
   alphaxiv={https://www.alphaxiv.org/abs/2607.federated-matrix-factorization-model-averaging},
+  tldr={Model averaging had not been applied to federated matrix factorization. FedMAvg combines alternating minimization with averaging, and communicating less often with fewer clients cuts cost on heterogeneous data.},
   abstract={Federated learning (FL) is encountered with the challenge of training a model in massive and heterogeneous networks. Model averaging (MA) has become a popular FL paradigm where parallel (stochastic) gradient descent (GD) is run on a small sampled subset of clients multiple times before uploading the local models to a server for averaging, which has been proven effective in reducing the communication cost for achieving a good model. However, MA has not been considered for the important matrix factorization (MF) model, which has vast signal processing and machine learning applications. In this paper, we investigate the federated MF problem and propose a new MA based algorithm, named FedMAvg, by judiciously combining the alternating minimization technique and MA. Through analysis, we show that gradually decreasing the number of local GD and only allowing partial clients to communicate with the server can greatly reduce the communication cost, especially in heterogeneous networks with non-i.i.d. data. Experimental results by applying FedMAvg to data clustering and item recommendation tasks demonstrate its efficacy in terms of both task performance and communication efficiency.}
 }
 
@@ -71,6 +76,7 @@
   code={https://github.com/richardcsuwandi/distributed-gsm},
   slides={fusion2022_slides.pdf},
   alphaxiv={https://www.alphaxiv.org/abs/2607.gp-regression-gsm},
+  tldr={We introduce a grid spectral mixture kernel for multidimensional Gaussian processes and train it with distributed ADMM, so agents fit the kernel without sharing raw data.},
   preview={gsm.png},
   selected={true},
   abstract={Kernel design for Gaussian processes (GPs) along with the associated hyper-parameter optimization is a challenging problem. In this paper, we propose a novel grid spectral mixture (GSM) kernel design for GPs that can automatically fit multidimensional data with affordable model complexity and superior modeling capability. To alleviate the computational complexity due to the curse of dimensionality, we leverage a multicore computing environment to optimize the kernel hyper-parameters in a distributed manner. We further propose a doubly distributed learning algorithm based on the alternating direction method of multipliers (ADMM) which enables multiple agents to learn the kernel hyper-parameters collaboratively. The doubly distributed learning algorithm is shown to be effective in reducing the overall computational complexity while preserving data privacy during the learning process. Experiments on various one-dimensional and multidimensional data sets demonstrate that the proposed kernel design yields superior training and prediction performance compared to its competitors.}
@@ -83,10 +89,12 @@
   year={2025},
   website={https://proceedings.neurips.cc/paper_files/paper/2025/file/c03a2610bca2712b984b331fd4f7bb6f-Paper-Conference.pdf},
   alphaxiv={https://www.alphaxiv.org/abs/2509.17998},
+  thread={https://x.com/richardcsuwandi/status/1970856650048462946},
   code={https://github.com/richardcsuwandi/cake},
   poster={neurips2025_poster.pdf},
   preview={cake.png},
   selected={true},
+  tldr={A poorly chosen GP kernel slows Bayesian optimization. CAKE uses an LLM to evolve kernels during the search, and BAKER picks which one to query next, improving hyperparameter optimization, controller tuning, and photonic chip design.},
   abstract={The efficiency of Bayesian optimization (BO) relies heavily on the choice of the Gaussian process (GP) kernel, which plays a central role in balancing exploration and exploitation under limited evaluation budgets. Traditional BO methods often rely on fixed or heuristic kernel selection strategies, which can result in slow convergence or suboptimal solutions when the chosen kernel is poorly suited to the underlying objective function. To address this limitation, we propose a freshly-baked Context-Aware Kernel Evolution (CAKE) to enhance BO with large language models (LLMs). Concretely, CAKE leverages LLMs as the crossover and mutation operators to adaptively generate and refine GP kernels based on the observed data throughout the optimization process. To maximize the power of CAKE, we further propose BIC-Acquisition Kernel Ranking (BAKER) to select the most effective kernel through balancing the model fit measured by the Bayesian information criterion (BIC) with the expected improvement at each iteration of BO. Extensive experiments demonstrate that our fresh CAKE-based BO method consistently outperforms established baselines across a range of real-world tasks, including hyperparameter optimization, controller tuning, and photonic chip design. Our code is publicly available at https://github.com/richardcsuwandi/cake.}
 }
 
@@ -101,5 +109,6 @@
   code={https://github.com/richardcsuwandi/slim-kl},
   preview={gsmp.png},
   selected={true},
+  tldr={Hyperparameters of the GSM kernel come out sparse. SLIM-KL uses that sparsity, plus quantized ADMM, so many agents can train a large GP kernel privately and with less communication.},
   abstract={Gaussian processes (GPs) stand as crucial tools in machine learning and signal processing, with their effectiveness hinging on kernel design and hyper-parameter optimization. This paper presents a novel GP linear multiple kernel (LMK) and a generic sparsity-aware distributed learning framework to optimize the hyper-parameters. The newly proposed grid spectral mixture (GSM) kernel is tailored for multi-dimensional data, effectively reducing the number of hyper-parameters while maintaining good approximation capabilities. We further demonstrate that the associated hyper-parameter optimization of this kernel yields sparse solutions. To exploit the inherent sparsity property of the solutions, we introduce the Sparse LInear Multiple Kernel Learning (SLIM-KL) framework. The framework incorporates a quantized alternating direction method of multipliers (ADMM) scheme for collaborative learning among multiple agents, where the local optimization problem is solved using a distributed successive convex approximation (DSCA) algorithm. SLIM-KL effectively manages large-scale hyper-parameter optimization for the proposed kernel, simultaneously ensuring data privacy and minimizing communication costs. Theoretical analysis establishes convergence guarantees for the learning framework, while experiments on diverse datasets demonstrate the superior prediction performance and efficiency of our proposed methods.}
 }
