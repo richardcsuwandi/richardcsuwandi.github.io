@@ -13,13 +13,13 @@
       </div>
       <div class="post-tags-left">
         {% if entry.abstract %}
-          <span class="tag-link" onclick="toggleAbstract('{{ entry.key }}')" style="cursor: pointer;">ABSTRACT</span>
+          <span class="tag-link" onclick="toggleAbstract('{{ entry.key }}')" style="cursor: pointer;">Abstract</span>
         {% endif %}
         {% if entry.slides %}
-          <a href="{{ '/assets/pdf/' | append: entry.slides | relative_url }}" target="_blank" class="tag-link">SLIDES</a>
+          <a href="{{ '/assets/pdf/' | append: entry.slides | relative_url }}" target="_blank" class="tag-link">Slides</a>
         {% endif %}
         {% if entry.poster %}
-          <a href="{{ '/assets/pdf/' | append: entry.poster | relative_url }}" target="_blank" class="tag-link">POSTER</a>
+          <a href="{{ '/assets/pdf/' | append: entry.poster | relative_url }}" target="_blank" class="tag-link">Poster</a>
         {% endif %}
         {% if entry.website %}
           {% assign venue_text = '' %}

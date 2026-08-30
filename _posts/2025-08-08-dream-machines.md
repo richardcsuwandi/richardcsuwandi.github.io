@@ -4,7 +4,7 @@ title: Learning to Simulate and Act in the Physical World
 date: 2025-08-11 10:00:00 +0700
 description: How interactive world models are built, and how agents learn inside them
 thumbnail: /assets/img/post_thumbnails/dream-machines.png
-tags: [WORLD MODELS, OPEN-ENDEDNESS]
+tags: [World Models, Open-Endedness]
 giscus_comments: true
 related_posts: false
 future: true

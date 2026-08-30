@@ -4,7 +4,7 @@ title: "A Unified View of Bayesian Optimization and Active Learning"
 date: 2024-09-16 00:00:00 +0700
 description: Unifying Bayesian optimization and active learning as goal-driven adaptive sampling
 thumbnail: /assets/img/post_thumbnails/learn-with-a-goal.png
-tags: [ACTIVE LEARNING, BAYESIAN OPTIMIZATION]
+tags: [Active Learning, Bayesian Optimization]
 giscus_comments: true
 related_posts: false
 future: true

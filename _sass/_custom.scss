@@ -552,12 +552,12 @@ footer {
 // Dark mode body link colors only
 html[data-theme='dark'] {
   // Content links: blue, no underline
-  .container a:not(.navbar a):not(.nav-link):not(.opensource-card):not(.opensource-pacman),
-  .container-fluid a:not(.navbar a):not(.nav-link):not(.opensource-card):not(.opensource-pacman),
-  main a:not(.navbar a):not(.nav-link):not(.opensource-card):not(.opensource-pacman),
-  .content a:not(.navbar a):not(.nav-link):not(.opensource-card):not(.opensource-pacman),
-  .post-content a:not(.navbar a):not(.nav-link):not(.opensource-card):not(.opensource-pacman),
-  .wide-about-container a:not(.navbar a):not(.nav-link):not(.opensource-card):not(.opensource-pacman),
+  .container a:not(.navbar a):not(.nav-link):not(.tag-link):not(.opensource-card):not(.opensource-pacman),
+  .container-fluid a:not(.navbar a):not(.nav-link):not(.tag-link):not(.opensource-card):not(.opensource-pacman),
+  main a:not(.navbar a):not(.nav-link):not(.tag-link):not(.opensource-card):not(.opensource-pacman),
+  .content a:not(.navbar a):not(.nav-link):not(.tag-link):not(.opensource-card):not(.opensource-pacman),
+  .post-content a:not(.navbar a):not(.nav-link):not(.tag-link):not(.opensource-card):not(.opensource-pacman),
+  .wide-about-container a:not(.navbar a):not(.nav-link):not(.tag-link):not(.opensource-card):not(.opensource-pacman),
   .news a:not(.navbar a):not(.nav-link),
   p a:not(.navbar a):not(.nav-link),
   li a:not(.navbar a):not(.nav-link):not(.opensource-card) {
@@ -608,7 +608,7 @@ html[data-theme='dark'] {
    }
 
    // Dark mode blog post content links
-   .blog-post-card a:not(.view-paper-badge):not(.alphaxiv-link-badge):not(.github-code-badge):not(.x-thread-badge)
+   .blog-post-card a:not(.tag-link):not(.view-paper-badge):not(.alphaxiv-link-badge):not(.github-code-badge):not(.x-thread-badge)
    {
      color: #ffffff !important;
      

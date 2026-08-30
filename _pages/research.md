@@ -40,8 +40,8 @@ nav_order: 0
     margin-bottom: 0.6rem;
 }
 .research-pubs .post-tags-left .tag-link {
-    font-size: 0.62rem;
-    padding: 0.25rem 0.5rem;
+    font-size: 0.76rem;
+    padding: 0.32rem 0.78rem;
 }
 .research-pubs .post-right-section {
     padding-top: 0;
