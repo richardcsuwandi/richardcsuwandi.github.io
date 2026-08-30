@@ -21,8 +21,9 @@ I'm a fully-funded **PhD student** at [School of Artificial Intelligence, CUHK-S
 
 - [Adaptive intelligence](/research/) for sequential decision-making and optimization
 - [PlugBO](https://github.com/richardcsuwandi/plugbo), a modular framework that lets an agent adapt the optimization configuration on the fly
+= [CAKE](https://github.com/richardcsuwandi/cake), an LLM-driven framework to adaptively evolve Gaussian process kernels
 - [OpenEvolve](https://github.com/algorithmicsuperintelligence/openevolve), an evolutionary coding agent for discovering and optimizing algorithms
-- [Kai](https://github.com/firstbatchxyz/kai), an autonomous agent that finds and patches software vulnerabilities
+- [Kai](https://github.com/firstbatchxyz/kai), an autonomous AI engineer for codebase security and optimization
 - [Awesome Bayesian Optimization](https://richardcsuwandi.github.io/awesome-bo/), a curated repo of Bayesian optimization resources
 {: .about-highlights}
 

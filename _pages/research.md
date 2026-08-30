@@ -3,7 +3,8 @@ layout: page
 permalink: /research/
 title: Research
 description: >-
-  My research develops **adaptive intelligence for sequential decision-making and optimization**: systems that model an unknown objective, choose the next query under a limited budget, and update their beliefs as new evidence arrives. Below, I highlight key contributions from my research, organized by topic.
+  My research develops **adaptive intelligence for sequential decision-making and optimization**. Below, I highlight key 
+  contributions from my research, organized by topic.
 nav: true
 nav_order: 0
 ---
@@ -134,9 +135,17 @@ nav_order: 0
 </div>
 <script src="{{ '/assets/js/gp-separator.js' | relative_url }}"></script>
 
+## AI-driven surrogate design and discovery
+
+Most Bayesian optimization (BO) methods fix a surrogate model before the search begins. When that choice is a poor match for the problem, performance suffers. [CAKE](#suwandi2025cake) uses a large language model to design the surrogate instead of selecting from a fixed catalog: the LLM proposes, mutates, and recombines model structures using the task description, the data collected so far, and the optimization history. A selection criterion then balances how well a candidate fits the data against how useful the experiments it would recommend are likely to be. CAKE improves results on hyperparameter tuning, controller tuning, and photonic chip design, and is an early example of a foundation model acting as a designer of interpretable models rather than only as a predictor.
+
+<div class="publications research-pubs">
+{% bibliography --group_by none --query @*[key=suwandi2025cake]* %}
+</div>
+
 ## Scalable surrogate learning and optimization
 
-Gaussian processes (GPs) are a natural choice for surrogate modeling of an unknown environment, since they provide predictions along with calibrated uncertainty estimates from small amounts of data, a property that is essential when every experiment is costly. Their practicality, however, is limited by the kernel, the function that encodes assumptions about how the environment behaves: as models are made more expressive, choosing and tuning the kernel becomes slow, high-dimensional, and numerically unstable. I address this limitation from two directions. First, I design [grid spectral mixture (GSM) kernels](#suwandi2022gaussian) that scale to multidimensional data. Building on a sparse structure I identify in how they are trained, I then develop [SLIM-KL](#suwandi2023gaussian), a distributed learning method that lets multiple parties jointly train expressive GPs without sharing their raw data. Second, I develop [ZAP](#suwandi2026breaking), an optimizer that estimates a model's full gradient from only two evaluations of the training loss regardless of the number of hyperparameters, making tuning tractable even for large models where computing gradients directly is impractical. The same curse of dimensionality limits Bayesian optimization (BO) itself: as the search space grows, GP surrogates and their acquisition functions become harder to fit and optimize reliably. [GRAPE](#suwandi-grape) addresses this by using gradient information to refine the surrogate locally and adapt the exploration-exploitation balance as the search progresses, improving query efficiency in high-dimensional black-box optimization.
+Gaussian processes (GPs) are a natural surrogate for unknown functions: they provide both predictions and calibrated uncertainty from small amounts of data, which is essential when every experiment is costly. The bottleneck is the kernel, the function that encodes assumptions about how the target behaves. As kernels become more expressive, choosing and tuning them becomes slow, high-dimensional, and numerically unstable. I address this in two ways. First, I design [grid spectral mixture (GSM) kernels](#suwandi2022gaussian) that scale to multidimensional data. Building on a sparse structure I identified in their training, I then develop [SLIM-KL](#suwandi2023gaussian), a distributed method that lets multiple parties jointly train expressive GPs without sharing raw data. Second, I develop [ZAP](#suwandi2026breaking), an optimizer that estimates a model's full gradient from only two evaluations of the training loss, independent of the number of hyperparameters. This makes tuning tractable even when computing gradients directly is impractical. Dimensionality is also a problem for BO itself: as the search space grows, GP surrogates and their acquisition functions become harder to fit and optimize. [GRAPE](#suwandi-grape) uses gradient information to refine the surrogate locally and to adjust the exploration-exploitation trade-off as the search proceeds, which improves query efficiency in high-dimensional black-box optimization.
 
 <div class="publications research-pubs">
 {% bibliography --group_by none --query @*[key=suwandi2022gaussian]* %}
@@ -145,21 +154,13 @@ Gaussian processes (GPs) are a natural choice for surrogate modeling of an unkno
 {% bibliography --group_by none --query @*[key=suwandi-grape]* %}
 </div>
 
-## AI-driven surrogate design and discovery
-
-Most BO methods fix a kernel before the search begins, which limits performance whenever that choice is poorly matched to the problem at hand. I introduce [CAKE](#suwandi2025cake), which places a large language model in charge of this choice: rather than selecting from a fixed menu, the LLM proposes, mutates, and recombines kernel structures based on the task description, the data collected so far, and the optimization history, guided by a criterion that balances how well a kernel fits the data against how useful the experiments it recommends are likely to be. CAKE improves performance across hyperparameter tuning, controller tuning, and photonic chip design, and provides an early example of foundation models acting as designers of interpretable models rather than only as predictors.
-
-<div class="publications research-pubs">
-{% bibliography --group_by none --query @*[key=suwandi2025cake]* %}
-</div>
-
 ## Structured and communication-efficient learning
 
-More broadly, I am interested in how learning systems should be shaped by the practical constraints under which they operate, such as limited communication or a need for specific model structure. [FedMAvg](#wang2021demystifying) is a federated learning method for matrix factorization, a workhorse technique behind recommender systems, that combines alternating minimization with model averaging to reduce the number of communication rounds required across a network of participants with heterogeneous data. [MIMOMamba](#li2026mimomamba) extends Mamba, a recent class of efficient sequence models, from handling a single input and output stream to handling many simultaneously, matching or exceeding Transformer performance while using substantially fewer parameters.
+I am also interested in how practical constraints, such as limited communication or a required model structure, should shape learning systems. [FedMAvg](#wang2021demystifying) is a federated method for matrix factorization, a standard building block of recommender systems. It combines alternating minimization with model averaging to reduce the number of communication rounds across participants with heterogeneous data. [MIMOMamba](#li2026mimomamba) extends Mamba, a class of efficient state-space models, from a single input-output stream to many streams at once, matching or exceeding Transformer performance with substantially fewer parameters.
 
 <div class="publications research-pubs">
 {% bibliography --group_by none --query @*[key=wang2021demystifying]* %}
 {% bibliography --group_by none --query @*[key=li2026mimomamba]* %}
 </div>
 
-Together, this work moves from optimizing within a fixed, human-designed model space toward systems that can adapt their representations, experiments, and hypotheses as they interact with the world.
+Together, this line of work moves from optimizing inside a fixed, human-designed model class toward systems that can adapt their representations, experiments, and hypotheses as they collect data.
