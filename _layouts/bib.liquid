@@ -204,6 +204,10 @@
         {% endif %}
         <h5 class="abstract-heading">Abstract</h5>
         <p>{{ entry.abstract }}</p>
+        {% if entry.open_question %}
+          <h5 class="abstract-heading">Open Question</h5>
+          <p class="publication-open-question">{{ entry.open_question }}</p>
+        {% endif %}
       </div>
     </div>
   {% endif %}

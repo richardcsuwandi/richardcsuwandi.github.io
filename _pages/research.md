@@ -62,8 +62,11 @@ nav_order: 0
     margin-bottom: 0.75rem;
 }
 
-.post article .research-pubs + h2,
-.post article .research-open-question + h2 {
+.research-pubs .publication-abstract {
+    margin-top: 1.5rem;
+}
+
+.post article .research-pubs + h2 {
     margin-top: 4.5rem !important;
 }
 
@@ -127,15 +130,6 @@ nav_order: 0
         var(--global-bg-color) 100%
     );
 }
-/* 
-.research-open-question {
-    margin-top: 0.35rem;
-    margin-bottom: 1.5rem;
-}
-
-.research-open-question p {
-    margin-bottom: 0;
-} */
 </style>
 <script defer src="{{ '/assets/js/research-readmore.js' | relative_url }}"></script>
 
@@ -153,10 +147,6 @@ Most Bayesian optimization (BO) methods fix a surrogate model before the search 
 {% bibliography --group_by none --query @*[key=suwandi2025cake]* %}
 </div>
 
-<!-- <div class="research-open-question">
-<p><strong>Open Question:</strong> Why does evolving the kernel during the search actually help Bayesian optimization? We give some guesses in the paper, and ranking candidates by BIC plus expected improvement is a useful proxy, but it is not obviously the right target. Classical regret analysis assumes a fixed function class, and here the kernel is rewritten every round. After all, a kernel that scores better on fit can still propose a worse query, so the gap is a guarantee that still holds when the surrogate is allowed to change.</p>
-</div> -->
-
 ## Scalable surrogate learning and optimization
 
 Gaussian processes (GPs) are a natural surrogate for unknown functions: they provide both predictions and calibrated uncertainty from small amounts of data, which is essential when every experiment is costly. The bottleneck is the kernel, the function that encodes assumptions about how the target behaves. As kernels become more expressive, choosing and tuning them becomes slow, high-dimensional, and numerically unstable. I address this in two ways. First, I design [grid spectral mixture (GSM) kernels](#suwandi2022gaussian) that scale to multidimensional data. Building on a sparse structure I identified in their training, I then develop [SLIM-KL](#suwandi2023gaussian), a distributed method that lets multiple parties jointly train expressive GPs without sharing raw data. Second, I develop [ZAP](#suwandi2026breaking), an optimizer that estimates a model's full gradient from only two evaluations of the training loss, independent of the number of hyperparameters. This makes tuning tractable even when computing gradients directly is impractical. Dimensionality is also a problem for BO itself: as the search space grows, GP surrogates and their acquisition functions become harder to fit and optimize. [GRAPE](#suwandi-grape) uses gradient information to refine the surrogate locally and to adjust the exploration-exploitation trade-off as the search proceeds, which improves query efficiency in high-dimensional black-box optimization.
@@ -168,10 +158,6 @@ Gaussian processes (GPs) are a natural surrogate for unknown functions: they pro
 {% bibliography --group_by none --query @*[key=suwandi-grape]* %}
 </div>
 
-<!-- <div class="research-open-question">
-<p><strong>Open Question:</strong> Why do these scalable fitting tricks still help the optimizer, not just the fit? We show sparsity in GSM, a two-evaluation gradient in ZAP, and local uncertainty reduction in GRAPE, but none of these is obviously the right target for sequential design. After all, a cheaper gradient or a sparser spectrum does not automatically produce a better query. The gap is a theory that connects how we train the surrogate to how fast the search actually converges.</p>
-</div> -->
-
 ## Structured and communication-efficient learning
 
 I am also interested in how practical constraints, such as limited communication or a required model structure, should shape learning systems. [FedMAvg](#wang2021demystifying) is a federated method for matrix factorization, a standard building block of recommender systems. It combines alternating minimization with model averaging to reduce the number of communication rounds across participants with heterogeneous data. [MIMOMamba](#li2026mimomamba) extends Mamba, a class of efficient state-space models, from a single input-output stream to many streams at once, matching or exceeding Transformer performance with substantially fewer parameters.
@@ -180,9 +166,5 @@ I am also interested in how practical constraints, such as limited communication
 {% bibliography --group_by none --query @*[key=wang2021demystifying]* %}
 {% bibliography --group_by none --query @*[key=li2026mimomamba]* %}
 </div>
-<!-- 
-<div class="research-open-question">
-<p><strong>Open Question:</strong> Why does a matrix polynomial restore the duality that scalar Mamba gets for free? We show that it enforces commutativity, but commutativity is not obviously the whole inductive bias. After all, adding more MIMO heads does not automatically buy richer cross-channel mixing, so the gap is which mixing patterns the duality can express and which still need attention.</p>
-</div> -->
 
 Together, this line of work moves from optimizing inside a fixed, human-designed model class toward systems that can adapt their representations, hypotheses, and actions as they collect data. If any of this is your interest too, [email me](mailto:{{ site.email | encode_email }})!

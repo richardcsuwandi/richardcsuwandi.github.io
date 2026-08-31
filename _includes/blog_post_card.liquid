@@ -1,15 +1,17 @@
 <div class="blog-post-card-horizontal blog-post-card mb-4" data-tags="{{ post_tags_for_data_attr }}" data-search="{{ post_search_text | strip | escape }}">
-  <div class="post-date">{{ post.date | date: '%b %d, %Y' }}</div>
-  <div class="blog-card-body{% if post.thumbnail %} blog-card-body-thumb{% endif %}">
-    {% if post.tags.size > 0 %}
-    <div class="post-tags-left">
-      {% for tag in post.tags %}
-      <a href="{{ '/blog/' | relative_url }}?tag={{ tag | slugify }}" class="tag-link" data-tag="{{ tag | slugify }}">
-        {{ tag }}
-      </a>
-      {% endfor %}
+  <div class="blog-card-body">
+    <div class="post-left-section">
+      <div class="post-date">{{ post.date | date: '%b %d, %Y' }}</div>
+      {% if post.tags.size > 0 %}
+      <div class="post-tags-left">
+        {% for tag in post.tags %}
+        <a href="{{ '/blog/' | relative_url }}?tag={{ tag | slugify }}" class="tag-link" data-tag="{{ tag | slugify }}">
+          {{ tag }}
+        </a>
+        {% endfor %}
+      </div>
+      {% endif %}
     </div>
-    {% endif %}
     <div class="post-middle-section">
       <h2 class="post-title-horizontal">
         {% if post.redirect == blank %}

@@ -345,6 +345,7 @@ filtered_bibtex_keywords:
     slides,
     supp,
     tldr,
+    open_question,
     video,
     website,
   ]
