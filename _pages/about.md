@@ -6,7 +6,7 @@ subtitle: AI PhD Student at CUHK-Shenzhen, Co-founder of AIDDA Institute
 
 profile:
   align: right
-  image: bio.jpeg
+  image: profile_headshot.jpg
   image_circular: false # crops the image to make it circular
   more_info:
 
