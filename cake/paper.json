@@ -21,8 +21,10 @@
   ],
   "author_notes": ["* Corresponding author"],
   "links": [
-    {"label": "Paper", "url": "https://arxiv.org/abs/2509.17998", "kind": "paper"},
-    {"label": "Code", "url": "https://github.com/richardcsuwandi/cake", "kind": "code"}
+    {"label": "Paper", "url": "https://openreview.net/forum?id=BOEZYnC8nR", "kind": "paper"},
+    {"label": "alphaXiv", "url": "https://www.alphaxiv.org/abs/2509.17998", "kind": "alphaxiv"},
+    {"label": "Code", "url": "https://github.com/richardcsuwandi/cake", "kind": "code"},
+    {"label": "Thread", "url": "https://x.com/richardcsuwandi/status/1970856650048462946", "kind": "thread"}
   ],
   "keywords": [
     "Bayesian optimization",
@@ -39,6 +41,8 @@
     "caption": "Starting from an initial kernel population, CAKE uses the LLM for crossover and mutation, evaluates the proposed kernels by fitness, and advances the fittest candidates to the next generation before selecting the next BO query with BAKER."
   },
   "abstract": "The efficiency of Bayesian optimization (BO) relies heavily on the choice of the Gaussian process (GP) kernel, which plays a central role in balancing exploration and exploitation under limited evaluation budgets. Traditional BO methods often rely on fixed or heuristic kernel selection strategies, which can result in slow convergence or suboptimal solutions when the chosen kernel is poorly suited to the underlying objective function. To address this limitation, we propose a freshly-baked Context-Aware Kernel Evolution (CAKE) to enhance BO with large language models (LLMs). Concretely, CAKE leverages LLMs as the crossover and mutation operators to adaptively generate and refine GP kernels based on the observed data throughout the optimization process. To maximize the power of CAKE, we further propose BIC-Acquisition Kernel Ranking (BAKER) to select the most effective kernel through balancing the model fit measured by the Bayesian information criterion (BIC) with the expected improvement at each iteration of BO. Extensive experiments demonstrate that our fresh CAKE-based BO method consistently outperforms established baselines across a range of real-world tasks, including hyperparameter optimization, controller tuning, and photonic chip design.",
+  "tldr": "A poorly chosen GP kernel slows Bayesian optimization. CAKE uses an LLM to evolve kernels during the search, and BAKER picks which one to query next, improving hyperparameter optimization, controller tuning, and photonic chip design.",
+  "open_question": "Why does rewriting the kernel during the search actually help? BAKER ranks by BIC plus expected improvement, but a kernel that fits better can still propose a worse query. Classical regret assumes a fixed function class. Here the surrogate changes every round.",
   "sections": [
     {
       "id": "method",
@@ -147,7 +151,7 @@
       ]
     }
   ],
-  "bibtex": "@article{suwandi2025cake,\n  title={Adaptive Kernel Design for Bayesian Optimization Is a Piece of CAKE with LLMs},\n  author={Richard Cornelius Suwandi and Feng Yin and Juntao Wang and Renjie Li and Tsung-Hui Chang and Sergios Theodoridis},\n  journal={arXiv preprint arXiv:2509.17998},\n  year={2025}\n}",
+  "bibtex": "@article{suwandi2025cake,\n  title={Adaptive Kernel Design for Bayesian Optimization Is a Piece of CAKE with LLMs},\n  author={Richard Cornelius Suwandi and Feng Yin and Juntao Wang and Renjie Li and Tsung-Hui Chang and Sergios Theodoridis},\n  journal={39th Conference on Neural Information Processing Systems (NeurIPS)},\n  year={2025}\n}",
   "credit": {
     "year": "2026",
     "name": "Richard Cornelius Suwandi",
