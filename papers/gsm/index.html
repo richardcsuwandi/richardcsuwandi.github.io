@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gaussian Process Regression with Grid Spectral Mixture Kernel: Distributed Learning for Multidimensional Data</title>
+  <meta name="description" content="A grid spectral mixture kernel for multidimensional Gaussian processes, fitted with a doubly distributed ADMM algorithm so that multiple agents can learn it without sharing raw data.">
+  <meta name="theme-color" content="#0063c9">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Gaussian Process Regression with Grid Spectral Mixture Kernel: Distributed Learning for Multidimensional Data">
+  <meta property="og:description" content="A grid spectral mixture kernel for multidimensional Gaussian processes, fitted with a doubly distributed ADMM algorithm so that multiple agents can learn it without sharing raw data.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="keywords" content="Gaussian processes, grid spectral mixture kernel, hyper-parameter optimization, ADMM, distributed learning">
+  <link rel="canonical" href="https://richardcsuwandi.github.io/papers/gsm/"><meta property="og:url" content="https://richardcsuwandi.github.io/papers/gsm/">
+  
+  <link rel="icon" type="image/png" href="/assets/img/website-logo-black.PNG">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="assets/site.css">
+  <style>:root { --accent: #0063c9; }</style>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ScholarlyArticle", "headline": "Gaussian Process Regression with Grid Spectral Mixture Kernel: Distributed Learning for Multidimensional Data", "description": "A grid spectral mixture kernel for multidimensional Gaussian processes, fitted with a doubly distributed ADMM algorithm so that multiple agents can learn it without sharing raw data.", "author": [{"@type": "Person", "name": "Richard C. Suwandi"}, {"@type": "Person", "name": "Zhidi Lin"}, {"@type": "Person", "name": "Yiyong Sun"}, {"@type": "Person", "name": "Zhiguo Wang"}, {"@type": "Person", "name": "Lei Cheng"}, {"@type": "Person", "name": "Feng Yin"}], "url": "https://richardcsuwandi.github.io/papers/gsm/", "keywords": ["Gaussian processes", "grid spectral mixture kernel", "hyper-parameter optimization", "ADMM", "distributed learning"]}</script>
+  <script defer src="assets/site.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch color theme"><span aria-hidden="true" data-theme-icon>☾</span></button>
+  <main id="main">
+  <article>
+    <header class="d-title">
+      <p class="d-kicker">FUSION 2022</p>
+      <h1 class="d-headline">Gaussian Process Regression with Grid Spectral Mixture Kernel: Distributed Learning for Multidimensional Data</h1>
+      <div class="badge-row title-badges">
+        <a class="view-paper-badge view-paper-badge-neutral" href="https://ieeexplore.ieee.org/document/9841347" target="_blank" rel="noopener" aria-label="Paper"><img class="venue-mark" src="/assets/img/venues/ieee.png" alt="" width="18" height="18"><span>Paper</span></a>
+        <a class="github-code-badge" href="https://github.com/richardcsuwandi/distributed-gsm" target="_blank" rel="noopener" aria-label="Code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.37-12 12 0 5.303 3.438 9.8 8.205 10.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg><span>Code</span></a>
+        <a class="alphaxiv-link-badge" href="https://www.alphaxiv.org/abs/2607.gp-regression-gsm" target="_blank" rel="noopener" aria-label="alphaXiv"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 718.41 504.47" aria-hidden="true" focusable="false"><polygon fill="currentColor" points="591.15 258.54 718.41 385.73 663.72 440.28 536.57 313.62 591.15 258.54"></polygon><path fill="currentColor" d="M273.86.3c34.56-2.41,67.66 9.73,92.51 33.54l94.64 94.63-55.11 54.55-96.76-96.55c-16.02-12.7-37.67-12.1-53.19 1.11L54.62 288.82 0 234.23 204.76 29.57C223.12 13.31 249.27 2.02 273.86.3Z"></path><path fill="currentColor" d="M663.79 1.29l54.62 54.58-418.11 417.9c-114.43 95.94-263.57-53.49-167.05-167.52l160.46-160.33 54.62 54.58-157.88 157.77c-33.17 40.32 18.93 91.41 58.66 57.48L663.79 1.29Z"></path></svg><span>alphaXiv</span></a>
+      </div>
+    </header>
+
+    <div class="d-byline">
+      <div class="byline-box">
+        <div class="byline-table">
+          <h3>Authors</h3>
+          <h3>Affiliations</h3>
+          <p class="byline-name"><span class="self-author">Richard C. Suwandi</span></p>
+            <p class="byline-aff">School of Data Science, The Chinese University of Hong Kong, Shenzhen, China</p>
+            <p class="byline-name">Zhidi Lin</p>
+            <p class="byline-aff">School of Science and Engineering, The Chinese University of Hong Kong, Shenzhen, China<br>Shenzhen Research Institute of Big Data, Shenzhen, China</p>
+            <p class="byline-name">Yiyong Sun</p>
+            <p class="byline-aff">School of Science and Engineering, The Chinese University of Hong Kong, Shenzhen, China</p>
+            <p class="byline-name">Zhiguo Wang</p>
+            <p class="byline-aff">College of Mathematics, Sichuan University, Chengdu, China</p>
+            <p class="byline-name">Lei Cheng</p>
+            <p class="byline-aff">College of Information Science and Electronic Engineering, Zhejiang University, Hangzhou, China<br>Zhejiang Provincial Key Laboratory of Info. Proc., Commun. &amp; Netw. (IPCAN), Hangzhou, China</p>
+            <p class="byline-name">Feng Yin</p>
+            <p class="byline-aff">School of Science and Engineering, The Chinese University of Hong Kong, Shenzhen, China</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-article">
+      <nav class="paper-toc" aria-label="Table of contents">
+        <h3>Contents</h3>
+        <div><a href="#abstract">Abstract</a></div>
+        <div><a href="#gsm-kernel">Grid Spectral Mixture Kernel</a></div>
+        <div><a href="#distributed-learning">Distributed Learning via ADMM</a></div>
+        <ul><li><a href="#distributed-sca">Distributed SCA</a></li><li><a href="#d2sca">Doubly Distributed SCA</a></li></ul>
+        <div><a href="#experiments">Experiments</a></div>
+        <ul><li><a href="#one-dimensional-data">One-Dimensional Data</a></li><li><a href="#multidimensional-data">Multidimensional Data</a></li></ul>
+        <div><a href="#open-question">Open Question</a></div>
+        <div><a href="#citation">Citation</a></div>
+        <div><a href="#references">References</a></div>
+      </nav>
+
+      <div class="tldr-block">
+          <p class="tldr-text"><strong>TL;DR.</strong> We introduce a grid spectral mixture kernel for multidimensional Gaussian processes and train it with distributed ADMM, so agents fit the kernel without sharing raw data.</p>
+        </div>
+      <section id="abstract">
+        <h2>Abstract</h2>
+        <div class="abstract-copy"><p>Kernel design for Gaussian processes (GPs) along with the associated hyper-parameter optimization is a challenging problem. In this paper, we propose a novel grid spectral mixture (GSM) kernel design for GPs that can automatically fit multidimensional data with affordable model complexity and superior modeling capability. To alleviate the computational complexity due to the curse of dimensionality, we leverage a multicore computing environment to optimize the kernel hyper-parameters in a distributed manner. We further propose a doubly distributed learning algorithm based on the alternating direction method of multipliers (ADMM) which enables multiple agents to learn the kernel hyper-parameters collaboratively. The doubly distributed learning algorithm is shown to be effective in reducing the overall computational complexity while preserving data privacy during the learning process. Experiments on various one-dimensional and multidimensional data sets demonstrate that the proposed kernel design yields superior training and prediction performance compared to its competitors.</p></div>
+      </section>
+
+      <section id="gsm-kernel">
+          <h2>Grid Spectral Mixture Kernel</h2>
+          
+          <div class="content-block prose"><p>Any stationary kernel k(τ) and its spectral density S(ω) are Fourier duals of each other <sup class="cite"><a href="#ref-rasmussen2006gp">1</a></sup>. The spectral mixture (SM) kernel <sup class="cite"><a href="#ref-wilson2013kernels">2</a></sup> exploits this duality by approximating S(ω) with a Gaussian mixture whose means, variances, and weights are all optimized from data, at the cost of a non-convex fit. The grid spectral mixture (GSM) kernel <sup class="cite"><a href="#ref-yin2018sparse">3</a></sup><sup class="cite"><a href="#ref-yin2020linear">4</a></sup> instead fixes the mixture's means and variances to a preselected grid of points and optimizes only the mixture weights θ. Because the resulting kernel is linear in θ, fitting it becomes a difference-of-convex program that admits a global upper-bound surrogate, unlike the SM kernel's fully non-convex objective.</p></div>
+          <div class="content-block prose"><p>The original GSM kernel only handles one-dimensional inputs. This paper extends the construction to multidimensional inputs x ∈ R<sup>d<sub>x</sub></sup> by approximating the spectral density with Q isotropic multivariate Gaussians placed on a d<sub>x</sub>-dimensional grid, with frequencies sampled independently per dimension up to a Nyquist-derived cutoff. Taking the inverse Fourier transform of this spectral density gives a multidimensional GSM kernel that is still linear in its Q weights, so the convex surrogate used to fit the 1-D kernel carries over unchanged.</p></div>
+          <div class="content-block figure-wide"><figure class="media-figure"><div class="media-frame"><img src="assets/figures/gsm-kernel-spectral-density.webp" alt="Basis kernel spectral density illustration comparing the 1-D case, a sum of fixed Gaussian densities along a line, with the 2-D case, isotropic Gaussians placed on a two-dimensional grid of frequencies." loading="lazy" decoding="async"></div></figure></div>
+<p class="l-gutter caption"><strong>Figure 1.</strong> Basis kernel spectral density space under different input dimensions. In the 1-D case the spectral density is approximated by a sum of fixed Gaussian densities along a line; in the 2-D case the same idea places isotropic Gaussian densities on a two-dimensional grid of frequencies.</p>
+          <div class="content-block prose"><p>The grid construction is also the paper's main practical problem: sampling Q&prime; frequencies per dimension yields Q = Q&prime;<sup>d<sub>x</sub></sup> grid points, so the number of weights grows exponentially with dimension. Other automatic kernel-design approaches sidestep hand-combined kernels differently, via compositional kernel search over a discrete grammar<sup class="cite"><a href="#ref-duvenaud2013structure">5</a></sup>, functional kernel learning<sup class="cite"><a href="#ref-benton2019function">6</a></sup>, or hyperkernel optimization<sup class="cite"><a href="#ref-anjanapura2021kernel">7</a></sup>, but fixing the grid is what keeps GSM's fitting convex and a distributed solution possible.</p></div>
+          
+        </section>
+
+        <section id="distributed-learning">
+          <h2>Distributed Learning via ADMM</h2>
+          
+          
+          <h3 id="distributed-sca">Distributed SCA</h3>
+          <div class="content-block prose"><p>Learning &theta; reduces to minimizing the negative marginal log-likelihood, a difference-of-convex objective. Successive convex approximation (SCA)<sup class="cite"><a href="#ref-scutari2018parallel">8</a></sup> solves this by linearizing the concave part and solving a sequence of convex surrogates, but a single surrogate over all Q weights still costs O(Qn<sup>3</sup>) per iteration. Distributed SCA (DSCA) partitions &theta; into s blocks with an additively separable surrogate, so each block updates in parallel on its own core at O((Q/s)n<sup>3</sup>) per iteration, followed by a global consensus step, converging under the same guarantee as vanilla SCA.</p></div>
+          <h3 id="d2sca">Doubly Distributed SCA</h3>
+          <div class="content-block prose"><p>DSCA alone still needs every training point on one machine. To also keep data local, the problem is posed as an ADMM consensus problem over N agents, each holding a private dataset D<sub>j</sub> and a local copy &zeta;<sub>j</sub> of the weights, tied to a shared global &theta; by the constraint &zeta;<sub>j</sub> = &theta;<sup class="cite"><a href="#ref-boyd2011distributed">9</a></sup>. The doubly distributed SCA (D&sup2;SCA) algorithm combines this with DSCA: each agent solves its own now-convex local ADMM subproblem across its own cores, and the agents' local weights and scaled dual variables are averaged into the next global consensus &theta;. Only hyperparameters and dual variables cross agent boundaries, never the raw data D<sub>j</sub>, and complexity drops to O(Qn<sup>3</sup>/(sN<sup>3</sup>)).</p></div>
+          <div class="content-block prose"><ol><li><strong>Global consensus:</strong> average the local weights ζ<sub>j</sub> and scaled dual variables λ<sub>j</sub> across all N agents to obtain the global weights θ.</li><li><strong>Local update:</strong> in parallel, each agent refits its local weights ζ<sub>j</sub> by running DSCA across its own s cores to solve its local ADMM subproblem against the current global θ.</li><li><strong>Dual update:</strong> each agent updates its dual variable λ<sub>j</sub> from the gap between its local weights and the global consensus.</li><li>Repeat the three steps until the primal and dual residuals fall below the stopping criteria.</li></ol></div>
+          <div class="content-block figure-wide"><figure class="media-figure"><div class="media-frame"><img src="assets/figures/d2sca-diagram.webp" alt="Diagram of doubly distributed SCA: an ADMM consensus layer exchanges local and global hyperparameters with N agents, and within each agent DSCA further splits the local fit across an s-core computing environment." loading="lazy" decoding="async"></div></figure></div>
+<p class="l-gutter caption"><strong>Figure 2.</strong> Doubly distributed SCA (D²SCA). An ADMM consensus layer exchanges local and global hyperparameters with N agents; within each agent, DSCA further splits the local fit across an s-core computing environment.</p>
+        </section>
+
+        <section id="experiments">
+          <h2>Experiments</h2>
+          
+          <div class="content-block prose"><p>All experiments fit the GSM kernel-based GP (GSMGP) with Q = 500 grid frequencies sampled uniformly from the normalized frequency band [0, 1/2), a fixed variance v<sub>q</sub> = 0.001&sup2; per component, and weights initialized to zero and optimized by DSCA or D&sup2;SCA (N = 2 agents, s = 4 cores each on the 1-D datasets). Baselines are the spectral mixture kernel GP (SMGP)<sup class="cite"><a href="#ref-wilson2013kernels">2</a></sup>, a squared-exponential kernel GP (SEGP)<sup class="cite"><a href="#ref-rasmussen2006gp">1</a></sup>, an LSTM<sup class="cite"><a href="#ref-hochreiter1997long">10</a></sup>, and an ARIMA(5, 1, 2) model<sup class="cite"><a href="#ref-benvenuto2020application">11</a></sup>, with SMGP and SEGP using the SM kernel authors' reference implementation and default optimizer<sup class="footnote-ref"><a href="#note-baseline-code" id="note-baseline-code-ref">a</a></sup>.</p></div>
+          <h3 id="one-dimensional-data">One-Dimensional Data</h3>
+          <div class="content-block prose"><p>On eight one-dimensional series (ECG, CO2, Electricity, Employment, Hotel, Passenger, Clay, and Unemployment), GSMGP-DSCA achieves the lowest prediction MSE on seven of the eight datasets, and GSMGP-D²SCA wins on the eighth, Electricity, where the ADMM consensus step evidently helps a local agent escape a bad local optimum. Every GSMGP variant beats SMGP, SEGP, LSTM, and ARIMA on every dataset, several by more than an order of magnitude.</p></div>
+          <div class="content-block prose"><div class="table-scroll"><table><thead><tr><th>Data Set</th><th>GSMGP-DSCA</th><th>GSMGP-D²SCA</th><th>SMGP</th><th>SEGP</th><th>LSTM</th><th>ARIMA</th></tr></thead><tbody><tr><td>ECG</td><td><strong>1.1E-02</strong></td><td>1.2E-02</td><td>1.9E-02</td><td>1.6E-01</td><td>1.6E-01</td><td>1.8E-01</td></tr><tr><td>CO2</td><td><strong>9.2E-01</strong></td><td>1.4E+00</td><td>1.1E+00</td><td>1.5E+03</td><td>2.9E+02</td><td>4.9E+00</td></tr><tr><td>Electricity</td><td>4.3E+03</td><td><strong>3.6E+03</strong></td><td>7.5E+03</td><td>8.3E+03</td><td>8.0E+03</td><td>1.2E+04</td></tr><tr><td>Employment</td><td><strong>5.4E+01</strong></td><td>7.0E+01</td><td>7.0E+02</td><td>8.4E+03</td><td>1.9E+03</td><td>3.9E+02</td></tr><tr><td>Hotel</td><td><strong>4.2E+02</strong></td><td>1.5E+03</td><td>2.8E+03</td><td>5.6E+04</td><td>5.0E+04</td><td>1.7E+04</td></tr><tr><td>Passenger</td><td><strong>6.9E+01</strong></td><td>1.1E+02</td><td>1.6E+02</td><td>8.8E+02</td><td>7.0E+02</td><td>4.5E+03</td></tr><tr><td>Clay</td><td><strong>8.5E+01</strong></td><td>2.4E+02</td><td>3.3E+02</td><td>1.5E+03</td><td>3.6E+02</td><td>3.3E+02</td></tr><tr><td>Unemployment</td><td><strong>2.0E+03</strong></td><td>3.1E+03</td><td>1.4E+04</td><td>5.6E+05</td><td>1.7E+05</td><td>1.5E+04</td></tr></tbody></table></div></div>
+<p class="l-gutter caption">Table 1. Prediction MSE on the eight one-dimensional datasets. Bold marks the best result per row.</p>
+          <div class="content-block figure-wide"><figure class="media-figure"><div class="media-frame"><img src="assets/figures/gsmgp-1d-results.webp" alt="Eight training and prediction plots, one per one-dimensional dataset, each showing training data, a shaded predictive uncertainty region, test data, and the GSMGP-DSCA prediction tracking the test data closely." loading="lazy" decoding="async"></div></figure></div>
+<p class="l-gutter caption"><strong>Figure 3.</strong> Training and prediction performance of GSMGP with σ = 0.001 and Q = 500 uniformly generated grid points, with weights optimized by DSCA, on the eight one-dimensional datasets.</p>
+          <div class="content-block prose"><p>The fitted weights are also sparse: DSCA leaves only 2, 3, 6, 16, 14, 30, 96, and 4 nonzero weights out of Q = 500 for the eight datasets respectively, so only the frequencies the data actually supports survive optimization, which makes the fitted kernel easier to interpret.</p></div>
+          <div class="content-block figure-wide"><figure class="media-figure"><div class="media-frame"><img src="assets/figures/gsmgp-sparse-weights.webp" alt="Stem plots of estimated weight against frequency for the ECG, passenger, and unemployment datasets, each showing only a handful of frequencies with nonzero weight." loading="lazy" decoding="async"></div></figure></div>
+<p class="l-gutter caption"><strong>Figure 4.</strong> Estimated weights and their frequencies produced by DSCA for three representative datasets. Most of the 500 candidate grid frequencies receive zero weight.</p>
+          <h3 id="multidimensional-data">Multidimensional Data</h3>
+          <div class="content-block prose"><p>Four multidimensional regression tasks test the extended kernel: ALE (average localization error in wireless sensor node localization, d<sub>x</sub> = 4), CCCP (hourly electrical output of a combined-cycle power plant, d<sub>x</sub> = 4), Airfoil (self-noise at various wind-tunnel speeds and angles of attack, d<sub>x</sub> = 5), and Concrete (compressive strength from a mixture design, d<sub>x</sub> = 5). GSMGP uses Q = 1296 grid points for the two four-dimensional datasets and Q = 1024 for the two five-dimensional datasets, generated by the same per-dimension frequency sampling, and D²SCA splits training across N = 3 agents with s = 4 cores each.</p></div>
+          <div class="content-block prose"><p>Against SMGP, SEGP, and an LSTM, GSMGP-DSCA and GSMGP-D²SCA achieve the lowest prediction MSE on all four datasets, with D²SCA improving on DSCA for three of the four: ALE, CCCP, and Concrete. On CCCP in particular, SMGP's prediction MSE is roughly four orders of magnitude worse than GSMGP's, since the naive Gaussian-mixture spectral fit struggles once Q is large enough to encode a four-dimensional grid.</p></div>
+          <div class="content-block prose"><div class="table-scroll"><table><thead><tr><th>Data Set</th><th>GSMGP-DSCA</th><th>GSMGP-D²SCA</th><th>SMGP</th><th>SEGP</th><th>LSTM</th></tr></thead><tbody><tr><td>ALE</td><td>2.4E-02</td><td><strong>2.3E-02</strong></td><td>3.8E-01</td><td>3.7E-02</td><td>3.4E-02</td></tr><tr><td>CCCP</td><td>1.9E+01</td><td><strong>1.6E+01</strong></td><td>2.1E+05</td><td>1.7E+01</td><td>2.8E+02</td></tr><tr><td>Airfoil</td><td><strong>1.7E+01</strong></td><td>5.2E+01</td><td>6.9E+01</td><td>7.7E+01</td><td>7.3E+01</td></tr><tr><td>Concrete</td><td>6.7E+01</td><td><strong>4.0E+01</strong></td><td>1.7E+03</td><td>1.3E+02</td><td>1.4E+02</td></tr></tbody></table></div></div>
+<p class="l-gutter caption">Table 2. Prediction MSE on the four multidimensional datasets. Bold marks the best result per row.</p>
+          <div class="content-block prose"><p>The fitted weights stay sparse in the multidimensional case too, with 24, 12, 1, and 50 nonzero components respectively for ALE, CCCP, Airfoil, and Concrete out of the full grid. GSMGP also converges in far fewer iterations than its competitors, 3 to 7 iterations for GSMGP-DSCA and GSMGP-D²SCA against 63 to 500 for SMGP and SEGP<sup class="footnote-ref"><a href="#note-iteration-note" id="note-iteration-note-ref">b</a></sup>, because optimizing a convex surrogate at every step avoids the many restarts a non-convex gradient search needs.</p></div>
+        </section>
+
+        <section id="open-question">
+          <h2>Open Question</h2>
+          
+          <div class="content-block prose"><p>The grid spectral mixture kernel fits multidimensional data with fewer hyperparameters than a naive product of mixtures, which is a strong inductive bias if the spectrum really lives on that discrete lattice. Deriving why that structure is the right one, and when it approximates the covariance rather than merely interpolating it, remains open.</p></div>
+          
+        </section>
+
+      <section id="citation">
+          <div class="citation-head"><h2>Citation</h2><button class="copy-button" type="button" data-copy-bibtex>Copy BibTeX</button></div>
+          <pre><code data-bibtex>@inproceedings{suwandi2022gaussian,
+  title={Gaussian Process Regression with Grid Spectral Mixture Kernel: Distributed Learning for Multidimensional Data},
+  author={Suwandi, Richard Cornelius and Lin, Zhidi and Sun, Yiyong and Wang, Zhiguo and Cheng, Lei and Yin, Feng},
+  booktitle={25th International Conference on Information Fusion (FUSION)},
+  pages={1--8},
+  year={2022},
+  organization={IEEE}
+}</code></pre>
+        </section>
+    </div>
+
+    <section class="appendix-section">
+      <h3 class="appendix-label">Footnotes</h3>
+      <ol class="notes-list">
+        <li id="note-baseline-code">SMGP and SEGP are run using the source code released on the SM kernel authors' web page (people.orie.cornell.edu/andrew/code/), with the number of Gaussian mixture components for SMGP matched to GSM's Q. <a href="#note-baseline-code-ref" class="footnote-back" aria-label="Back to text">[↩]</a></li><li id="note-iteration-note">SEGP, and SMGP on Airfoil and Concrete, hit the 500-iteration cap without converging, so their reported iteration counts likely understate how much longer a full convergence would take. <a href="#note-iteration-note-ref" class="footnote-back" aria-label="Back to text">[↩]</a></li>
+      </ol>
+      <h3 id="references" class="appendix-label">References</h3>
+      <ol class="references-list">
+        <li id="ref-rasmussen2006gp"><span class="title">Gaussian Processes for Machine Learning</span><br>Rasmussen, C.E. and Williams, C.K.I., 2006. Gaussian Processes for Machine Learning. MIT Press.</li><li id="ref-wilson2013kernels"><span class="title">Gaussian process kernels for pattern discovery and extrapolation</span><br>Wilson, A. and Adams, R.P., 2013. Gaussian process kernels for pattern discovery and extrapolation. Proc. Int. Conf. Mach. Learn. (ICML), pp. 1067–1075.</li><li id="ref-yin2018sparse"><span class="title">Sparse structure enabled grid spectral mixture kernel for temporal Gaussian process regression</span><br>Yin, F., He, X., Pan, L., Chen, T., Luo, Z.-Q. and Theodoridis, S., 2018. Sparse structure enabled grid spectral mixture kernel for temporal Gaussian process regression. Proc. Int. Conf. Inf. Fusion (FUSION), pp. 47–54.</li><li id="ref-yin2020linear"><span class="title">Linear multiple low-rank kernel based stationary Gaussian processes regression for time series</span><br>Yin, F., Pan, L., Chen, T., Theodoridis, S., Luo, Z.-Q. and Zoubir, A.M., 2020. Linear multiple low-rank kernel based stationary Gaussian processes regression for time series. IEEE Trans. Signal Process., 68, pp.5260–5275.</li><li id="ref-duvenaud2013structure"><span class="title">Structure discovery in nonparametric regression through compositional kernel search</span><br>Duvenaud, D., Lloyd, J.R., Grosse, R., Tenenbaum, J.B. and Ghahramani, Z., 2013. Structure discovery in nonparametric regression through compositional kernel search. Proc. Int. Conf. Mach. Learn. (ICML), pp. 1166–1174.</li><li id="ref-benton2019function"><span class="title">Function-space distributions over kernels</span><br>Benton, G., Maddox, W.J., Salkey, J.P., Albinati, J. and Wilson, A.G., 2019. Function-space distributions over kernels. Proc. Adv. Neural Inf. Process. Syst. (NeurIPS).</li><li id="ref-anjanapura2021kernel"><span class="title">Kernel functional optimisation</span><br>Anjanapura Venkatesh, A.K., Shilton, A., Rana, S., Gupta, S. and Venkatesh, S., 2021. Kernel functional optimisation. Proc. Adv. Neural Inf. Process. Syst. (NeurIPS), 34.</li><li id="ref-scutari2018parallel"><span class="title">Parallel and distributed successive convex approximation methods for big-data optimization</span><br>Scutari, G. and Sun, Y., 2018. Parallel and distributed successive convex approximation methods for big-data optimization. In Multi-agent Optimization, Springer, pp. 141–308.</li><li id="ref-boyd2011distributed"><span class="title">Distributed optimization and statistical learning via the alternating direction method of multipliers</span><br>Boyd, S., Parikh, N., Chu, E., Peleato, B. and Eckstein, J., 2011. Distributed optimization and statistical learning via the alternating direction method of multipliers. Found. Trends Mach. Learn., 3(1), pp.1–122.</li><li id="ref-hochreiter1997long"><span class="title">Long short-term memory</span><br>Hochreiter, S. and Schmidhuber, J., 1997. Long short-term memory. Neural Comput., 9(8), pp.1735–1780.</li><li id="ref-benvenuto2020application"><span class="title">Application of the ARIMA model on the COVID-2019 epidemic dataset</span><br>Benvenuto, D., Giovanetti, M., Vassallo, L., Angeletti, S. and Ciccozzi, M., 2020. Application of the ARIMA model on the COVID-2019 epidemic dataset. Data in Brief, 29, p.105340.</li>
+      </ol>
+    </section>
+  </article>
+  </main>
+  <footer class="site-footer"><div class="container"><p>© 2022 <a href="https://richardcsuwandi.github.io">Richard Cornelius Suwandi</a></p></div></footer>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Demystifying Model Averaging for Communication-Efficient Federated Matrix Factorization</title>
+  <meta name="description" content="FedMAvg combines alternating minimization with model averaging for federated matrix factorization, cutting communication cost on heterogeneous client data.">
+  <meta name="theme-color" content="#0063c9">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Demystifying Model Averaging for Communication-Efficient Federated Matrix Factorization">
+  <meta property="og:description" content="FedMAvg combines alternating minimization with model averaging for federated matrix factorization, cutting communication cost on heterogeneous client data.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="keywords" content="federated learning, matrix factorization, model averaging, communication efficiency, data clustering, recommendation systems">
+  <link rel="canonical" href="https://richardcsuwandi.github.io/papers/fedmavg/"><meta property="og:url" content="https://richardcsuwandi.github.io/papers/fedmavg/">
+  
+  <link rel="icon" type="image/png" href="/assets/img/website-logo-black.PNG">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="assets/site.css">
+  <style>:root { --accent: #0063c9; }</style>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ScholarlyArticle", "headline": "Demystifying Model Averaging for Communication-Efficient Federated Matrix Factorization", "description": "FedMAvg combines alternating minimization with model averaging for federated matrix factorization, cutting communication cost on heterogeneous client data.", "author": [{"@type": "Person", "name": "Shuai Wang"}, {"@type": "Person", "name": "Richard C. Suwandi"}, {"@type": "Person", "name": "Tsung-Hui Chang"}], "url": "https://richardcsuwandi.github.io/papers/fedmavg/", "keywords": ["federated learning", "matrix factorization", "model averaging", "communication efficiency", "data clustering", "recommendation systems"]}</script>
+  <script defer src="assets/site.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch color theme"><span aria-hidden="true" data-theme-icon>☾</span></button>
+  <main id="main">
+  <article>
+    <header class="d-title">
+      <p class="d-kicker">ICASSP 2021</p>
+      <h1 class="d-headline">Demystifying Model Averaging for Communication-Efficient Federated Matrix Factorization</h1>
+      <div class="badge-row title-badges">
+        <a class="view-paper-badge view-paper-badge-neutral" href="https://ieeexplore.ieee.org/document/9413927" target="_blank" rel="noopener" aria-label="Paper"><img class="venue-mark" src="/assets/img/venues/ieee.png" alt="" width="18" height="18"><span>Paper</span></a>
+        <a class="alphaxiv-link-badge" href="https://www.alphaxiv.org/abs/2607.federated-matrix-factorization-model-averaging" target="_blank" rel="noopener" aria-label="alphaXiv"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 718.41 504.47" aria-hidden="true" focusable="false"><polygon fill="currentColor" points="591.15 258.54 718.41 385.73 663.72 440.28 536.57 313.62 591.15 258.54"></polygon><path fill="currentColor" d="M273.86.3c34.56-2.41,67.66 9.73,92.51 33.54l94.64 94.63-55.11 54.55-96.76-96.55c-16.02-12.7-37.67-12.1-53.19 1.11L54.62 288.82 0 234.23 204.76 29.57C223.12 13.31 249.27 2.02 273.86.3Z"></path><path fill="currentColor" d="M663.79 1.29l54.62 54.58-418.11 417.9c-114.43 95.94-263.57-53.49-167.05-167.52l160.46-160.33 54.62 54.58-157.88 157.77c-33.17 40.32 18.93 91.41 58.66 57.48L663.79 1.29Z"></path></svg><span>alphaXiv</span></a>
+      </div>
+    </header>
+
+    <div class="d-byline">
+      <div class="byline-box">
+        <div class="byline-table">
+          <h3>Authors</h3>
+          <h3>Affiliations</h3>
+          <p class="byline-name">Shuai Wang</p>
+            <p class="byline-aff">School of Science and Engineering, The Chinese University of Hong Kong, Shenzhen<br>Shenzhen Research Institute of Big Data</p>
+            <p class="byline-name"><span class="self-author">Richard C. Suwandi</span></p>
+            <p class="byline-aff">School of Data Science, The Chinese University of Hong Kong, Shenzhen</p>
+            <p class="byline-name">Tsung-Hui Chang</p>
+            <p class="byline-aff">School of Science and Engineering, The Chinese University of Hong Kong, Shenzhen<br>Shenzhen Research Institute of Big Data</p>
+        </div>
+        
+      </div>
+    </div>
+
+    <div class="d-article">
+      <nav class="paper-toc" aria-label="Table of contents">
+        <h3>Contents</h3>
+        <div><a href="#abstract">Abstract</a></div>
+        <div><a href="#fedmavg">FedMAvg</a></div>
+        <div><a href="#experiments">Experiments</a></div>
+        <ul><li><a href="#data-clustering">Data Clustering</a></li><li><a href="#item-recommendation">Item Recommendation</a></li></ul>
+        <div><a href="#open-question">Open Question</a></div>
+        <div><a href="#citation">Citation</a></div>
+        <div><a href="#references">References</a></div>
+      </nav>
+
+      <div class="tldr-block">
+          <p class="tldr-text"><strong>TL;DR.</strong> Model averaging had not been applied to federated matrix factorization. FedMAvg combines alternating minimization with averaging, and communicating less often with fewer clients cuts cost on heterogeneous data.</p>
+        </div>
+      <section id="abstract">
+        <h2>Abstract</h2>
+        <div class="abstract-copy"><p>Federated learning (FL) is encountered with the challenge of training a model in massive and heterogeneous networks. Model averaging (MA) has become a popular FL paradigm where parallel (stochastic) gradient descent (GD) is run on a small sampled subset of clients multiple times before uploading the local models to a server for averaging, which has been proven effective in reducing the communication cost for achieving a good model. However, MA has not been considered for the important matrix factorization (MF) model, which has vast signal processing and machine learning applications. In this paper, we investigate the federated MF problem and propose a new MA based algorithm, named FedMAvg, by judiciously combining the alternating minimization technique and MA. Through analysis, we show that gradually decreasing the number of local GD and only allowing partial clients to communicate with the server can greatly reduce the communication cost, especially in heterogeneous networks with non-i.i.d. data. Experimental results by applying FedMAvg to data clustering and item recommendation tasks demonstrate its efficacy in terms of both task performance and communication efficiency.</p></div>
+      </section>
+
+      <section id="fedmavg">
+          <h2>FedMAvg</h2>
+          
+          <div class="content-block prose"><p>Federated matrix factorization (FedMF) partitions the observation matrix X across P clients, each holding a non-overlapping block. The shared factor W belongs to the server, and each client keeps its own local factor H<sub>p</sub>, so the global objective sums a weighted local cost over all clients subject to W and every H<sub>p</sub> lying in their constraint sets. This is harder than the federated learning objectives usually studied with model averaging<sup class="cite"><a href="#ref-mcmahan2017communication">1</a></sup>: the FedMF objective is non-convex and non-smooth, and it couples two blocks of variables, W and H, rather than one, so algorithms designed for smooth, single-block federated objectives do not directly apply.</p></div>
+          <div class="content-block prose"><p>FedMAvg addresses this by combining alternating minimization<sup class="cite"><a href="#ref-udell2016generalized">2</a></sup> with model averaging<sup class="cite"><a href="#ref-mcmahan2017communication">1</a></sup>. In communication round s, each client starts from the server's broadcast factor W<sup>s-1</sup>, updates its local factor H<sub>p</sub> first, then updates its own copy of W, before a sampled subset of clients uploads their updated W back to the server.</p></div>
+          <div class="content-block prose"><ol><li><strong>Broadcast:</strong> the server averages the W uploaded by the previous round's participating clients, projects the result onto the constraint set W, and broadcasts the new W<sup>s</sup> to every client.</li><li><strong>Local factor update:</strong> each client runs Q<sub>1</sub> steps of projected gradient descent on its local factor H<sub>p</sub>, holding W fixed at W<sup>s</sup><sup class="footnote-ref"><a href="#note-step-size" id="note-step-size-ref">a</a></sup>.</li><li><strong>Local shared-factor update:</strong> each client then runs Q<sub>2</sub><sup>s</sup> steps of gradient descent on its own copy of W, holding H<sub>p</sub> fixed, where Q<sub>2</sub><sup>s</sup> diminishes across rounds.</li><li><strong>Partial client communication:</strong> only a sampled subset of m clients, drawn with replacement in proportion to each client's share of the data, uploads its updated W to the server; clients that are not selected keep updating their own local variables rather than sitting idle.</li></ol></div>
+          <div class="content-block prose"><p>The number of shared-factor steps Q<sub>2</sub><sup>s</sup> = &#8970;Q&#770;/s&#8971; + 1 shrinks across rounds: early on, clients take more gradient steps on W to explore their local data, while later rounds take smaller steps so that client copies of W do not drift far from the server average before the next synchronization. The paper's convergence analysis shows that this diminishing schedule keeps the extra error terms caused by non-i.i.d. data bounded as the number of rounds grows, whereas using a constant Q<sub>2</sub> greater than one lets those terms grow without bound, which slows convergence on heterogeneous data<sup class="cite"><a href="#ref-li2020convergence">3</a></sup>.</p></div>
+          <div class="content-block prose"><p>Partial client communication (PCC) follows the same idea as FedAvg's partial client participation<sup class="cite"><a href="#ref-mcmahan2017communication">1</a></sup>: only m clients, with m much smaller than P, upload their model in a given round. Unlike FedAvg, however, the clients that are not selected keep updating their local variables instead of staying inactive, because in FedMF the local factor H<sub>p</sub> stops improving if it is left stale for a full round. This distinction is why PCC can speed up convergence in FedMF even though sampling clients discards some of the information the server could otherwise use.</p></div>
+          
+        </section>
+
+        <section id="experiments">
+          <h2>Experiments</h2>
+          
+          
+          <h3 id="data-clustering">Data Clustering</h3>
+          <div class="content-block prose"><p>The clustering experiments use an orthogonal non-negative matrix factorization clustering model<sup class="cite"><a href="#ref-wang2019clustering">4</a></sup> on a synthetic dataset (M = 2000, N = 10000, K = 20) and on The Cancer Genome Atlas (TCGA) gene expression data (K = 20, N = 5314, M = 5000), each split across P = 100 clients. Case 1 partitions samples uniformly and i.i.d.; Case 2 clusters the data into 100 groups and assigns one group per client, producing a highly unbalanced, non-i.i.d. partition.</p></div>
+          <div class="content-block figure-wide"><figure class="media-figure"><div class="media-frame"><img src="assets/figures/fig1-convergence.png" alt="Four line plots of FedMAvg&#x27;s objective value against communication rounds on the synthetic dataset, comparing constant versus diminishing local update lengths and partial versus full client communication." loading="lazy" decoding="async"></div></figure></div>
+<p class="l-gutter caption"><strong>Figure 1.</strong> Convergence of FedMAvg's objective value on the synthetic dataset under Case 2, for different local update lengths Q<sub>1</sub> and Q<sub>2</sub>. (a)-(b) compare a constant Q<sub>2</sub> against a diminishing schedule with full (m = 100) and partial (m = 10) client communication; a larger constant Q<sub>2</sub> slows convergence, and the gap widens once communication is partial. (c) shows that increasing Q<sub>1</sub> speeds convergence, with diminishing returns past Q<sub>1</sub> = 10. (d) compares partial client communication (PCC), where non-selected clients keep updating, against partial client participation (PCP), where they do not; PCC converges faster because leaving a client's local factor stale for a full round hurts more in the two-block FedMF objective than in single-block federated learning.</p>
+          <div class="content-block prose"><p>On the TCGA dataset, the number of participating clients m has little effect on convergence under i.i.d. data but a much larger effect under non-i.i.d. data, and FedMAvg with PCC converges faster than the gradient-sharing FedMF baseline<sup class="cite"><a href="#ref-chai2020secure">5</a></sup> even when that baseline lets every client participate every round.</p></div>
+          <div class="content-block prose"><p>Clustering quality is evaluated by gradually raising an orthogonality penalty until the assignment stabilizes<sup class="cite"><a href="#ref-wang2019sequential">6</a></sup>, with accuracy compared against K-means++<sup class="cite"><a href="#ref-arthur2007kmeans">7</a></sup> and the distributed baselines KM||<sup class="cite"><a href="#ref-bahmani2012scalable">8</a></sup>, BEL<sup class="cite"><a href="#ref-balcan2013distributed">9</a></sup>, and CAL<sup class="cite"><a href="#ref-chen2018practical">10</a></sup>. FedMAvg with m = 10 reaches a much higher clustering accuracy than the gradient-sharing baseline at a lower communication cost on both the synthetic and TCGA datasets, while KM||, BEL, and CAL exchange little communication but plateau at lower accuracy.</p></div>
+          <div class="content-block figure-wide"><figure class="media-figure"><div class="media-frame"><img src="assets/figures/fig3-clustering-accuracy.png" alt="Two line plots of clustering accuracy against communication cost on the synthetic and TCGA datasets; FedMAvg with 10 participating clients rises fastest toward the centralized accuracy." loading="lazy" decoding="async"></div></figure></div>
+<p class="l-gutter caption"><strong>Figure 3.</strong> Clustering accuracy (ACC) versus communication cost on (a) the synthetic dataset and (b) the TCGA dataset, both under Case 2. FedMAvg with m = 10 approaches the centralized accuracy using far less communication than the gradient-sharing baseline, while KM||, BEL, and CAL need little communication but settle at lower accuracy.</p>
+          <h3 id="item-recommendation">Item Recommendation</h3>
+          <div class="content-block prose"><p>The recommendation experiments use a matrix factorization model for recommender systems<sup class="cite"><a href="#ref-koren2009matrix">11</a></sup> on 100,000 MovieLens ratings from 610 users on 9,724 movies (K = 40), following the same federated recommendation setup used to evaluate prior federated matrix factorization methods<sup class="cite"><a href="#ref-hegedus2019decentralized">12</a></sup><sup class="cite"><a href="#ref-chai2020secure">5</a></sup>. Each of the 610 users is treated as one client holding a single row of ratings, with 20% of entries held out and predicted by the trained model; performance is measured by root mean square error (RMSE) between predicted and true ratings.</p></div>
+          <div class="content-block figure-wide"><figure class="media-figure"><div class="media-frame"><img src="assets/figures/fig4-recommendation-rmse.png" alt="Two line plots of RMSE against communication rounds and communication cost for FedMAvg at four client-sampling sizes, the centralized algorithm, and the gradient-sharing baseline." loading="lazy" decoding="async"></div></figure></div>
+<p class="l-gutter caption"><strong>Figure 4.</strong> RMSE versus (a) the number of communication rounds and (b) communication cost, comparing FedMAvg at four client-sampling sizes m against the centralized algorithm and the gradient-sharing baseline. FedMAvg quickly approaches the centralized RMSE even with m far smaller than 610 clients, and at m = 10 it reaches a low RMSE with substantially less communication than the gradient-sharing baseline.</p>
+          <div class="content-block prose"><p>Sampling only m = 10 of the 610 clients per round lets FedMAvg reach an RMSE close to the centralized solution's while transmitting far fewer model updates than the gradient-sharing baseline, which requires every client to participate in every round.</p></div>
+        </section>
+
+        <section id="open-question">
+          <h2>Open Question</h2>
+          
+          <div class="content-block prose"><p>Fewer local steps and fewer participating clients cut communication on heterogeneous matrix factorization, yet the factorization still improves even though sampling clients looks like it should add noise. Deriving when partial participation speeds the global factorization, rather than slowing it, remains open.</p></div>
+          
+        </section>
+
+      <section id="citation">
+          <div class="citation-head"><h2>Citation</h2><button class="copy-button" type="button" data-copy-bibtex>Copy BibTeX</button></div>
+          <pre><code data-bibtex>@inproceedings{wang2021demystifying,
+  title={Demystifying Model Averaging for Communication-Efficient Federated Matrix Factorization},
+  author={Wang, Shuai and Suwandi, Richard Cornelius and Chang, Tsung-Hui},
+  booktitle={46th IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)},
+  pages={3680--3684},
+  year={2021},
+  organization={IEEE}
+}</code></pre>
+        </section>
+    </div>
+
+    <section class="appendix-section">
+      <h3 class="appendix-label">Footnotes</h3>
+      <ol class="notes-list">
+        <li id="note-step-size">The step sizes are set adaptively each round from the client's current factors: the step for H<sub>p</sub> uses half the largest eigenvalue of (W<sup>s,0</sup><sub>p</sub>)<sup>T</sup>W<sup>s,0</sup><sub>p</sub>, and the step for W uses five times the largest eigenvalue of H<sup>s,Q1</sup>(H<sup>s,Q1</sup>)<sup>T</sup>. Training stops once the relative change in the objective value falls below 10<sup>-8</sup>, or after 500 communication rounds, whichever comes first. <a href="#note-step-size-ref" class="footnote-back" aria-label="Back to text">[↩]</a></li>
+      </ol>
+      <h3 id="references" class="appendix-label">References</h3>
+      <ol class="references-list">
+        <li id="ref-mcmahan2017communication"><span class="title">Communication-efficient learning of deep networks from decentralized data</span><br>H. B. McMahan, E. Moore, D. Ramage, S. Hampson, and B. A. Arcas, &quot;Communication-efficient learning of deep networks from decentralized data,&quot; in Proc. ICML, Sydney, Australia, Aug. 2017, pp. 1-10.</li><li id="ref-udell2016generalized"><span class="title">Generalized low rank models</span><br>M. Udell, C. Horn, R. Zadeh, and S. Boyd, &quot;Generalized low rank models,&quot; Foundations and Trends in Machine Learning, vol. 9, no. 1, pp. 1-118, 2016.</li><li id="ref-li2020convergence"><span class="title">On the convergence of FedAvg on non-iid data</span><br>X. Li, K. Huang, W. Yang, S. Wang, and Z. Zhang, &quot;On the convergence of FedAvg on non-iid data,&quot; in Proc. ICLR, Addis Ababa, Ethiopia, Apr. 2020, pp. 1-11.</li><li id="ref-wang2019clustering"><span class="title">Clustering by orthogonal NMF model and non-convex penalty optimization</span><br>S. Wang, T.-H. Chang, Y. Cui, and J.-S. Pang, &quot;Clustering by orthogonal NMF model and non-convex penalty optimization,&quot; arXiv preprint arXiv:1906.00570, 2019.</li><li id="ref-chai2020secure"><span class="title">Secure federated matrix factorization</span><br>D. Chai, L. Wang, K. Chen, and Q. Yang, &quot;Secure federated matrix factorization,&quot; IEEE Intelligent Systems, vol. 1, no. 1, pp. 1-8, Aug. 2020.</li><li id="ref-wang2019sequential"><span class="title">Clustering by orthogonal non-negative matrix factorization: A sequential non-convex penalty approach</span><br>S. Wang, T.-H. Chang, Y. Cui, and J.-S. Pang, &quot;Clustering by orthogonal non-negative matrix factorization: A sequential non-convex penalty approach,&quot; in Proc. IEEE ICASSP, Brighton, UK, May 2019, pp. 5576-5580.</li><li id="ref-arthur2007kmeans"><span class="title">K-means++: The advantages of careful seeding</span><br>D. Arthur and S. Vassilvitskii, &quot;K-means++: The advantages of careful seeding,&quot; in Proc. ACM-SIAM SODA, Philadelphia, PA, USA, Jan. 2007, pp. 1027-1035.</li><li id="ref-bahmani2012scalable"><span class="title">Scalable k-means++</span><br>B. Bahmani, B. Moseley, A. Vattani, R. Kumar, and S. Vassilvitskii, &quot;Scalable k-means++,&quot; in Proc. VLDB, Istanbul, Turkey, Aug. 2012, pp. 622-633.</li><li id="ref-balcan2013distributed"><span class="title">Distributed k-means and k-median clustering on general topologies</span><br>M.-F. Balcan, S. Ehrlich, and Y. Liang, &quot;Distributed k-means and k-median clustering on general topologies,&quot; in Proc. NeurIPS, Lake Tahoe, USA, Dec. 2013, pp. 1995-2003.</li><li id="ref-chen2018practical"><span class="title">A practical algorithm for distributed clustering and outlier detection</span><br>J. Chen, E. S. Azer, and Q. Zhang, &quot;A practical algorithm for distributed clustering and outlier detection,&quot; in Proc. NeurIPS, Montreal, Canada, Dec. 2018, pp. 2248-2256.</li><li id="ref-koren2009matrix"><span class="title">Matrix factorization techniques for recommender systems</span><br>Y. Koren, R. Bell, and C. Volinsky, &quot;Matrix factorization techniques for recommender systems,&quot; Computer, vol. 42, no. 8, pp. 30-37, Aug. 2009.</li><li id="ref-hegedus2019decentralized"><span class="title">Decentralized recommendation based on matrix factorization: A comparison of gossip and federated learning</span><br>I. Hegedűs, G. Danner, and M. Jelasity, &quot;Decentralized recommendation based on matrix factorization: A comparison of gossip and federated learning,&quot; in Proc. ECML PKDD, Würzburg, Germany, Sep. 2019, pp. 317-322.</li>
+      </ol>
+    </section>
+  </article>
+  </main>
+  <footer class="site-footer"><div class="container"><p>© 2021 <a href="https://richardcsuwandi.github.io">Richard Cornelius Suwandi</a></p></div></footer>
+</body>
+</html>

@@ -2,29 +2,91 @@
   "title": "Adaptive Kernel Design for Bayesian Optimization Is a Piece of CAKE with LLMs",
   "short_title": "CAKE",
   "description": "CAKE uses large language models as genetic operators to evolve Gaussian-process kernels for adaptive, data-efficient Bayesian optimization.",
-  "canonical_url": "https://richardcsuwandi.github.io/cake/",
+  "canonical_url": "https://richardcsuwandi.github.io/papers/cake/",
   "venue": "NeurIPS 2025",
   "venue_url": "https://neurips.cc/Conferences/2025",
   "authors": [
-    {"name": "Richard Cornelius Suwandi", "affiliations": ["1"]},
-    {"name": "Feng Yin", "affiliations": ["1"], "notes": ["*"]},
-    {"name": "Juntao Wang", "affiliations": ["1"]},
-    {"name": "Renjie Li", "affiliations": ["2", "3"]},
-    {"name": "Tsung-Hui Chang", "affiliations": ["1"]},
-    {"name": "Sergios Theodoridis", "affiliations": ["4"]}
+    {
+      "name": "Richard C. Suwandi",
+      "affiliations": [
+        "1"
+      ],
+      "self": true
+    },
+    {
+      "name": "Feng Yin",
+      "affiliations": [
+        "1"
+      ],
+      "notes": [
+        "*"
+      ]
+    },
+    {
+      "name": "Juntao Wang",
+      "affiliations": [
+        "1"
+      ]
+    },
+    {
+      "name": "Renjie Li",
+      "affiliations": [
+        "2",
+        "3"
+      ]
+    },
+    {
+      "name": "Tsung-Hui Chang",
+      "affiliations": [
+        "1"
+      ]
+    },
+    {
+      "name": "Sergios Theodoridis",
+      "affiliations": [
+        "4"
+      ]
+    }
   ],
   "affiliations": [
-    {"id": "1", "name": "School of Artificial Intelligence, The Chinese University of Hong Kong, Shenzhen"},
-    {"id": "2", "name": "School of Science and Engineering, The Chinese University of Hong Kong, Shenzhen"},
-    {"id": "3", "name": "Holonyak Micro & Nanotechnology Lab, University of Illinois at Urbana-Champaign"},
-    {"id": "4", "name": "HERON CoE for Robotics and AI-ATHENA R.C., Greece"}
+    {
+      "id": "1",
+      "name": "School of Artificial Intelligence, The Chinese University of Hong Kong, Shenzhen"
+    },
+    {
+      "id": "2",
+      "name": "School of Science and Engineering, The Chinese University of Hong Kong, Shenzhen"
+    },
+    {
+      "id": "3",
+      "name": "Holonyak Micro & Nanotechnology Lab, University of Illinois at Urbana-Champaign"
+    },
+    {
+      "id": "4",
+      "name": "HERON CoE for Robotics and AI-ATHENA R.C., Greece"
+    }
   ],
-  "author_notes": ["* Corresponding author"],
   "links": [
-    {"label": "Paper", "url": "https://openreview.net/forum?id=BOEZYnC8nR", "kind": "paper"},
-    {"label": "alphaXiv", "url": "https://www.alphaxiv.org/abs/2509.17998", "kind": "alphaxiv"},
-    {"label": "Code", "url": "https://github.com/richardcsuwandi/cake", "kind": "code"},
-    {"label": "Thread", "url": "https://x.com/richardcsuwandi/status/1970856650048462946", "kind": "thread"}
+    {
+      "label": "Paper",
+      "url": "https://openreview.net/forum?id=BOEZYnC8nR",
+      "kind": "paper"
+    },
+    {
+      "label": "alphaXiv",
+      "url": "https://www.alphaxiv.org/abs/2509.17998",
+      "kind": "alphaxiv"
+    },
+    {
+      "label": "Code",
+      "url": "https://github.com/richardcsuwandi/cake",
+      "kind": "code"
+    },
+    {
+      "label": "Thread",
+      "url": "https://x.com/richardcsuwandi/status/1970856650048462946",
+      "kind": "thread"
+    }
   ],
   "keywords": [
     "Bayesian optimization",
@@ -33,7 +95,9 @@
     "large language models",
     "evolutionary algorithms"
   ],
-  "theme": {"accent": "#0063c9"},
+  "theme": {
+    "accent": "#0063c9"
+  },
   "social_image": "assets/figures/social-card.webp",
   "hero": {
     "src": "assets/figures/cake-overview.webp",
@@ -47,7 +111,6 @@
     {
       "id": "method",
       "title": "Context-Aware Kernel Evolution",
-      "lead": "CAKE refines the Gaussian-process kernel before choosing every new Bayesian optimization query.",
       "blocks": [
         {
           "type": "paragraph",
@@ -61,11 +124,11 @@
           "type": "list",
           "ordered": true,
           "items": [
-            "Condition on the current observations: at every BO iteration, CAKE updates the prompt with all input–output pairs collected so far.",
-            "Crossover: five times per iteration, two parent kernels are sampled with probability proportional to fitness. The LLM combines them using addition or multiplication and explains the proposed structure.",
-            "Mutation: with probability 0.7, the LLM modifies the fittest kernel by replacing one base component with another. The crossover and mutation candidates are evaluated together with the existing population.",
-            "Survivor selection: CAKE retains the ten kernels with the highest normalized BIC fitness to form the next generation.",
-            "Rank and query: BAKER weights each surviving kernel in proportion to exp(−BIC), multiplies that weight by the normalized expected improvement at the kernel’s proposed query, and selects the highest-scoring kernel–query pair. The objective is evaluated and the new observation is added before the loop repeats."
+            "<strong>Condition on the current observations:</strong> at every BO iteration, CAKE updates the prompt with all input–output pairs collected so far.",
+            "<strong>Crossover:</strong> five times per iteration, two parent kernels are sampled with probability proportional to fitness. The LLM combines them using addition or multiplication and explains the proposed structure.",
+            "<strong>Mutation:</strong> with probability 0.7, the LLM modifies the fittest kernel by replacing one base component with another. The crossover and mutation candidates are evaluated together with the existing population.",
+            "<strong>Survivor selection:</strong> CAKE retains the ten kernels with the highest normalized BIC fitness to form the next generation.",
+            "<strong>Rank and query:</strong> BAKER weights each surviving kernel in proportion to exp(−BIC), multiplies that weight by the normalized expected improvement at the kernel’s proposed query, and selects the highest-scoring kernel–query pair. The objective is evaluated and the new observation is added before the loop repeats."
           ]
         },
         {
@@ -77,7 +140,6 @@
     {
       "id": "experiments",
       "title": "Experimental Evaluation",
-      "lead": "The evaluation spans heterogeneous hyperparameter landscapes, dynamic control environments, and multi-objective physical design.",
       "blocks": [
         {
           "type": "paragraph",
@@ -127,7 +189,6 @@
     {
       "id": "ablations",
       "title": "What Drives the Improvement?",
-      "lead": "Ablations separate the contribution of LLM-guided kernel evolution from BAKER’s joint model-fit and acquisition ranking.",
       "blocks": [
         {
           "type": "paragraph",

@@ -1,0 +1,338 @@
+{
+  "title": "Sparsity-Aware Distributed Learning for Gaussian Processes with Linear Multiple Kernel",
+  "description": "SLIM-KL exploits the inherent sparsity of a Gaussian-process kernel's optimal weights to learn its hyperparameters across many agents using quantized ADMM and a distributed successive convex approximation algorithm, cutting communication cost without sacrificing prediction accuracy.",
+  "canonical_url": "https://richardcsuwandi.github.io/papers/slim-kl/",
+  "venue": "IEEE TNNLS, 2025",
+  "authors": [
+    {
+      "name": "Richard C. Suwandi",
+      "affiliations": [
+        "School of Science and Engineering, The Chinese University of Hong Kong, Shenzhen"
+      ],
+      "self": true
+    },
+    {
+      "name": "Zhidi Lin",
+      "affiliations": [
+        "Department of Statistics and Data Science, National University of Singapore",
+        "(work done while at The Chinese University of Hong Kong, Shenzhen)"
+      ]
+    },
+    {
+      "name": "Feng Yin",
+      "affiliations": [
+        "School of Science and Engineering, The Chinese University of Hong Kong, Shenzhen"
+      ]
+    },
+    {
+      "name": "Zhiguo Wang",
+      "affiliations": [
+        "Department of Mathematics, Sichuan University"
+      ]
+    },
+    {
+      "name": "Sergios Theodoridis",
+      "affiliations": [
+        "Department of Informatics and Telecommunications, National and Kapodistrian University of Athens"
+      ]
+    }
+  ],
+  "badges": [
+    {
+      "kind": "paper",
+      "url": "https://ieeexplore.ieee.org/document/10856719/keywords#keywords",
+      "venue_style": "neutral",
+      "icon": "/assets/img/venues/ieee.png"
+    },
+    {
+      "kind": "code",
+      "url": "https://github.com/richardcsuwandi/slim-kl"
+    },
+    {
+      "kind": "alphaxiv",
+      "url": "https://www.alphaxiv.org/abs/2309.08201"
+    }
+  ],
+  "keywords": [
+    "Gaussian processes",
+    "linear multiple kernel",
+    "sparsity-aware learning",
+    "distributed learning",
+    "quantized ADMM",
+    "successive convex approximation"
+  ],
+  "theme": {
+    "accent": "#0063c9"
+  },
+  "tldr": "Hyperparameters of the GSM kernel come out sparse. SLIM-KL uses that sparsity, plus quantized ADMM, so many agents can train a large GP kernel privately and with less communication.",
+  "abstract": "Gaussian processes (GPs) stand as crucial tools in machine learning and signal processing, with their effectiveness hinging on kernel design and hyper-parameter optimization. This paper presents a novel GP linear multiple kernel (LMK) and a generic sparsity-aware distributed learning framework to optimize the hyper-parameters. The newly proposed grid spectral mixture (GSM) kernel is tailored for multi-dimensional data, effectively reducing the number of hyper-parameters while maintaining good approximation capabilities. We further demonstrate that the associated hyper-parameter optimization of this kernel yields sparse solutions. To exploit the inherent sparsity property of the solutions, we introduce the Sparse LInear Multiple Kernel Learning (SLIM-KL) framework. The framework incorporates a quantized alternating direction method of multipliers (ADMM) scheme for collaborative learning among multiple agents, where the local optimization problem is solved using a distributed successive convex approximation (DSCA) algorithm. SLIM-KL effectively manages large-scale hyper-parameter optimization for the proposed kernel, simultaneously ensuring data privacy and minimizing communication costs. Theoretical analysis establishes convergence guarantees for the learning framework, while experiments on diverse datasets demonstrate the superior prediction performance and efficiency of our proposed methods.",
+  "sections": [
+    {
+      "id": "gsmp-kernel",
+      "title": "The GSMP Kernel and Why Its Hyperparameters Are Sparse",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "GP regression models an unknown function with a covariance kernel {{cite:rasmussen2006gp}}. The grid spectral mixture (GSM) kernel {{cite:yin2020linear}} approximates any stationary kernel's spectral density with a Gaussian mixture whose means and variances are fixed to preselected grid points, leaving only the mixture weights to be optimized. This turns the GSM kernel into a linear multiple kernel (LMK): a weighted sum of one-dimensional sub-kernels. The GSM kernel was designed for one-dimensional inputs. Extending it naively to <em>P</em>-dimensional data by fixing grid points in &#8477;<sup>P</sup> makes the number of components grow exponentially with <em>P</em>{{fn:curse-of-dimensionality}}, which the authors' own earlier work on a multi-dimensional GSM kernel {{cite:suwandi2022gsm}} already ran into."
+        },
+        {
+          "type": "paragraph",
+          "text": "This paper's grid spectral mixture product (GSMP) kernel avoids that blow-up by taking the <em>product</em> of one-dimensional sub-kernels across dimensions, rather than fixing grid points directly in the joint input space, while still using only <em>Q</em> weights. The resulting spectral density is itself a Gaussian mixture, so GSMP retains the universal approximation property of the original GSM and spectral mixture (SM) kernels{{cite:wilson2013gp}}. In a two-dimensional worked example, GSMP's spectral density covers the same modes as the earlier grid-based GSM kernel plus additional ones lying along the main diagonal that GSM structurally cannot reach, and this gap widens with dimension <em>P</em>, so GSMP reaches the same expressiveness with far fewer hyperparameters."
+        },
+        {
+          "type": "paragraph",
+          "text": "Fitting the GSM/GSMP weights means minimizing the negative log marginal likelihood, a difference-of-convex (DC) program solved by successive convex approximation (SCA){{cite:scutari2018sca}}: at each step, a convex surrogate from a first-order Taylor expansion of the concave part is minimized with an off-the-shelf convex solver{{cite:mosek}}. This paper proves every local minimum of this problem for the GSMP kernel is sparse, with or without observation noise, so only a handful of sub-kernels end up with non-negligible weight. Centralized SCA still scales as O(<em>Qn</em><sup>3</sup>) and needs the whole dataset in one place at every iteration, which is impractical for large or privacy-sensitive data."
+        }
+      ]
+    },
+    {
+      "id": "slim-kl",
+      "title": "Sparsity-Aware Distributed Learning (SLIM-KL)",
+      "blocks": [
+        {
+          "type": "figure",
+          "src": "assets/figures/slim-kl-framework.webp",
+          "alt": "Diagram of the SLIM-KL framework: a quantized ADMM loop coordinating multiple agents, each solving its local hyperparameter problem with the distributed SCA algorithm across several computing units.",
+          "caption": "<strong>Figure 1.</strong> The proposed Sparse Linear Multiple Kernel Learning (SLIM-KL) framework, featuring a quantized ADMM scheme for collaborative hyperparameter learning across multiple agents, and a distributed SCA algorithm for local optimization using multi-core computing units.",
+          "width": "wide"
+        },
+        {
+          "type": "paragraph",
+          "text": "SLIM-KL splits the dataset across <em>N</em> agents, each holding a local shard, and asks them to agree on a shared set of GSMP weights without pooling their data. It builds on ADMM{{cite:boyd2011admm}}, but quantizes every transmitted value with a stochastic quantizer{{cite:zhu2016quantized}} that rounds each weight up or down with probability proportional to its distance from the nearest grid point, keeping the quantized value unbiased in expectation. Each round has agents average their quantized local weights into a global estimate, broadcast it, then re-optimize their own local weights against it before updating their dual variable. Because quantization rounds many already-small GSMP weights to exactly zero, it reinforces rather than fights the kernel's sparsity, which the paper argues can also help steer agents away from poor local minima{{fn:consensus-help}}."
+        },
+        {
+          "type": "paragraph",
+          "text": "The local subproblem each agent solves at every ADMM round is itself non-convex and non-separable across weights, so solving it directly does not scale to large <em>Q</em>. The distributed SCA (DSCA) algorithm splits an agent's weights into <em>s</em> blocks, builds one convex surrogate per block from the same Taylor-expansion trick as centralized SCA, and optimizes all <em>s</em> blocks in parallel on separate computing units. Each block's surrogate is reformulated as a second-order cone program so it can be solved efficiently with MOSEK {{cite:mosek}} rather than a generic convex solver. Splitting the work this way reduces the per-iteration computational complexity of hyperparameter optimization from O(<em>Qn</em><sup>3</sup>) to O(<em>Qn</em><sup>3</sup>/(<em>sN</em><sup>3</sup>)), so adding agents and computing units directly cuts the cost of training a large number of hyperparameters."
+        },
+        {
+          "type": "paragraph",
+          "text": "The local subproblem each agent solves at every round is itself non-convex and non-separable across weights, so the distributed SCA (DSCA) algorithm splits an agent's weights into <em>s</em> blocks, builds one convex surrogate per block, and optimizes all <em>s</em> blocks in parallel on separate computing units, each reformulated as a second-order cone program solved with MOSEK{{cite:mosek}}. This cuts the per-iteration cost of hyperparameter optimization from O(<em>Qn</em><sup>3</sup>) to O(<em>Qn</em><sup>3</sup>/(<em>sN</em><sup>3</sup>)), so adding agents and computing units directly cuts the cost of training a large number of hyperparameters."
+        }
+      ]
+    },
+    {
+      "id": "experiments",
+      "title": "Experiments",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "All experiments use MATLAB with MOSEK {{cite:mosek}} as the convex solver. Code and data are available in the paper's repository."
+        }
+      ],
+      "subsections": [
+        {
+          "id": "approximation",
+          "title": "Approximation capability of the GSMP kernel",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "On synthetic two-dimensional data generated from an SM-kernel GP with a known spectral density, the GSMP kernel is compared against the earlier multi-dimensional GSM kernel {{cite:suwandi2022gsm}} across five spectral-density configurations, using <em>Q</em> = 50 grid points for both. When the ground-truth density's modes lie on the main diagonal, the grid-based GSM kernel cannot represent them and its GP prediction MSE is far worse than the GSMP kernel's, for example 0.9431 versus 0.3769 in one configuration. When the modes instead lie on the anti-diagonal, a direction the GSM kernel's fixed grid already supports, the two kernels perform comparably, with GSM sometimes slightly ahead. The GSMP kernel matches or beats the GSM kernel's prediction accuracy in most configurations without requiring any additional grid points."
+            },
+            {
+              "type": "figure",
+              "src": "assets/figures/gsmp-vs-gsm-density.webp",
+              "alt": "Learned spectral densities for the multi-dimensional GSM kernel (left column) versus the GSMP kernel (right column) on two configurations, with cross marks showing the ground-truth mixture modes. The GSM kernel fails to place density on the main diagonal in the top configuration, while the GSMP kernel captures it.",
+              "caption": "<strong>Figure 2.</strong> The learned spectral density of the multi-dimensional GSM kernel (left) versus the learned spectral density of the GSMP kernel (right), for two of the paper's five spectral-density configurations. The cross symbols represent the modes of the ground truth.",
+              "width": "wide"
+            }
+          ]
+        },
+        {
+          "id": "prediction-performance",
+          "title": "Prediction performance on real datasets",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The GSMP-kernel GP trained with SLIM-KL (<em>s</em> = 4 computing units, <em>N</em> = 2 agents, quantization resolution &Delta; = 0.01) is compared on nine real datasets, spanning input dimension 1 to 11, against the original GSM-kernel GP {{cite:suwandi2022gsm}}, an SM-kernel GP {{cite:wilson2013gp}}, a sparse spectrum GP (SSGP) {{cite:lazaro2010ssgp}}, a squared-exponential GP {{cite:rasmussen2006gp}}, an LSTM {{cite:hochreiter1997lstm}}, and the Informer Transformer forecaster {{cite:zhou2021informer}}. GSMPGP achieves the lowest prediction MSE on every one of the nine datasets, and its solutions stay sparse (typically well under 5% of weights nonzero) at accuracy comparable to or better than the also-sparse GSMGP baseline, while the dense SMGP baseline needs 100% of its weights and still trails both. The improvement is largest on the multi-dimensional datasets, consistent with the approximation-capability results above."
+            }
+          ]
+        },
+        {
+          "id": "scalability",
+          "title": "Scalability across agents and computing units",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Varying the number of DSCA computing units <em>s</em> &isin; {1, 4, 10, 50, 100} shows prediction MSE does not consistently worsen as <em>s</em> grows, and for several datasets more computing units even improves it, while computation time drops sharply as <em>s</em> increases, matching the O(<em>Qn</em><sup>3</sup>/(<em>sN</em><sup>3</sup>)) complexity bound. Varying the number of agents <em>N</em> &isin; {2, 4, 8, 10} against a centralized baseline, SLIM-KL with a moderate number of agents (<em>N</em> = 2) matches or beats the centralized case on nearly every dataset, but performance degrades once <em>N</em> grows large relative to a dataset's size, since each agent then has too little local data to train on. On a version of the CCCP dataset enlarged to 9,500 training points, SLIM-KL (<em>N</em> = 10, <em>s</em> = 4) keeps the same prediction MSE as the smaller version, showing it scales to substantially larger data."
+            },
+            {
+              "type": "figure",
+              "src": "assets/figures/dsca-computation-time.webp",
+              "alt": "Log-scale plot of total computation time per computing unit as a function of the number of computing units s, showing a steep decrease as s increases.",
+              "caption": "<strong>Figure 3.</strong> Total computation time (in log-scale) for one computing unit, with respect to different values of <em>s</em>.",
+              "width": "normal"
+            }
+          ]
+        },
+        {
+          "id": "quantization",
+          "title": "Effect of quantization on communication cost",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Stochastic quantization is compared against deterministic quantization at &Delta; = 0.01, repeating each run 5 times. Stochastic quantization achieves a consistently lower mean prediction MSE than deterministic quantization, with its error bars (&plusmn;2 standard deviations) showing the variability stays bounded."
+            },
+            {
+              "type": "figure",
+              "src": "assets/figures/quantization-comparison.webp",
+              "alt": "Scatter plot comparing prediction MSE under stochastic quantization (blue dots with vertical error bars for two standard deviations) against deterministic quantization (red dashed lines) across nine datasets.",
+              "caption": "<strong>Figure 4.</strong> Performance comparison of SLIM-KL under stochastic quantization versus deterministic quantization, with &Delta; = 0.01. The blue dots with vertical error bars indicate the mean MSE plus or minus two standard deviations when using stochastic quantization, while the red dashed lines represent the MSE when using deterministic quantization.",
+              "width": "normal"
+            },
+            {
+              "type": "paragraph",
+              "text": "Sweeping the quantization resolution &Delta; &isin; {0.001, 0.01, 0.1, 1, 5} against no quantization at all shows quantization does not necessarily hurt accuracy: on the CO2 dataset, &Delta; = 1 gives the lowest MSE of any setting while cutting transmitted bits by 4.8&times; on average, and on the Water dataset quantization saves communication by more than 200&times; while keeping prediction MSE essentially unchanged. Coarser resolutions eventually do degrade accuracy on some datasets (for example ECG at &Delta; = 5), so the paper reports &Delta; = 0.1 as a practical balance between communication savings and prediction performance."
+            },
+            {
+              "type": "figure",
+              "src": "assets/figures/saving-ratio.webp",
+              "alt": "Bar chart of the average bit-saving ratio from quantizing transmitted hyperparameters, plotted against different quantization resolutions, showing larger savings at coarser resolutions.",
+              "caption": "<strong>Figure 5.</strong> Average saving ratio in transmitting the local hyperparameters when using quantization versus without quantization, with respect to different quantization resolutions &Delta;.",
+              "width": "normal"
+            }
+          ]
+        },
+        {
+          "id": "long-time-series",
+          "title": "Long time series forecasting",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "On five larger-scale forecasting benchmarks (Weather and four ETT datasets), SLIM-KL is scaled up to <em>s</em> = 100 computing units and <em>N</em> = 100 agents with &Delta; = 0.01, and compared against recent Transformer- and RNN-based forecasters: SegRNN {{cite:lin2023segrnn}}, PatchTST {{cite:nie2023patchtst}}, MICN {{cite:wang2022micn}}, and TiDE {{cite:das2024tide}}. GSMPGP finishes in the top two on four of the five datasets and first on two of them (ETTh1 and ETTm1), while remaining competitive on Weather where it trails the best model only slightly. Against distributed and random-feature multiple-kernel-learning baselines, DOMKL {{cite:hong2023domkl}} and CoKle/BoKle {{cite:hong2024omkl}}, SLIM-KL gets the lowest MSE on all five datasets, showing that scaling to 100 agents does not come at the cost of accuracy."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "open-question",
+      "title": "Open Question",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Hyperparameter optimization for this kernel yields sparse weights, which quantized ADMM then exploits, shrinking communication and, in principle, the model class the predictor uses. Deriving whether those zeros improve prediction, or mainly cut communication while leaving the same function class, remains open."
+        }
+      ]
+    }
+  ],
+  "footnotes": [
+    {
+      "id": "curse-of-dimensionality",
+      "text": "For a ten-dimensional dataset with 100 grid points per dimension, the original GSM kernel's naive multi-dimensional extension would need Q = 100^10 = 10^20 components, which is computationally infeasible."
+    },
+    {
+      "id": "consensus-help",
+      "text": "If one agent's local optimizer gets stuck at a poor local minimum of the non-convex GSMP hyperparameter problem, the ADMM consensus step can pull it toward a more reasonable starting point on the next iteration."
+    }
+  ],
+  "references": [
+    {
+      "id": "rasmussen2006gp",
+      "title": "Gaussian Processes for Machine Learning",
+      "citation": "Rasmussen, C.E. and Williams, C.K.I., 2006. MIT Press.",
+      "url": "https://gaussianprocess.org/gpml/chapters/RW.pdf"
+    },
+    {
+      "id": "yin2020linear",
+      "title": "Linear Multiple Low-Rank Kernel Based Stationary Gaussian Processes Regression for Time Series",
+      "citation": "Yin, F., Pan, L., Chen, T., Theodoridis, S., Luo, Z.Q.T. and Zoubir, A.M., 2020. IEEE Transactions on Signal Processing, 68, pp.5260-5275.",
+      "doi_url": "https://doi.org/10.1109/TSP.2020.3023008",
+      "doi_label": "10.1109/TSP.2020.3023008"
+    },
+    {
+      "id": "suwandi2022gsm",
+      "title": "Gaussian Process Regression with Grid Spectral Mixture Kernel: Distributed Learning for Multidimensional Data",
+      "citation": "Suwandi, R.C., Lin, Z., Sun, Y., Wang, Z., Cheng, L. and Yin, F., 2022. Proc. Int. Conf. Inf. Fusion (FUSION).",
+      "doi_url": "https://doi.org/10.23919/FUSION49751.2022.9841347",
+      "doi_label": "10.23919/FUSION49751.2022.9841347"
+    },
+    {
+      "id": "wilson2013gp",
+      "title": "Gaussian Process Kernels for Pattern Discovery and Extrapolation",
+      "citation": "Wilson, A.G. and Adams, R.P., 2013. Proc. Int. Conf. Mach. Learn. (ICML).",
+      "url": "https://proceedings.mlr.press/v28/wilson13.pdf"
+    },
+    {
+      "id": "lazaro2010ssgp",
+      "title": "Sparse Spectrum Gaussian Process Regression",
+      "citation": "Lázaro-Gredilla, M., Quinonero-Candela, J., Rasmussen, C.E. and Figueiras-Vidal, A.R., 2010. Journal of Machine Learning Research, 11, pp.1865-1881."
+    },
+    {
+      "id": "scutari2018sca",
+      "title": "Parallel and Distributed Successive Convex Approximation Methods for Big-Data Optimization",
+      "citation": "Scutari, G. and Sun, Y., 2018. Multi-Agent Optimization, pp.141-308. Springer."
+    },
+    {
+      "id": "mosek",
+      "title": "The MOSEK Optimization Toolbox for MATLAB Manual, Version 10.0",
+      "citation": "MOSEK ApS, 2022."
+    },
+    {
+      "id": "boyd2011admm",
+      "title": "Distributed Optimization and Statistical Learning via the Alternating Direction Method of Multipliers",
+      "citation": "Boyd, S., Parikh, N., Chu, E., Peleato, B. and Eckstein, J., 2011. Foundations and Trends in Machine Learning, 3(1), pp.1-122.",
+      "doi_url": "https://doi.org/10.1561/2200000016",
+      "doi_label": "10.1561/2200000016"
+    },
+    {
+      "id": "zhu2016quantized",
+      "title": "Quantized Consensus by the ADMM: Probabilistic versus Deterministic Quantizers",
+      "citation": "Zhu, S. and Chen, B., 2016. IEEE Transactions on Signal Processing, 64(7), pp.1700-1713.",
+      "doi_url": "https://doi.org/10.1109/TSP.2015.2504341",
+      "doi_label": "10.1109/TSP.2015.2504341"
+    },
+    {
+      "id": "hochreiter1997lstm",
+      "title": "Long Short-Term Memory",
+      "citation": "Hochreiter, S. and Schmidhuber, J., 1997. Neural Computation, 9(8), pp.1735-1780.",
+      "doi_url": "https://doi.org/10.1162/neco.1997.9.8.1735",
+      "doi_label": "10.1162/neco.1997.9.8.1735"
+    },
+    {
+      "id": "zhou2021informer",
+      "title": "Informer: Beyond Efficient Transformer for Long Sequence Time-Series Forecasting",
+      "citation": "Zhou, H., Zhang, S., Peng, J., Zhang, S., Li, J., Xiong, H. and Zhang, W., 2021. Proc. AAAI Conf. Artif. Intell. (AAAI), pp.11106-11115."
+    },
+    {
+      "id": "lin2023segrnn",
+      "title": "SegRNN: Segment Recurrent Neural Network for Long-Term Time Series Forecasting",
+      "citation": "Lin, S., Lin, W., Wu, W., Zhao, F., Mo, R. and Zhang, H., 2023. arXiv:2308.11200.",
+      "url": "https://arxiv.org/abs/2308.11200"
+    },
+    {
+      "id": "nie2023patchtst",
+      "title": "A Time Series is Worth 64 Words: Long-term Forecasting with Transformers",
+      "citation": "Nie, Y., Nguyen, N.H., Sinthong, P. and Kalagnanam, J., 2023. Proc. Int. Conf. Learn. Represent. (ICLR)."
+    },
+    {
+      "id": "wang2022micn",
+      "title": "MICN: Multi-scale Local and Global Context Modeling for Long-term Series Forecasting",
+      "citation": "Wang, H., Peng, J., Huang, F., Wang, J., Chen, J. and Xiao, Y., 2023. Proc. Int. Conf. Learn. Represent. (ICLR)."
+    },
+    {
+      "id": "das2024tide",
+      "title": "Long-term Forecasting with TiDE: Time-series Dense Encoder",
+      "citation": "Das, A., Kong, W., Leach, A., Mathur, S., Sen, R. and Yu, R., 2023. Transactions on Machine Learning Research."
+    },
+    {
+      "id": "hong2023domkl",
+      "title": "Distributed Online Learning With Multiple Kernels",
+      "citation": "Hong, S. and Chae, J., 2023. IEEE Transactions on Neural Networks and Learning Systems, 34(3), pp.1263-1277.",
+      "doi_url": "https://doi.org/10.1109/TNNLS.2021.3105146",
+      "doi_label": "10.1109/TNNLS.2021.3105146"
+    },
+    {
+      "id": "hong2024omkl",
+      "title": "Online Multikernel Learning Method via Online Biconvex Optimization",
+      "citation": "Hong, S., 2024. IEEE Transactions on Neural Networks and Learning Systems, 35(11), pp.16630-16643.",
+      "doi_url": "https://doi.org/10.1109/TNNLS.2023.3296895",
+      "doi_label": "10.1109/TNNLS.2023.3296895"
+    }
+  ],
+  "bibtex": "@article{suwandi2023gaussian,\n  title={Sparsity-Aware Distributed Learning for Gaussian Processes with Linear Multiple Kernel},\n  author={Suwandi, Richard Cornelius and Lin, Zhidi and Yin, Feng and Wang, Zhiguo and Theodoridis, Sergios},\n  journal={IEEE Transactions on Neural Networks and Learning Systems},\n  year={2025}\n}",
+  "credit": {
+    "year": "2025",
+    "name": "Richard Cornelius Suwandi",
+    "url": "https://richardcsuwandi.github.io"
+  }
+}

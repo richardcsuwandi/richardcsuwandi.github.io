@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GRAPE: Gradient Refinement and Progress-Aware Exploitation for Query-Efficient High-Dimensional Bayesian Optimization</title>
+  <meta name="description" content="GRAPE first sharpens the local gradient posterior of a Gaussian process, then moves in the direction with the largest expected decrease, giving a 5.4x speedup on adversarial attacks and 3.8 log-units better regret on LLM prompt optimization.">
+  <meta name="theme-color" content="#0063c9">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="GRAPE: Gradient Refinement and Progress-Aware Exploitation for Query-Efficient High-Dimensional Bayesian Optimization">
+  <meta property="og:description" content="GRAPE first sharpens the local gradient posterior of a Gaussian process, then moves in the direction with the largest expected decrease, giving a 5.4x speedup on adversarial attacks and 3.8 log-units better regret on LLM prompt optimization.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="keywords" content="Bayesian optimization, Gaussian processes, high-dimensional optimization, gradient-aware optimization, black-box adversarial attacks, prompt optimization">
+  <link rel="canonical" href="https://richardcsuwandi.github.io/papers/grape/"><meta property="og:url" content="https://richardcsuwandi.github.io/papers/grape/">
+  
+  <link rel="icon" type="image/png" href="/assets/img/website-logo-black.PNG">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="assets/site.css">
+  <style>:root { --accent: #0063c9; }</style>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ScholarlyArticle", "headline": "GRAPE: Gradient Refinement and Progress-Aware Exploitation for Query-Efficient High-Dimensional Bayesian Optimization", "description": "GRAPE first sharpens the local gradient posterior of a Gaussian process, then moves in the direction with the largest expected decrease, giving a 5.4x speedup on adversarial attacks and 3.8 log-units better regret on LLM prompt optimization.", "author": [{"@type": "Person", "name": "Richard C. Suwandi"}, {"@type": "Person", "name": "Feng Yin"}], "url": "https://richardcsuwandi.github.io/papers/grape/", "keywords": ["Bayesian optimization", "Gaussian processes", "high-dimensional optimization", "gradient-aware optimization", "black-box adversarial attacks", "prompt optimization"]}</script>
+  <script defer src="assets/site.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch color theme"><span aria-hidden="true" data-theme-icon>☾</span></button>
+  <main id="main">
+  <article>
+    <header class="d-title">
+      <p class="d-kicker">Preprint, 2026</p>
+      <h1 class="d-headline">GRAPE: Gradient Refinement and Progress-Aware Exploitation for Query-Efficient High-Dimensional Bayesian Optimization</h1>
+      <div class="badge-row title-badges">
+        <a class="view-paper-badge view-paper-badge-arxiv" href="https://arxiv.org/abs/2608.25116" target="_blank" rel="noopener" aria-label="Paper"><img class="venue-mark" src="/assets/img/venues/arxiv.svg" alt="" width="18" height="18"><span>Paper</span></a>
+        <a class="github-code-badge" href="https://github.com/richardcsuwandi/grape" target="_blank" rel="noopener" aria-label="Code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.37-12 12 0 5.303 3.438 9.8 8.205 10.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg><span>Code</span></a>
+        <a class="alphaxiv-link-badge" href="https://www.alphaxiv.org/abs/2608.grape" target="_blank" rel="noopener" aria-label="alphaXiv"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 718.41 504.47" aria-hidden="true" focusable="false"><polygon fill="currentColor" points="591.15 258.54 718.41 385.73 663.72 440.28 536.57 313.62 591.15 258.54"></polygon><path fill="currentColor" d="M273.86.3c34.56-2.41,67.66 9.73,92.51 33.54l94.64 94.63-55.11 54.55-96.76-96.55c-16.02-12.7-37.67-12.1-53.19 1.11L54.62 288.82 0 234.23 204.76 29.57C223.12 13.31 249.27 2.02 273.86.3Z"></path><path fill="currentColor" d="M663.79 1.29l54.62 54.58-418.11 417.9c-114.43 95.94-263.57-53.49-167.05-167.52l160.46-160.33 54.62 54.58-157.88 157.77c-33.17 40.32 18.93 91.41 58.66 57.48L663.79 1.29Z"></path></svg><span>alphaXiv</span></a>
+        <a class="x-thread-badge" href="https://x.com/richardcsuwandi/status/2091998173892161769" target="_blank" rel="noopener" aria-label="Thread"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.727-8.835L1.254 2.25H8.08l4.253 5.622L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg><span>Thread</span></a>
+      </div>
+    </header>
+
+    <div class="d-byline">
+      <div class="byline-box">
+        <div class="byline-table">
+          <h3>Authors</h3>
+          <h3>Affiliations</h3>
+          <p class="byline-name"><span class="self-author">Richard C. Suwandi</span></p>
+            <p class="byline-aff">School of Artificial Intelligence, The Chinese University of Hong Kong, Shenzhen</p>
+            <p class="byline-name">Feng Yin</p>
+            <p class="byline-aff">School of Artificial Intelligence, The Chinese University of Hong Kong, Shenzhen</p>
+        </div>
+        
+      </div>
+    </div>
+
+    <div class="d-article">
+      <nav class="paper-toc" aria-label="Table of contents">
+        <h3>Contents</h3>
+        <div><a href="#abstract">Abstract</a></div>
+        <div><a href="#method">Gradient Refinement and Progress-Aware Exploitation</a></div>
+        <div><a href="#experiments">Experiments</a></div>
+        <ul><li><a href="#adversarial-attacks">Black-Box Adversarial Attacks</a></li><li><a href="#prompt-optimization">LLM Prompt Optimization</a></li><li><a href="#ablations">Ablation Study</a></li></ul>
+        <div><a href="#open-question">Open Question</a></div>
+        <div><a href="#citation">Citation</a></div>
+        <div><a href="#references">References</a></div>
+      </nav>
+
+      <div class="tldr-block">
+          <p class="tldr-text"><strong>TL;DR.</strong> Local Bayesian optimization often takes tiny steps that are almost sure to descend, since it ranks directions by descent probability instead of the size of the decrease. GRAPE first sharpens the local gradient posterior, then moves in the direction with the largest expected decrease, giving a 5.4x speedup on black-box adversarial attacks and 3.8 log-units better regret on LLM prompt optimization.</p>
+        </div>
+      <section id="abstract">
+        <h2>Abstract</h2>
+        <div class="abstract-copy"><p>Optimizing expensive, high-dimensional black-box functions remains a central challenge in modern machine learning and scientific discovery. While local Bayesian optimization mitigates the curse of dimensionality, existing techniques often prioritize the probability of descent over the magnitude of progress. This leads to overly conservative steps that yield negligible improvement, wasting queries on directions that are nearly certain to descend but offer little decrease. We introduce Gradient Refinement and Progress-Aware Exploitation (GRAPE), a two-stage framework that first sharpens the local gradient posterior via a closed-form acquisition function, then selects update directions by maximizing the expected decrease conditional on descent. Theoretical analysis proves that this gradient refinement stage monotonically minimizes local uncertainty and that the progress-aware direction converges to true steepest descent as the posterior sharpens. Empirically, GRAPE demonstrates superior query efficiency across high-dimensional tasks: in black-box adversarial attacks, it achieves an average 5.4x speedup over baselines, and on large language model prompt optimization tasks, it outperforms the second best method by a reduction of 3.8 log-units in the final average regret.</p></div>
+      </section>
+
+      <section id="method">
+          <h2>Gradient Refinement and Progress-Aware Exploitation</h2>
+          
+          <div class="content-block prose"><p>GRAPE targets local optimization of an expensive black-box function whose gradient is never observed directly. A Gaussian process (GP) posterior on the objective induces a joint posterior over the gradient at the current point<sup class="cite"><a href="#ref-williams2006gaussian">1</a></sup>, which recent local BO methods exploit without ever querying a true gradient: GIBO reduces gradient uncertainty before stepping along the posterior mean<sup class="cite"><a href="#ref-muller_local_2021">2</a></sup>, MinUCB minimizes a local upper confidence bound<sup class="cite"><a href="#ref-fan2024minimizing">3</a></sup>, and NeST-BO targets a modified Newton step from joint gradient and Hessian posteriors<sup class="cite"><a href="#ref-tang2025nestbo">4</a></sup>. Most closely related, MPD picks the direction that maximizes the posterior probability of descent<sup class="cite"><a href="#ref-nguyen2022local">5</a></sup>, a criterion invariant to rescaling the mean and standard deviation together: directional posteriors (&minus;2, 1) and (&minus;0.2, 0.1) share the same 0.977 descent probability, yet their expected decrease differs by an order of magnitude. Maximizing descent probability alone therefore favors safe but shallow directions over ones that offer far more progress.</p></div>
+          <div class="content-block figure-wide"><figure class="media-figure"><div class="media-frame"><img src="assets/figures/grape-overview.webp" alt="Two panels showing one outer iteration of GRAPE. In panel (a), Gradient Refinement, auxiliary queries near the current iterate sharpen a wide prior descent belief into a narrow posterior cone. In panel (b), Progress-Aware Exploitation, candidate directions are ranked by expected progress, and the optimizer moves along the steepest-progress direction rather than a certain-but-shallow one." loading="lazy" decoding="async"></div></figure></div>
+<p class="l-gutter caption"><strong>Figure 1.</strong> One outer iteration of GRAPE. (a) Nearby queries sharpen a wide prior descent belief into a narrower posterior. (b) Candidate directions are ranked by expected progress, and GRAPE moves along the direction with the largest expected decrease rather than the most certain but shallow one.</p>
+          <div class="content-block prose"><p><strong>Progress-aware exploitation.</strong> GRAPE replaces descent probability with the expected decrease conditional on descent, P(v) = &sigma;<sub>v</sub> [&phi;(&gamma;<sub>v</sub>) / &Phi;(&minus;&gamma;<sub>v</sub>) &minus; &gamma;<sub>v</sub>] for standardized directional mean &gamma;<sub>v</sub>, and selects the direction that maximizes it via projected gradient ascent with random restarts. The score recovers the posterior mean slope once a direction is certain to descend, correctly scores a certain-ascent direction as zero, and falls back on posterior variance as implicit exploration while the gradient posterior is still diffuse, properties that descent probability and the unconditional expected decrease both lack.</p></div>
+          <div class="content-block prose"><p><strong>Gradient refinement.</strong> This score is only as reliable as the gradient posterior behind it, so before moving, GRAPE spends a short budget of auxiliary queries that greedily minimize the expected one-step gradient variance at the current point, a quantity with closed form under a GP. Repeatedly querying its maximizer is provably never harmful: it monotonically minimizes the total gradient uncertainty at the current iterate.</p></div>
+          <div class="content-block prose"><ol><li>Initialize with a small batch of random queries and fit a GP.</li><li><strong>Stage 1 (refine):</strong> sequentially select a fixed number of refinement queries by maximizing the gradient-refinement acquisition, refitting the GP after each.</li><li><strong>Stage 2 (exploit):</strong> repeatedly take a fixed-size step along the progress-maximizing direction, evaluating and adding each point before recomputing the next direction; stop early once the progress score falls below a threshold.</li><li>Repeat for a fixed number of outer iterations and return the best point observed.</li></ol></div>
+          <div class="content-block prose"><p>Two results support this design: gradient refinement is shown to monotonically minimize local gradient uncertainty, and as the posterior sharpens, the progress-aware direction converges to the true steepest-descent direction<sup class="footnote-ref"><a href="#note-wallclock" id="note-wallclock-ref">a</a></sup>. Together they position GRAPE as a principled approximation to first-order local optimization.</p></div>
+          
+        </section>
+
+        <section id="experiments">
+          <h2>Experiments</h2>
+          
+          <div class="content-block prose"><p>All GP-based methods share one modeling protocol: an ARD Mat&eacute;rn-5/2 kernel fit by maximum marginal likelihood, matched initial points, and matched evaluation budgets. Baselines span random search, global BO with expected improvement<sup class="cite"><a href="#ref-jones1998efficient">6</a></sup> (VBO) and a dimension-scaled prior<sup class="cite"><a href="#ref-hvarfner2024vanilla">7</a></sup> (D-LogEI), the trust-region method TuRBO<sup class="cite"><a href="#ref-eriksson2019scalable">8</a></sup>, the local first-order methods MPD<sup class="cite"><a href="#ref-nguyen2022local">5</a></sup>, GIBO<sup class="cite"><a href="#ref-muller_local_2021">2</a></sup>, and MinUCB<sup class="cite"><a href="#ref-fan2024minimizing">3</a></sup>, and the second-order method NeST-BO<sup class="cite"><a href="#ref-tang2025nestbo">4</a></sup>. GRAPE refines for 5 queries per outer iteration, exploits for at most 30 steps with early stopping, and takes a fixed-fraction step size.</p></div>
+          <h3 id="adversarial-attacks">Black-Box Adversarial Attacks</h3>
+          <div class="content-block prose"><p>Adversarial attacks test whether a small, visually inconspicuous perturbation can cause an otherwise accurate classifier to misclassify an image, using only black-box access to its logits<sup class="cite"><a href="#ref-ru2020bayesopt">9</a></sup>. Following prior query-efficient attacks<sup class="cite"><a href="#ref-cheng2021convergence">10</a></sup>, images are drawn from MNIST (d = 784)<sup class="cite"><a href="#ref-lecun1998gradient">11</a></sup> and a ResNet-18<sup class="cite"><a href="#ref-he2016deep">12</a></sup> on CIFAR-10 (d = 1024)<sup class="cite"><a href="#ref-krizhevsky2009learning">13</a></sup>, and an attack succeeds at the first query where a Carlini-Wagner margin loss turns negative. GRAPE finds a successful attack with far fewer queries than every baseline, and all pairwise comparisons are significant under a paired Wilcoxon test<sup class="cite"><a href="#ref-wilcoxon1945individual">14</a></sup> (p &lt; 0.05): on CIFAR-10, VBO and random search need 7.5x and 9.4x as many queries, and the closest competitor, NeST-BO, still needs 3.3x more on both datasets. The gap is largest on CIFAR-10, where richer image structure leaves the gradient posterior more uncertain, so gradient refinement gives a bigger relative benefit.</p></div>
+          <div class="content-block figure-wide"><figure class="media-figure"><div class="media-frame"><img src="assets/figures/attack-success-rate.webp" alt="Attack success rate versus number of queries on 50 randomly selected images from MNIST (d=784) and CIFAR-10 (d=1024). The GRAPE curve rises fastest and reaches the highest success rate in both panels, well ahead of NeST-BO, MPD, MinUCB, GIBO, TuRBO, D-LogEI, VBO, and random search." loading="lazy" decoding="async"></div></figure></div>
+<p class="l-gutter caption"><strong>Figure 2.</strong> Attack success rate (higher is better) versus number of queries on 50 randomly selected images from MNIST (d = 784) and CIFAR-10 (d = 1024).</p>
+          <h3 id="prompt-optimization">LLM Prompt Optimization</h3>
+          <div class="content-block prose"><p>Prompt optimization for large language models combines expensive evaluations with a discrete, high-dimensional search space<sup class="cite"><a href="#ref-zhou2022large">15</a></sup>. GRAPE is evaluated on the BoLT benchmark<sup class="cite"><a href="#ref-chew2026bolt">16</a></sup> (5,014 prompts scored by MATH-500 accuracy<sup class="cite"><a href="#ref-hendrycks2021measuring">17</a></sup> under Qwen3-14B<sup class="cite"><a href="#ref-yang2025qwen3">18</a></sup>), with each prompt embedded via EmbeddingGemma<sup class="cite"><a href="#ref-schechtervera2025embeddinggemma">19</a></sup> at four Matryoshka truncations<sup class="cite"><a href="#ref-kusupati2022matryoshka">20</a></sup> (d &isin; {128, 256, 512, 768}), giving tasks PO-128 through PO-768. Continuous proposals are projected to the nearest embedding in the discrete pool before evaluation, and performance is measured by log simple regret (lower is better).</p></div>
+          <div class="content-block figure-wide"><figure class="media-figure"><div class="media-frame"><img src="assets/figures/prompt-opt-log-regret.webp" alt="Log simple regret versus BO iteration on BoLT prompt-optimization tasks PO-128 through PO-768. The GRAPE curve descends earliest and finishes lowest at every embedding dimension, with NeST-BO the closest competitor and a widening gap as dimension increases; global methods and random search plateau early." loading="lazy" decoding="async"></div></figure></div>
+<p class="l-gutter caption"><strong>Figure 3.</strong> Log simple regret (lower is better) versus BO iteration on BoLT prompt-optimization tasks PO-128 through PO-768. Shaded regions denote one standard deviation over 10 seeds.</p>
+          <div class="content-block prose"><p>Global methods and random search plateau early and get relatively worse as dimension grows, matching BoLT's own finding that standard BO becomes nearly indistinguishable from random search at these dimensions<sup class="cite"><a href="#ref-chew2026bolt">16</a></sup>. First-order local methods and TuRBO reach a mid-tier plateau. Only GRAPE and NeST-BO reach the deep low-regret region, with GRAPE finishing lowest at every dimension and the gap widening with d: from roughly tied at d = 128 to about 3.8 additional log-units of improvement at d = 768, reflecting NeST-BO's harder-to-learn d &times; d Hessian posterior versus GRAPE's first-order one.</p></div>
+          <h3 id="ablations">Ablation Study</h3>
+          <div class="content-block prose"><p>To separate the two design choices, four variants are compared on MNIST and PO-128/PO-768: plain MPD, MPD-Refine (refinement paired with MPD's exploitation), GRAPE-RandExp (random refinement paired with progress-aware exploitation), and full GRAPE.</p></div>
+          <div class="content-block prose"><div class="table-scroll"><table><thead><tr><th>Variant</th><th>MNIST (# queries ↓)</th><th>PO-128 (regret ↓)</th><th>PO-768 (regret ↓)</th></tr></thead><tbody><tr><td>MPD (baseline)</td><td>827 ± 128</td><td>-7.1 ± 1.2</td><td>-5.9 ± 1.4</td></tr><tr><td>MPD-Refine</td><td>741 ± 119</td><td>-7.8 ± 1.3</td><td>-6.6 ± 1.5</td></tr><tr><td>GRAPE-RandExp</td><td>371 ± 68</td><td>-11.8 ± 1.6</td><td>-12.6 ± 1.7</td></tr><tr><td>GRAPE (full)</td><td>216 ± 42</td><td>-13.9 ± 1.3</td><td>-15.7 ± 1.5</td></tr></tbody></table></div></div>
+<p class="l-gutter caption"><strong>Table 1.</strong> Ablation of gradient refinement versus progress-aware exploitation (mean &plusmn; std over 10 runs). Lower is better on both metrics.</p>
+          <div class="content-block prose"><p>MPD-Refine improves only modestly over plain MPD, confirming that refinement alone does not reliably help a descent-probability rule<sup class="cite"><a href="#ref-nguyen2022local">5</a></sup>. GRAPE-RandExp closes most of the gap to full GRAPE, showing the exploitation criterion is the more impactful design choice; adding refinement on top still yields a smaller, consistent further gain.</p></div>
+        </section>
+
+        <section id="open-question">
+          <h2>Open Question</h2>
+          
+          <div class="content-block prose"><p>Local BO often takes steps that are almost sure to descend even when the drop is tiny, so GRAPE first sharpens the local gradient and then moves in the direction with the largest expected decrease. Classical analyses track the chance of descent, so deriving how fast those sharpened steps compound, and a rate of convergence for the overall search, remains open.</p></div>
+          
+        </section>
+
+      <section id="citation">
+          <div class="citation-head"><h2>Citation</h2><button class="copy-button" type="button" data-copy-bibtex>Copy BibTeX</button></div>
+          <pre><code data-bibtex>@article{suwandi2026grape,
+  title   = {GRAPE: Gradient Refinement and Progress-Aware Exploitation for
+             Query-Efficient High-Dimensional Bayesian Optimization},
+  author  = {Suwandi, Richard Cornelius and Yin, Feng},
+  journal = {Preprint},
+  year    = {2026}
+}</code></pre>
+        </section>
+    </div>
+
+    <section class="appendix-section">
+      <h3 class="appendix-label">Footnotes</h3>
+      <ol class="notes-list">
+        <li id="note-wallclock">GRAPE's per-iteration overhead (GP refits plus scoring the refinement acquisition and progress-aware direction) sits close to other first-order local methods like GIBO and MPD, and well below NeST-BO's joint gradient-Hessian updates. On MNIST it also finishes fastest in total wall-clock time because it succeeds with far fewer queries. The paper reports query efficiency, not wall-clock time, as the primary metric. <a href="#note-wallclock-ref" class="footnote-back" aria-label="Back to text">[↩]</a></li>
+      </ol>
+      <h3 id="references" class="appendix-label">References</h3>
+      <ol class="references-list">
+        <li id="ref-williams2006gaussian"><span class="title">Gaussian Processes for Machine Learning</span>&ensp;<a href="https://gaussianprocess.org/gpml/chapters/RW.pdf">[PDF]</a><br>Rasmussen, C.E. and Williams, C.K.I., 2006. MIT Press.</li><li id="ref-muller_local_2021"><span class="title">Local Policy Search with Bayesian Optimization</span><br>Müller, S., von Rohr, A. and Trimpe, S., 2021. Advances in Neural Information Processing Systems.</li><li id="ref-fan2024minimizing"><span class="title">Minimizing UCB: A Better Local Search Strategy in Local Bayesian Optimization</span><br>Fan, Z., Wang, W., Ng, S.H. and Hu, Q., 2024. Advances in Neural Information Processing Systems.</li><li id="ref-tang2025nestbo"><span class="title">NeST-BO: Fast Local Bayesian Optimization via Newton-Step Targeting of Gradient and Hessian Information</span><br>Tang, W.T., Kudva, A. and Paulson, J.A., 2026. International Conference on Artificial Intelligence and Statistics.</li><li id="ref-nguyen2022local"><span class="title">Local Bayesian Optimization via Maximizing Probability of Descent</span><br>Nguyen, Q., Wu, K., Gardner, J. and Garnett, R., 2022. Advances in Neural Information Processing Systems.</li><li id="ref-jones1998efficient"><span class="title">Efficient Global Optimization of Expensive Black-Box Functions</span><br>Jones, D.R., Schonlau, M. and Welch, W.J., 1998. Journal of Global Optimization.</li><li id="ref-hvarfner2024vanilla"><span class="title">Vanilla Bayesian Optimization Performs Great in High Dimensions</span><br>Hvarfner, C., Hellsten, E.O. and Nardi, L., 2024. International Conference on Machine Learning.</li><li id="ref-eriksson2019scalable"><span class="title">Scalable Global Optimization via Local Bayesian Optimization</span><br>Eriksson, D., Pearce, M., Gardner, J., Turner, R.D. and Poloczek, M., 2019. Advances in Neural Information Processing Systems.</li><li id="ref-ru2020bayesopt"><span class="title">BayesOpt Adversarial Attack</span><br>Ru, B., Cobb, A.D., Blaas, A. and Gal, Y., 2020. International Conference on Learning Representations.</li><li id="ref-cheng2021convergence"><span class="title">On the Convergence of Prior-Guided Zeroth-Order Optimization Algorithms</span><br>Cheng, S., Wu, G. and Zhu, J., 2021. Advances in Neural Information Processing Systems.</li><li id="ref-lecun1998gradient"><span class="title">Gradient-Based Learning Applied to Document Recognition</span><br>LeCun, Y., Bottou, L., Bengio, Y. and Haffner, P., 1998. Proceedings of the IEEE.</li><li id="ref-he2016deep"><span class="title">Deep Residual Learning for Image Recognition</span><br>He, K., Zhang, X., Ren, S. and Sun, J., 2016. IEEE Conference on Computer Vision and Pattern Recognition.</li><li id="ref-krizhevsky2009learning"><span class="title">Learning Multiple Layers of Features from Tiny Images</span><br>Krizhevsky, A. and Hinton, G., 2009. University of Toronto.</li><li id="ref-wilcoxon1945individual"><span class="title">Individual Comparisons by Ranking Methods</span><br>Wilcoxon, F., 1945. Biometrics Bulletin. <a href="https://doi.org/10.2307/3001968">DOI: 10.2307/3001968</a></li><li id="ref-zhou2022large"><span class="title">Large Language Models Are Human-Level Prompt Engineers</span><br>Zhou, Y., Muresanu, A.I., Han, Z., Paster, K., Pitis, S., Chan, H. and Ba, J., 2023. International Conference on Learning Representations.</li><li id="ref-chew2026bolt"><span class="title">BoLT: A Benchmark to Democratize Black-box Optimization Research for Expensive LLM Tasks</span>&ensp;<a href="https://arxiv.org/abs/2605.17000">[arXiv]</a><br>Chew, R.W.T., Chen, Z., Hemachandra, A. and Low, B.K.H., 2026. arXiv:2605.17000.</li><li id="ref-hendrycks2021measuring"><span class="title">Measuring Mathematical Problem Solving with the MATH Dataset</span><br>Hendrycks, D., Burns, C., Kadavath, S., Arora, A., Basart, S., Tang, E., Song, D. and Steinhardt, J., 2021. NeurIPS Datasets and Benchmarks Track.</li><li id="ref-yang2025qwen3"><span class="title">Qwen3 Technical Report</span>&ensp;<a href="https://arxiv.org/abs/2505.09388">[arXiv]</a><br>Yang, A. et al., 2025. arXiv:2505.09388.</li><li id="ref-schechtervera2025embeddinggemma"><span class="title">EmbeddingGemma: Powerful and Lightweight Text Representations</span>&ensp;<a href="https://arxiv.org/abs/2509.20354">[arXiv]</a><br>Schechter Vera, H. et al., 2025. arXiv:2509.20354.</li><li id="ref-kusupati2022matryoshka"><span class="title">Matryoshka Representation Learning</span><br>Kusupati, A., Bhatt, G., Rege, A., Wallingford, M., Sinha, A., Ramanujan, V., Howard-Snyder, W., Chen, K., Kakade, S., Jain, P. and Farhadi, A., 2022. Advances in Neural Information Processing Systems.</li>
+      </ol>
+    </section>
+  </article>
+  </main>
+  <footer class="site-footer"><div class="container"><p>© 2026 <a href="https://richardcsuwandi.github.io">Richard Cornelius Suwandi</a></p></div></footer>
+</body>
+</html>
