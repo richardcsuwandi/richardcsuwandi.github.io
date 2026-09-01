@@ -8,15 +8,6 @@
   forks: 1142
   category: "Agentic AI Tools"
 
-- name: "sift"
-  repo: "richardcsuwandi/sift"
-  url: "https://github.com/richardcsuwandi/sift"
-  description: "Find, understand, and organize your files with private local AI"
-  language: "Python"
-  stars: 3
-  forks: 0
-  category: "Agentic AI Tools"
-
 - name: "cake"
   repo: "richardcsuwandi/cake"
   url: "https://github.com/richardcsuwandi/cake"
@@ -87,3 +78,13 @@
   stars: 2275
   forks: 368
   category: "ML & Optimization Libraries"
+
+- name: "sift"
+  repo: "richardcsuwandi/sift"
+  url: "https://github.com/richardcsuwandi/sift"
+  description: "A private local AI copilot for searching, understanding, and organizing your files"
+  language: "Python"
+  stars: 3
+  forks: 0
+  category: "Agentic AI Tools"
+
