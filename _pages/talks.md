@@ -110,6 +110,8 @@ nav_order: 3
       {% if talk.slides %}
         {% if talk.slides_kind == "image" %}
           {% assign slides_href = '/assets/img/talks/' | append: talk.slides %}
+        {% elsif talk.slides_kind == "url" %}
+          {% assign slides_href = talk.slides %}
         {% else %}
           {% assign slides_href = '/assets/pdf/' | append: talk.slides %}
         {% endif %}

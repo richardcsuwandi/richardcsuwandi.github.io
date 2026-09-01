@@ -1,6 +1,13 @@
 # Talks, posters, and slides
 # Used by: _pages/talks.md
 
+- date: "September 1, 2026"
+  sort_date: 2026-09-01
+  title: "Sift: A Private Local AI Copilot for Searching, Understanding, and Organizing Your Files"
+  venue: "Qwen3.8 Show and Tell, co-organized by Qwen and Alibaba Cloud"
+  slides: /talks/sift/
+  slides_kind: url
+
 - date: "May 7, 2026"
   sort_date: 2026-05-07
   title: "Breaking the Curse of Dimensionality in Gaussian Process Training With Zeroth-Order Adaptive Perturbation"
