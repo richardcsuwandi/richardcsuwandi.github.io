@@ -102,6 +102,7 @@ a:hover { text-decoration: underline; }
 
 .teaser { padding: 14px 0 58px; }
 .teaser .container { width: min(var(--teaser-width), calc(100% - 32px)); }
+.teaser-lead { margin: 0 0 14px; color: var(--muted); font-size: 15px; text-align: center; }
 .media-figure { margin: 0; }
 .media-frame { overflow: hidden; border: 1px solid var(--divider); border-radius: 14px; background: #fff; }
 .media-frame img, .media-frame video { width: 100%; }
@@ -138,10 +139,41 @@ figcaption { max-width: 780px; margin: 13px auto 0; color: var(--muted); font-si
 .highlight strong { display: block; font-size: 23px; }
 .highlight .highlight-copy { display: block; margin-top: 6px; color: var(--muted); font-size: 15px; line-height: 1.55; }
 
+.subsection-title { margin: 50px 0 10px; font-size: 21px; line-height: 1.25; letter-spacing: -0.01em; text-align: center; }
+.content-block:first-child .subsection-title { margin-top: 0; }
+.gui-intro-title { margin-top: 0; text-align: left; }
+
+.gui-stage { display: grid; grid-template-columns: minmax(120px, 0.32fr) minmax(0, 0.68fr); gap: 30px; align-items: start; max-width: var(--container); margin: 50px auto 0; }
+.gui-visual { display: flex; flex-direction: column; align-items: center; gap: 10px; padding-top: 4px; }
+.gui-tile { width: 84px; height: 84px; display: grid; place-items: center; padding: 14px; border-radius: 20px; background: linear-gradient(160deg, #eaf3ff, #ffffff); border: 1px solid var(--divider); box-shadow: 0 14px 30px rgba(5, 17, 29, 0.12); }
+html[data-theme="dark"] .gui-tile { background: linear-gradient(160deg, #1c2734, #121820); box-shadow: 0 14px 30px rgba(5, 17, 29, 0.35); }
+.gui-tile img { width: 100%; }
+.gui-tile-label { color: var(--muted); font: 600 12px/1 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: 0.02em; }
+
+.replay-btn { display: inline-flex; align-items: center; gap: 6px; margin-left: 10px; padding: 6px 14px; border: 1px solid var(--divider); border-radius: 20px; background: var(--bg); color: var(--muted); font: 600 12px var(--font); cursor: pointer; vertical-align: middle; }
+.replay-btn:hover { color: var(--accent); border-color: var(--accent); }
+.cli-cursor { display: inline-block; width: 7px; margin-left: 1px; background: #f4f7fb; animation: cli-blink 1s step-end infinite; }
+@keyframes cli-blink { 50% { opacity: 0; } }
+
+.try-it { margin: 50px auto 0; max-width: 760px; text-align: center; }
+.cli-replay-standalone { margin: 16px 0 0; }
+.demo-tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 0 0 18px; }
+.demo-tab { padding: 8px 16px; border: 1px solid var(--divider); border-radius: 18px; background: var(--bg); color: var(--muted); font: 600 13px var(--font); cursor: pointer; }
+.demo-tab:hover { color: var(--accent); border-color: var(--accent); }
+.demo-tab.is-active { color: var(--button-text); background: var(--accent); border-color: var(--accent); }
+.try-it h3 { margin: 0 0 6px; font-size: 22px; text-align: center; }
+.try-lead { margin: 0 0 22px; color: var(--muted); font-size: 14px; line-height: 1.55; text-align: center; }
+.cli-input-row { display: flex; align-items: center; gap: 9px; padding: 13px 20px; border-top: 1px solid rgba(255, 255, 255, 0.08); background: #1b2027; }
+.cli-input-row input { flex: 1; min-width: 0; background: transparent; border: none; outline: none; color: #f4f7fb; font: 500 13px ui-monospace, SFMono-Regular, Menlo, monospace; }
+.cli-input-row input::placeholder { color: #6f7b88; }
+.cli-hints { display: flex; flex-wrap: wrap; justify-content: center; gap: 9px; margin-top: 18px; }
+.cli-hint-btn { padding: 8px 14px; border: 1px solid var(--divider); border-radius: 18px; background: var(--bg); color: var(--muted); font: 500 12px ui-monospace, SFMono-Regular, Menlo, monospace; cursor: pointer; }
+.cli-hint-btn:hover { color: var(--accent); border-color: var(--accent); }
+.cli-screen[data-cli-live] { min-height: 0; padding-bottom: 22px; }
+
 .cli-section { overflow: hidden; background: var(--bg-light); }
 .section-kicker { margin: 0 0 10px; color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-align: center; text-transform: uppercase; }
-.cli-stage { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(340px, 0.95fr); gap: 42px; align-items: center; margin-top: 38px; }
-.cli-stage > *, .cli-window, .cli-intro { min-width: 0; }
+.cli-window, .cli-intro { min-width: 0; }
 .cli-window { width: 100%; overflow: hidden; border: 1px solid rgba(122, 156, 190, 0.28); border-radius: 16px; background: #161a1f; box-shadow: 0 28px 70px rgba(5, 17, 29, 0.24); color: #f4f7fb; }
 .cli-window-bar { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; min-height: 43px; padding: 0 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); color: #9ca7b4; background: #20252b; font: 600 12px/1 ui-monospace, SFMono-Regular, Menlo, monospace; }
 .cli-dots { display: flex; gap: 7px; }
@@ -208,7 +240,9 @@ pre { width: 100%; max-width: var(--content); overflow-x: auto; overscroll-behav
   .highlight-list { grid-template-columns: 1fr; gap: 28px; }
   .abstract-copy { text-align: left; }
   .citation-head { align-items: center; }
-  .cli-stage { grid-template-columns: 1fr; gap: 30px; }
+  .gui-stage { grid-template-columns: 1fr; gap: 18px; justify-items: center; text-align: center; }
+  .gui-intro-title { text-align: center; }
+  .subsection-title { margin-top: 38px; }
   .cli-window { border-radius: 12px; box-shadow: 0 18px 42px rgba(5, 17, 29, 0.2); }
   .cli-window-bar { grid-template-columns: auto minmax(0, 1fr) auto; gap: 10px; padding-inline: 12px; }
   .cli-window-bar > span:nth-child(2) { overflow: hidden; text-align: center; text-overflow: ellipsis; white-space: nowrap; }
@@ -231,7 +265,6 @@ pre { width: 100%; max-width: var(--content); overflow-x: auto; overscroll-behav
   .section-title { font-size: 25px; }
   .section-lead { font-size: 16px; }
   .media-frame { border-radius: 10px; }
-  .cli-stage { margin-top: 30px; }
   .cli-screen { padding-inline: 15px; }
   .cli-dots { gap: 5px; }
   .cli-dots i { width: 8px; height: 8px; }
@@ -244,10 +277,6 @@ pre { width: 100%; max-width: var(--content); overflow-x: auto; overscroll-behav
   .cli-commands code { font-size: 11px; }
   .prose th, .prose td { padding: 10px 11px; }
   pre { padding: 14px; font-size: 11px; }
-}
-
-@media (min-width: 621px) and (max-width: 880px) {
-  .cli-stage { grid-template-columns: 1fr; }
 }
 
 @media (prefers-reduced-motion: reduce) {
