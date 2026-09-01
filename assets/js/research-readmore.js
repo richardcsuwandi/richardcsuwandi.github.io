@@ -37,7 +37,7 @@
   }
 
   function enhance(p) {
-    if (p.closest(".research-pubs") || p.closest(".research-clamp")) {
+    if (p.closest(".research-pubs") || p.closest(".research-clamp") || p.classList.contains("no-readmore")) {
       return;
     }
     if (!isOverflowing(p)) {

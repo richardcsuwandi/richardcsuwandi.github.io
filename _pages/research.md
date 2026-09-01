@@ -168,3 +168,4 @@ I am also interested in how practical constraints, such as limited communication
 </div>
 
 Together, this line of work moves from optimizing inside a fixed, human-designed model class toward systems that can adapt their representations, hypotheses, and actions as they collect data. If any of this is your interest too, [email me](mailto:{{ site.email | encode_email }})!
+{: .no-readmore }

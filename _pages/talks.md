@@ -86,7 +86,16 @@ nav_order: 3
 
 @media (max-width: 991px) {
     .talk-card-body {
-        grid-template-columns: max-content minmax(0, 1fr);
+        grid-template-columns: minmax(0, 1fr);
+        row-gap: 0.65rem;
+    }
+
+    .talk-card .post-tags-left {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        padding-top: 0;
     }
 }
 </style>

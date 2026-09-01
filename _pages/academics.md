@@ -58,11 +58,7 @@ nav_order: 3
   <div class="news-date">{{ teaching.semester }}</div>
   <div class="news-content">
     {{ teaching.role | default: "Teaching Assistant" }},
-    {% if teaching.url %}
-      <a href="{{ teaching.url }}" target="_blank" rel="noopener noreferrer">{{ teaching.course }}</a>
-    {% else %}
-      {{ teaching.course }}
-    {% endif %}
+    {{ teaching.course }}
     , {{ teaching.institution }}
   </div>
 </div>
