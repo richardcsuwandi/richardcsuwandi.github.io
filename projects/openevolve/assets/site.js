@@ -1,5 +1,5 @@
 const savedTheme = localStorage.getItem("theme");
-const systemDark = window.matchMedia?.("(prefers-color-scheme: dark)").matches;
+const systemDark = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
 const initialTheme = savedTheme === "dark" || savedTheme === "light"
   ? savedTheme
   : (systemDark ? "dark" : "light");
