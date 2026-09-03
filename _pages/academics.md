@@ -23,30 +23,75 @@ nav_order: 3
 }
 
 .org-logo {
-    width: 20px;
-    height: 20px;
+    width: 32px;
+    height: 32px;
     object-fit: contain;
     vertical-align: middle;
-    margin-right: 0.4rem;
-    margin-top: -0.15rem;
-    padding: 2px;
+    margin-right: 0.6rem;
+    margin-top: -0.3rem;
+    padding: 3px;
     box-sizing: border-box;
-    border-radius: 4px;
+    border-radius: 6px;
     border: 1px solid var(--global-divider-color, #eee);
     background: #fff;
+}
+
+.service-main {
+    display: flex;
+    align-items: center;
+}
+
+/* Education / Honors & Awards only: big logo as its own left column. */
+.service-card-with-logo {
+    display: flex;
+    align-items: center;
+    gap: 1.3rem;
+}
+
+.service-card-logo-col {
+    flex: 0 0 84px;
+    width: 84px;
+    height: 84px;
+    object-fit: contain;
+    border-radius: 14px;
+    border: 1px solid var(--global-divider-color, #eee);
+    background: #fff;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.service-card-body {
+    min-width: 0;
+    flex: 1 1 auto;
+}
+
+@media (max-width: 480px) {
+    .service-card-with-logo {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .service-card-logo-col {
+        width: 64px;
+        height: 64px;
+        flex-basis: 64px;
+    }
 }
 </style>
 
 <h2>Education</h2>
 <div class="services-col mb-4">
   {% for edu in site.data.education %}
-  <div class="service-card">
-    <div class="service-meta">{{ edu.years }}</div>
-    <div class="service-main">{{ edu.degree }}</div>
-    <div class="service-meta">{{ edu.institution }}</div>
-    {% if edu.description %}
-      <div class="award-description" style="display: block;">{{ edu.description }}</div>
-    {% endif %}
+  <div class="service-card{% if edu.logo %} service-card-with-logo{% endif %}">
+    {% if edu.logo %}<img src="{{ edu.logo }}" alt="" class="service-card-logo-col">{% endif %}
+    <div class="service-card-body">
+      <div class="service-meta">{{ edu.years }}</div>
+      <div class="service-main">{{ edu.degree }}</div>
+      <div class="service-meta">{{ edu.institution }}</div>
+      {% if edu.description %}
+        <div class="award-description" style="display: block;">{{ edu.description }}</div>
+      {% endif %}
+    </div>
   </div>
   {% endfor %}
 </div>
@@ -54,12 +99,15 @@ nav_order: 3
 <h2>Honors &amp; Awards</h2>
 <div class="services-col mb-4">
   {% for award in site.data.awards %}
-  <div class="service-card">
-    <div class="service-meta">{{ award.year }}</div>
-    <div class="service-main">{{ award.title }}</div>
-    {% if award.description %}
-      <div class="award-description" style="display: block;">{{ award.description }}</div>
-    {% endif %}
+  <div class="service-card{% if award.logo %} service-card-with-logo{% endif %}">
+    {% if award.logo %}<img src="{{ award.logo }}" alt="" class="service-card-logo-col">{% endif %}
+    <div class="service-card-body">
+      <div class="service-meta">{{ award.year }}</div>
+      <div class="service-main">{{ award.title }}</div>
+      {% if award.description %}
+        <div class="award-description" style="display: block;">{{ award.description }}</div>
+      {% endif %}
+    </div>
   </div>
   {% endfor %}
 </div>
@@ -70,6 +118,7 @@ nav_order: 3
 <div class="news-card">
   <div class="news-date">{{ teaching.semester }}</div>
   <div class="news-content">
+    {% if teaching.logo %}<img src="{{ teaching.logo }}" alt="" class="org-logo">{% endif %}
     {{ teaching.role | default: "Teaching Assistant" }},
     {{ teaching.course }}
     , {{ teaching.institution }}
@@ -103,7 +152,10 @@ nav_order: 3
 {% for review in site.data.services.reviewing %}
 <div class="news-card">
   <div class="news-date">Reviewer</div>
-  <div class="news-content"><a href="{{ review.url }}" target="_blank" rel="noopener noreferrer">{{ review.name }}</a></div>
+  <div class="news-content">
+    {% if review.logo %}<img src="{{ review.logo }}" alt="" class="org-logo">{% endif %}
+    <a href="{{ review.url }}" target="_blank" rel="noopener noreferrer">{{ review.name }}</a>
+  </div>
 </div>
 {% endfor %}
 </div>

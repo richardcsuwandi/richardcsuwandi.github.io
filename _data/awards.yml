@@ -8,10 +8,12 @@
 - year: "2025"
   title: "2nd Prize Award, Doctoral Research and AI Conference, CUHK-Shenzhen"
   description: "Awarded for research presented at the Doctoral Research and AI Conference at CUHK-Shenzhen."
+  logo: "/assets/img/logos/cuhk.png"
 
 - year: "2024, 2025"
   title: "IEEE Signal Processing Society Scholarship"
   description: "A scholarship worth US$7,000 for up to three years of consecutive support to students who have expressed interest and commitment to pursuing signal processing education and real-world career experiences."
+  logo: "/assets/img/venues/ieee.png"
 
 - year: "2024"
   title: "Shenzhen Universiade International Scholarship Foundation"
@@ -20,14 +22,17 @@
 - year: "2023"
   title: "School of Science and Engineering Postgraduate Studentship, CUHK-Shenzhen"
   description: "The studentship provides financial support through a tuition waiver, teaching assistant stipend, and research assistant (RA) opportunities."
+  logo: "/assets/img/logos/cuhk.png"
 
 - year: "2022, 2023"
   title: "Undergraduate Research Award, CUHK-Shenzhen"
   description: "A monthly cash award for working on a research project under the supervision of a faculty member."
+  logo: "/assets/img/logos/cuhk.png"
 
 - year: "2020, 2021, 2022, 2023"
   title: "School of Data Science Dean's List Award, CUHK-Shenzhen"
   description: "The award is given by the Dean and the School to students who attained a year GPA of 3.5 or above (out of 4.0) as a recognition of hard work and outstanding academic performance."
+  logo: "/assets/img/logos/cuhk.png"
 
 - year: "2020, 2021, 2025"
   title: "Guangdong Government Outstanding International Student Scholarship"
@@ -36,7 +41,9 @@
 - year: "2019"
   title: "Full Tuition and Accommodation Scholarship, CUHK-Shenzhen"
   description: "Full tuition and accommodation scholarship awarded upon admission and subject to annual renewal in line with outstanding academic achievement."
+  logo: "/assets/img/logos/cuhk.png"
 
 - year: "2018"
   title: "Bronze Medal, Asia International Mathematical Olympiad (AIMO)"
   description: "Asia International Mathematical Olympiad (AIMO) is an annual international olympiad competition originated from Hong Kong."
+  logo: "/assets/img/logos/aimo.jpg"

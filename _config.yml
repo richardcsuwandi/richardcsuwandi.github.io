@@ -387,7 +387,10 @@ imagemagick:
     - ".jpeg"
     - ".png"
     - ".tiff"
-    - ".gif"
+    # .gif intentionally excluded: converting large multi-frame animated GIFs
+    # (e.g. assets/img/dgm-animation.gif, 871 frames) to animated webp crashes
+    # ImageMagick's pixel cache, and no page swaps this gif through figure.liquid
+    # to a generated webp anyway — it's always rendered with a plain <img> tag.
   output_formats:
     webp: "-quality 85"
 

@@ -12,36 +12,42 @@ teaching:
     institution: "CUHK-Shenzhen"
     course: "CSC6022 Machine Learning"
     role: "Lead Teaching Assistant"
+    logo: "/assets/img/logos/cuhk.png"
 
   - semester: "Fall 2025"
     institution: "CUHK-Shenzhen"
     course: "CIE6007 Machine Learning"
     url: "https://www.cuhk.edu.cn/en/course/11167"
     role: "Lead Teaching Assistant"
+    logo: "/assets/img/logos/cuhk.png"
 
   - semester: "Spring 2025"
     institution: "CUHK-Shenzhen"
     course: "MAT2040 Linear Algebra"
     url: "https://www.cuhk.edu.cn/en/course/8058"
     role: "Lead Teaching Assistant"
+    logo: "/assets/img/logos/cuhk.png"
 
   - semester: "Fall 2024"
     institution: "CUHK-Shenzhen"
     course: "CIE6007 Machine Learning"
     url: "https://www.cuhk.edu.cn/en/course/11167"
     role: "Teaching Assistant"
+    logo: "/assets/img/logos/cuhk.png"
 
   - semester: "Spring 2024"
     institution: "CUHK-Shenzhen"
     course: "MAT2040 Linear Algebra"
     url: "https://www.cuhk.edu.cn/en/course/8058"
     role: "Teaching Assistant"
+    logo: "/assets/img/logos/cuhk.png"
 
   - semester: "Fall 2023"
     institution: "CUHK-Shenzhen"
     course: "MAT2040 Linear Algebra"
     url: "https://www.cuhk.edu.cn/en/course/8058"
     role: "Teaching Assistant"
+    logo: "/assets/img/logos/cuhk.png"
 
 organizations:
   - role: "Dev Ambassador"
@@ -95,21 +101,28 @@ organizations:
 reviewing:
   - name: "IEEE Transactions on Neural Networks and Learning Systems"
     url: "https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=5962385"
+    logo: "/assets/img/venues/ieee.png"
 
   - name: "IEEE Transactions on Signal Processing"
     url: "https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=78"
+    logo: "/assets/img/venues/ieee.png"
 
   - name: "IEEE International Conference on Acoustics, Speech, and Signal Processing (ICASSP)"
     url: "https://ieeexplore.ieee.org/xpl/conhome/1000002/all-proceedings"
+    logo: "/assets/img/venues/ieee.png"
 
   - name: "International Conference on Learning Representations (ICLR)"
     url: "https://iclr.cc"
+    logo: "/assets/img/venues/iclr.svg"
 
   - name: "International Conference on Machine Learning (ICML)"
     url: "https://icml.cc"
+    logo: "/assets/img/venues/icml.svg"
 
   - name: "Conference on Neural Information Processing Systems (NeurIPS)"
     url: "https://neurips.cc"
+    logo: "/assets/img/venues/neurips.svg"
 
   - name: "Knowledge Discovery and Data Mining (KDD)"
     url: "https://kdd.org"
+    logo: "/assets/img/venues/kdd.png"

@@ -67,8 +67,8 @@ nav_order: 2
 }
 
 .work-logo {
-    width: 52px;
-    height: 52px;
+    width: 64px;
+    height: 64px;
     border-radius: 12px;
     object-fit: contain;
     padding: 6px;
