@@ -1,8 +1,8 @@
 ---
 layout: page
 title: Work
-permalink: /projects/
-description: Research and engineering experience, and the papers and projects that came out of it
+permalink: /work/
+description: My research and engineering experiences
 nav: true
 nav_order: 2
 ---

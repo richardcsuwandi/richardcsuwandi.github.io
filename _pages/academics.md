@@ -2,7 +2,7 @@
 layout: page
 permalink: /academics/
 title: Academics
-description: Education, honors & awards, teaching experience, and academic service
+description: My education, honors & awards, teaching experience, and academic services
 nav: true
 nav_order: 3
 ---

@@ -53,8 +53,8 @@
       url: /papers/zap/
 
 - company: Bayesian Learning for Signal Processing (BLSP) Group
-  role: "Undergraduate Research Assistant (Supervised by Prof. Feng Yin)"
-  role_url: https://sai.cuhk.edu.cn/en/teacher/97
+  role: "Undergraduate Research Assistant"
+  role_url: 
   location: The Chinese University of Hong Kong, Shenzhen
   dates: Jun 2021 – May 2023
   logo: /assets/img/logos/cuhk.png
@@ -70,8 +70,8 @@
       url: /papers/slim-kl/
 
 - company: Shenzhen Research Institute of Big Data (SRIBD)
-  role: "Undergraduate Research Assistant (Supervised by Prof. Tsung-Hui Chang)"
-  role_url: https://sai.cuhk.edu.cn/en/teacher/83
+  role: "Undergraduate Research Assistant"
+  role_url: 
   location: The Chinese University of Hong Kong, Shenzhen
   dates: Jun 2021 – May 2023
   logo: /assets/img/logos/sribd.png
@@ -81,5 +81,5 @@
     - Presented the research outcomes as a poster at IEEE ICASSP 2021
   links:
     - title: FedMAvg
-      subtitle: Model averaging for communication-efficient federated matrix factorization
+      subtitle: A communication-efficient federated matrix factorization with alternating minimization and model averaging
       url: /papers/fedmavg/
