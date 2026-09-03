@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 560" role="img" aria-labelledby="title desc">
+  <title id="title">OpenEvolve execution and verification harness, dark theme</title>
+  <desc id="desc">A seed program is edited by a language model, checked for syntax and correctness, benchmarked, scored, and selected. Failures return diagnostic artifacts and test cases to the next proposal.</desc>
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="8" stdDeviation="11" flood-color="#000" flood-opacity=".3"/></filter>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0v6l9-3z" fill="#94a3b8"/></marker>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0v6l9-3z" fill="#60a5fa"/></marker>
+    <style>.font{font-family:Inter,Arial,sans-serif}.title{font-size:32px;font-weight:700;fill:#f1f5f9}.subtitle{font-size:18px;fill:#aab8ca}.head{font-size:21px;font-weight:700;fill:#e2e8f0}.body{font-size:15px;fill:#aab8ca}.eyebrow{font-size:14px;font-weight:700;letter-spacing:1.3px}.chip{font-size:14px;font-weight:600}.line{fill:none;stroke:#94a3b8;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}</style>
+  </defs>
+  <rect width="1100" height="560" rx="28" fill="#111820"/>
+  <g class="font">
+    <text x="550" y="48" text-anchor="middle" class="title">Execution turns generated edits into evidence</text><text x="550" y="77" text-anchor="middle" class="subtitle">Each transition has an explicit contract, failure mode, and machine-readable artifact</text>
+    <text x="64" y="126" class="eyebrow" fill="#94a3b8">CANDIDATE PATH</text>
+    <g filter="url(#shadow)"><rect x="50" y="148" width="180" height="116" rx="18" fill="#1b2633" stroke="#3a4a5c"/><rect x="260" y="148" width="180" height="116" rx="18" fill="#17304b" stroke="#477fae"/><rect x="470" y="148" width="180" height="116" rx="18" fill="#193526" stroke="#4b8d5b"/><rect x="680" y="148" width="180" height="116" rx="18" fill="#362f18" stroke="#9c812f"/><rect x="900" y="148" width="150" height="116" rx="18" fill="#202b37" stroke="#526477"/></g>
+    <path d="M230 206h22M440 206h22M650 206h22M860 206h32" class="line" marker-end="url(#arrowBlue)"/>
+    <text x="76" y="184" class="head">Seed program</text><text x="76" y="214" class="body">stable baseline</text><text x="76" y="240" class="body">declared edit region</text><text x="286" y="184" class="head">Generate</text><text x="286" y="214" class="body">LLM diff or</text><text x="286" y="240" class="body">full rewrite</text><text x="496" y="184" class="head">Verify</text><text x="496" y="214" class="body">load + syntax</text><text x="496" y="240" class="body">reference tests</text><text x="706" y="184" class="head">Measure</text><text x="706" y="214" class="body">timed execution</text><text x="706" y="240" class="body">resource limits</text><text x="926" y="184" class="head">Select</text><text x="926" y="214" class="body">task score</text><text x="926" y="240" class="body">population</text>
+    <text x="64" y="312" class="eyebrow" fill="#94a3b8">EVALUATION CONTRACT</text>
+    <rect x="50" y="333" width="620" height="104" rx="18" fill="#1b2633" stroke="#3a4a5c"/>
+    <g class="chip"><rect x="75" y="357" width="122" height="34" rx="17" fill="#273442"/><text x="136" y="379" text-anchor="middle" fill="#cbd5e1">stable inputs</text><rect x="209" y="357" width="145" height="34" rx="17" fill="#193526"/><text x="281.5" y="379" text-anchor="middle" fill="#9cdda9">correctness first</text><rect x="366" y="357" width="140" height="34" rx="17" fill="#362f18"/><text x="436" y="379" text-anchor="middle" fill="#efd576">repeatable timing</text><rect x="518" y="357" width="137" height="34" rx="17" fill="#17304b"/><text x="586.5" y="379" text-anchor="middle" fill="#bfdbfe">bounded workers</text></g>
+    <text x="75" y="418" class="body">Only verified behavior can influence the performance score.</text>
+    <rect x="694" y="350" width="390" height="116" rx="18" fill="#38231f" stroke="#9b5944"/><text x="720" y="381" class="eyebrow" fill="#f0a487">DIAGNOSTIC FEEDBACK</text><text x="720" y="414" class="head" fill="#fed7c8">Failure becomes evidence</text><text x="720" y="443" class="body" fill="#fed7c8">traceback · validation case · timeout · timing data</text>
+    <path d="M560 264v35h305c25 0 39 16 39 43" class="line" marker-end="url(#arrow)"/><rect x="578" y="277" width="48" height="24" rx="12" fill="#111820"/><text x="602" y="294" text-anchor="middle" class="chip" fill="#f0a487">fail</text>
+    <path d="M865 466v52H32V140h108v8" class="line" marker-end="url(#arrow)"/><text x="550" y="542" text-anchor="middle" class="eyebrow" fill="#94a3b8">FEEDBACK LOOP</text><path d="M975 264v34" class="line" marker-end="url(#arrowBlue)"/>
+    <rect x="886" y="306" width="178" height="42" rx="21" fill="#d9e8f7"/><text x="975" y="333" text-anchor="middle" class="chip" fill="#14283b">next generation</text>
+  </g>
+</svg>

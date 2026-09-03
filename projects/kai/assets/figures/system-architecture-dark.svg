@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 610" role="img" aria-labelledby="title desc">
+  <title id="title">Kai system architecture, dark theme</title>
+  <desc id="desc">A coordinating Kai agent uses tools, skills, workspace context, memory, and lifecycle services to direct security and evolution harnesses. Both harnesses produce normalized reports and runnable artifacts.</desc>
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000" flood-opacity=".28"/></filter>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0v6l9-3z" fill="#94a3b8"/></marker>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0v6l9-3z" fill="#60a5fa"/></marker>
+    <style>.font{font-family:Inter,Arial,sans-serif}.eyebrow{font-size:14px;font-weight:700;letter-spacing:1.5px}.title{font-size:32px;font-weight:700;fill:#f1f5f9}.subtitle{font-size:18px;fill:#aab8ca}.head{font-size:22px;font-weight:700}.body{font-size:15px;fill:#aab8ca}.chip{font-size:14px;font-weight:600}.line{fill:none;stroke:#94a3b8;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}</style>
+    <clipPath id="driaLogoClip"><circle cx="360" cy="151" r="26"/></clipPath>
+  </defs>
+  <rect width="1100" height="610" rx="28" fill="#111820"/>
+  <g class="font">
+    <text x="550" y="48" text-anchor="middle" class="title">One agent, two evidence-producing harnesses</text><text x="550" y="77" text-anchor="middle" class="subtitle">Coordination stays shared; verification contracts remain specialized</text>
+    <g filter="url(#shadow)"><rect x="310" y="105" width="480" height="92" rx="18" fill="#17365a" stroke="#3d78b7" stroke-width="1.5"/></g>
+<image href="dria-logo.jpg" x="334" y="125" width="52" height="52" clip-path="url(#driaLogoClip)" preserveAspectRatio="xMidYMid slice"/>
+    <text x="404" y="143" class="head" fill="#dbeafe">Kai agent</text><text x="404" y="169" class="body">plans, delegates, and preserves the user session</text>
+    <rect x="674" y="127" width="92" height="32" rx="16" fill="#0f2238" stroke="#3d78b7"/><text x="720" y="149" text-anchor="middle" class="chip" fill="#bfdbfe">coordinate</text>
+    <path d="M550 197v8" class="line"/><text x="550" y="222" text-anchor="middle" class="eyebrow" fill="#94a3b8">SHARED CONTEXT</text><path d="M550 233v17" class="line" marker-end="url(#arrow)"/>
+    <g>
+      <rect x="92" y="250" width="210" height="70" rx="14" fill="#1b2633" stroke="#3a4a5c"/><rect x="327" y="250" width="210" height="70" rx="14" fill="#1b2633" stroke="#3a4a5c"/><rect x="562" y="250" width="210" height="70" rx="14" fill="#1b2633" stroke="#3a4a5c"/><rect x="797" y="250" width="210" height="70" rx="14" fill="#1b2633" stroke="#3a4a5c"/>
+      <text x="197" y="281" text-anchor="middle" class="head" font-size="16" fill="#e2e8f0">Tool registry</text><text x="197" y="303" text-anchor="middle" class="body">terminal · browser · files</text><text x="432" y="281" text-anchor="middle" class="head" font-size="16" fill="#e2e8f0">Skills</text><text x="432" y="303" text-anchor="middle" class="body">reusable workflows</text><text x="667" y="281" text-anchor="middle" class="head" font-size="16" fill="#e2e8f0">Workspace</text><text x="667" y="303" text-anchor="middle" class="body">repository + live state</text><text x="902" y="281" text-anchor="middle" class="head" font-size="16" fill="#e2e8f0">Memory + lifecycle</text><text x="902" y="303" text-anchor="middle" class="body">sessions · hooks · handoffs</text>
+    </g>
+    <path d="M550 320v34M550 354H297v29M550 354h253v29" class="line"/><path d="M297 374v9M803 374v9" class="line" marker-end="url(#arrow)"/>
+    <g filter="url(#shadow)"><rect x="92" y="390" width="410" height="132" rx="20" fill="#162b42" stroke="#477fae" stroke-width="1.5"/><rect x="598" y="390" width="410" height="132" rx="20" fill="#38231f" stroke="#9b5944" stroke-width="1.5"/></g>
+    <text x="120" y="420" class="eyebrow" fill="#8fc7fa">EVOLUTION HARNESS</text><text x="120" y="451" class="head" fill="#dbeafe">Turn proposals into verified gains</text><text x="626" y="420" class="eyebrow" fill="#f0a487">SECURITY HARNESS</text><text x="626" y="451" class="head" fill="#fed7c8">Turn findings into proof</text>
+    <g class="chip">
+      <rect x="120" y="474" width="68" height="28" rx="14" fill="#101d2b"/><text x="154" y="493" text-anchor="middle" fill="#dbeafe">mutate</text><rect x="196" y="474" width="76" height="28" rx="14" fill="#101d2b"/><text x="234" y="493" text-anchor="middle" fill="#dbeafe">evaluate</text><rect x="280" y="474" width="62" height="28" rx="14" fill="#101d2b"/><text x="311" y="493" text-anchor="middle" fill="#dbeafe">select</text><rect x="350" y="474" width="94" height="28" rx="14" fill="#101d2b"/><text x="397" y="493" text-anchor="middle" fill="#dbeafe">benchmark</text>
+      <rect x="626" y="474" width="76" height="28" rx="14" fill="#171e26"/><text x="664" y="493" text-anchor="middle" fill="#fed7c8">discover</text><rect x="710" y="474" width="66" height="28" rx="14" fill="#171e26"/><text x="743" y="493" text-anchor="middle" fill="#fed7c8">verify</text><rect x="784" y="474" width="68" height="28" rx="14" fill="#171e26"/><text x="818" y="493" text-anchor="middle" fill="#fed7c8">exploit</text><rect x="860" y="474" width="62" height="28" rx="14" fill="#171e26"/><text x="891" y="493" text-anchor="middle" fill="#fed7c8">patch</text>
+    </g>
+    <path d="M297 522v24h253M803 522v24H550v19" class="line" marker-end="url(#arrowBlue)"/><rect x="300" y="558" width="500" height="38" rx="19" fill="#d9e8f7"/><text x="550" y="582" text-anchor="middle" class="chip" fill="#14283b">normalized report  ·  findings  ·  metrics  ·  runnable artifacts</text>
+  </g>
+</svg>

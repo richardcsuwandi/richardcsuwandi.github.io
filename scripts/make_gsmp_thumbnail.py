@@ -1,6 +1,6 @@
 """Animated 1D spectral-mixture comb for the SLIM-KL / GSMP thumbnail.
 
-Many frequency bumps, then most fade. Keepers stay and turn blue.
+Many frequency bumps, then most shrink to the baseline. Keepers stay and turn blue.
 """
 
 from __future__ import annotations
@@ -58,11 +58,15 @@ def main() -> None:
             t_drop = t0 + k * dt
             t_done = min(0.90, t_drop + 0.08)
             bumps.append(
-                f'<path d="{d}" fill="{GRAY}" fill-opacity="0.75" opacity="1">'
-                f'<animate attributeName="opacity" values="1;1;0;0;1" '
+                f'<g transform="translate({mu:.1f},{BASE:.1f})">'
+                f'<g>'
+                f'<animateTransform attributeName="transform" type="scale" '
+                f'values="1 1;1 1;1 0;1 0;1 1" '
                 f'keyTimes="0;{t_drop:.2f};{t_done:.2f};0.92;1" dur="{DUR}" '
                 f'repeatCount="indefinite"/>'
-                f"</path>"
+                f'<path d="{d}" fill="{GRAY}" fill-opacity="0.75" '
+                f'transform="translate({-mu:.1f},{-BASE:.1f})"/>'
+                f"</g></g>"
             )
 
     svg = f'''<?xml version="1.0" encoding="UTF-8"?>
