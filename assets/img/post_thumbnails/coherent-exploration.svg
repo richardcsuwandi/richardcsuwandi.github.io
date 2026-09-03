@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Coherent Bayesian Exploration for LLM Agents</title>
+  <desc id="desc">Scattered token paths on the left become coherent hypothesis-guided trajectories on the right.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071526"/>
+      <stop offset="1" stop-color="#102f43"/>
+    </linearGradient>
+    <linearGradient id="path" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#67b7ff"/>
+      <stop offset="1" stop-color="#73e6ad"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" rx="30" fill="url(#bg)"/>
+  <g opacity=".16" stroke="#9bcdf4" stroke-width="1">
+    <path d="M70 105H1130M70 175H1130M70 245H1130M70 315H1130M70 385H1130M70 455H1130M70 525H1130"/>
+    <path d="M140 70V560M280 70V560M420 70V560M560 70V560M700 70V560M840 70V560M980 70V560"/>
+  </g>
+  <g fill="none" stroke="#67b7ff" stroke-width="7" stroke-linecap="round" opacity=".72">
+    <path d="M105 395C170 330 205 440 260 350S365 445 430 355"/>
+    <path d="M105 435C170 500 220 360 285 455S375 385 445 445"/>
+    <path d="M105 355C155 275 225 350 285 265S390 325 445 245"/>
+  </g>
+  <g fill="#67b7ff">
+    <circle cx="105" cy="395" r="10"/><circle cx="260" cy="350" r="10"/><circle cx="430" cy="355" r="10"/>
+    <circle cx="105" cy="435" r="10"/><circle cx="285" cy="455" r="10"/><circle cx="445" cy="445" r="10"/>
+    <circle cx="105" cy="355" r="10"/><circle cx="285" cy="265" r="10"/><circle cx="445" cy="245" r="10"/>
+  </g>
+  <rect x="500" y="346" width="165" height="8" rx="4" fill="#6fd1d6"/>
+  <polygon points="650,326 684,350 650,374" fill="#73e6ad"/>
+  <g fill="#73e6ad">
+    <polygon points="716,447 766,377 774,383 724,453"/>
+    <polygon points="766,377 821,292 829,298 774,383"/>
+    <polygon points="821,292 928,231 932,239 829,298"/>
+    <polygon points="928,231 1089,201 1091,209 932,239"/>
+  </g>
+  <g fill="#73e6ad">
+    <circle cx="720" cy="450" r="12"/><circle cx="825" cy="295" r="12"/><circle cx="930" cy="235" r="12"/><circle cx="1090" cy="205" r="12"/>
+  </g>
+  <g font-family="Inter, ui-sans-serif, system-ui, sans-serif" fill="#f3f8fc">
+    <text x="72" y="105" font-size="27" font-weight="650" fill="#8fc9f6">TOKEN SAMPLING</text>
+    <text x="720" y="105" font-size="27" font-weight="650" fill="#91efbd">POSTERIOR SAMPLING</text>
+    <text x="72" y="584" font-size="46" font-weight="750">From randomness to coherent exploration</text>
+  </g>
+</svg>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="32 103 1136 568" role="img" aria-labelledby="title desc">
+  <title id="title">Four layers of a curious agent</title>
+  <desc id="desc">A clockwise cycle connects an explicit belief state, an exploration objective, a commitment mechanism, and belief revision.</desc>
+  <defs>
+    <marker id="layer-arrow" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0 0L11 5.5L0 11Z" fill="var(--arrow)"/>
+    </marker>
+    <style>
+      .art {
+        --text: #20272d; --muted: #69747d; --line: #d5dce1; --surface: #ffffff;
+        --panel: #f7f9fa; --arrow: #71808b; --blue: #477fae; --blue-soft: #e5eff8;
+        --orange: #c77438; --orange-soft: #faeadc; --green: #3f8a66; --green-soft: #e4f2e9;
+        --purple: #7765a7; --purple-soft: #ece8f5; font-family: Arial, Helvetica, sans-serif;
+      }
+      #dark:target ~ .art {
+        --text: #eef2f5; --muted: #aeb8c0; --line: #3a4650; --surface: #202830;
+        --panel: #182028; --arrow: #91a0aa; --blue: #77acd7; --blue-soft: #253b4d;
+        --orange: #e49a63; --orange-soft: #463326; --green: #73bd92; --green-soft: #263d31;
+        --purple: #ab9bd2; --purple-soft: #373247;
+      }
+      .number { fill: #fff; font-size: 18px; font-weight: 700; }
+      .card-title { fill: var(--text); font-size: 28px; font-weight: 700; }
+      .card-sub { fill: var(--muted); font-size: 18px; }
+      .label { fill: var(--muted); font-size: 16px; font-weight: 700; letter-spacing: .7px; }
+      .body { fill: var(--text); font-size: 18px; }
+      .small { fill: var(--muted); font-size: 15px; }
+      .mono { fill: var(--text); font-family: "Courier New", Courier, monospace; font-size: 16px; }
+      .flow { fill: none; stroke: var(--arrow); stroke-width: 1.8; stroke-linecap: round; marker-end: url(#layer-arrow); }
+      .hairline { fill: none; stroke: var(--line); stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; }
+    </style>
+  </defs>
+
+  <g id="dark"/>
+  <g class="art">
+    <rect width="1200" height="790" rx="22" fill="var(--panel)"/>
+
+    <!-- Flow arrows behind cards -->
+    <path d="M556 239H641" class="flow"/>
+    <path d="M891 354V420" class="flow"/>
+    <path d="M644 535H559" class="flow"/>
+    <path d="M309 420V354" class="flow"/>
+
+    <!-- 1 Belief state -->
+    <g transform="translate(62 121)">
+      <rect width="494" height="233" rx="19" fill="var(--surface)" stroke="var(--blue)" stroke-width="1.5"/>
+      <circle cx="31" cy="32" r="18" fill="var(--blue)"/>
+      <text x="31" y="37" text-anchor="middle" class="number">1</text>
+      <text x="60" y="38" class="card-title">Belief state</text>
+      <text x="24" y="70" class="card-sub">Compress history into explicit hypotheses</text>
+      <g transform="translate(24 91)">
+        <rect width="446" height="118" rx="12" fill="var(--blue-soft)"/>
+        <text x="16" y="22" class="label" fill="var(--blue)">PLAUSIBLE WORLDS</text>
+        <text x="16" y="49" class="mono">H₁  parser rejects empty input</text>
+        <rect x="317" y="39" width="108" height="10" rx="5" fill="var(--surface)"/>
+        <rect x="317" y="39" width="78" height="10" rx="5" fill="var(--blue)"/>
+        <text x="16" y="75" class="mono">H₂  dependency behavior changed</text>
+        <rect x="317" y="65" width="108" height="10" rx="5" fill="var(--surface)"/>
+        <rect x="317" y="65" width="43" height="10" rx="5" fill="var(--blue)" opacity=".75"/>
+        <text x="16" y="101" class="mono">H₃  calls arrive out of order</text>
+        <rect x="317" y="91" width="108" height="10" rx="5" fill="var(--surface)"/>
+        <rect x="317" y="91" width="24" height="10" rx="5" fill="var(--blue)" opacity=".55"/>
+      </g>
+    </g>
+
+    <!-- 2 Exploration objective -->
+    <g transform="translate(644 121)">
+      <rect width="494" height="233" rx="19" fill="var(--surface)" stroke="var(--orange)" stroke-width="1.5"/>
+      <circle cx="31" cy="32" r="18" fill="var(--orange)"/>
+      <text x="31" y="37" text-anchor="middle" class="number">2</text>
+      <text x="60" y="38" class="card-title">Exploration objective</text>
+      <text x="24" y="70" class="card-sub">Choose which uncertainty is worth resolving</text>
+      <g transform="translate(24 91)">
+        <rect width="446" height="118" rx="12" fill="var(--orange-soft)"/>
+        <text x="16" y="22" class="label" fill="var(--orange)">ACTION SCORE</text>
+        <text x="16" y="50" class="body">task reward</text><text x="132" y="50" class="body">+</text>
+        <text x="160" y="50" class="body">information</text><text x="280" y="50" class="body">+</text>
+        <text x="310" y="50" class="body">options</text>
+        <path d="M16 64H414" class="hairline"/>
+        <text x="16" y="88" class="body">cost</text><text x="78" y="88" class="body">+</text>
+        <text x="108" y="88" class="body">risk</text>
+        <path d="M175 83H275" stroke="var(--orange)" stroke-width="6" stroke-linecap="round"/>
+        <circle cx="235" cy="83" r="10" fill="var(--surface)" stroke="var(--orange)" stroke-width="3"/>
+        <rect x="295" y="66" width="134" height="34" rx="17" fill="var(--orange)"/>
+        <text x="362" y="89" text-anchor="middle" class="body" style="fill:#fff;font-weight:700">select a test</text>
+      </g>
+    </g>
+
+    <!-- 4 Belief revision -->
+    <g transform="translate(62 420)">
+      <rect width="494" height="233" rx="19" fill="var(--surface)" stroke="var(--purple)" stroke-width="1.5"/>
+      <circle cx="31" cy="32" r="18" fill="var(--purple)"/>
+      <text x="31" y="37" text-anchor="middle" class="number">4</text>
+      <text x="60" y="38" class="card-title">Belief revision</text>
+      <text x="24" y="70" class="card-sub">Turn the trajectory into durable evidence</text>
+      <g transform="translate(24 91)">
+        <rect width="446" height="118" rx="12" fill="var(--purple-soft)"/>
+        <text x="16" y="22" class="label" fill="var(--purple)">EVIDENCE LEDGER</text>
+        <circle cx="26" cy="49" r="11" fill="var(--green)"/><text x="26" y="54" text-anchor="middle" class="number" style="font-size:15px">+</text>
+        <text x="46" y="53" class="body">empty-input test reproduces failure</text>
+        <circle cx="26" cy="79" r="11" fill="var(--orange)"/><text x="26" y="84" text-anchor="middle" class="number" style="font-size:15px">−</text>
+        <text x="46" y="84" class="body">pinned dependency changes nothing</text>
+        <path d="M16 96H430" class="hairline"/>
+        <text x="16" y="114" class="small">failed experiments remain evidence, not discarded prose</text>
+      </g>
+    </g>
+
+    <!-- 3 Commitment -->
+    <g transform="translate(644 420)">
+      <rect width="494" height="233" rx="19" fill="var(--surface)" stroke="var(--green)" stroke-width="1.5"/>
+      <circle cx="31" cy="32" r="18" fill="var(--green)"/>
+      <text x="31" y="37" text-anchor="middle" class="number">3</text>
+      <text x="60" y="38" class="card-title">Commitment mechanism</text>
+      <text x="24" y="70" class="card-sub">Preserve one hypothesis long enough to test</text>
+      <g transform="translate(24 91)">
+        <rect width="446" height="118" rx="12" fill="var(--green-soft)"/>
+        <text x="16" y="22" class="label" fill="var(--green)">ONE COHERENT EPISODE</text>
+        <rect x="16" y="37" width="132" height="26" rx="13" fill="var(--green)"/>
+        <text x="82" y="55" text-anchor="middle" class="body" style="fill:#fff;font-weight:700">sample H₁</text>
+        <path d="M159 50H188" class="flow"/>
+        <circle cx="208" cy="50" r="13" fill="var(--surface)" stroke="var(--green)" stroke-width="2"/>
+        <path d="M221 50H246" class="flow"/>
+        <circle cx="266" cy="50" r="13" fill="var(--surface)" stroke="var(--green)" stroke-width="2"/>
+        <path d="M279 50H304" class="flow"/>
+        <circle cx="324" cy="50" r="13" fill="var(--surface)" stroke="var(--green)" stroke-width="2"/>
+        <text x="208" y="54" text-anchor="middle" class="small">a₁</text>
+        <text x="266" y="54" text-anchor="middle" class="small">a₂</text>
+        <text x="324" y="54" text-anchor="middle" class="small">a₃</text>
+        <text x="350" y="54" class="body">…</text>
+        <path d="M16 79H430" class="hairline"/>
+        <text x="16" y="101" class="small">switch only on contradiction · episode end · risk limit</text>
+      </g>
+    </g>
+
+  </g>
+</svg>

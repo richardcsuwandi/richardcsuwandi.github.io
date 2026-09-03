@@ -52,6 +52,7 @@
           <div><a href="#context">Why I built EvolveBench</a></div>
           <div><a href="#benchmark">Building the benchmark</a></div>
           <div><a href="#generated-evaluator">Inside a generated evaluator</a></div>
+          <div><a href="#leaderboard">Leaderboard</a></div>
           <div><a href="#comparison">What the evaluator comparison showed</a></div>
           <div><a href="#capabilities">Making OpenEvolve more adaptive</a></div>
           <div><a href="#lessons">What I learned</a></div>
@@ -120,6 +121,16 @@ score = <span class="mf">0.7</span> * correctness + <span class="mf">0.3</span> 
           </figure>
           <div class="content-block prose"><p>The staging matters. Small cases cheaply eliminate broken candidates before the full suite consumes the budget. Differential testing avoids maintaining hand-calculated outputs, while fixed random seeds make failures reproducible. Warming the <a href="https://github.com/numba/numba" target="_blank" rel="noopener">Numba</a> kernel before starting the timer measures steady-state throughput rather than compilation latency<sup id="fnref-warmup" class="footnote-ref"><a href="#fn-warmup" aria-label="Footnote 2">2</a></sup>.</p></div>
           <div class="content-block prose"><p>The generated evaluator was not simply longer than the handwritten one. It encoded a different search landscape: more workload variation, measured baseline targets at three scales, and a smooth sigmoid reward around each target. This gave the agent credit for partial performance gains while keeping correctness dominant.</p></div>
+        </section>
+
+        <section id="leaderboard">
+          <h2>Leaderboard</h2>
+          <div class="content-block prose"><p>EvolveBench scores AI-driven optimization systems on real repositories, not synthetic functions. The EvolveBench score is the harmonic mean of per-task speedups, following the aggregation convention used in AlgoTune. OpenEvolve is currently the only system benchmarked; each evaluator design it was run with counts as a separate config below. <a href="https://github.com/richardcsuwandi/evolvebench" target="_blank" rel="noopener">Submit a result</a> for another system and it will be added here.</p></div>
+          <div class="content-block prose"><div class="table-scroll"><table><thead><tr><th>Rank</th><th>Agent</th><th>Model / Config</th><th>Aggregate score</th></tr></thead><tbody>
+            <tr><td>1</td><td>OpenEvolve</td><td>Gemini 2.5 Flash (evolution) + Claude Sonnet 4.5 (LLM-generated evaluator)</td><td><strong>1.35×</strong></td></tr>
+            <tr><td>2</td><td>OpenEvolve</td><td>Gemini 2.5 Flash (evolution) + handwritten evaluator</td><td>1.12×</td></tr>
+          </tbody></table></div></div>
+          <p class="l-gutter caption">Full per-task scores behind each aggregate are in the breakdown below.</p>
         </section>
 
         <section id="comparison">
