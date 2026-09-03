@@ -1,0 +1,422 @@
+{
+  "title": "EvolveBench and New OpenEvolve Capabilities",
+  "venue": "Dria Technical Report, 2026 (in progress)",
+  "canonical_url": "https://richardcsuwandi.github.io/projects/evolvebench/",
+  "description": "Follow-up work to the AlgoTune study: EvolveBench extends OpenEvolve's evaluation to 11 real-world open-source repositories, and three new capabilities (Thompson-sampling ensembles, novelty detection, two-phase warmup) target problems the original study surfaced.",
+  "badges": [
+    {
+      "kind": "other",
+      "label": "AlgoTune Study",
+      "url": "https://richardcsuwandi.github.io/projects/openevolve/"
+    },
+    {
+      "kind": "code",
+      "url": "https://github.com/algorithmicsuperintelligence/openevolve"
+    }
+  ],
+  "authors": [
+    {
+      "name": "Richard C. Suwandi",
+      "self": true,
+      "affiliations": [
+        "Dria"
+      ]
+    },
+    {
+      "name": "andthattoo",
+      "url": "https://huggingface.co/andthattoo",
+      "affiliations": [
+        "Dria"
+      ]
+    },
+    {
+      "name": "Asankhaya Sharma",
+      "url": "https://huggingface.co/codelion",
+      "affiliations": [
+        "Dria"
+      ]
+    }
+  ],
+  "theme": {
+    "accent": "#0063c9"
+  },
+  "keywords": [
+    "EvolveBench",
+    "OpenEvolve",
+    "Thompson sampling",
+    "novelty search",
+    "evolutionary coding agents"
+  ],
+  "tldr": "Follow-up work on OpenEvolve after the AlgoTune study: EvolveBench tests the same kind of evolutionary coding agent against 11 real-world repositories instead of AlgoTune's synthetic tasks, and finds LLM-generated evaluators reach a 1.35x aggregate score versus 1.12x for handwritten ones. Three new OpenEvolve capabilities, Thompson-sampling ensembles, novelty detection, and two-phase warmup optimization, target gaps the AlgoTune study surfaced, most directly the finding that naive model ensembles underperformed single models.",
+  "abstract": "This page reports on two lines of follow-up work after the original 29-experiment OpenEvolve study on AlgoTune. The first is EvolveBench, a benchmark that evaluates OpenEvolve on 11 real-world open-source repositories (including SymPy, NetworkX, pandas, and python-jsonschema) rather than AlgoTune's synthetic, single-function tasks, and compares hand-written evaluators against LLM-generated ones. The second is a set of new capabilities added to OpenEvolve itself. Thompson-sampling ensembles adaptively pick which model proposes each edit, instead of running every model every iteration. Novelty detection uses embedding similarity to reject near-duplicate candidate programs before they are evaluated. A two-phase warmup optimizer spends part of the compute budget automatically tuning the evolution prompt and hyperparameters before the main run. Unlike the AlgoTune study, this work is still in progress: EvolveBench's headline numbers are complete, but the new-capabilities results below are early, unrepeated runs rather than the swept, averaged experiments the AlgoTune report used, and are reported with that caveat throughout.",
+  "sections": [
+    {
+      "id": "summary",
+      "title": "Executive Summary",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Three findings from this stage of work:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "<strong>LLM-generated evaluators beat handwritten ones on EvolveBench:</strong> an aggregate score of 1.35x versus 1.12x across 11 real-world repositories, a 1.2x ratio, though task-level variance is large.",
+            "<strong>Adaptive ensembles can fix the ensemble problem the AlgoTune study found:</strong> letting each model evolve on its own island without migration, or weighting proposals by recent performance via Thompson sampling, beats the best single model on 9 of 11 re-tested AlgoTune tasks, reversing the original result where a naive ensemble underperformed either model alone.",
+            "<strong>Two capabilities target problems observed earlier but do not yet have benchmark numbers attached:</strong> novelty detection (rejecting near-duplicate candidates via embedding similarity) and two-phase warmup optimization (automatically tuning the prompt and hyperparameters before the main run, replacing the AlgoTune study's manual sweeps)."
+          ],
+          "ordered": true
+        },
+        {
+          "type": "paragraph",
+          "text": "This work is ongoing. EvolveBench's numbers are final, but the ensemble, novelty, and warmup results are early, and are reported as such throughout this page."
+        }
+      ]
+    },
+    {
+      "id": "evolvebench",
+      "title": "EvolveBench: Real-World Repositories",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "AlgoTune's tasks are synthetic: a single function with a clear reference implementation and a narrow, well-specified objective. EvolveBench instead targets real functions inside real, actively maintained open-source libraries, where the optimization target has to be identified and the evaluator has to be built rather than reused from a benchmark suite."
+        }
+      ],
+      "subsections": [
+        {
+          "id": "task-suite",
+          "title": "Task Suite",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "11 tasks span 11 different repositories, each targeting a specific, previously identified inefficiency:"
+            },
+            {
+              "type": "table",
+              "headers": [
+                "Repository",
+                "Optimization Target"
+              ],
+              "rows": [
+                [
+                  "BayesianOptimization",
+                  "Acquisition-function random sampling"
+                ],
+                [
+                  "difflib (CPython)",
+                  "Differ._fancy_replace WINDOW-based search, reducing redundant ratio() calls"
+                ],
+                [
+                  "python-jsonschema",
+                  "Equality-checking functions, addressing a Python 3.12 performance regression"
+                ],
+                [
+                  "LMCache",
+                  "LFU cache policy, from O(log N) SortedDict to O(1) minimum-frequency tracking"
+                ],
+                [
+                  "marko",
+                  "Nested loops in the parser's parse_source method"
+                ],
+                [
+                  "NetworkX",
+                  "Graph algorithms"
+                ],
+                [
+                  "pandas",
+                  "rolling_rank, from an O(n log w) C skiplist to an O(n\u00b7w) Numba JIT for small windows"
+                ],
+                [
+                  "pymoo",
+                  "Non-dominated sorting, especially the bi-objective case"
+                ],
+                [
+                  "python-chess",
+                  "Chess engine algorithms"
+                ],
+                [
+                  "python-pathfinding",
+                  "Heap operations"
+                ],
+                [
+                  "SymPy",
+                  "Min/Max _find_localzeros, from O(n\u00b2) to O(n log n) via transitivity and antichain detection"
+                ]
+              ],
+              "caption": "Table 1. The 11 EvolveBench tasks and what each one targets."
+            },
+            {
+              "type": "paragraph",
+              "text": "Each task supports three evaluator types: a hand-written evaluator built by inspecting the target function directly, an LLM-generated evaluator synthesized from the task description, and an LLM-as-a-judge evaluator that scores candidates qualitatively rather than against a fixed metric."
+            }
+          ]
+        },
+        {
+          "id": "evaluator-comparison",
+          "title": "Handwritten vs. LLM-Generated Evaluators",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Running the same 11 tasks under hand-written and LLM-generated evaluators gives an EvolveBench score for each, the harmonic mean of per-task speedups, matching AlgoTune's own convention:"
+            },
+            {
+              "type": "table",
+              "headers": [
+                "Task",
+                "Handwritten Speedup",
+                "LLM-Generated Speedup"
+              ],
+              "rows": [
+                [
+                  "BayesianOptimization",
+                  "1.54x",
+                  "1.82x"
+                ],
+                [
+                  "difflib",
+                  "0.99x",
+                  "3.54x"
+                ],
+                [
+                  "jsonschema",
+                  "2.20x",
+                  "2.24x"
+                ],
+                [
+                  "lmcache",
+                  "0.65x",
+                  "1.02x"
+                ],
+                [
+                  "marko",
+                  "1.00x",
+                  "1.01x"
+                ],
+                [
+                  "networkx",
+                  "1.07x",
+                  "1.03x"
+                ],
+                [
+                  "pandas_rolling_rank",
+                  "1.00x",
+                  "2.31x"
+                ],
+                [
+                  "pymoo",
+                  "1.00x",
+                  "1.28x"
+                ],
+                [
+                  "python-chess",
+                  "1.01x",
+                  "1.01x"
+                ],
+                [
+                  "python-pathfinding",
+                  "1.27x",
+                  "1.39x"
+                ],
+                [
+                  "sympy",
+                  "2.40x",
+                  "0.99x"
+                ]
+              ],
+              "caption": "Table 2. Per-task speedup under each evaluator type."
+            },
+            {
+              "type": "paragraph",
+              "text": "The aggregate EvolveBench score is 1.12x for hand-written evaluators and 1.35x for LLM-generated ones, a 1.2x ratio in favor of the LLM-generated evaluator. But the per-task picture is uneven: LLM-generated evaluators win by a wide margin on difflib (3.54x versus 0.99x) and pandas_rolling_rank (2.31x versus 1.00x), while hand-written evaluators win on sympy (2.40x versus 0.99x). A synthesized evaluator can miss the real bottleneck or reward superficial changes on tasks where the hand-written evaluator was built with closer knowledge of the target function. It can also outperform a narrow hand-written evaluator on tasks where the human-written version under-specified the objective. The aggregate number favors automation, but which evaluator wins is still task-dependent."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "capabilities",
+      "title": "New OpenEvolve Capabilities",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "The AlgoTune study surfaced three gaps: naive ensembles underperformed single models, hyperparameters had to be swept by hand, and nothing stopped evolution from re-proposing a near-identical candidate. The following three capabilities, added to OpenEvolve since that study, target each gap directly. None of them have a completed, swept evaluation yet, so results below are reported as early and preliminary."
+        }
+      ],
+      "subsections": [
+        {
+          "id": "thompson-ensembles",
+          "title": "Adaptive Ensembles via Thompson Sampling",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The original study found that combining Gemini Flash 2.5 and Qwen3-Coder into a single ensemble reached 1.23x, below either model's individual score, because the two models pursued conflicting edits (BFS versus Union-Find, incompatible dtype choices) that canceled each other out iteration to iteration."
+            },
+            {
+              "type": "paragraph",
+              "text": "OpenEvolve's ensemble module now includes a Thompson sampler{{cite:thompson1933likelihood}}. Instead of running every model on every iteration, it picks one model per iteration by sampling from a Beta distribution fit to each model's recent reward history (a sliding window of the last 50 outcomes by default), so a model that has been producing improvements lately gets sampled more often. Every model still gets a minimum number of round-robin turns before Thompson sampling takes over, so no model is locked out early. Combined with island-based evolution, where different islands can run different models with periodic migration switched off, this replaces \"all models edit every candidate\" with \"the model that is currently paying off gets to propose the next edit.\""
+            },
+            {
+              "type": "paragraph",
+              "text": "Re-running the AlgoTune tasks with three ensemble configurations (weighted ensemble, island ensemble with migration, and island ensemble without migration) against the two single-model baselines gives a mixed but net-positive picture:"
+            },
+            {
+              "type": "table",
+              "headers": [
+                "Task",
+                "Best Single Model",
+                "Best Ensemble Variant",
+                "Ensemble Wins?"
+              ],
+              "rows": [
+                [
+                  "cholesky_factorization",
+                  "0.187x",
+                  "0.173x",
+                  "No"
+                ],
+                [
+                  "count_connected_components",
+                  "2.79x",
+                  "5.62x",
+                  "Yes"
+                ],
+                [
+                  "dijkstra_from_indices",
+                  "0.826x",
+                  "0.984x",
+                  "Yes"
+                ],
+                [
+                  "graph_laplacian",
+                  "1.163x",
+                  "1.068x",
+                  "No"
+                ],
+                [
+                  "linear_system_solver",
+                  "1.218x",
+                  "1.275x",
+                  "Yes"
+                ],
+                [
+                  "lu_factorization",
+                  "0.708x",
+                  "0.746x",
+                  "Yes"
+                ],
+                [
+                  "matrix_exponential",
+                  "0.713x",
+                  "0.724x",
+                  "Yes"
+                ],
+                [
+                  "matrix_multiplication",
+                  "0.872x",
+                  "0.917x",
+                  "Yes"
+                ],
+                [
+                  "matrix_sqrt",
+                  "0.991x",
+                  "0.997x",
+                  "Yes"
+                ],
+                [
+                  "qr_factorization",
+                  "0.864x",
+                  "0.877x",
+                  "Yes"
+                ],
+                [
+                  "svd",
+                  "0.684x",
+                  "0.770x",
+                  "Yes"
+                ]
+              ],
+              "caption": "Table 3. Best single-model score versus the best of the three ensemble variants, per task. Single, unrepeated runs, not swept or averaged over seeds."
+            },
+            {
+              "type": "paragraph",
+              "text": "The best ensemble variant beats the best single model on 9 of 11 tasks, though usually by a small margin. count_connected_components is the outlier, where removing migration let one island's Union-Find approach mature without being disrupted by the other island's BFS proposals, reaching 5.62x. No single variant (weighted, island with migration, or island without migration) wins consistently across tasks, so which configuration to use still needs to be chosen per task rather than fixed in advance. This is a reversal of the original ensemble finding, but on early, single-run data rather than the repeated, swept experiments the rest of the AlgoTune study used."
+            }
+          ]
+        },
+        {
+          "id": "novelty-detection",
+          "title": "Novelty Detection",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "A novelty checker embeds each candidate program and compares it against the current island population by cosine similarity. A candidate above a similarity threshold (0.95 by default) is treated as a near-duplicate, and the parent is resampled instead of spending an evaluation on it. Embeddings run locally via sentence-transformers, so novelty checking does not consume additional LLM budget. This targets a failure mode visible throughout the AlgoTune study's own transcripts: incremental diffs that reformat or lightly perturb code without changing its behavior. Novelty detection catches this automatically, rather than relying on someone to notice the pattern by inspection. No benchmark comparing evolution with and without novelty detection has been run yet."
+            }
+          ]
+        },
+        {
+          "id": "warmup-optimization",
+          "title": "Two-Phase Warmup Optimization",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The AlgoTune study's parameter choices (0.4 temperature, 16k token budget, 0.1 migration rate) all came from separate, manually launched sweeps (Phases 2 and 3 of that study). The warmup optimizer automates this as a phase that runs before the main evolution loop, within a fixed LLM-call budget split into two stages:"
+            },
+            {
+              "type": "list",
+              "items": [
+                "<strong>Phase 1, prompt optimization:</strong> pairwise feedback descent generates variations of the evolution prompt, compares them head to head, and keeps the winner, using a small slice of the budget (5 calls in the reference configuration).",
+                "<strong>Phase 2, hyperparameter tuning:</strong> the remaining budget runs short mini-experiments across a grid of temperature, exploration ratio, and island configuration (5 configurations \u00d7 5 iterations in the reference configuration), and the best-performing configuration is carried into the main run."
+              ],
+              "ordered": true
+            },
+            {
+              "type": "paragraph",
+              "text": "In the reference 50-call budget, this is 5 calls for prompt optimization, 25 for hyperparameter tuning, and 20 left for the main evolution run itself. No comparison between warmup-tuned and manually-tuned configurations has been benchmarked yet. The mechanism replaces manual search with automated search, over the same kind of parameters the AlgoTune study swept by hand."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "status",
+      "title": "Status and Caveats",
+      "blocks": [
+        {
+          "type": "list",
+          "items": [
+            "EvolveBench's 11-task, two-evaluator comparison is complete and the numbers above are final for the current task set.",
+            "The Thompson-sampling ensemble table reflects single, unrepeated runs on the original AlgoTune tasks, not the seed-averaged methodology the rest of the AlgoTune study used. Treat the per-task numbers as directional rather than definitive.",
+            "Novelty detection and warmup optimization are implemented and in active use, but neither has a completed before/after benchmark yet.",
+            "The evolve-bench repository is currently private. The task descriptions and results reported here come from a local copy rather than a public source."
+          ],
+          "ordered": false
+        }
+      ]
+    },
+    {
+      "id": "conclusions",
+      "title": "Conclusions",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "EvolveBench extends the AlgoTune study's central question, how much can an LLM-driven evolutionary agent speed up existing code, from synthetic benchmarks to real repositories with real maintainers and real edge cases. It finds that letting the agent write its own evaluator tends to help more than it hurts. The three new capabilities target the specific weaknesses the AlgoTune study surfaced: ensembles that used to cancel each other out now beat single models on most re-tested tasks when they are made adaptive instead of naive, and the manual parameter sweeps that produced the AlgoTune study's own configuration are being replaced with an automated warmup phase. The next step for all three is the kind of repeated, swept evaluation the original AlgoTune study used, rather than the single-run results reported here."
+        }
+      ]
+    }
+  ],
+  "footnotes": [],
+  "references": [
+    {
+      "id": "thompson1933likelihood",
+      "title": "On the Likelihood that One Unknown Probability Exceeds Another in View of the Evidence of Two Samples",
+      "citation": "Thompson, W.R., 1933. Biometrika, 25(3\u20134), pp.285\u2013294.",
+      "url": "https://doi.org/10.2307/2332286",
+      "url_label": "DOI"
+    }
+  ],
+  "credit": {
+    "year": "2026",
+    "name": "Richard Cornelius Suwandi",
+    "url": "https://richardcsuwandi.github.io"
+  }
+}

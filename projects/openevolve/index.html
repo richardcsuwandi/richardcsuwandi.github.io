@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Building and Evaluating Evolutionary Coding Agents</title>
+  <meta name="description" content="What I built and learned while co-developing OpenEvolve: an AlgoTune adapter, code-execution and verification harness, and 29-experiment study of coding-agent performance.">
+  <meta name="theme-color" content="#0063c9">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Building and Evaluating Evolutionary Coding Agents">
+  <meta property="og:description" content="My experience building the code-execution and verification workflow behind a 29-experiment study of an evolutionary coding agent.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="keywords" content="coding agents, developer tooling, evaluation harnesses, code execution, automated verification, differential testing, program analysis, process isolation, sandboxing, parallel evaluation, performance profiling, software performance optimization, OpenEvolve, AlgoTune">
+  <link rel="canonical" href="https://richardcsuwandi.github.io/projects/openevolve/">
+  <meta property="og:url" content="https://richardcsuwandi.github.io/projects/openevolve/">
+  <link rel="icon" type="image/png" href="/assets/img/website-logo-black.PNG">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="assets/site.css">
+  <style>:root { --accent: #0063c9; }</style>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Building and Evaluating Evolutionary Coding Agents","description":"What I built and learned while co-developing OpenEvolve and its AlgoTune code-execution and verification workflow.","author":{"@type":"Person","name":"Richard C. Suwandi"},"url":"https://richardcsuwandi.github.io/projects/openevolve/","keywords":["coding agents","developer tooling","evaluation harnesses","code execution","automated verification","differential testing","program analysis","process isolation","sandboxing","parallel evaluation","performance profiling","software performance optimization"]}</script>
+  <script defer src="assets/site.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch color theme"><span aria-hidden="true" data-theme-icon>☾</span></button>
+  <main id="main">
+    <article>
+      <header class="d-title">
+        <p class="d-kicker">Project Write-Up</p>
+        <h1 class="d-headline">Building and Evaluating Evolutionary Coding Agents</h1>
+        <div class="badge-row title-badges">
+          <a class="github-code-badge" href="https://github.com/algorithmicsuperintelligence/openevolve" target="_blank" rel="noopener" aria-label="OpenEvolve source code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.37-12 12 0 5.303 3.438 9.8 8.205 10.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg><span>Code</span></a>
+        </div>
+      </header>
+
+      <div class="d-byline">
+        <div class="byline-box">
+          <div class="byline-table">
+            <h3>Authors</h3>
+            <h3>Affiliations</h3>
+            <p class="byline-name"><span class="self-author">Richard C. Suwandi</span></p>
+            <p class="byline-aff">Dria & The Chinese University of Hong Kong, Shenzhen</p>
+            <p class="byline-name">Ömer Kaya</p>
+            <p class="byline-aff">Dria</p>
+            <p class="byline-name">Asankhaya Sharma</p>
+            <p class="byline-aff">Dria</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-article">
+        <nav class="paper-toc" aria-label="Table of contents">
+          <h3>Contents</h3>
+          <div><a href="#context">The engineering problem</a></div>
+          <div><a href="#preparation">Preparing the benchmark</a></div>
+          <div><a href="#harness">Building the execution and verification harness</a></div>
+          <div><a href="#debugging">Debugging agent performance</a></div>
+          <div><a href="#results">What the experiments established</a></div>
+          <div><a href="#lessons">What I learned</a></div>
+        </nav>
+
+        <div class="tldr-block">
+          <p class="tldr-text"><strong>TL;DR.</strong> I co-developed <a href="https://github.com/algorithmicsuperintelligence/openevolve">OpenEvolve</a>, an evolutionary coding agent that uses language models to propose code changes and automated evaluators to select better programs. I prepared <a href="https://algotune.io/">AlgoTune</a> for use with OpenEvolve by building an adapter and evaluation workflow that turned 30 different optimization tasks into a consistent loop for generated-code execution, correctness verification, runtime measurement, and reproducible comparison. We then used that infrastructure to run 29 controlled experiments. I came away convinced that the verifier, execution environment, and feedback loop are core parts of a coding agent, not supporting infrastructure around it.</p>
+        </div>
+
+        <section id="context">
+          <h2>The Engineering Problem</h2>
+          <div class="content-block prose"><p>Generating a plausible patch is easy, but establishing that it is correct, faster, reproducible, and safe enough to execute repeatedly is the real systems problem. OpenEvolve treats code improvement as evolutionary search: a language model proposes an edit, an evaluator executes the resulting program, and a population manager keeps useful candidates while preserving alternative strategies. That loop can improve an algorithm only when its fitness signal matches the behavior we care about, since a weak test rewards shortcuts, a noisy benchmark sends the search in the wrong direction, and a runner without resource boundaries lets one bad candidate stall an entire experiment.</p></div>
+          <div class="content-block prose"><p>My goal was to turn that abstract loop into a credible software-performance experiment, so we chose <a href="https://algotune.io/AlgoTune">AlgoTune</a> because its tasks pair reference implementations with correctness checks and timing measurements. The challenge was not simply to call the benchmark, but to make 30 heterogeneous tasks behave like one consistent environment for an agent that repeatedly writes and executes code.</p></div>
+          <div class="content-block figure-wide eval-loop-figure">
+            <img class="arch-light" src="assets/figures/eval-loop.svg" alt="OpenEvolve proposes a code change, evaluates it for correctness and speed, and keeps the best candidate for the next generation. AlgoTune grounds the score with reference-based correctness checks and runtime measurement across 30 tasks.">
+            <img class="arch-dark" src="assets/figures/eval-loop-dark.svg" alt="" aria-hidden="true">
+          </div>
+          <p class="l-gutter caption"><strong>Figure 1.</strong> The score only points the search in a useful direction when it is grounded in AlgoTune's reference implementations, correctness checks, and timing harness.</p>
+        </section>
+
+        <section id="preparation">
+          <h2>Preparing the Benchmark</h2>
+          <div class="content-block prose"><p>I mapped each AlgoTune task onto the interface OpenEvolve expected. An adapter read a task’s implementation and description, extracted the code the model was allowed to change, and generated three artifacts, so every task exposed the same entry points despite ranging from graph algorithms to numerical linear algebra.</p></div>
+          <div class="content-block prose"><div class="table-scroll"><table><thead><tr><th>Artifact</th><th>Built from</th><th>Purpose</th></tr></thead><tbody>
+            <tr><td>Seed program</td><td>Task implementation + declared edit boundary</td><td>Starting point the agent evolves</td></tr>
+            <tr><td>Evaluator module</td><td>AlgoTune’s problem generator, reference implementation, correctness check</td><td>Scores each candidate program</td></tr>
+            <tr><td>Task configuration</td><td>Task metadata</td><td>Wires OpenEvolve to that task’s evaluator and budget</td></tr>
+          </tbody></table></div></div>
+          <div class="content-block prose"><p>Before a task entered the study, I checked that its generated files loaded correctly, that the candidate and reference implementation received the same inputs, and that timing only began after warmup and validation. I also moved the integration away from a bundled, machine-specific copy of AlgoTune: the adapter instead accepted an external checkout, discovered tasks from that repository, and generated the OpenEvolve files from a declared path. That small interface decision made updates and reruns much less fragile.</p></div>
+          <div class="content-block prose"><p>Once the pipeline was stable, we used it to design and run 29 configurations across 30 tasks, varying the axes below.</p></div>
+          <div class="content-block prose"><div class="table-scroll"><table><thead><tr><th>Axis</th><th>What we varied</th></tr></thead><tbody>
+            <tr><td>Model family</td><td>Multiple coding-model families</td></tr>
+            <tr><td>Edit strategy</td><td>Incremental diff vs. full rewrite</td></tr>
+            <tr><td>Temperature</td><td>Sampling temperature swept across a range</td></tr>
+            <tr><td>Execution feedback</td><td>Diagnostic artifacts present vs. removed</td></tr>
+            <tr><td>Iteration budget</td><td>100 vs. 200 iterations</td></tr>
+            <tr><td>Ensemble behavior</td><td>Single model vs. alternating two models</td></tr>
+            <tr><td>Evaluation mode</td><td>Parallel (16 workers) vs. serial</td></tr>
+          </tbody></table></div></div>
+        </section>
+
+        <section id="harness">
+          <h2>Building the Execution and Verification Harness</h2>
+          <div class="content-block prose"><p>The harness turned open-ended code generation into a sequence of testable state transitions with explicit failure modes. Every proposed edit moved through the same path from loading and syntax checks to correctness tests, timed execution, and population selection.</p></div>
+          <div class="content-block figure-wide system-diagram-figure">
+            <img class="diagram-light" src="assets/figures/harness-pipeline.svg" alt="The OpenEvolve harness takes a seed program through model generation, syntax and correctness verification, timed execution, scoring, and population selection while returning failures as diagnostic feedback.">
+            <img class="diagram-dark" src="assets/figures/harness-pipeline-dark.svg" alt="" aria-hidden="true">
+          </div>
+          <div class="content-block prose"><p>I made the evaluator strict about ordering, validating a candidate before benchmarking it, since a program could otherwise appear fast by deleting work, exploiting an incomplete test, or failing before an expensive code path. This was a practical form of differential testing: the candidate ran on generated problems, and its output was checked against the task’s reference behavior before runtime affected its score. It was not formal verification, but it enforced a clear semantic contract at the boundary where generated code entered the system.</p></div>
+          <div class="content-block prose"><p>Executing model-generated code also forced me to think about containment and failure recovery, so worker processes and task-level timeouts kept crashes or nonterminating candidates from blocking the full run. The evaluator returned machine-readable metrics together with diagnostic artifacts such as tracebacks, validation failures, and timing data, and later prompts could use those artifacts as execution feedback, turning failed trials into evidence for the next edit.</p></div>
+          <div class="content-block prose"><p>I treated reproducibility as part of the interface. Each task needed a stable seed program, an explicit edit boundary, consistent resource limits, repeatable timing, and comparable aggregation. Because one unusually large speedup can dominate an arithmetic mean, we followed AlgoTune’s harmonic-mean aggregation across tasks. This evaluation contract let us compare agent settings instead of accidentally comparing different test conditions.</p></div>
+        </section>
+
+        <section id="debugging">
+          <h2>Debugging Agent Performance</h2>
+          <div class="content-block prose"><p>When an agent underperforms, the model is only one suspect: the runner, verifier, feedback, search policy, and workload can each be the bottleneck. The most instructive failure came from serial evaluation, where independent task searches lost the concurrency that let them progress in parallel.</p></div>
+          <div class="content-block prose"><div class="table-scroll"><table><thead><tr><th>Evaluation mode</th><th>Workers</th><th>Wall-clock</th><th>Aggregate score</th></tr></thead><tbody>
+            <tr><td>Parallel</td><td>16</td><td>1×</td><td>baseline</td></tr>
+            <tr><td>Serial</td><td>1</td><td>~14×</td><td>47–50% worse</td></tr>
+          </tbody></table></div></div>
+          <div class="content-block prose"><p>The gap was not only a throughput effect: long, difficult tasks accumulated timeouts under serial evaluation, received fewer useful iterations, and distorted the effective search budget, which taught me to treat concurrency as part of the experiment’s semantics whenever wall-clock limits, worker pools, and search budgets interact.</p></div>
+          <div class="content-block prose"><p>I used program inspection as a second layer of performance profiling:</p></div>
+          <div class="content-block prose"><div class="table-scroll"><table><thead><tr><th>Task</th><th>What changed</th><th>Outcome</th></tr></thead><tbody>
+            <tr><td>Connected components</td><td>Agent replaced depth-first search with a different algorithmic strategy</td><td>Large gains</td></tr>
+            <tr><td>Positive-semidefinite projection</td><td>Smaller numerical and allocation changes</td><td>Gains accumulated incrementally</td></tr>
+            <tr><td>SHA-256</td><td>Python wrapper was not the limiting compute path</td><td>Barely moved</td></tr>
+          </tbody></table></div></div>
+          <div class="content-block prose"><p>Connected components is worth showing directly, since "a different algorithmic strategy" undersells what happened. The seed program called a library routine. The best evolved candidate replaced it with a hand-written union-find:</p></div>
+          <div class="content-block code-compare">
+            <div class="code-compare-panel before">
+              <span class="code-compare-label">Before · seed program</span>
+              <pre><code><span class="k">def</span> <span class="nf">solve</span>(problem):
+    <span class="k">try</span>:
+        n = problem.get(<span class="s2">"num_nodes"</span>, <span class="mi">0</span>)
+        G = nx.Graph()
+        G.add_nodes_from(range(n))
+        G.add_edges_from(problem[<span class="s2">"edges"</span>])
+        cc = nx.number_connected_components(G)
+        <span class="k">return</span> {<span class="s2">"number_connected_components"</span>: cc}
+    <span class="k">except</span> Exception <span class="k">as</span> e:
+        logging.error(f<span class="s2">"Counting connected components failed: {e}"</span>)
+        <span class="k">return</span> {<span class="s2">"number_connected_components"</span>: -<span class="mi">1</span>}</code></pre>
+              <p class="code-compare-meta">Delegates to NetworkX's own component counter. Correct, but pays for a general-purpose graph library.</p>
+            </div>
+            <div class="code-compare-panel after">
+              <span class="code-compare-label">After · evolved program</span>
+              <pre><code><span class="k">def</span> <span class="nf">solve</span>(problem):
+    <span class="k">try</span>:
+        edges = problem.get(<span class="s2">"edges"</span>, [])
+        n = problem.get(<span class="s2">"num_nodes"</span>, <span class="mi">0</span>)
+        <span class="k">if</span> n == <span class="mi">0</span>:
+            <span class="k">return</span> {<span class="s2">"number_connected_components"</span>: <span class="mi">0</span>}
+        <span class="k">if</span> <span class="ow">not</span> edges:
+            <span class="k">return</span> {<span class="s2">"number_connected_components"</span>: n}
+
+        parent = list(range(n))
+        rank = [<span class="mi">0</span>] * n
+
+        <span class="k">def</span> <span class="nf">find</span>(x):
+            root = x
+            <span class="k">while</span> parent[root] != root:
+                root = parent[root]
+            <span class="k">while</span> parent[x] != root:  <span class="c1"># path compression</span>
+                parent[x], x = root, parent[x]
+            <span class="k">return</span> root
+
+        <span class="k">def</span> <span class="nf">union</span>(x, y):
+            root_x, root_y = find(x), find(y)
+            <span class="k">if</span> root_x == root_y:
+                <span class="k">return</span> <span class="nb">False</span>
+            <span class="k">if</span> rank[root_x] &lt; rank[root_y]:  <span class="c1"># union by rank</span>
+                parent[root_x] = root_y
+            <span class="k">elif</span> rank[root_x] &gt; rank[root_y]:
+                parent[root_y] = root_x
+            <span class="k">else</span>:
+                parent[root_y] = root_x
+                rank[root_x] += <span class="mi">1</span>
+            <span class="k">return</span> <span class="nb">True</span>
+
+        components = n
+        <span class="k">for</span> u, v <span class="ow">in</span> edges:
+            <span class="k">if</span> <span class="mi">0</span> &lt;= u &lt; n <span class="ow">and</span> <span class="mi">0</span> &lt;= v &lt; n:
+                <span class="k">if</span> union(u, v):
+                    components -= <span class="mi">1</span>
+        <span class="k">return</span> {<span class="s2">"number_connected_components"</span>: components}
+    <span class="k">except</span> Exception <span class="k">as</span> e:
+        logging.error(f<span class="s2">"Counting connected components failed: {e}"</span>)
+        <span class="k">return</span> {<span class="s2">"number_connected_components"</span>: -<span class="mi">1</span>}</code></pre>
+              <p class="code-compare-meta">Union-find with path compression and union by rank, built from scratch. No graph library, no object overhead per edge.</p>
+            </div>
+          </div>
+          <p class="l-gutter caption"><strong>Figure 2.</strong> The seed and the best evolved program for <code>count_connected_components</code>, trimmed from <a href="https://github.com/algorithmicsuperintelligence/openevolve" target="_blank" rel="noopener">the actual run</a>. Nothing in the prompt or evaluator named union-find. The evaluator only scored correctness against the reference and wall-clock time.</p>
+          <div class="content-block prose"><p>That last case sharpened my accelerator-performance intuition at the system boundary. Before optimizing Python, tensor code, or a kernel caller, I now ask where execution time and data movement actually go, and whether the layer I can change has meaningful headroom.</p></div>
+        </section>
+
+        <section id="results">
+          <h2>What the Experiments Established</h2>
+          <div class="content-block figure-wide"><figure class="media-figure"><div class="media-frame"><img src="assets/figures/dashboard.png" alt="Four panels comparing temperature, iteration count, model performance, and parallel versus serial evaluation in the OpenEvolve study." loading="lazy" decoding="async"></div></figure></div>
+          <p class="l-gutter caption"><strong>Figure 3.</strong> The study’s most useful result was not a single winning model, but a map of which system choices materially changed the search.</p>
+          <div class="content-block prose"><ul>
+            <li><strong>Execution feedback mattered.</strong> Removing debugging artifacts reduced the aggregate score by 17% in the tested configuration: a scalar reward told the model whether it failed, while artifacts helped it reason about why.</li>
+            <li><strong>The edit interface depended on model capability.</strong> Strong coding models benefited from incremental diffs, while a weaker model performed better when allowed to rewrite the full target.</li>
+            <li><strong>More inference was useful when the loop remained productive.</strong> Extending the strongest run from 100 to 200 iterations improved its aggregate score from 1.64× to 2.04×.</li>
+            <li><strong>A naive ensemble was worse than either member.</strong> Alternating between two strong models caused incompatible strategies to overwrite one another, which motivated our later work on adaptive model routing.</li>
+          </ul></div>
+          <div class="content-block figure-wide"><figure class="media-figure"><div class="media-frame"><img src="assets/figures/ensemble.png" alt="An analysis of two individual coding models and their ensemble, including per-task scores and conflicting evolution trajectories." loading="lazy" decoding="async"></div></figure></div>
+          <p class="l-gutter caption"><strong>Figure 4.</strong> The ensemble exposed a state-management problem: different models repeatedly replaced one another’s useful partial solutions instead of composing them.</p>
+        </section>
+
+        <section id="lessons">
+          <h2>What I Learned</h2>
+          <div class="content-block prose"><ol>
+            <li><strong>The verifier is part of the agent.</strong> Tests, measurements, timeouts, and aggregation determine which behaviors the search learns, so I now give evaluator design the same scrutiny as model selection.</li>
+            <li><strong>Correctness and performance need separate evidence.</strong> A candidate should first demonstrate semantic equivalence and only then earn a performance score, and keeping those checks separate made failures easier for me to diagnose.</li>
+            <li><strong>Generated code needs explicit execution boundaries.</strong> Process isolation, timeouts, and structured failure reporting kept bad candidates from poisoning an experiment, though a production service would need stronger operating-system or virtualization boundaries.</li>
+            <li><strong>Parallel systems change search behavior.</strong> Worker count affects more than wall-clock time when budgets, timeouts, and population updates interact.</li>
+            <li><strong>Profiles beat assumptions.</strong> The largest gains came from algorithmic changes or real bottleneck removal. Code at the wrong layer did not improve just because the model produced more of it.</li>
+            <li><strong>More models require coordination.</strong> Diversity helps only when the system preserves useful state and assigns models based on evidence. Indiscriminate alternation can destroy progress.</li>
+          </ol></div>
+          <div class="content-block prose"><p>What carried forward was the systems practice behind these experiments: test-based verification, structured execution feedback, reproducible runners, concurrent evaluation, and bottleneck-aware profiling. In our follow-up work on <a href="/projects/evolvebench/">EvolveBench</a>, we improved on this by extending the same questions to real open-source repositories and adding adaptive routing, novelty filtering, and automated warmup.</p></div>
+        </section>
+      </div>
+    </article>
+  </main>
+  <footer class="site-footer"><div class="container"><p>© 2026 <a href="https://richardcsuwandi.github.io">Richard Cornelius Suwandi</a></p></div></footer>
+</body>
+</html>

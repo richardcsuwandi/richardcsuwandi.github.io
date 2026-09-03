@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Building Kai: A Verifier-First Autonomous Codebase Engineer</title>
+  <meta name="description" content="What I built and learned while co-developing Kai, an autonomous codebase engineer for verified security analysis and software performance optimization.">
+  <meta name="theme-color" content="#0063c9">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Kai: A Verifier-First Autonomous Codebase Engineer">
+  <meta property="og:description" content="My experience co-developing Kai's agent infrastructure, verification workflows, optimization harness, and isolated execution system.">
+  <meta name="twitter:card" content="summary">
+  <meta name="keywords" content="Kai, coding agents, verification, program analysis, sandboxed execution, smart contract security, software performance optimization, developer tooling">
+  <link rel="canonical" href="https://richardcsuwandi.github.io/projects/kai/">
+  <meta property="og:url" content="https://richardcsuwandi.github.io/projects/kai/">
+  <link rel="icon" type="image/png" href="/assets/img/website-logo-black.PNG">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="assets/site.css">
+  <style>:root { --accent: #0063c9; }</style>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Kai: A Verifier-First Autonomous Codebase Engineer","description":"What I built and learned while co-developing Kai's verification, optimization, and isolated execution systems.","author":{"@type":"Person","name":"Richard C. Suwandi"},"url":"https://richardcsuwandi.github.io/projects/kai/","keywords":["coding agents","verification","program analysis","sandboxed execution","software optimization"]}</script>
+  <script defer src="assets/site.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch color theme"><span aria-hidden="true" data-theme-icon>☾</span></button>
+  <main id="main">
+    <article>
+      <header class="d-title">
+        <p class="d-kicker">Project Write-Up</p>
+        <h1 class="d-headline">Kai: A Verifier-First Autonomous Codebase Engineer</h1>
+        <div class="badge-row title-badges">
+          <a class="github-code-badge" href="https://github.com/firstbatchxyz/kai" target="_blank" rel="noopener" aria-label="Kai source code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.37-12 12 0 5.303 3.438 9.8 8.205 10.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg><span>Code</span></a>
+        </div>
+      </header>
+
+      <div class="d-byline">
+        <div class="byline-box">
+          <div class="byline-table">
+            <h3>Authors</h3>
+            <h3>Affiliations</h3>
+            <p class="byline-name"><span class="self-author">Richard C. Suwandi</span></p>
+            <p class="byline-aff">Dria & The Chinese University of Hong Kong, Shenzhen</p>
+            <p class="byline-name">Ömer Kaya</p>
+            <p class="byline-aff">Dria</p>
+            <p class="byline-name">Asankhaya Sharma</p>
+            <p class="byline-aff">Dria</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-article">
+        <nav class="paper-toc" aria-label="Table of contents">
+          <h3>Contents</h3>
+          <div><a href="#context">What I helped build</a></div>
+          <div><a href="#architecture">From generation to evidence</a></div>
+          <div><a href="#optimization">Building the optimization workflow</a></div>
+          <div><a href="#security">Building the security workflow</a></div>
+          <div><a href="#execution">Making generated code safe to run</a></div>
+          <div><a href="#results">What the benchmarks established</a></div>
+          <div><a href="#lessons">What I learned</a></div>
+        </nav>
+
+        <div class="tldr-block">
+          <p class="tldr-text"><strong>TL;DR.</strong> I co-developed <a href="https://github.com/firstbatchxyz/kai">Kai</a>, an autonomous codebase engineer for security analysis and software optimization. My work connected the ideas I had explored in OpenEvolve with a broader agent system: specialist verification and evolution harnesses, structured evidence, developer-facing interfaces, and isolated execution through E2B micro-VMs and Vercel sandboxes. We evaluated Kai on <a href="https://openai.com/index/introducing-evmbench/" target="_blank" rel="noopener">EVMBench</a> and <a href="https://gso-bench.github.io/" target="_blank" rel="noopener">GSO</a>, but the part that mattered most to me was the engineering principle behind both results: generated code or findings count only after an independent verifier produces runnable evidence.</p>
+        </div>
+
+        <section id="context">
+          <h2>What I Helped Build</h2>
+          <div class="content-block prose"><p>I helped develop Kai from a <a href="/projects/openevolve/">coding-agent prototype</a> into an always-on codebase engineer. It had to work across two very different tasks. In optimization mode, it evolved real code against developer-defined correctness and performance tests. In security mode, it searched for vulnerabilities, checked whether they were reachable and economically meaningful, produced an exploit, and proposed a patch.</p></div>
+          <div class="content-block prose"><p>My work sat at the intersection of agent infrastructure, evaluation, and execution. I brought lessons from <a href="/projects/openevolve/">OpenEvolve</a> and <a href="/projects/evolvebench/">EvolveBench</a> into the optimization workflow, and I helped connect the specialist harnesses to the product surfaces and isolated environments needed for longer autonomous runs. That changed the question from "can the model suggest a patch?" to "can the system execute, verify, measure, and report that patch without asking a human to reconstruct what happened?"</p></div>
+        </section>
+
+        <section id="architecture">
+          <h2>From Generation to Evidence</h2>
+          <div class="content-block prose"><p>We designed Kai around one coordinating agent and two specialist harnesses. The agent maintains conversation and workspace context, while the security and optimization harnesses own their evaluation contracts. Both return normalized reports containing status, findings, artifacts, and metrics.</p></div>
+          <div class="content-block figure-wide system-diagram-figure">
+            <img class="diagram-light" src="assets/figures/system-architecture.svg" alt="Kai coordinates tools, skills, workspace state, and lifecycle services while two specialist harnesses turn security findings and optimization proposals into normalized reports and runnable evidence.">
+            <img class="diagram-dark" src="assets/figures/system-architecture-dark.svg" alt="" aria-hidden="true">
+          </div>
+          <div class="content-block prose"><p>The key invariant was simple: if Kai could not verify a security finding or confirm that an optimization remained correct, the result stayed unverified. I found this separation useful because generation and judgment fail differently. A model can propose many plausible changes, but the harness decides which ones are allowed to affect the final answer.</p></div>
+        </section>
+
+        <section id="optimization">
+          <h2>Building the Optimization Workflow</h2>
+          <div class="content-block prose"><p>Kai Evolve applies the verifier-first idea to performance work. A language model proposes a code change, but that change contributes to the search only after it passes the task's correctness tests and produces a measured runtime improvement. Developer-defined fitness functions let the same evolution engine target different repositories without coupling those objectives to the agent core.</p></div>
+          <div class="content-block figure-wide system-diagram-figure">
+            <img class="diagram-light" src="assets/figures/optimization-loop.svg" alt="Kai takes a repository and fitness contract, proposes a patch, verifies correctness, measures runtime, and updates the population; failed checks feed diagnostics into the next proposal.">
+            <img class="diagram-dark" src="assets/figures/optimization-loop-dark.svg" alt="" aria-hidden="true">
+          </div>
+          <div class="content-block prose" id="model-selection"><p>We reused Thompson sampling<sup class="cite"><a href="#ref-thompson1933likelihood">1</a></sup> from <a href="/projects/evolvebench/#thompson-ensembles">our OpenEvolve work</a> to route proposals among three models according to recent performance rather than fixed alternation. In the reported run, GPT-5.2 Codex received 36.2% of selections, Claude Sonnet 4.5 received 34.6%, and Grok 4.1 Fast received 29.2%. The relatively even allocation showed that no single model dominated every task.</p></div>
+        </section>
+
+        <section id="security">
+          <h2>Building the Security Workflow</h2>
+          <div class="content-block prose"><p>The same verifier-first idea carries over to security work, where findings are especially vulnerable to confident false positives. We treated verification as a program-analysis pipeline rather than another model response. Candidate bugs moved through focused static analysis, reachability tracing, state-transition reasoning, an assessment of real economic impact, and finally a runnable exploit test.</p></div>
+          <div class="content-block prose"><ol>
+            <li><strong>Research the protocol.</strong> Map the architecture, trust boundaries, design patterns, and relevant threat model.</li>
+            <li><strong>Generate candidate findings.</strong> Inspect reentrancy, arithmetic, access control, oracle behavior, and economic invariants.</li>
+            <li><strong>Verify independently.</strong> Trace whether the vulnerable state is reachable and whether the claimed impact follows.</li>
+            <li><strong>Produce executable evidence.</strong> Write a <a href="https://getfoundry.sh/" target="_blank" rel="noopener">Foundry</a> test that triggers the exploit before reporting the finding as verified.</li>
+          </ol></div>
+          <div class="content-block prose"><p>The public <code>security_scan</code> workflow packages discovery, verification, exploit construction, and patching into one sequence. We attach the finding, exploit, patch diff, and verification status to the report, which makes it possible to inspect the evidence instead of trusting a confidence score.</p></div>
+
+          <h3 id="case-findings">What Verified Findings Looked Like</h3>
+          <div class="content-block prose"><p><strong>Wildcat Protocol.</strong> We identified a withdrawal-batch rounding interaction in which half-up division was composed with floor rounding. Once the scale factor crossed a threshold, the normalized amount paid could exceed available liquidity and consume reserved funds. A Foundry test reproduced the corrupted accounting path. The historical bounty attached to the finding was $20,252.</p></div>
+          <div class="content-block prose"><p><strong>Noya Protocol.</strong> We found that a multi-hop oracle passed the original asset into every hop instead of the intermediate token produced by the previous hop. A controlled A→B→C→D test showed that the composed price no longer matched the expected 24× result, creating a route to misprice deposits and withdrawals.</p></div>
+        </section>
+
+        <section id="execution">
+          <h2>Making Generated Code Safe to Run</h2>
+          <div class="content-block prose"><p>A useful autonomous engineer needs to execute code, preserve workspace state, and survive failures without putting the host environment at risk. I helped connect Kai to a provider-agnostic execution layer with hosted <a href="https://e2b.dev/" target="_blank" rel="noopener">E2B</a> micro-VMs as the default backend, ephemeral <a href="https://vercel.com/docs/vercel-sandbox" target="_blank" rel="noopener">Vercel sandboxes</a> as an alternative, and a local mode for development.</p></div>
+          <div class="content-block prose"><p>The execution layer also supported long-running work. A <code>/teleport</code> command copied the workspace and conversation state into a sandbox and resumed the session in a browser, while <code>/hand-off</code> dispatched an autonomous sub-agent in the background. These interfaces kept audits and optimization searches from blocking the main session and made the execution boundary visible to the user.</p></div>
+          <div class="content-block prose"><p>I also worked on making Kai usable where engineering teams already communicate. The project exposed a terminal REPL and local web UI, plus adapters for Slack, Discord, Telegram, and email. A plugin system with pre-call, post-call, result-transformation, session-start, and session-end hooks let custom policies and logging wrap every tool call without forking the agent core.</p></div>
+        </section>
+
+        <section id="results">
+          <h2>What the Benchmarks Established</h2>
+          <div class="content-block prose"><p>We evaluated the security and optimization workflows separately because they measure different capabilities. <a href="https://openai.com/index/introducing-evmbench/" target="_blank" rel="noopener">EVMBench</a> Detect asks whether the agent recovers known high-severity vulnerabilities from historical audits. <a href="https://gso-bench.github.io/" target="_blank" rel="noopener">GSO</a> asks whether a correct patch reaches at least 95% of the runtime improvement achieved by an expert developer.</p></div>
+          <div class="content-block prose"><div class="table-scroll"><table><thead><tr><th>Benchmark</th><th>Reported result</th><th>Evaluation scope</th></tr></thead><tbody>
+            <tr><td>EVMBench Detect</td><td>64.2% recall</td><td>40 audits, original 120-finding release</td></tr>
+            <tr><td>EVMBench Detect Award</td><td>$74,707</td><td>Cumulative historical bounty value</td></tr>
+            <tr><td>GSO</td><td>53.3% Opt@1</td><td>30 compatible tasks, up to 300 iterations</td></tr>
+            <tr><td>GSO task outcomes</td><td>29 of 30 improved, 6 exceeded expert</td><td>Same selected 30-task subset</td></tr>
+          </tbody></table></div></div>
+          <p class="l-gutter caption"><strong>Table 1.</strong> Team-level results reported in the March 2026 benchmark release. The two benchmarks measure different capabilities and should not be combined into one score.</p>
+          <div class="content-block prose"><p>Against other systems evaluated on the same 120-finding EVMBench release, our Detect Recall led by a wide margin:</p></div>
+          <div class="content-block prose"><div class="table-scroll"><table><thead><tr><th>System</th><th>Detect Recall</th></tr></thead><tbody>
+            <tr><td>Kai</td><td>64.2%</td></tr>
+            <tr><td>Claude Opus 4.6</td><td>45.6%</td></tr>
+            <tr><td>GPT-5.3 Codex</td><td>39.2%</td></tr>
+            <tr><td>OAI-OPT-5.2</td><td>30.0%</td></tr>
+            <tr><td>OPT-5</td><td>25.5%</td></tr>
+            <tr><td>OpenAI o3</td><td>10.6%</td></tr>
+          </tbody></table></div></div>
+          <p class="l-gutter caption"><strong>Table 2.</strong> Detect Recall values we measured, alongside other systems' published results. Scaffold, model, and denominator details differ across systems.</p>
+          <div class="content-block prose"><p>The GSO leaderboard from the same release shows a similar gap, though our row is not a like-for-like entry: it covers 30 compatible tasks rather than the official 102-task set, at a different compute budget.</p></div>
+          <div class="content-block prose"><div class="table-scroll"><table><thead><tr><th>System</th><th>Organization</th><th>Opt@1</th><th>Scope</th></tr></thead><tbody>
+            <tr><td>Kai Evolve</td><td>Dria</td><td>53.30%</td><td>30 compatible tasks</td></tr>
+            <tr><td>Claude 4.6 Opus</td><td>Anthropic</td><td>33.33%</td><td>Official 102-task board</td></tr>
+            <tr><td>GPT-5.2 (high)</td><td>OpenAI</td><td>27.45%</td><td>Official 102-task board</td></tr>
+            <tr><td>Claude 4.5 Opus</td><td>Anthropic</td><td>26.47%</td><td>Official 102-task board</td></tr>
+            <tr><td>Gemini 3 Pro</td><td>Google</td><td>18.63%</td><td>Official board</td></tr>
+            <tr><td>Claude 4.5 Sonnet</td><td>Anthropic</td><td>14.71%</td><td>Official board</td></tr>
+            <tr><td>GPT-5.1 (high)</td><td>OpenAI</td><td>13.73%</td><td>Official board</td></tr>
+            <tr><td>Gemini 3 Flash</td><td>Google</td><td>9.80%</td><td>Official board</td></tr>
+            <tr><td>o3 (high)</td><td>OpenAI</td><td>8.82%</td><td>Official board</td></tr>
+            <tr><td>GPT-5 (high)</td><td>OpenAI</td><td>6.86%</td><td>Official board</td></tr>
+            <tr><td>Claude 4 Opus</td><td>Anthropic</td><td>6.86%</td><td>Official board</td></tr>
+            <tr><td>Qwen3-Coder</td><td>Qwen</td><td>4.90%</td><td>Official board</td></tr>
+            <tr><td>Kimi K2 Instruct</td><td>Moonshot AI</td><td>4.90%</td><td>Official board</td></tr>
+            <tr><td>Claude 3.5 v2 Sonnet</td><td>Anthropic</td><td>4.60%</td><td>Official board</td></tr>
+            <tr><td>Gemini 2.5 Pro</td><td>Google</td><td>3.92%</td><td>Official board</td></tr>
+            <tr><td>Claude 4 Sonnet</td><td>Anthropic</td><td>3.92%</td><td>Official board</td></tr>
+            <tr><td>Claude 3.7 Sonnet</td><td>Anthropic</td><td>3.80%</td><td>Official board</td></tr>
+            <tr><td>o4-mini (high)</td><td>OpenAI</td><td>3.60%</td><td>Official board</td></tr>
+            <tr><td>GLM-4.5-Air</td><td>Z.ai</td><td>2.94%</td><td>Official board</td></tr>
+            <tr><td>o3-mini (high)</td><td>OpenAI</td><td>1.30%</td><td>Official board</td></tr>
+            <tr><td>GPT-4o</td><td>OpenAI</td><td>0.00%</td><td>Official board</td></tr>
+          </tbody></table></div></div>
+          <p class="l-gutter caption"><strong>Table 3.</strong> Leaderboard values from our March 2026 benchmark release. Our row uses a different task count and compute budget than the official full-set entries below it, so it should be read as a directional comparison rather than a controlled head-to-head.</p>
+          <div class="content-block prose"><p>For me, the useful result was not only the headline score. Both benchmarks rewarded the same system behavior: preserve an explicit contract, reject unsupported claims, and return evidence that another engineer can inspect. The verifier made the agent more useful by reducing the amount of trust required from the user.</p></div>
+        </section>
+
+        <section id="lessons">
+          <h2>What I Learned</h2>
+          <div class="content-block prose"><ol>
+            <li><strong>Generation is the cheap part.</strong> The harder engineering problem is deciding whether a patch or finding deserves to leave the sandbox.</li>
+            <li><strong>Verification should produce artifacts.</strong> A test, exploit, traceback, benchmark, or patch diff is more useful than an unsupported confidence score.</li>
+            <li><strong>Execution boundaries are part of agent design.</strong> Sandboxes, handoffs, timeouts, and preserved state determine which long-running tasks are practical.</li>
+            <li><strong>Specialist harnesses need a shared contract.</strong> Normalized status, findings, artifacts, and metrics let one coordinating agent work across very different domains.</li>
+            <li><strong>Adaptive routing needs measured feedback.</strong> Multiple models help only when the system can compare recent outcomes and preserve productive search trajectories.</li>
+          </ol></div>
+        </section>
+      </div>
+
+      <section class="appendix-section">
+        <h3 id="references" class="appendix-label">References</h3>
+        <ol class="references-list">
+          <li id="ref-thompson1933likelihood"><span class="title">On the Likelihood that One Unknown Probability Exceeds Another in View of the Evidence of Two Samples</span>&ensp;<a href="https://doi.org/10.2307/2332286">[DOI]</a><br>Thompson, W.R., 1933. Biometrika, 25(3–4), pp.285–294.</li>
+        </ol>
+      </section>
+    </article>
+  </main>
+  <footer class="site-footer"><div class="container"><p>© 2026 <a href="https://richardcsuwandi.github.io">Richard Cornelius Suwandi</a></p></div></footer>
+</body>
+</html>

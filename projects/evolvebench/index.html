@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EvolveBench: Evaluating Coding Agents on Real Repositories</title>
+  <meta name="description" content="How I co-developed EvolveBench, built evaluators for 11 real repositories, and found where generated evaluation outperforms handwritten harnesses, and where it does not.">
+  <meta name="theme-color" content="#0063c9">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="EvolveBench: Evaluating Coding Agents on Real Repositories">
+  <meta property="og:description" content="A technical case study of evaluator design, generated test harnesses, and adaptive evolutionary search across 11 real repositories.">
+  <meta name="twitter:card" content="summary">
+  <meta name="keywords" content="EvolveBench, OpenEvolve, coding agents, evaluation harnesses, software performance optimization, Thompson sampling, novelty detection">
+  <link rel="canonical" href="https://richardcsuwandi.github.io/projects/evolvebench/">
+  <meta property="og:url" content="https://richardcsuwandi.github.io/projects/evolvebench/">
+  <link rel="icon" type="image/png" href="/assets/img/website-logo-black.PNG">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="assets/site.css">
+  <style>:root { --accent: #0063c9; }</style>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"EvolveBench: Evaluating Coding Agents on Real Repositories","description":"What I built and learned while co-developing EvolveBench and extending OpenEvolve to real repositories.","author":{"@type":"Person","name":"Richard C. Suwandi"},"url":"https://richardcsuwandi.github.io/projects/evolvebench/","keywords":["EvolveBench","OpenEvolve","coding agents","evaluation harnesses","software performance optimization"]}</script>
+  <script defer src="assets/site.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch color theme"><span aria-hidden="true" data-theme-icon>☾</span></button>
+  <main id="main">
+    <article>
+      <header class="d-title">
+        <p class="d-kicker">Project Write-Up</p>
+        <h1 class="d-headline">EvolveBench: Evaluating Coding Agents on Real Repositories</h1>
+        <div class="badge-row title-badges">
+          <a class="generic-badge" href="https://richardcsuwandi.github.io/evolvebench/" target="_blank" rel="noopener" aria-label="EvolveBench site"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="2" d="M10 14 21 3m0 0h-6m6 0v6M12 5H6a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-6"/></svg><span>Website</span></a>
+          <a class="github-code-badge" href="https://github.com/richardcsuwandi/evolvebench" target="_blank" rel="noopener" aria-label="EvolveBench source code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.37-12 12 0 5.303 3.438 9.8 8.205 10.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg><span>Code</span></a>
+        </div>
+      </header>
+
+      <div class="d-byline">
+        <div class="byline-box">
+          <div class="byline-table">
+            <h3>Authors</h3><h3>Affiliations</h3>
+            <p class="byline-name"><span class="self-author">Richard C. Suwandi</span></p><p class="byline-aff">Dria & The Chinese University of Hong Kong, Shenzhen</p>
+            <p class="byline-name">Ömer Kaya</p><p class="byline-aff">Dria</p>
+            <p class="byline-name">Asankhaya Sharma</p><p class="byline-aff">Dria</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-article">
+        <nav class="paper-toc" aria-label="Table of contents">
+          <h3>Contents</h3>
+          <div><a href="#context">Why I built EvolveBench</a></div>
+          <div><a href="#benchmark">Building the benchmark</a></div>
+          <div><a href="#generated-evaluator">Inside a generated evaluator</a></div>
+          <div><a href="#comparison">What the evaluator comparison showed</a></div>
+          <div><a href="#capabilities">Making OpenEvolve more adaptive</a></div>
+          <div><a href="#lessons">What I learned</a></div>
+        </nav>
+
+        <div class="tldr-block">
+          <p class="tldr-text"><strong>TL;DR.</strong> I co-developed EvolveBench to move evolutionary coding-agent evaluation from isolated benchmark functions to 11 real open-source repositories. My work focused on the evaluation problem: defining optimization targets, comparing handwritten and LLM-generated evaluators, and carrying the failures we found back into OpenEvolve through adaptive model routing, novelty detection, and automated warmup. We found that LLM-generated evaluators reached a 1.35× aggregate score versus 1.12× for handwritten evaluators, although the better evaluator still depended strongly on the task.</p>
+        </div>
+
+        <section id="context">
+          <h2>Why I Built EvolveBench</h2>
+          <div class="content-block prose"><p>The <a href="/projects/openevolve/">AlgoTune experiments</a> taught me how much an evolutionary coding agent depends on its evaluator. It also left an important question unanswered. <a href="https://algotune.io/" target="_blank" rel="noopener">AlgoTune</a> presents a clean function, a reference implementation, and a narrow objective. Real software rarely does. The relevant code is embedded in a repository, performance depends on surrounding behavior, and the evaluator itself can encode the wrong goal.</p></div>
+          <div class="content-block prose"><p>I wanted to test whether the same approach would survive that messier setting. We built EvolveBench around real functions in actively maintained libraries, including <a href="https://github.com/python/cpython" target="_blank" rel="noopener">CPython</a>, <a href="https://github.com/pandas-dev/pandas" target="_blank" rel="noopener">pandas</a>, <a href="https://github.com/sympy/sympy" target="_blank" rel="noopener">SymPy</a>, <a href="https://github.com/networkx/networkx" target="_blank" rel="noopener">NetworkX</a>, and <a href="https://github.com/python-jsonschema/jsonschema" target="_blank" rel="noopener">python-jsonschema</a>. Instead of asking only whether an agent could optimize code, we asked whether we could construct an evaluation signal precise enough to guide that optimization without rewarding regressions or superficial shortcuts.</p></div>
+        </section>
+
+        <section id="benchmark">
+          <h2>Building the Benchmark</h2>
+          <div class="content-block prose"><p>I helped turn 11 repository-level bottlenecks into repeatable optimization tasks. Each task needed a clearly bounded edit target, representative inputs, correctness checks, a stable performance measurement, and an aggregation rule that made results comparable. The targets covered algorithmic complexity, data structures, parser loops, cache policies, numerical routines, and library-specific regressions.</p></div>
+          <div class="content-block prose"><div class="table-scroll"><table><thead><tr><th>Repository</th><th>Optimization target</th></tr></thead><tbody>
+            <tr><td><a href="https://github.com/bayesian-optimization/BayesianOptimization" target="_blank" rel="noopener">BayesianOptimization</a></td><td>Acquisition-function random sampling</td></tr>
+            <tr><td><a href="https://github.com/python/cpython/blob/main/Lib/difflib.py" target="_blank" rel="noopener">difflib</a> (CPython)</td><td>Redundant ratio computations in <code>Differ._fancy_replace</code></td></tr>
+            <tr><td><a href="https://github.com/python-jsonschema/jsonschema" target="_blank" rel="noopener">python-jsonschema</a></td><td>Equality checks affected by a Python 3.12 regression</td></tr>
+            <tr><td><a href="https://github.com/LMCache/LMCache" target="_blank" rel="noopener">LMCache</a></td><td>LFU cache policy and minimum-frequency tracking</td></tr>
+            <tr><td><a href="https://github.com/frostming/marko" target="_blank" rel="noopener">marko</a></td><td>Nested parser loops</td></tr>
+            <tr><td><a href="https://github.com/networkx/networkx" target="_blank" rel="noopener">NetworkX</a></td><td>Graph algorithms</td></tr>
+            <tr><td><a href="https://github.com/pandas-dev/pandas" target="_blank" rel="noopener">pandas</a></td><td><code>rolling_rank</code> for small windows</td></tr>
+            <tr><td><a href="https://github.com/anyoptimization/pymoo" target="_blank" rel="noopener">pymoo</a></td><td>Non-dominated sorting</td></tr>
+            <tr><td><a href="https://github.com/niklasf/python-chess" target="_blank" rel="noopener">python-chess</a></td><td>Chess-engine algorithms</td></tr>
+            <tr><td><a href="https://github.com/brean/python-pathfinding" target="_blank" rel="noopener">python-pathfinding</a></td><td>Heap operations</td></tr>
+            <tr><td><a href="https://github.com/sympy/sympy" target="_blank" rel="noopener">SymPy</a></td><td><code>Min</code>/<code>Max</code> local-zero discovery</td></tr>
+          </tbody></table></div></div>
+          <p class="l-gutter caption"><strong>Table 1.</strong> The 11 repositories and the performance bottleneck selected in each one.</p>
+          <div class="content-block prose"><p>The most important design choice was to treat the evaluator as an experimental variable. Each task ships with a handwritten evaluator built from direct inspection of the target, an LLM-generated evaluator synthesized from the task description, and a config for an LLM-as-a-judge evaluator for objectives that resist a fixed metric, though I only ran the first two below. This separated two capabilities that are often conflated: improving a program and specifying what improvement should mean.</p></div>
+        </section>
+
+        <section id="generated-evaluator">
+          <h2>Inside a Generated Evaluator</h2>
+          <div class="content-block prose"><p>An evaluator has to do more than run a test suite. It must reject behaviorally invalid programs, expose a useful gradient among valid candidates, and measure the workload we actually care about. If any one of those pieces is weak, evolution can optimize the measurement instead of the program.</p></div>
+          <div class="content-block prose"><div class="table-scroll"><table><thead><tr><th>Evaluator property</th><th>What it contributes</th><th>Typical failure</th></tr></thead><tbody>
+            <tr><td>Correctness oracle</td><td>Compares candidate behavior with a trusted implementation</td><td>A fast approximation passes incomplete tests</td></tr>
+            <tr><td>Input coverage</td><td>Exercises sizes, modes, and edge cases that change the algorithmic trade-off</td><td>The agent overfits one convenient workload</td></tr>
+            <tr><td>Continuous reward</td><td>Distinguishes incremental improvements instead of returning only pass/fail</td><td>Search receives no direction until a large change succeeds</td></tr>
+            <tr><td>Stable timing</td><td>Separates steady-state execution from setup, compilation, and noise</td><td>The score rewards measurement artifacts</td></tr>
+          </tbody></table></div></div>
+          <p class="l-gutter caption"><strong>Table 2.</strong> The four properties I use to review an optimization evaluator.</p>
+
+          <h3 id="rolling-rank-evaluator">Example: rolling rank</h3>
+          <div class="content-block prose"><p>For <code>pandas_rolling_rank</code>, the generated evaluator used pandas as the oracle and built a two-stage test surface. The quick stage covered five representative cases, while the comprehensive stage expanded to 12, including NaNs, infinities, ascending and descending order, three tie-breaking methods, percentile mode, and several array/window sizes. The core loop looked like this, abridged for readability<sup id="fnref-evaluator" class="footnote-ref"><a href="#fn-evaluator" aria-label="Footnote 1">1</a></sup>:</p></div>
+          <figure class="code-figure">
+            <pre><code>test_cases = generate_test_cases_stage2()
+
+<span class="k">for</span> case <span class="ow">in</span> test_cases:
+    expected = pandas_rolling_rank(case)
+    roller = RollingRank(**case.parameters)
+
+    roller.compute(warmup_values)       <span class="c1"># exclude JIT compilation</span>
+    start = time.perf_counter()
+    result = roller.compute(case.values)
+    elapsed = time.perf_counter() - start
+
+    correct = compare_results(result, expected)
+    reward = sigmoid_score(elapsed, case.target_time)
+
+score = <span class="mf">0.7</span> * correctness + <span class="mf">0.3</span> * performance</code></pre>
+            <figcaption><strong>Evaluator excerpt.</strong> Correctness comes from differential testing against pandas, while performance becomes a smooth reward relative to a calibrated target.</figcaption>
+          </figure>
+          <div class="content-block prose"><p>The staging matters. Small cases cheaply eliminate broken candidates before the full suite consumes the budget. Differential testing avoids maintaining hand-calculated outputs, while fixed random seeds make failures reproducible. Warming the <a href="https://github.com/numba/numba" target="_blank" rel="noopener">Numba</a> kernel before starting the timer measures steady-state throughput rather than compilation latency<sup id="fnref-warmup" class="footnote-ref"><a href="#fn-warmup" aria-label="Footnote 2">2</a></sup>.</p></div>
+          <div class="content-block prose"><p>The generated evaluator was not simply longer than the handwritten one. It encoded a different search landscape: more workload variation, measured baseline targets at three scales, and a smooth sigmoid reward around each target. This gave the agent credit for partial performance gains while keeping correctness dominant.</p></div>
+        </section>
+
+        <section id="comparison">
+          <h2>What the Evaluator Comparison Showed</h2>
+          <div class="content-block prose"><p>We ran the same 11 tasks with handwritten and LLM-generated evaluators. The EvolveBench score is the harmonic mean of per-task speedups, following the aggregation convention used in AlgoTune.</p></div>
+          <div class="content-block prose"><div class="table-scroll"><table><thead><tr><th>Task</th><th>Handwritten</th><th>LLM-generated</th></tr></thead><tbody>
+            <tr><td>BayesianOptimization</td><td>1.54×</td><td>1.82×</td></tr>
+            <tr><td>difflib</td><td>0.99×</td><td>3.54×</td></tr>
+            <tr><td>jsonschema</td><td>2.20×</td><td>2.24×</td></tr>
+            <tr><td>lmcache</td><td>0.65×</td><td>1.02×</td></tr>
+            <tr><td>marko</td><td>1.00×</td><td>1.01×</td></tr>
+            <tr><td>networkx</td><td>1.07×</td><td>1.03×</td></tr>
+            <tr><td>pandas_rolling_rank</td><td>1.00×</td><td>2.31×</td></tr>
+            <tr><td>pymoo</td><td>1.00×</td><td>1.28×</td></tr>
+            <tr><td>python-chess</td><td>1.01×</td><td>1.01×</td></tr>
+            <tr><td>python-pathfinding</td><td>1.27×</td><td>1.39×</td></tr>
+            <tr><td>sympy</td><td>2.40×</td><td>0.99×</td></tr>
+          </tbody><tfoot><tr><th>Aggregate score</th><th>1.12×</th><th>1.35×</th></tr></tfoot></table></div></div>
+          <p class="l-gutter caption"><strong>Table 3.</strong> Per-task speedup and aggregate EvolveBench score under each evaluator design. Higher is better.</p>
+          <div class="content-block prose"><p>The aggregate result favored generated evaluators, but the task-level failures were more informative than the headline number. These numbers are post-run measurements of the selected programs, not the internal reward returned during evolution<sup id="fnref-measurement" class="footnote-ref"><a href="#fn-measurement" aria-label="Footnote 3">3</a></sup>. That separation is important: the evaluator guides search, while an independent benchmark tells us whether the resulting program improved.</p></div>
+
+          <h3 id="generated-win">Where the generated evaluator won</h3>
+          <div class="content-block prose"><p>Rolling rank is the clearest example. The handwritten run returned an implementation that was effectively unchanged and measured at 1.00×. The generated-evaluator run instead produced a specialized Numba kernel: for every output position it scans the small active window, counts values below and equal to the current value, and computes the requested tie rule. Although that kernel is <em>O(nw)</em> rather than the skiplist's <em>O(n log w)</em>, the JIT-compiled implementation and a smaller constant factor made it faster in the benchmark's small-window regime.</p></div>
+          <div class="content-block prose"><div class="table-scroll"><table><thead><tr><th>Input</th><th>Baseline</th><th>Generated-evaluator result</th><th>Speedup</th></tr></thead><tbody>
+            <tr><td>1,000 values, window 50</td><td>0.295 ms</td><td>0.077 ms</td><td>3.82×</td></tr>
+            <tr><td>5,000 values, window 50</td><td>1.367 ms</td><td>0.542 ms</td><td>2.52×</td></tr>
+            <tr><td>10,000 values, window 50</td><td>2.691 ms</td><td>1.165 ms</td><td>2.31×</td></tr>
+          </tbody></table></div></div>
+          <p class="l-gutter caption"><strong>Table 4.</strong> Held-out rolling-rank timings. All three implementations passed the same eight correctness checks.</p>
+          <div class="content-block prose"><p>Here is the actual change, abridged to the two <code>compute</code> methods that decide the algorithm:</p></div>
+          <div class="content-block code-compare">
+            <div class="code-compare-panel before">
+              <span class="code-compare-label">Before · seed program</span>
+              <pre><code>    <span class="k">def</span> <span class="nf">compute</span>(self, values):
+        values = np.asarray(values, dtype=np.float64)
+        series = pd.Series(values)
+        result = series.rolling(
+            window=self.window_size,
+            min_periods=self.window_size
+        ).rank(
+            method=self.method,
+            ascending=self.ascending,
+            pct=self.pct
+        ).values
+        <span class="k">return</span> result</code></pre>
+              <p class="code-compare-meta">pandas' own C-based skiplist, <em>O(n log w)</em>. Correct by construction, but general-purpose.</p>
+            </div>
+            <div class="code-compare-panel after">
+              <span class="code-compare-label">After · evolved program</span>
+              <pre><code><span class="nd">@njit</span>(nopython=<span class="nb">True</span>, nogil=<span class="nb">True</span>)
+<span class="k">def</span> <span class="nf">_numba_rolling_rank</span>(values, window_size, method_code, ascending, pct, min_periods):
+    n = len(values)
+    result = np.full(n, np.nan, dtype=np.float64)
+    <span class="k">for</span> i <span class="ow">in</span> range(window_size - <span class="mi">1</span>, n):
+        current_val = values[i]
+        <span class="k">if</span> <span class="ow">not</span> np.isfinite(current_val):
+            <span class="k">continue</span>
+        less, equal, valid_count = <span class="mi">0</span>, <span class="mi">0</span>, <span class="mi">0</span>
+        <span class="k">for</span> j <span class="ow">in</span> range(i - window_size + <span class="mi">1</span>, i + <span class="mi">1</span>):
+            val = values[j]
+            <span class="k">if</span> <span class="ow">not</span> np.isfinite(val):
+                <span class="k">continue</span>
+            valid_count += <span class="mi">1</span>
+            <span class="k">if</span> ascending:
+                <span class="k">if</span> val &lt; current_val: less += <span class="mi">1</span>
+                <span class="k">elif</span> val == current_val: equal += <span class="mi">1</span>
+            <span class="k">else</span>:
+                <span class="k">if</span> val &gt; current_val: less += <span class="mi">1</span>
+                <span class="k">elif</span> val == current_val: equal += <span class="mi">1</span>
+        <span class="k">if</span> valid_count &lt; min_periods:
+            <span class="k">continue</span>
+        min_rank = less + <span class="mi">1</span>
+        <span class="k">if</span> method_code == <span class="mi">0</span>:  <span class="c1"># average</span>
+            max_rank = less + equal
+            rank = (min_rank + max_rank) / <span class="mf">2.0</span>
+        <span class="k">elif</span> method_code == <span class="mi">1</span>:  <span class="c1"># min</span>
+            rank = <span class="nb">float</span>(min_rank)
+        <span class="k">else</span>:  <span class="c1"># max</span>
+            rank = <span class="nb">float</span>(less + equal)
+        result[i] = rank / valid_count <span class="k">if</span> pct <span class="k">else</span> rank
+    <span class="k">return</span> result
+
+    <span class="k">def</span> <span class="nf">compute</span>(self, values):
+        values = np.asarray(values, dtype=np.float64)
+        <span class="k">return</span> _numba_rolling_rank(
+            values, self.window_size, self.method_code,
+            self.ascending, self.pct, self.min_periods,
+        )</code></pre>
+              <p class="code-compare-meta">Hand-rolled <em>O(nw)</em> windowed scan, JIT-compiled by Numba. Slower in theory, faster in practice for small windows.</p>
+            </div>
+          </div>
+          <p class="l-gutter caption"><strong>Figure 1.</strong> The initial program vs. the LLM-generated-evaluator run's best program for <code>pandas_rolling_rank</code>, trimmed from <a href="https://github.com/algorithmicsuperintelligence/openevolve" target="_blank" rel="noopener">the actual evolved files</a>. The evaluator never told the agent to use Numba. It only rewarded a lower <code>elapsed</code> at each calibrated target.</p>
+          <div class="content-block prose"><p>The difflib run found a different kind of optimization. Its selected program cached cheap similarity bounds and skipped the expensive full ratio whenever the bound could not beat the current match. Across seven pathological input sizes, the generated-evaluator result reduced total time from 7.773 seconds to 2.196 seconds, a 3.54× speedup. The handwritten-evaluator result took 7.862 seconds, or 0.99×. The useful lesson was not that generation is inherently superior. It was that broader cases and a smoother signal can expose an optimization path that a carefully written but narrower harness fails to reward.</p></div>
+
+          <h3 id="human-win">Where the handwritten evaluator won</h3>
+          <div class="content-block prose"><p>SymPy provides the counterexample. The task optimizes <code>Min</code>/<code>Max</code> local-zero discovery over partially ordered symbolic values. Here, domain structure mattered more than generic workload diversity: the handwritten evaluator guided the run toward a 2.40× result, while the generated-evaluator run remained at 0.99×. This kind of symbolic code has semantic traps, such as comparability, transitivity, and antichains, that are difficult to infer from an interface alone.</p></div>
+          <aside class="takeaway" aria-label="Key takeaway"><strong>My takeaway.</strong> Generate the first evaluator when it saves setup time, but promote it only after a human reviews its oracle, workload distribution, reward shape, and timing protocol. The right unit of automation is evaluator construction plus evaluator validation.</aside>
+        </section>
+
+        <section id="capabilities">
+          <h2>Making OpenEvolve More Adaptive</h2>
+          <div class="content-block prose"><p>EvolveBench grew out of problems we had already observed in the AlgoTune experiments. Naive model ensembles overwrote one another's progress, manual parameter sweeps consumed substantial effort, and incremental evolution sometimes proposed near-duplicate candidates. We used those failures as requirements for three additions to <a href="https://github.com/algorithmicsuperintelligence/openevolve" target="_blank" rel="noopener">OpenEvolve</a>.</p></div>
+          <h3 id="thompson-ensembles">Adaptive Model Selection</h3>
+          <div class="content-block prose"><p>We replaced equal model alternation with Thompson sampling<sup class="cite"><a href="#ref-thompson1933likelihood">1</a></sup>. The router samples one model per iteration from a distribution fitted to recent reward history, while a minimum round-robin phase prevents early lockout. We also tested island-based variants that let different models preserve separate search trajectories.</p></div>
+          <div class="content-block prose"><div class="table-scroll"><table><thead><tr><th>Observation</th><th>Evidence</th></tr></thead><tbody>
+            <tr><td>Best ensemble beat the best single model</td><td>9 of 11 re-tested tasks</td></tr>
+            <tr><td>Largest improvement</td><td>Connected components: 2.79× to 5.62×</td></tr>
+            <tr><td>Tasks where the ensemble regressed</td><td>Cholesky factorization and graph Laplacian</td></tr>
+          </tbody></table></div></div>
+          <p class="l-gutter caption"><strong>Table 5.</strong> Directional results from single, unrepeated ensemble runs. They are not seed-averaged.</p>
+          <div class="content-block prose"><p>The result changed how I think about multi-model systems. Diversity is useful only when the system protects useful state and assigns work based on evidence. On connected components, removing migration let a Union-Find strategy mature without being replaced by incompatible breadth-first-search edits. No ensemble configuration won everywhere, so the routing policy remains part of the optimization problem.</p></div>
+          <h3 id="novelty-detection">Novelty Detection</h3>
+          <div class="content-block prose"><p>We added a local embedding-based novelty check that compares a new program against the current island population before it consumes an expensive evaluation. This turns a pattern I previously found by manually reading trajectories into an explicit filter in the search loop:</p></div>
+          <div class="content-block prose"><pre><code><span class="k">class</span> NoveltyChecker:
+    <span class="k">def</span> <span class="nf">__init__</span>(self, embedding_client, similarity_threshold: <span class="nb">float</span> = <span class="mf">0.95</span>):
+        self.embedding_client = embedding_client
+        self.similarity_threshold = similarity_threshold
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">check_novelty</span>(self, candidate_code, island_programs):
+        candidate_embedding = <span class="k">await</span> self.embedding_client.generate_embedding_for_code(candidate_code)
+        max_sim = <span class="nb">max</span>(
+            cosine_similarity(candidate_embedding, prog.metadata[<span class="s2">"code_embedding"</span>])
+            <span class="k">for</span> prog <span class="ow">in</span> island_programs
+        )
+        <span class="k">return</span> NoveltyCheckResult(is_novel=max_sim &lt;= self.similarity_threshold, max_similarity=max_sim)</code></pre></div>
+          <div class="content-block prose"><p>A candidate above the 0.95 threshold is not simply discarded. OpenEvolve regenerates from the same parent up to a fixed number of attempts, raising the sampling temperature after each one and telling the model what its last attempt was too similar to, so a rejection becomes feedback rather than a dead end. Only after exhausting those attempts does it fall back to the least similar candidate produced. Embeddings run locally (<a href="https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2" target="_blank" rel="noopener"><code>all-MiniLM-L6-v2</code></a>), so novelty checking adds no LLM cost.</p></div>
+          <h3 id="warmup-optimization">Two-Phase Warmup</h3>
+          <div class="content-block prose"><p>We also automated the prompt and hyperparameter sweeps that had been launched manually in the AlgoTune experiments, as a fixed-budget phase that runs before the main evolution loop:</p></div>
+          <div class="content-block prose"><pre><code>@dataclass
+class WarmupConfig:
+    prompt_optimization_budget: int = 5   # Phase 1: prompt variants
+    hyperparameter_budget: int = 5        # Phase 2: configs to test
+    iterations_per_config: int = 5        # Phase 2: iterations per config
+    temperature_min: float = 0.2
+    temperature_max: float = 0.9
+    exploration_min: float = 0.1
+    exploration_max: float = 0.4</code></pre></div>
+          <div class="content-block prose"><p>Phase 1 runs pairwise feedback descent: generate a prompt variation, evaluate the original and the variant on a one-iteration mini-experiment, then ask the model what made the winner better and fold that into an improved prompt. Phase 2 tests up to <code>hyperparameter_budget</code> hand-designed presets (conservative, exploratory, balanced, and focused combinations of temperature and exploration/exploitation ratio), runs each for <code>iterations_per_config</code> iterations, and keeps whichever preset produced the largest measured improvement. At the reference 50-call budget, that is 5 calls for prompt optimization, 25 for hyperparameter trials, and 20 left for the main search.</p></div>
+          <div class="content-block prose"><p>The class implementing this is named <code>BayesianWarmupOptimizer</code>, but the name is aspirational rather than descriptive. Phase 2 has no surrogate model and no acquisition function. It picks the best of a small, fixed set of presets by direct measurement, which is closer to a greedy grid search than to Bayesian optimization. Fixing that gap, along with running the ablation above, is the concrete next step.</p></div>
+        </section>
+
+        <section id="lessons">
+          <h2>What I Learned</h2>
+          <div class="content-block prose"><ol>
+            <li><strong>An evaluator is an executable specification.</strong> It determines which behavior the agent learns to preserve and which shortcuts it is allowed to exploit.</li>
+            <li><strong>Real repositories expose hidden dependencies.</strong> A locally faster function is not an improvement if it breaks callers, changes numerical behavior, or moves work elsewhere.</li>
+            <li><strong>Automating evaluator construction changes the bottleneck.</strong> It reduces manual setup, but shifts more responsibility to validation and adversarial testing of the generated objective.</li>
+            <li><strong>Adaptive systems need evidence at every layer.</strong> Model routing, novelty filtering, and warmup tuning are useful only when their feedback is comparable and reproducible.</li>
+          </ol></div>
+        </section>
+      </div>
+
+      <section class="appendix-section">
+        <h3 id="notes" class="appendix-label">Notes</h3>
+        <ol class="notes-list">
+          <li id="fn-evaluator">The excerpt preserves the generated evaluator's control flow but shortens its dictionaries and helper names. The source uses <code>time.time()</code>, though <code>perf_counter()</code> is shown here because it states the intended monotonic timing semantics more clearly. <a class="footnote-back" href="#fnref-evaluator" aria-label="Back to footnote 1">↩</a></li>
+          <li id="fn-warmup">Excluding compilation is appropriate for repeated, steady-state calls. A deployment dominated by first-call latency should report compilation separately rather than hide it. <a class="footnote-back" href="#fnref-warmup" aria-label="Back to footnote 2">↩</a></li>
+          <li id="fn-measurement">The difflib comparison used 200 repetitions at each of seven sizes, rolling rank used 10 runs per configuration, and SymPy used 10 runs at each of five symbol counts. These repetitions characterize timing noise for the selected programs, not variance across independent evolution seeds. <a class="footnote-back" href="#fnref-measurement" aria-label="Back to footnote 3">↩</a></li>
+        </ol>
+        <h3 id="references" class="appendix-label">References</h3>
+        <ol class="references-list">
+          <li id="ref-thompson1933likelihood"><span class="title">On the Likelihood that One Unknown Probability Exceeds Another in View of the Evidence of Two Samples</span>&ensp;<a href="https://doi.org/10.2307/2332286">[DOI]</a><br>Thompson, W.R., 1933. Biometrika, 25(3–4), pp.285–294.</li>
+        </ol>
+      </section>
+    </article>
+  </main>
+  <footer class="site-footer"><div class="container"><p>© 2026 <a href="https://richardcsuwandi.github.io">Richard Cornelius Suwandi</a></p></div></footer>
+</body>
+</html>

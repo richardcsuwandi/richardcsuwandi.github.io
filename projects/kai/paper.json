@@ -1,0 +1,647 @@
+{
+  "title": "Kai Bench: Verified Security and Software Optimization",
+  "venue": "Dria Technical Report, March 2026",
+  "canonical_url": "https://richardcsuwandi.github.io/projects/kai/",
+  "description": "We report Kai's March 2026 EVMBench and GSO benchmark results: 64.2% Detect Recall on smart-contract vulnerability discovery and 53.3% Opt@1 on real-world software optimization, both built on a verifier-first pipeline.",
+  "badges": [
+    {
+      "kind": "code",
+      "label": "Source Code",
+      "url": "https://github.com/firstbatchxyz/kai"
+    }
+  ],
+  "authors": [
+    {
+      "name": "Richard C. Suwandi",
+      "self": true,
+      "affiliations": [
+        "Dria"
+      ]
+    },
+    {
+      "name": "\u00d6mer Kaya",
+      "affiliations": [
+        "Dria"
+      ]
+    },
+    {
+      "name": "Asankhaya Sharma",
+      "affiliations": [
+        "Dria"
+      ]
+    }
+  ],
+  "theme": {
+    "accent": "#0063c9"
+  },
+  "keywords": [
+    "Kai",
+    "Dria",
+    "EVMBench",
+    "GSO",
+    "autonomous agents",
+    "smart contract security",
+    "software optimization"
+  ],
+  "tldr": "In our March 2026 benchmark release, we reported 64.2% Detect Recall on the original 120-finding EVMBench set and 53.3% Opt@1 on a 30-task compatible subset of GSO. Both rest on the same mechanism, verifier-first engineering: security candidates must survive independent analysis and a runnable exploit, and optimization candidates must pass correctness tests and measured performance evaluation. These are our own self-reported results, and our GSO score uses a smaller task subset and a different compute budget than the official leaderboard.",
+  "abstract": "We built Kai as an always-on codebase engineer that combines autonomous security auditing with software optimization, and evaluated it on two benchmarks that test different capabilities. EVMBench asks whether an agent can find real, high-severity smart-contract vulnerabilities, and we report 64.2% Detect Recall across 40 historical audit contests containing 120 known vulnerabilities, recovering findings worth a combined $74,707 in bounty value. GSO asks whether an agent can change real software so its patch approaches or exceeds the runtime improvement an expert developer achieved, and we report 53.3% Opt@1 on a 30-task subset compatible with our evolution harness, exceeding expert performance outright on 6 tasks. Both benchmarks reward the same underlying design choice: we treat candidate generation as cheap and false positives as expensive, so every result has to survive independent verification, a runnable exploit, or a measured performance test before we count it. This page reports our methodology, results, architecture, and the caveats needed to interpret these numbers correctly.",
+  "sections": [
+    {
+      "id": "summary",
+      "title": "Executive Summary",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "We designed two complementary tests of autonomous engineering. EVMBench asks whether an agent can find real, high-severity smart-contract vulnerabilities. GSO asks whether an agent can change real software so that it approaches or exceeds the runtime improvement achieved by an expert developer, while remaining correct."
+        },
+        {
+          "type": "list",
+          "items": [
+            "<strong>EVMBench Detect Recall:</strong> 64.2%, across 40 audits from the original 120-finding release.",
+            "<strong>EVMBench Detect Award:</strong> $74,707 in cumulative bounty value across our detected findings.",
+            "<strong>GSO Opt@1:</strong> 53.3% on a 30-task subset compatible with our evolution harness, at up to 300 iterations.",
+            "<strong>GSO tasks with positive speedup:</strong> 29 of 30, with 6 tasks exceeding the expert's own optimization."
+          ],
+          "ordered": true
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Benchmark",
+            "Primary Metric",
+            "Our Result",
+            "Evaluation Scope"
+          ],
+          "rows": [
+            [
+              "EVMBench Detect",
+              "Recall of known vulnerabilities",
+              "64.2%",
+              "40 audits, original 120-finding release"
+            ],
+            [
+              "EVMBench Detect Award",
+              "Bounty value of detected findings",
+              "$74,707",
+              "Historical contest awards"
+            ],
+            [
+              "GSO",
+              "Opt@1 at \u226595% of expert speedup",
+              "53.3%",
+              "30 compatible tasks, 300 max iterations"
+            ]
+          ],
+          "caption": "Table 1. Our headline results on both benchmarks."
+        }
+      ]
+    },
+    {
+      "id": "evmbench",
+      "title": "EVMBench: Autonomous Smart-Contract Security",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "EVMBench evaluates three capabilities: detect, patch, and exploit, on vulnerabilities taken from real smart-contract audits. We report a result for the Detect track."
+        },
+        {
+          "type": "paragraph",
+          "text": "In Detect mode, an agent receives an audit repository and must report credible loss-of-funds vulnerabilities. Detect Recall measures the fraction of ground-truth vulnerabilities recovered. Detect Award weights the recovered findings by the bounty values attached to the original audit results. We evaluated 40 Code4rena and Sherlock contests containing 120 known vulnerabilities."
+        }
+      ],
+      "subsections": [
+        {
+          "id": "evm-results",
+          "title": "Our Results",
+          "blocks": [
+            {
+              "type": "table",
+              "headers": [
+                "Metric",
+                "Our Result",
+                "Interpretation"
+              ],
+              "rows": [
+                [
+                  "Detect Recall",
+                  "64.2%",
+                  "Approximately 77 of the original 120 findings"
+                ],
+                [
+                  "Detect Award",
+                  "$74,707",
+                  "Cumulative bounty value attached to detected findings"
+                ],
+                [
+                  "Audits evaluated",
+                  "40",
+                  "Real historical audit contests"
+                ],
+                [
+                  "Known vulnerabilities",
+                  "120",
+                  "Original benchmark release before three findings were removed"
+                ]
+              ],
+              "caption": "Table 2. Our reported EVMBench Detect results."
+            },
+            {
+              "type": "table",
+              "headers": [
+                "System",
+                "Detect Recall"
+              ],
+              "rows": [
+                [
+                  "Kai",
+                  "64.2%"
+                ],
+                [
+                  "Claude Opus 4.6",
+                  "45.6%"
+                ],
+                [
+                  "GPT-5.3 Codex",
+                  "39.2%"
+                ],
+                [
+                  "OAI-OPT-5.2",
+                  "30.0%"
+                ],
+                [
+                  "OPT-5",
+                  "25.5%"
+                ],
+                [
+                  "OpenAI o3",
+                  "10.6%"
+                ]
+              ],
+              "caption": "Table 3. Detect Recall values we measured, alongside other systems' published results. Scaffold, model, and denominator details differ across systems. See Analysis and Caveats below."
+            }
+          ]
+        },
+        {
+          "id": "verification-pipeline",
+          "title": "Why Verification Is the Whole Game",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Our analysis found that candidate generation is cheap but false positives are expensive. We treat the pipeline as a program analysis problem: static analysis passes surface candidate bugs, and only findings that survive reachability tracing, state-transition analysis, and a runnable dynamic test (the exploit itself) get reported. Our published workflow has four phases:"
+            },
+            {
+              "type": "list",
+              "items": [
+                "<strong>Research:</strong> map protocol architecture, design category, historical bug patterns, and relevant threat models.",
+                "<strong>Analysis:</strong> run focused passes for reentrancy, arithmetic, access control, oracle manipulation, and economic invariants.",
+                "<strong>Verification:</strong> independently trace reachability, state transitions, and real economic impact, then reject weak candidates.",
+                "<strong>Exploit PoC:</strong> write a concrete end-to-end test, typically in Foundry, that demonstrates the verified vulnerability."
+              ],
+              "ordered": true
+            },
+            {
+              "type": "paragraph",
+              "text": "Our open-source repository turns this into a concrete pipeline: <code>security_scan</code> runs discovery, verification, PoC exploit, and patch in sequence, and we only mark a finding verified after the exploit fires. Our reports attach the finding, exploit, patch, artifacts, and metrics, rather than returning an ungrounded confidence score."
+            }
+          ]
+        },
+        {
+          "id": "case-findings",
+          "title": "Example Verified Findings",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "<strong>Wildcat Protocol, withdrawal-batch rounding.</strong> We found that half-up rounding in <code>rayDiv</code> was composed with floor rounding when burned amounts were converted back. Once <code>scaleFactor</code> exceeded 2\u00d7 RAY, <code>normalizedAmountPaid</code> could exceed available liquidity, allowing withdrawals to consume reserved funds. We wrote a Foundry test that deposited funds, created delinquency through borrowing, advanced time past the scale-factor threshold, and triggered the corrupted accounting path. Bounty award: $20,252. Primary file: <code>WildcatMarketBase.sol</code>."
+            },
+            {
+              "type": "paragraph",
+              "text": "<strong>Noya Protocol, multi-hop oracle mispricing.</strong> We found that <code>NoyaValueOracle.sol</code> passed the original asset into every hop rather than the intermediate token produced by the previous hop, so routes of two or more hops mixed incompatible units and returned incorrect prices. Our proof used mock A\u2192B, B\u2192C, and C\u2192D prices of 2\u00d7, 3\u00d7, and 4\u00d7. A correct route should return 24\u00d7, but the implementation returned a different value, creating a path to deposit mispriced assets and withdraw at their correct value."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gso",
+      "title": "GSO: Software Performance Optimization",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "GSO gives an agent a codebase and a performance test, then measures whether its correct patch approaches the runtime improvement of an expert developer's optimization. The official benchmark contains 102 tasks across 10 codebases and five languages. Opt@1 estimates the fraction of tasks on which a single attempt passes correctness tests and achieves at least 95% of the expert's speedup. We evaluated a 30-task subset compatible with our evolution harness, Kai Evolve, at a maximum of 300 iterations."
+        }
+      ],
+      "subsections": [
+        {
+          "id": "gso-results",
+          "title": "Our Results and the Leaderboard",
+          "blocks": [
+            {
+              "type": "list",
+              "items": [
+                "<strong>Opt@1 score:</strong> 53.3%.",
+                "<strong>Tasks exceeding the expert:</strong> 6.",
+                "<strong>Tasks with positive speedup:</strong> 29 of 30.",
+                "<strong>Maximum iterations:</strong> 300."
+              ],
+              "ordered": true
+            },
+            {
+              "type": "table",
+              "headers": [
+                "System",
+                "Organization",
+                "Opt@1",
+                "Scope"
+              ],
+              "rows": [
+                [
+                  "Kai Evolve",
+                  "Dria",
+                  "53.30%",
+                  "30 compatible tasks"
+                ],
+                [
+                  "Claude 4.6 Opus",
+                  "Anthropic",
+                  "33.33%",
+                  "Official 102-task board"
+                ],
+                [
+                  "GPT-5.2 (high)",
+                  "OpenAI",
+                  "27.45%",
+                  "Official 102-task board"
+                ],
+                [
+                  "Claude 4.5 Opus",
+                  "Anthropic",
+                  "26.47%",
+                  "Official 102-task board"
+                ],
+                [
+                  "Gemini 3 Pro",
+                  "Google",
+                  "18.63%",
+                  "Official board"
+                ],
+                [
+                  "Claude 4.5 Sonnet",
+                  "Anthropic",
+                  "14.71%",
+                  "Official board"
+                ],
+                [
+                  "GPT-5.1 (high)",
+                  "OpenAI",
+                  "13.73%",
+                  "Official board"
+                ],
+                [
+                  "Gemini 3 Flash",
+                  "Google",
+                  "9.80%",
+                  "Official board"
+                ],
+                [
+                  "o3 (high)",
+                  "OpenAI",
+                  "8.82%",
+                  "Official board"
+                ],
+                [
+                  "GPT-5 (high)",
+                  "OpenAI",
+                  "6.86%",
+                  "Official board"
+                ],
+                [
+                  "Claude 4 Opus",
+                  "Anthropic",
+                  "6.86%",
+                  "Official board"
+                ],
+                [
+                  "Qwen3-Coder",
+                  "Qwen",
+                  "4.90%",
+                  "Official board"
+                ],
+                [
+                  "Kimi K2 Instruct",
+                  "Moonshot AI",
+                  "4.90%",
+                  "Official board"
+                ],
+                [
+                  "Claude 3.5 v2 Sonnet",
+                  "Anthropic",
+                  "4.60%",
+                  "Official board"
+                ],
+                [
+                  "Gemini 2.5 Pro",
+                  "Google",
+                  "3.92%",
+                  "Official board"
+                ],
+                [
+                  "Claude 4 Sonnet",
+                  "Anthropic",
+                  "3.92%",
+                  "Official board"
+                ],
+                [
+                  "Claude 3.7 Sonnet",
+                  "Anthropic",
+                  "3.80%",
+                  "Official board"
+                ],
+                [
+                  "o4-mini (high)",
+                  "OpenAI",
+                  "3.60%",
+                  "Official board"
+                ],
+                [
+                  "GLM-4.5-Air",
+                  "Z.ai",
+                  "2.94%",
+                  "Official board"
+                ],
+                [
+                  "o3-mini (high)",
+                  "OpenAI",
+                  "1.30%",
+                  "Official board"
+                ],
+                [
+                  "GPT-4o",
+                  "OpenAI",
+                  "0.00%",
+                  "Official board"
+                ]
+              ],
+              "caption": "Table 4. Leaderboard values from our benchmark release. Our row uses a different task count and should be read separately from official full-set entries."
+            }
+          ]
+        },
+        {
+          "id": "model-selection",
+          "title": "Thompson Sampling for Adaptive Model Selection",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "We route work among three models using Thompson sampling{{cite:thompson1933likelihood}}, the same adaptive-selection mechanism we use in OpenEvolve's ensemble module. Selection rates reflect empirical performance with exploration bonuses, rather than a fixed equal allocation."
+            },
+            {
+              "type": "table",
+              "headers": [
+                "Model",
+                "Selection Rate",
+                "Role in Mixture"
+              ],
+              "rows": [
+                [
+                  "GPT-5.2 Codex",
+                  "36.2%",
+                  "Most frequently selected"
+                ],
+                [
+                  "Claude Sonnet 4.5",
+                  "34.6%",
+                  "Near-equal second allocation"
+                ],
+                [
+                  "Grok 4.1 Fast",
+                  "29.2%",
+                  "Exploration and task-specific coverage"
+                ]
+              ],
+              "caption": "Table 5. Model selection rates within our Thompson-sampling ensemble."
+            }
+          ]
+        },
+        {
+          "id": "task-results",
+          "title": "Our Per-Task Results",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Our benchmark release included a 30-row task table. We reproduce ten rows exactly below. The remaining twenty rows were client-rendered on our original page and are not reproduced here, so we have not invented any values."
+            },
+            {
+              "type": "table",
+              "headers": [
+                "Task",
+                "vs Baseline",
+                "vs Expert",
+                "Opt@1"
+              ],
+              "rows": [
+                [
+                  "pandas-dev/pandas/2421931",
+                  "2.26\u00d7",
+                  "1.63\u00d7",
+                  "\u2713"
+                ],
+                [
+                  "numpy/numpy/cedba62",
+                  "7.53\u00d7",
+                  "1.07\u00d7",
+                  "\u2713"
+                ],
+                [
+                  "numpy/numpy/ec52363",
+                  "1.71\u00d7",
+                  "1.07\u00d7",
+                  "\u2713"
+                ],
+                [
+                  "huggingface/transformers/63b90a5",
+                  "5.15\u00d7",
+                  "1.06\u00d7",
+                  "\u2713"
+                ],
+                [
+                  "numpy/numpy/7ff7ec7",
+                  "2.51\u00d7",
+                  "1.06\u00d7",
+                  "\u2713"
+                ],
+                [
+                  "huggingface/datasets/c5464b3",
+                  "1.06\u00d7",
+                  "1.00\u00d7",
+                  "\u2713"
+                ],
+                [
+                  "pydantic/pydantic/4a09447",
+                  "4.82\u00d7",
+                  "1.00\u00d7",
+                  "\u2713"
+                ],
+                [
+                  "huggingface/tokenizers/fc76ad4",
+                  "1.06\u00d7",
+                  "0.99\u00d7",
+                  "\u2713"
+                ],
+                [
+                  "huggingface/transformers/d51b589",
+                  "1.01\u00d7",
+                  "0.98\u00d7",
+                  "\u2713"
+                ],
+                [
+                  "numpy/numpy/330057f",
+                  "1.02\u00d7",
+                  "0.98\u00d7",
+                  "\u2713"
+                ]
+              ],
+              "caption": "Table 6. Exact per-task rows from our benchmark release. Opt@1 is marked true when the run reaches at least 95% of expert speedup while passing correctness."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "implementation",
+      "title": "Open-Source Implementation",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Our public Kai repository shows how our benchmark philosophy maps to an agent architecture: one coordinating agent, specialist sub-harnesses, isolated execution, and evidence-bearing reports."
+        },
+        {
+          "type": "paragraph",
+          "text": "We built Kai as an always-on codebase engineer for audits, optimization, hygiene, executable PR review, and continuous monitoring. Our main agent holds conversation and workspace context, routes tools and skills, and delegates security or optimization work to separately packaged harnesses."
+        },
+        {
+          "type": "html",
+          "html": "<pre><code>                       Kai Agent\n                \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n                \u2502                     \u2502\n        tool registry + skills   workspace context\n                \u2502                     \u2502\n         \u250c\u2500\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2500\u2510              \u2502\n         \u25bc             \u25bc              \u25bc\n  kai-security     kai-evolve    memory + lifecycle\n discover          mutate\n verify            evaluate\n exploit PoC       select\n patch             benchmark\n         \u2502             \u2502\n         \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2518\n                \u25bc\n normalized report + runnable artifacts</code></pre>"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Component",
+            "Responsibility",
+            "Evidence Produced"
+          ],
+          "rows": [
+            [
+              "security_scan",
+              "Discover, verify, exploit, and patch vulnerabilities",
+              "Finding, working exploit, patch diff, verification status"
+            ],
+            [
+              "evolve_optimize",
+              "AlphaEvolve-style mutate, evaluate, select search",
+              "Best evolved program, benchmark metrics, baseline comparison"
+            ],
+            [
+              "Tool registry",
+              "Built-in terminal, files, browser, memory, scheduling, delegation, and MCP tools",
+              "Tool results and execution traces"
+            ],
+            [
+              "Skills",
+              "Load reusable audit, optimization, evaluator, triage, and monitoring workflows",
+              "Repeatable workflow instructions"
+            ],
+            [
+              "Sandbox control",
+              "Run local or remote isolated jobs and long-lived handoffs",
+              "Contained artifacts and remotely executable work"
+            ]
+          ],
+          "caption": "Table 7. The components behind our two specialist harnesses."
+        },
+        {
+          "type": "paragraph",
+          "text": "<strong>Design invariant.</strong> We designed the repository so that if Kai cannot prove a finding or confirm a fix, we mark the result unverified. Both specialist harnesses return a normalized structure containing <code>harness</code>, <code>status</code>, <code>summary</code>, <code>findings</code>, <code>artifacts</code>, and <code>metrics</code>."
+        }
+      ],
+      "subsections": [
+        {
+          "id": "deployment-tooling",
+          "title": "Deployment, Developer Tooling, and Sandboxed Execution",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "We built Kai to run wherever a team already works, not just as a standalone dashboard. Locally, <code>kai ui</code> opens an interactive web interface, and a terminal REPL is available through <code>python cli.py</code>, with flags such as <code>--toolsets security</code> or <code>--toolsets evolve</code> to activate a single harness for a session. We also ship gateway adapters for Slack (Socket Mode and Events API), Discord, Telegram, and email (IMAP and SMTP for async reports), so an engineering team can page Kai from the same channels they already use for code review."
+            },
+            {
+              "type": "paragraph",
+              "text": "Every run executes inside an isolated sandbox rather than on the host machine. We designed the execution layer as a provider-agnostic control plane: the default backend launches hosted E2B micro-VM sandboxes, an alternate backend runs ephemeral sandboxes on Vercel, and a local-execution mode supports testing without any cloud dependency. A <code>/teleport</code> command copies the current workspace and conversation state into a sandbox and resumes the session in the browser, and a <code>/hand-off</code> command dispatches an autonomous sub-agent as a background task, so a long-running security scan or optimization search does not block the main session."
+            },
+            {
+              "type": "paragraph",
+              "text": "We treat the evaluators themselves as first-class components rather than a fixed scoring function. <code>evolve_optimize</code> runs against developer-defined fitness functions, so a team can point the same evolutionary search at a different objective without touching the agent core. We extend the agent with a plugin system exposing five lifecycle hooks, <code>pre_tool_call</code>, <code>post_tool_call</code>, <code>transform_tool_result</code>, <code>on_session_start</code>, and <code>on_session_end</code>, so custom policy, logging, or gating logic can wrap every tool call without forking the codebase."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "analysis",
+      "title": "Analysis and Caveats",
+      "blocks": [
+        {
+          "type": "list",
+          "items": [
+            "<strong>The two headline results measure different abilities.</strong> EVMBench Detect Recall measures vulnerability discovery, while GSO Opt@1 measures correct runtime optimization relative to an expert patch. We do not combine them into one aggregate score.",
+            "<strong>EVMBench's denominator changed.</strong> We evaluated the original 120-finding release. OpenAI later removed three findings, leaving 117 in the current canonical set. Our historical 64.2% should be read as roughly 77 of the original 120 findings, not rescaled to the current 117-finding denominator.",
+            "<strong>Our GSO number is not an official full-board entry.</strong> Our 53.3% score covers 30 compatible tasks, while comparison rows on the benchmark page cover the official 102-task set. Task selection can materially affect difficulty.",
+            "<strong>Compute budgets differ.</strong> We report up to 300 iterations. The official GSO runs shown alongside ours used their own scaffold and inference budgets, so the comparison is contextual rather than controlled.",
+            "<strong>We have not yet published full reproducibility artifacts.</strong> Our benchmark page and product article do not yet expose complete run directories, trajectories, raw EVMBench reports, or enough configuration for someone outside our team to independently reproduce every number on this page.",
+            "<strong>The strongest evidence for these numbers is architectural consistency.</strong> Our public code's discover, verify, exploit, patch and mutate, evaluate, select loops match the mechanism we describe here, though code availability alone does not independently validate our historical scores."
+          ],
+          "ordered": true
+        },
+        {
+          "type": "paragraph",
+          "text": "If you cite these numbers, we'd suggest this phrasing{{fn:citation-language}}: \"Kai reported 64.2% Detect Recall on the original 120-finding EVMBench release and 53.3% Opt@1 on a selected 30-task GSO subset.\""
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "title": "Sources and Provenance",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "This report draws on our own published benchmark material and the official definitions of each benchmark:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "<strong>Our own data:</strong> headline GSO metrics, the leaderboard, model-selection rates, per-task rows, EVMBench methodology, the exact $74,707 Detect Award, the pipeline explanation, the Wildcat and Noya examples, our current architecture, and the evidence contract, all from our public <a href=\"https://github.com/firstbatchxyz/kai\" target=\"_blank\" rel=\"noopener\">firstbatchxyz/kai repository</a>.",
+            "<strong>Primary sources:</strong> benchmark definitions and current scope from <a href=\"https://openai.com/index/introducing-evmbench/\" target=\"_blank\" rel=\"noopener\">OpenAI's EVMBench release</a>, the <a href=\"https://github.com/openai/frontier-evals\" target=\"_blank\" rel=\"noopener\">frontier-evals repository</a>, and the <a href=\"https://gso-bench.github.io/\" target=\"_blank\" rel=\"noopener\">official GSO site</a>."
+          ],
+          "ordered": false
+        }
+      ]
+    }
+  ],
+  "footnotes": [
+    {
+      "id": "citation-language",
+      "text": "This phrasing preserves the denominator, task subset, and evaluation scope, rather than letting the numbers travel without their context."
+    }
+  ],
+  "references": [
+    {
+      "id": "thompson1933likelihood",
+      "title": "On the Likelihood that One Unknown Probability Exceeds Another in View of the Evidence of Two Samples",
+      "citation": "Thompson, W.R., 1933. Biometrika, 25(3\u20134), pp.285\u2013294.",
+      "url": "https://doi.org/10.2307/2332286",
+      "url_label": "DOI"
+    }
+  ],
+  "credit": {
+    "year": "2026",
+    "name": "Richard Cornelius Suwandi",
+    "url": "https://richardcsuwandi.github.io"
+  }
+}

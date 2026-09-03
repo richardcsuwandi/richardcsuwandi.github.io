@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 500" role="img" aria-labelledby="title desc">
+  <title id="title">Kai optimization and verification loop, dark theme</title>
+  <desc id="desc">A repository and performance contract lead to a model-generated patch. Correct candidates are benchmarked and selected, while failed checks return diagnostic feedback for another proposal.</desc>
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="8" stdDeviation="11" flood-color="#000" flood-opacity=".3"/></filter>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0v6l9-3z" fill="#94a3b8"/></marker>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0v6l9-3z" fill="#60a5fa"/></marker>
+    <style>.font{font-family:Inter,Arial,sans-serif}.title{font-size:32px;font-weight:700;fill:#f1f5f9}.subtitle{font-size:18px;fill:#aab8ca}.step{font-size:21px;font-weight:700;fill:#e2e8f0}.body{font-size:15px;fill:#aab8ca}.num{font-size:13px;font-weight:700}.label{font-size:14px;font-weight:700;letter-spacing:1.2px}.line{fill:none;stroke:#94a3b8;stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round}</style>
+  </defs>
+  <rect width="1100" height="500" rx="28" fill="#111820"/>
+  <g class="font">
+    <text x="550" y="49" text-anchor="middle" class="title">Every optimization must earn its place</text><text x="550" y="78" text-anchor="middle" class="subtitle">Correctness gates performance; failures become structured feedback</text>
+    <path d="M194 234h52M414 234h52M634 234h52M854 234h52" class="line" marker-end="url(#arrowBlue)"/>
+    <g filter="url(#shadow)"><rect x="36" y="154" width="158" height="160" rx="18" fill="#1b2633" stroke="#3a4a5c"/><rect x="256" y="154" width="158" height="160" rx="18" fill="#17304b" stroke="#477fae"/><rect x="476" y="154" width="158" height="160" rx="18" fill="#193526" stroke="#4b8d5b"/><rect x="696" y="154" width="158" height="160" rx="18" fill="#362f18" stroke="#9c812f"/><rect x="916" y="154" width="148" height="160" rx="18" fill="#202b37" stroke="#526477"/></g>
+    <g>
+      <circle cx="66" cy="184" r="16" fill="#64748b"/><text x="66" y="188" text-anchor="middle" class="num" fill="#fff">01</text><circle cx="286" cy="184" r="16" fill="#60a5fa"/><text x="286" y="188" text-anchor="middle" class="num" fill="#0f172a">02</text><circle cx="506" cy="184" r="16" fill="#70b47e"/><text x="506" y="188" text-anchor="middle" class="num" fill="#0f172a">03</text><circle cx="726" cy="184" r="16" fill="#d3ad45"/><text x="726" y="188" text-anchor="middle" class="num" fill="#0f172a">04</text><circle cx="946" cy="184" r="16" fill="#8296ab"/><text x="946" y="188" text-anchor="middle" class="num" fill="#0f172a">05</text>
+      <text x="56" y="225" class="step">Define</text><text x="56" y="248" class="body">repository</text><text x="56" y="269" class="body">fitness contract</text><text x="276" y="225" class="step">Propose</text><text x="276" y="248" class="body">model-generated</text><text x="276" y="269" class="body">code patch</text><text x="496" y="225" class="step">Verify</text><text x="496" y="248" class="body">tests + reference</text><text x="496" y="269" class="body">behavior</text><text x="716" y="225" class="step">Measure</text><text x="716" y="248" class="body">timed benchmark</text><text x="716" y="269" class="body">normalized score</text><text x="936" y="225" class="step">Select</text><text x="936" y="248" class="body">update population</text><text x="936" y="269" class="body">start next iteration</text>
+    </g>
+    <rect x="410" y="366" width="290" height="72" rx="16" fill="#38231f" stroke="#9b5944"/><text x="555" y="394" text-anchor="middle" class="label" fill="#f0a487">FAILED CHECK</text><text x="555" y="420" text-anchor="middle" class="body" fill="#fed7c8">traceback · failing case · timeout</text>
+    <path d="M555 314v45" class="line" marker-end="url(#arrow)"/><rect x="570" y="327" width="42" height="22" rx="11" fill="#111820"/><text x="591" y="342" text-anchor="middle" class="num" fill="#f0a487">fail</text><path d="M410 402H335c-43 0-51-29-51-81" class="line" marker-end="url(#arrow)"/><text x="340" y="388" text-anchor="middle" class="label" fill="#94a3b8">FEEDBACK</text><rect x="569" y="118" width="48" height="22" rx="11" fill="#193526"/><text x="593" y="133" text-anchor="middle" class="num" fill="#9cdda9">pass</text>
+  </g>
+</svg>
