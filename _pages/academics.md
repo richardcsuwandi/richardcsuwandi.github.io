@@ -22,6 +22,19 @@ nav_order: 3
     }
 }
 
+.org-logo {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    vertical-align: middle;
+    margin-right: 0.4rem;
+    margin-top: -0.15rem;
+    padding: 2px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    border: 1px solid var(--global-divider-color, #eee);
+    background: #fff;
+}
 </style>
 
 <h2>Education</h2>
@@ -71,6 +84,9 @@ nav_order: 3
 <div class="news-card">
   <div class="news-date">{{ org.years }}</div>
   <div class="news-content">
+    {% if org.logo %}
+      <img src="{{ org.logo }}" alt="" class="org-logo">
+    {% endif %}
     {{ org.role }},
     {% if org.url %}
       <a href="{{ org.url }}" target="_blank" rel="noopener noreferrer">{{ org.name }}</a>

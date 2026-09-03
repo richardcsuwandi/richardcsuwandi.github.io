@@ -3,7 +3,7 @@ layout: blog_wide
 permalink: /blog/
 title: Blog
 nav: true
-nav_order: 4
+nav_order: 5
 pagination:
   enabled: true
   collection: posts

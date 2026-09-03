@@ -48,41 +48,49 @@ organizations:
     name: "Qwen, Alibaba Cloud"
     url: "https://qwen.ai/ambassador"
     years: "2026 - Present"
+    logo: "/assets/img/logos/qwen.png"
 
   - role: "Co-Founder"
     name: "Institute for AI-driven Discovery of Algorithms (AIDDA)"
     url: "https://algorithmdiscovery.org/"
     years: "2026 - Present"
+    logo: "/assets/img/logos/aidda.jpg"
 
   - role: "Community Leader"
     name: "AI4Science Community, alphaXiv"
     url: "https://www.alphaxiv.org/"
     years: "2025 - Present"
+    logo: "/assets/img/logos/alphaxiv.svg"
 
   - role: "Student Ambassador"
     name: "CUHK-Shenzhen"
     url: "https://www.cuhk.edu.cn/en"
     years: "2024 - Present"
+    logo: "/assets/img/logos/cuhk.png"
 
   - role: "Graduate Student Member"
     name: "IEEE"
     url: "https://students.ieee.org/membership-benefits/graduate-student-membership/"
     years: "2024 - Present"
+    logo: "/assets/img/venues/ieee.png"
 
   - role: "Member"
     name: "IEEE Young Professionals"
     url: "https://yp.ieee.org/"
     years: "2024 - Present"
+    logo: "/assets/img/venues/ieee.png"
 
   - role: "Member"
     name: "IEEE Signal Processing Society"
     url: "https://signalprocessingsociety.org/"
     years: "2024 - Present"
+    logo: "/assets/img/venues/ieee.png"
 
   - role: "Member"
     name: "IEEE Student Branch, CUHK-Shenzhen"
     url: "https://studentbranches.ieee.org/"
     years: "2023 - Present"
+    logo: "/assets/img/venues/ieee.png"
 
 reviewing:
   - name: "IEEE Transactions on Neural Networks and Learning Systems"

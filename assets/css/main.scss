@@ -34,6 +34,7 @@ $max-content-width: {{ site.max_width }};
 // Import GP / Bayesian optimization separator
 @import "gp-separator";
 @import "discovery-separator";
+@import "coherent-exploration-viz";
 @import "blog-search";
 
 /* Landing section styles */

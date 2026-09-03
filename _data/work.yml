@@ -1,0 +1,85 @@
+# _data/work.yml
+# Research/work experience shown on the Work page (_pages/work.md).
+# `highlights` may contain inline <a> links to the relevant project/paper page.
+
+- company: "ByteDance (Douyin), Creation & Music Recommendation Team"
+  role: Research Intern
+  location: Shenzhen
+  dates: Apr 2026 – Jul 2026
+  logo: /assets/img/logos/bytedance.png
+  highlights:
+    - Selected for ByteDance's Jindouyun Talent Program (ByteIntern track), a selective recruiting program for high-potential technical talent
+    - Worked on generative recommendation and LLM4Rec for personalized content generation and discovery
+    - Applied ideas from <a href="/papers/cake/">CAKE</a> to LLM-driven Bayesian optimization for recommendation and adaptive content selection from feedback
+  links:
+    - title: CAKE
+      subtitle: An LLM-driven evolutionary framework for adaptively evolving kernel functions
+      url: /papers/cake/
+
+- company: Dria
+  role: Research Intern
+  location: "Remote (New York, NY)"
+  dates: Sep 2025 – Feb 2026
+  logo: /assets/img/logos/dria.jpg
+  highlights:
+    - Researched <a href="/projects/openevolve/">evolutionary coding agents</a> for algorithm discovery and codebase optimization
+    - Built <a href="/projects/evolvebench/">EvolveBench</a>, a benchmark and execution harness for evaluating coding agents on real GitHub repositories
+    - Co-developed <a href="/projects/kai/">Kai</a>, an autonomous coding agent for vulnerability discovery, exploit verification, and patch generation
+    - Built Kai's sandboxed execution environments with Docker, E2B, and Vercel Sandbox
+    - Shipped Kai as a CLI, FastAPI web UI, and chat-platform integrations
+  links:
+    - title: OpenEvolve
+      subtitle: an evolutionary coding agent for discovering and optimizing algorithms
+      url: /projects/openevolve/
+    - title: EvolveBench
+      subtitle: A benchmark and execution harness for evaluating AI-driven research and optimization systems on real GitHub repositories
+      url: /projects/evolvebench/
+    - title: Kai
+      subtitle: An autonomous AI engineer for codebase security and optimization
+      url: /projects/kai/
+
+- company: Huawei
+  role: Research Intern
+  location: Shenzhen
+  dates: Mar 2025 – Jul 2025
+  logo: /assets/img/logos/huawei.png
+  highlights:
+    - Researched scalable black-box optimization for robust parameter tuning in high-dimensional 5G systems
+    - Developed <a href="/papers/zap/">ZAP</a>, a gradient-free optimizer for high-dimensional Gaussian process training
+    - Presented the research outcomes as an oral paper at IEEE ICASSP 2026
+  links:
+    - title: ZAP
+      subtitle: A scalable gradient-free optimizer for high-dimensional GP training
+      url: /papers/zap/
+
+- company: Bayesian Learning for Signal Processing (BLSP) Group
+  role: "Undergraduate Research Assistant (Supervised by Prof. Feng Yin)"
+  role_url: https://sai.cuhk.edu.cn/en/teacher/97
+  location: The Chinese University of Hong Kong, Shenzhen
+  dates: Jun 2021 – May 2023
+  logo: /assets/img/logos/cuhk.png
+  highlights:
+    - Developed a <a href="/papers/gsm/">grid spectral mixture kernel</a> and <a href="/papers/slim-kl/">SLIM-KL</a>, a communication-efficient distributed GP kernel-learning method based on quantized ADMM
+    - Published the research outcomes at IEEE FUSION 2022 and IEEE TNNLS 2025
+  links:
+    - title: Grid Spectral Mixture Kernel
+      subtitle: A distributed spectral mixture kernel for multidimensional GPs
+      url: /papers/gsm/
+    - title: SLIM-KL
+      subtitle: Sparsity-aware distributed learning for GP kernels via quantized ADMM
+      url: /papers/slim-kl/
+
+- company: Shenzhen Research Institute of Big Data (SRIBD)
+  role: "Undergraduate Research Assistant (Supervised by Prof. Tsung-Hui Chang)"
+  role_url: https://sai.cuhk.edu.cn/en/teacher/83
+  location: The Chinese University of Hong Kong, Shenzhen
+  dates: Jun 2021 – May 2023
+  logo: /assets/img/logos/sribd.png
+  highlights:
+    - Investigated federated matrix factorization for data clustering and recommender systems
+    - Developed <a href="/papers/fedmavg/">FedMAvg</a>, which combines alternating minimization with model averaging for federated matrix factorization
+    - Presented the research outcomes as a poster at IEEE ICASSP 2021
+  links:
+    - title: FedMAvg
+      subtitle: Model averaging for communication-efficient federated matrix factorization
+      url: /papers/fedmavg/

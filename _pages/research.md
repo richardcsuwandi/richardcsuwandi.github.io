@@ -3,7 +3,7 @@ layout: page
 permalink: /research/
 title: Research
 description: >-
-  My research develops **adaptive intelligence for sequential decision-making and optimization**. Below, I highlight key 
+  My research develops **adaptive intelligence for decision-making, optimization, and discovery**. Below, I highlight key 
   contributions from my research, organized by topic.
 nav: true
 nav_order: 0

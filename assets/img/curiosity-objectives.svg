@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 650" role="img" aria-labelledby="title desc">
+  <title id="title">Three signals for directing curiosity</title>
+  <desc id="desc">Surprise values unexpected observations, information gain values changes in beliefs, and empowerment values actions that create controllable future options. A meta-controller balances all three against task value, cost, and risk.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8.5" refY="5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0 0L10 5L0 10Z" fill="var(--muted)"/>
+    </marker>
+    <style>
+      .art {
+        --text: #20272d; --muted: #69747d; --line: #d7dde2; --surface: #ffffff;
+        --panel: #f7f9fa; --blue: #477fae; --blue-soft: #e5eff8; --orange: #c77438;
+        --orange-soft: #faeadc; --green: #3f8a66; --green-soft: #e4f2e9; --purple: #7765a7;
+        --purple-soft: #ece8f5;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      #dark:target ~ .art {
+        --text: #eef2f5; --muted: #aeb8c0; --line: #3a4650; --surface: #202830;
+        --panel: #182028; --blue: #77acd7; --blue-soft: #253b4d; --orange: #e49a63;
+        --orange-soft: #463326; --green: #73bd92; --green-soft: #263d31; --purple: #ab9bd2;
+        --purple-soft: #373247;
+      }
+      .heading { fill: var(--text); font-size: 27px; font-weight: 700; }
+      .subheading { fill: var(--muted); font-size: 15px; }
+      .kicker { font-size: 11px; font-weight: 700; letter-spacing: 1.4px; }
+      .card-title { fill: var(--text); font-size: 21px; font-weight: 700; }
+      .question { fill: var(--text); font-size: 15px; font-weight: 700; }
+      .body { fill: var(--muted); font-size: 13px; }
+      .small { fill: var(--muted); font-size: 11px; }
+      .mono { fill: var(--text); font-family: "Courier New", Courier, monospace; font-size: 12px; }
+      .hairline { fill: none; stroke: var(--line); stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+      .arrow { fill: none; stroke: var(--muted); stroke-width: 1.5; marker-end: url(#arrow); }
+    </style>
+  </defs>
+
+  <g id="dark"/>
+  <g class="art">
+    <rect width="1200" height="650" fill="var(--panel)" rx="22"/>
+    <text x="600" y="50" text-anchor="middle" class="heading">Curiosity needs a direction</text>
+    <text x="600" y="78" text-anchor="middle" class="subheading">The same observation can be valuable for three different reasons</text>
+
+    <!-- Surprise -->
+    <g transform="translate(42 112)">
+      <rect width="348" height="344" rx="18" fill="var(--surface)" stroke="var(--line)"/>
+      <rect width="348" height="7" rx="3.5" fill="var(--orange)"/>
+      <text x="24" y="39" class="kicker" fill="var(--orange)">OBSERVATION-LEVEL</text>
+      <text x="24" y="70" class="card-title">Surprise</text>
+      <text x="24" y="96" class="question">Was the outcome unexpected?</text>
+
+      <g transform="translate(24 124)">
+        <rect width="300" height="96" rx="12" fill="var(--orange-soft)"/>
+        <path d="M18 68C38 62 48 66 66 56S95 45 111 54S137 73 154 49S178 37 193 51S222 70 238 35S267 25 282 18" fill="none" stroke="var(--orange)" stroke-width="3" stroke-linecap="round"/>
+        <path d="M18 72H282" class="hairline" opacity=".7"/>
+        <circle cx="238" cy="35" r="6" fill="var(--orange)"/>
+        <text x="238" y="23" text-anchor="middle" class="small">prediction error</text>
+      </g>
+      <text x="24" y="250" class="body">Rewards hard-to-predict outcomes.</text>
+      <text x="24" y="278" class="small">Blind spot</text>
+      <text x="24" y="299" class="body" fill="var(--text)">Noise can stay surprising forever.</text>
+      <rect x="24" y="317" width="118" height="20" rx="10" fill="var(--orange-soft)"/>
+      <text x="83" y="331" text-anchor="middle" class="small" fill="var(--orange)">stochastic TV</text>
+    </g>
+
+    <!-- Information gain -->
+    <g transform="translate(426 112)">
+      <rect width="348" height="344" rx="18" fill="var(--surface)" stroke="var(--line)"/>
+      <rect width="348" height="7" rx="3.5" fill="var(--blue)"/>
+      <text x="24" y="39" class="kicker" fill="var(--blue)">BELIEF-LEVEL</text>
+      <text x="24" y="70" class="card-title">Information gain</text>
+      <text x="24" y="96" class="question">Did the observation change beliefs?</text>
+
+      <g transform="translate(24 124)">
+        <rect width="300" height="96" rx="12" fill="var(--blue-soft)"/>
+        <text x="16" y="20" class="small">before</text>
+        <rect x="16" y="31" width="75" height="12" rx="6" fill="var(--blue)" opacity=".85"/>
+        <rect x="16" y="49" width="75" height="12" rx="6" fill="var(--blue)" opacity=".55"/>
+        <rect x="16" y="67" width="75" height="12" rx="6" fill="var(--blue)" opacity=".3"/>
+        <path d="M112 55H174" class="arrow"/>
+        <text x="205" y="20" class="small">after</text>
+        <rect x="205" y="31" width="75" height="12" rx="6" fill="var(--blue)"/>
+        <rect x="205" y="49" width="20" height="12" rx="6" fill="var(--blue)" opacity=".35"/>
+        <rect x="205" y="67" width="10" height="12" rx="6" fill="var(--blue)" opacity=".2"/>
+      </g>
+      <text x="24" y="250" class="body">Rewards posterior change.</text>
+      <text x="24" y="278" class="small">Blind spot</text>
+      <text x="24" y="299" class="body" fill="var(--text)">Learnable trivia may not matter.</text>
+      <rect x="24" y="317" width="139" height="20" rx="10" fill="var(--blue-soft)"/>
+      <text x="93.5" y="331" text-anchor="middle" class="small" fill="var(--blue)">irrelevant unknown</text>
+    </g>
+
+    <!-- Empowerment -->
+    <g transform="translate(810 112)">
+      <rect width="348" height="344" rx="18" fill="var(--surface)" stroke="var(--line)"/>
+      <rect width="348" height="7" rx="3.5" fill="var(--green)"/>
+      <text x="24" y="39" class="kicker" fill="var(--green)">FUTURE-LEVEL</text>
+      <text x="24" y="70" class="card-title">Empowerment</text>
+      <text x="24" y="96" class="question">Did the action create useful options?</text>
+
+      <g transform="translate(24 124)">
+        <rect width="300" height="96" rx="12" fill="var(--green-soft)"/>
+        <circle cx="45" cy="48" r="10" fill="var(--green)"/>
+        <path d="M56 48H107M107 48C136 48 139 19 172 19M107 48H172M107 48C136 48 139 77 172 77" fill="none" stroke="var(--green)" stroke-width="2.4" stroke-linecap="round"/>
+        <circle cx="179" cy="19" r="8" fill="var(--surface)" stroke="var(--green)" stroke-width="2.4"/>
+        <circle cx="179" cy="48" r="8" fill="var(--surface)" stroke="var(--green)" stroke-width="2.4"/>
+        <circle cx="179" cy="77" r="8" fill="var(--surface)" stroke="var(--green)" stroke-width="2.4"/>
+        <path d="M188 19H222M188 48H250M188 77H235" fill="none" stroke="var(--green)" stroke-width="2.4" stroke-linecap="round"/>
+        <circle cx="229" cy="19" r="6" fill="var(--green)" opacity=".75"/>
+        <circle cx="257" cy="48" r="6" fill="var(--green)"/>
+        <circle cx="242" cy="77" r="6" fill="var(--green)" opacity=".75"/>
+      </g>
+      <text x="24" y="250" class="body">Rewards controllable futures.</text>
+      <text x="24" y="278" class="small">Blind spot</text>
+      <text x="24" y="299" class="body" fill="var(--text)">More options can distract from the goal.</text>
+      <rect x="24" y="317" width="133" height="20" rx="10" fill="var(--green-soft)"/>
+      <text x="90.5" y="331" text-anchor="middle" class="small" fill="var(--green)">option collecting</text>
+    </g>
+
+    <!-- Meta-controller -->
+    <path d="M216 456V491M600 456V491M984 456V491" class="arrow"/>
+    <g transform="translate(132 503)">
+      <rect width="936" height="105" rx="18" fill="var(--surface)" stroke="var(--purple)" stroke-width="1.5"/>
+      <rect x="18" y="18" width="176" height="69" rx="12" fill="var(--purple-soft)"/>
+      <text x="106" y="43" text-anchor="middle" class="kicker" fill="var(--purple)">META-CONTROLLER</text>
+      <text x="106" y="66" text-anchor="middle" class="body" fill="var(--text)">choose the signal now</text>
+      <path d="M215 52H267" class="arrow"/>
+      <text x="291" y="35" class="small">condition on</text>
+      <text x="291" y="60" class="mono">belief · budget · bottleneck</text>
+      <text x="291" y="80" class="mono">task value · cost · risk</text>
+      <path d="M635 52H687" class="arrow"/>
+      <rect x="708" y="24" width="205" height="58" rx="12" fill="var(--blue-soft)"/>
+      <text x="810.5" y="49" text-anchor="middle" class="small">output</text>
+      <text x="810.5" y="69" text-anchor="middle" class="body" fill="var(--text)">a decision-relevant action</text>
+    </g>
+  </g>
+</svg>
