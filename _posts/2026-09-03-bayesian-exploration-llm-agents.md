@@ -1,7 +1,7 @@
 ---
 layout: distill
 title: "Bayesian Exploration for LLM Agents"
-date: 2026-09-02 00:00:00 +0800
+date: 2026-09-03 00:00:00 +0800
 description: Why raising temperature is not curiosity, and how posterior sampling turns uncertainty into coherent, hypothesis-driven exploration
 thumbnail: /assets/img/post_thumbnails/exploration.png
 tags: [Agents, Exploration]
