@@ -2,7 +2,7 @@
 layout: about
 title: About
 permalink: /
-subtitle: AI PhD Student at CUHK-Shenzhen, Co-founder of AIDDA Institute
+subtitle: AI PhD Candidate at CUHK-Shenzhen, Co-founder of AIDDA Institute
 
 profile:
   align: right
@@ -14,7 +14,7 @@ news: true # includes a list of news items
 selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
 ---
-I'm a fully-funded **PhD student** at [School of Artificial Intelligence, CUHK-Shenzhen](https://sai.cuhk.edu.cn/en/), advised by [Prof. Feng Yin](https://sai.cuhk.edu.cn/en/teacher/97) and [Prof. Tsung-Hui Chang](https://sai.cuhk.edu.cn/en/teacher/83). Prior to my PhD, I obtained my BSc degree in Statistics (with first-class honors) from CUHK-Shenzhen.
+I'm a fully-funded **PhD candidate** at [School of Artificial Intelligence, CUHK-Shenzhen](https://sai.cuhk.edu.cn/en/), advised by [Prof. Feng Yin](https://sai.cuhk.edu.cn/en/teacher/97) and [Prof. Tsung-Hui Chang](https://sai.cuhk.edu.cn/en/teacher/83). Prior to my PhD, I obtained my BSc degree in Statistics (with first-class honors) from CUHK-Shenzhen.
 
 **Things I built and currently working on:**
 {: .about-lead}
