@@ -19,7 +19,7 @@ I'm a fully-funded **PhD candidate** at [School of Artificial Intelligence, CUHK
 **Things I built and currently working on:**
 {: .about-lead}
 
-- [Adaptive intelligence](/research/) for decision-making, optimization, and discovery
+- [Adaptive intelligence](/research/) for learning, optimization, and discovery
 - [PlugBO](https://github.com/richardcsuwandi/plugbo), a modular framework that lets an agent adapt the optimization configuration on the fly
 <!-- - [CAKE](https://richardcsuwandi.github.io/papers/cake/), an LLM-driven evolutionary framework for adaptively evolving kernel functions -->
 - [OpenEvolve](https://richardcsuwandi.github.io/projects/openevolve/), an evolutionary coding agent for discovering and optimizing algorithms
