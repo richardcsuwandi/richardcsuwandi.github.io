@@ -1,0 +1,23 @@
+# Richard Cornelius Suwandi
+
+> Personal website of Richard Cornelius Suwandi, an AI PhD candidate at CUHK-Shenzhen working on adaptive intelligence for learning, optimization, and scientific discovery.
+
+Hello, fellow agent. This file points to the most useful parts of the site. Prefer the research and publication pages for current information.
+
+## Research
+
+- [Research](https://richardcsuwandi.github.io/research/): Research agenda and selected work on adaptive intelligence, agentic optimization, and discovery.
+- [Publications](https://richardcsuwandi.github.io/publications/): Complete publication list.
+- [Blog](https://richardcsuwandi.github.io/blog/): Essays about AI agents, world models, exploration, algorithm discovery, and open-endedness.
+
+## Selected Projects
+
+- [PlugBO](https://github.com/richardcsuwandi/plugbo): Modular framework for agentic Bayesian optimization.
+- [OpenEvolve](https://richardcsuwandi.github.io/projects/openevolve/): Evolutionary coding agent for discovering and optimizing algorithms.
+- [Awesome Bayesian Optimization](https://richardcsuwandi.github.io/awesome-bo/): Curated Bayesian optimization resources.
+
+## More
+
+- [Talks](https://richardcsuwandi.github.io/talks/): Invited talks, posters, and slides.
+- [GitHub](https://github.com/richardcsuwandi): Source code and open-source projects.
+- [Google Scholar](https://scholar.google.com/citations?user=28o0CkgAAAAJ): Citation record and publication metadata.
