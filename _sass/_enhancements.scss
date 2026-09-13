@@ -3,6 +3,14 @@
 // Polished micro-interactions, scroll animations, and visual refinements
 // =============================================================================
 
+// ── Motion tokens ──────────────────────────────────────────────────────────────
+// A spring-like overshoot for hover/press feedback, and a smooth decel curve
+// for on-scroll reveals (mirrors the feel of motion-primitives.com).
+:root {
+  --spring-ease: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --smooth-ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 // ── Smooth scroll ─────────────────────────────────────────────────────────────
 html {
   scroll-behavior: smooth;
@@ -29,41 +37,78 @@ html[data-theme-setting='dark'] .navbar.scrolled {
   border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
 }
 
-// ── Navbar link active indicator ──────────────────────────────────────────────
-.navbar-nav .nav-item .nav-link {
+// Shared sliding selector, adapted from the draft navbar.
+body #navbar .navbar-nav,
+.profile-actions {
   position: relative;
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 2px;
-    left: 50%;
-    width: 0;
-    height: 2px;
-    background: var(--global-theme-color);
-    border-radius: 1px;
-    transform: translateX(-50%);
-    transition: width 0.2s ease;
-  }
-
-  &:hover::after,
-  &.active::after {
-    width: 20px;
-  }
+  isolation: isolate;
+  --nav-selector-color: color-mix(in srgb, var(--global-link-color) 5%, var(--global-bg-color));
 }
 
-// ── Profile photo refinements ─────────────────────────────────────────────────
-.profile {
-  img {
-    border-radius: 10px !important;
-    transition: transform 0.4s ease, box-shadow 0.4s ease !important;
-    box-shadow: 0 8px 32px rgba(0, 99, 201, 0.1), 0 2px 8px rgba(0, 0, 0, 0.06) !important;
+body #navbar .navbar-nav .nav-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0.5rem 0.85rem !important;
+  border-radius: 8px;
+  font-size: 0.95rem;
 
-    &:hover {
-      transform: scale(1.025) translateY(-2px) !important;
-      box-shadow: 0 16px 48px rgba(0, 99, 201, 0.18), 0 4px 16px rgba(0, 0, 0, 0.08) !important;
-    }
-  }
+  &::after { display: none; }
+}
+
+body #navbar .navbar-nav .nav-item.active > .nav-link {
+  color: var(--global-link-color) !important;
+  background: var(--nav-selector-color);
+}
+
+body #navbar .navbar-nav.selector-ready .nav-item.active > .nav-link {
+  background: transparent;
+}
+
+body #navbar .navbar-nav > .nav-selector-highlight,
+.profile-actions > .nav-selector-highlight {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  margin: 0;
+  padding: 0;
+  border-radius: 8px;
+  background: var(--nav-selector-color);
+  pointer-events: none;
+  list-style: none;
+  transition: transform 320ms var(--smooth-ease), width 320ms var(--smooth-ease), height 320ms var(--smooth-ease), opacity 160ms ease;
+}
+
+@media (max-width: 991.98px) {
+  body #navbar .navbar-nav .nav-link { font-size: 1rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body #navbar .navbar-nav > .nav-selector-highlight,
+  .profile-actions > .nav-selector-highlight { transition: none; }
+}
+
+.profile-actions.selector-ready::before { display: none; }
+
+.profile-action:focus-visible,
+.profile-action:focus-visible .profile-action-arrow {
+  color: var(--global-link-color) !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .profile-action:hover { color: var(--global-link-color) !important; }
+}
+
+// A quiet, contained photo treatment inspired by Watermelon's profile card.
+// The portrait is not a control, so it stays still on hover.
+.profile img,
+.profile img:hover {
+  border-radius: 10px !important;
+  transform: none !important;
+  box-shadow: none !important;
+  transition: none !important;
 }
 
 // ── Post title gradient ───────────────────────────────────────────────────────
@@ -98,13 +143,17 @@ d-article p a,
   width: 44px;
   height: 44px;
   border-radius: 12px;
-  transition: background 0.2s ease, transform 0.2s ease, color 0.2s ease !important;
+  transition: background 0.25s ease, transform 0.35s var(--spring-ease), color 0.2s ease !important;
   cursor: pointer;
 
   &:hover {
     background: rgba(0, 99, 201, 0.08);
-    transform: translateY(-3px) !important;
+    transform: translateY(-3px) scale(1.08) !important;
     color: var(--global-theme-color) !important;
+  }
+
+  &:active {
+    transform: translateY(-1px) scale(0.96) !important;
   }
 }
 
@@ -117,7 +166,7 @@ html[data-theme-setting='dark'] .contact-icons a:hover {
 // ── Card hover consistency ────────────────────────────────────────────────────
 .card {
   cursor: pointer;
-  transition: transform 0.25s ease, box-shadow 0.25s ease !important;
+  transition: transform 0.35s var(--spring-ease), box-shadow 0.35s var(--spring-ease) !important;
 
   &:hover {
     transform: translateY(-6px) !important;
@@ -131,7 +180,7 @@ html[data-theme-setting='dark'] .contact-icons a:hover {
 
 // ── Media card lift ───────────────────────────────────────────────────────────
 .media-card {
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
+  transition: transform 0.35s var(--spring-ease), box-shadow 0.3s ease, border-color 0.3s ease !important;
   cursor: pointer;
 
   &:hover {
@@ -150,12 +199,73 @@ html[data-theme-setting='dark'] .media-card:hover {
 // ── Service card polish ───────────────────────────────────────────────────────
 .service-card {
   cursor: default;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease !important;
+  transition: transform 0.3s var(--spring-ease), box-shadow 0.2s ease, border-color 0.2s ease !important;
 
   &:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07) !important;
     border-color: rgba(0, 99, 201, 0.2) !important;
+  }
+}
+
+// ── Cursor-tracked glow (spotlight) on interactive cards ──────────────────────
+// JS (motion.js) sets --glow-x / --glow-y in % as the pointer moves; a soft
+// radial highlight in the accent color follows the cursor. Cards fall back to
+// their existing hover styles with no JS, so this is purely additive.
+.opensource-card,
+.service-card,
+.media-card,
+.blog-post-card-horizontal {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    opacity: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      280px circle at var(--glow-x, 50%) var(--glow-y, 50%),
+      rgba(0, 99, 201, 0.035),
+      transparent 70%
+    );
+    transition: opacity 0.3s ease;
+  }
+
+  &.glow-active::before {
+    opacity: 1;
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+html[data-theme='dark'] .opensource-card::before,
+html[data-theme-setting='dark'] .opensource-card::before,
+html[data-theme='dark'] .service-card::before,
+html[data-theme-setting='dark'] .service-card::before,
+html[data-theme='dark'] .media-card::before,
+html[data-theme-setting='dark'] .media-card::before,
+html[data-theme='dark'] .blog-post-card-horizontal::before,
+html[data-theme-setting='dark'] .blog-post-card-horizontal::before {
+  background: radial-gradient(
+    280px circle at var(--glow-x, 50%) var(--glow-y, 50%),
+    rgba(104, 178, 255, 0.05),
+    transparent 70%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .opensource-card::before,
+  .service-card::before,
+  .media-card::before,
+  .blog-post-card-horizontal::before {
+    display: none;
   }
 }
 
@@ -176,11 +286,15 @@ html[data-theme-setting='dark'] .media-card:hover {
 #back-to-top {
   border-radius: 50% !important;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18) !important;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease !important;
+  transition: transform 0.35s var(--spring-ease), box-shadow 0.25s ease, opacity 0.2s ease !important;
 
   &:hover {
-    transform: translateY(-4px) !important;
+    transform: translateY(-4px) scale(1.06) !important;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22) !important;
+  }
+
+  &:active {
+    transform: translateY(-1px) scale(0.94) !important;
   }
 }
 
@@ -262,5 +376,74 @@ button:focus-visible,
   .contact-icons a {
     width: 40px;
     height: 40px;
+  }
+}
+
+// Soft About-page cards, with the draft's faint edges and low shadows.
+.wide-about-container {
+  --about-card-edge: rgba(15, 23, 42, 0.035);
+  --about-card-shadow: 0 2px 5px rgba(15, 23, 42, 0.07), 0 10px 24px rgba(15, 23, 42, 0.025);
+  --about-card-shadow-hover: 0 4px 10px rgba(15, 23, 42, 0.09), 0 16px 30px rgba(15, 23, 42, 0.045);
+}
+
+html[data-theme='dark'] .wide-about-container {
+  --about-card-edge: rgba(255, 255, 255, 0.045);
+  --about-card-shadow: 0 2px 6px rgba(0, 0, 0, 0.26), 0 12px 28px rgba(0, 0, 0, 0.14);
+  --about-card-shadow-hover: 0 4px 10px rgba(0, 0, 0, 0.3), 0 16px 32px rgba(0, 0, 0, 0.2);
+}
+
+body .wide-about-container {
+  .news-card,
+  .opensource-card,
+  .blog-post-card-horizontal {
+    border: 1px solid var(--about-card-edge);
+    border-radius: 10px;
+    background: var(--global-card-bg-color);
+    box-shadow: var(--about-card-shadow);
+    transition: box-shadow 250ms ease;
+
+    &:hover,
+    &:focus-within {
+      transform: none !important;
+      border-color: var(--about-card-edge);
+      box-shadow: var(--about-card-shadow-hover) !important;
+    }
+  }
+
+  .publications ol.bibliography > li:hover { transform: none; }
+
+  // Leave room for shadows inside the existing scroll regions.
+  .about-scroll,
+  .news-container {
+    padding: 0.4rem 0.65rem 0.6rem;
+    margin-inline: -0.65rem;
+  }
+}
+
+// Respect motion preferences for both CSS feedback and JS reveals.
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .profile-actions::before {
+    transition: none !important;
+  }
+
+  .profile-action,
+  .profile-action-arrow,
+  .navbar-nav .nav-link::after,
+  .contact-icons a,
+  .card,
+  .media-card,
+  .service-card,
+  .news-card,
+  .opensource-card,
+  .blog-post-card-horizontal,
+  .publications ol.bibliography > li,
+  #back-to-top {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
   }
 }

@@ -141,74 +141,119 @@ html[data-theme-setting='dark'] .news-card,
   }
 }
 
+// Compact profile actions, with a shared highlight inspired by
+// Motion Primitives' Animated Background. Native links work without JS.
 .about-contact {
   clear: both;
   width: 100%;
-  max-width: none;
-  box-sizing: border-box;
-  margin: 0.9rem 0 0;
-  padding: 1.05rem 1.1rem 1.1rem;
-  background: var(--global-card-bg-color, #fff);
-  border: 1px solid var(--global-divider-color, #e3e3e3);
-  border-radius: 0.85rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin: 1rem 0 0;
 }
 
 .about-contact p {
   margin: 0 0 0.85rem;
-  font-size: 0.95rem;
-  line-height: 1.5;
-  color: var(--global-text-color, #333);
+  color: var(--global-text-color-light);
+  font-size: 0.875rem;
+  line-height: 1.55;
   text-align: left;
+  text-wrap: pretty;
 }
 
-.about-contact-btn {
-  display: inline-flex;
+.profile-actions {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  padding: 4px;
+  border: 1px solid var(--global-divider-color);
+  border-radius: 10px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 4px auto 4px 4px;
+    width: calc(50% - 4px);
+    z-index: -1;
+    border-radius: 6px;
+    background: var(--nav-selector-color);
+    opacity: 0;
+    transition: transform 320ms var(--smooth-ease, ease), opacity 160ms ease;
+  }
+
+  &:has(.profile-action:focus-visible)::before {
+    opacity: 1;
+  }
+
+  &:has(.profile-action:last-child:focus-visible)::before {
+    transform: translateX(100%);
+  }
+}
+
+.profile-action {
+  display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  padding: 0.55rem 1rem;
-  border-radius: 0.65rem;
-  background: #e8eaed;
-  color: #111 !important;
-  font-size: 0.98rem;
-  font-weight: 700;
+  gap: 0.45rem;
+  min-height: 44px;
+  padding: 0.5rem 0.35rem;
+  border-radius: 6px;
+  color: var(--global-text-color) !important;
+  font-size: 0.82rem;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
   text-decoration: none !important;
-  cursor: pointer;
-  transition: background 0.18s ease, transform 0.18s ease;
+  transition: color 180ms ease;
+
+  svg {
+    flex: 0 0 auto;
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .profile-action-arrow {
+    width: 13px;
+    height: 13px;
+    color: var(--global-text-color-light);
+    transition: transform 240ms var(--smooth-ease, ease), color 180ms ease;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--global-theme-color);
+    outline-offset: 1px;
+    border-radius: 6px;
+  }
+
+  &:focus-visible .profile-action-arrow {
+    color: var(--global-link-color);
+    transform: translate(1px, -1px);
+  }
+
+  &:active {
+    background: var(--nav-selector-color);
+  }
 }
 
-.about-contact-btn:hover {
-  background: #dcdfe4;
-  color: #111 !important;
-  transform: translateY(-1px);
-}
+@media (hover: hover) and (pointer: fine) {
+  .profile-actions:has(.profile-action:hover)::before {
+    opacity: 1;
+  }
 
-.about-contact-btn:focus-visible {
-  outline: 2px solid var(--global-theme-color, #0063c9);
-  outline-offset: 2px;
-}
+  .profile-actions:has(.profile-action:last-child:hover)::before {
+    transform: translateX(100%);
+  }
 
-html[data-theme='dark'] .about-contact,
-html[data-theme-setting='dark'] .about-contact,
-[data-theme='dark'] .about-contact {
-  background: #1a1a1a;
-  border-color: #333;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
-}
+  .profile-actions:has(.profile-action:first-child:hover)::before {
+    transform: translateX(0);
+  }
 
-html[data-theme='dark'] .about-contact-btn,
-html[data-theme-setting='dark'] .about-contact-btn,
-[data-theme='dark'] .about-contact-btn {
-  background: #2a2a2a;
-  color: #f0f0f0 !important;
-}
-
-html[data-theme='dark'] .about-contact-btn:hover,
-html[data-theme-setting='dark'] .about-contact-btn:hover,
-[data-theme='dark'] .about-contact-btn:hover {
-  background: #353535;
-  color: #fff !important;
+  .profile-action:hover .profile-action-arrow {
+    color: var(--global-link-color);
+    transform: translate(2px, -2px);
+  }
 }
 
 .post-header .post-title {
@@ -255,93 +300,12 @@ html[data-theme-setting='dark'] .about-contact-btn:hover,
 .profile-photo-wrap {
   position: relative;
   display: block;
-  container-type: inline-size;
+  overflow: hidden;
+  border-radius: 10px;
 }
 
 .profile-photo {
   display: block;
-  -webkit-mask-image: radial-gradient(circle clamp(2.15rem, 11.5cqw, 3.35rem) at 100% 100%, transparent 98%, #000 100%);
-  mask-image: radial-gradient(circle clamp(2.15rem, 11.5cqw, 3.35rem) at 100% 100%, transparent 98%, #000 100%);
-}
-
-.profile-cv-badge {
-  position: absolute;
-  right: -0.12rem;
-  bottom: -0.12rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: clamp(3.6rem, 19cqw, 5.8rem);
-  height: clamp(3.6rem, 19cqw, 5.8rem);
-  border-radius: 24%;
-  background: #fff;
-  color: #000 !important;
-  font-size: clamp(1.5rem, 8cqw, 2.3rem);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
-  text-decoration: none !important;
-  cursor: pointer;
-  overflow: visible;
-  z-index: 3;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-
-  &:hover {
-    transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.24);
-    color: #000 !important;
-  }
-
-  &:focus-visible {
-    outline: 2px solid var(--global-theme-color, #0063c9);
-    outline-offset: 3px;
-  }
-
-  // Avoid calc(100% + x): compressed Sass strips the spaces around +,
-  // which makes the declaration invalid and parks the label on the icon.
-  &::after {
-    content: "CV";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-top: 0.55rem;
-    transform: translateX(-50%) translateY(-6px);
-    color: #000;
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.03em;
-    line-height: 1;
-    white-space: nowrap;
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s ease;
-    z-index: 5;
-  }
-
-  &:hover::after,
-  &:focus-visible::after {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(-50%) translateY(0);
-  }
-}
-
-html[data-theme='dark'],
-html[data-theme-setting='dark'],
-[data-theme='dark'] {
-  .profile-cv-badge {
-    background: #1e1e1e;
-    color: #f0f0f0 !important;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
-
-    &:hover {
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
-      color: #f0f0f0 !important;
-    }
-
-    &::after {
-      color: #f0f0f0;
-    }
-  }
 }
 
 // ============================================================================

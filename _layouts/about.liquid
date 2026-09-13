@@ -57,21 +57,24 @@
             include figure.liquid loading="eager" path=profile_image_path class=profile_image_class sizes=sizes alt=page.profile.image
             cache_bust=true
           %}
-          <a
-            href="{{ '/assets/pdf/CV_Richard_Cornelius_Suwandi.pdf' | relative_url }}"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="profile-cv-badge"
-            aria-label="Download CV"
-          ><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M14 2v6h6"/><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M16 13H8m8 4H8m2-8H8"/></svg></a>
           </div>
         {% endif %}
         {% if page.profile.more_info %}
           <div class="more-info">{{ page.profile.more_info }}</div>
         {% endif %}
         <div class="about-contact">
-          <p>Open to chat about research ideas and potential collaborations</p>
-          <a class="about-contact-btn" href="mailto:{{ site.email }}">Contact me here</a>
+          <div class="profile-actions" role="group" aria-label="Contact and curriculum vitae">
+            <a class="profile-action" href="mailto:{{ site.email }}">
+              <svg class="profile-action-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 6 9 7 9-7"/></svg>
+              <span>Email me</span>
+              <svg class="profile-action-arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
+            </a>
+            <a class="profile-action" href="{{ '/assets/pdf/CV_Richard_Cornelius_Suwandi.pdf' | relative_url }}" target="_blank" rel="noopener noreferrer" aria-label="View CV (PDF, opens in a new tab)">
+              <svg class="profile-action-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9zM14 3v6h6M8 13h8M8 17h6"/></svg>
+              <span>View CV</span>
+              <svg class="profile-action-arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
+            </a>
+          </div>
         </div>
       </div>
     {% endif %}
@@ -221,8 +224,8 @@
     <!-- Custom scripts -->
     <script src="{{ '/assets/js/navbar-scroll.js' | relative_url }}"></script>
     <script src="{{ '/assets/js/awards-expand.js' | relative_url }}"></script>
-    <script src="{{ '/assets/js/scroll-animations.js' | relative_url }}"></script>
     <script src="{{ '/assets/js/discovery-separator.js' | relative_url }}"></script>
     <script src="{{ '/assets/js/about-scroll.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/motion.js' | relative_url }}"></script>
   </body>
 </html>
