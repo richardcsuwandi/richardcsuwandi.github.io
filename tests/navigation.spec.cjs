@@ -1,0 +1,18 @@
+const { test, expect } = require('@playwright/test')
+
+test('mobile navigation closes with Escape and returns focus', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await page.goto('/', { waitUntil: 'domcontentloaded' })
+  const toggle = page.getByRole('button', { name: 'Toggle navigation' })
+  await toggle.click()
+  await expect(toggle).toHaveAttribute('aria-expanded', 'true')
+  await page.locator('#navbarNav .nav-link').first().focus()
+  await page.keyboard.press('Escape')
+  await expect(toggle).toHaveAttribute('aria-expanded', 'false')
+  await expect(toggle).toBeFocused()
+  await toggle.click()
+  await page.locator('#navbarNav .nav-link').last().focus()
+  await page.keyboard.press('Tab')
+  await page.keyboard.press('Tab')
+  await expect(toggle).toHaveAttribute('aria-expanded', 'false')
+})

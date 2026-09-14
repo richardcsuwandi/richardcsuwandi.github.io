@@ -88,10 +88,12 @@
       </h2>
       <div
         class="about-scroll about-research-scroll"
-        data-scroll-items="3"
-        data-scroll-selector=".blog-post-card-horizontal"
+        id="research-list"
+        data-compact-list
+        data-visible-count="3"
+        data-item-selector=".bibliography > li"
+        data-item-label="papers"
         role="region"
-        tabindex="0"
         aria-label="Selected research papers"
       >
         {% include selected_papers.liquid %}
@@ -103,10 +105,13 @@
       <h2>Open Source</h2>
       <div
         class="about-scroll about-projects-scroll"
-        data-scroll-rows="3"
-        data-scroll-selector=".opensource-card"
+        id="projects-list"
+        data-compact-list
+        data-visible-count="6"
+        data-mobile-count="3"
+        data-item-selector=".opensource-card"
+        data-item-label="projects"
         role="region"
-        tabindex="0"
         aria-label="Open source projects"
       >
         <div class="opensource-grid">
@@ -198,6 +203,12 @@
     <!-- Footer -->
     {% include footer.liquid %}
 
+    <!-- Native controls load before optional third-party scripts. -->
+    <script src="{{ '/assets/js/navbar-scroll.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/about-scroll.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/disclosures.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/motion.js' | relative_url }}"></script>
+
     <!-- JavaScripts -->
     {% include scripts/jquery.liquid %}
     {% include scripts/bootstrap.liquid %}
@@ -222,10 +233,7 @@
     {% include scripts/back_to_top.liquid %}
     
     <!-- Custom scripts -->
-    <script src="{{ '/assets/js/navbar-scroll.js' | relative_url }}"></script>
     <script src="{{ '/assets/js/awards-expand.js' | relative_url }}"></script>
     <script src="{{ '/assets/js/discovery-separator.js' | relative_url }}"></script>
-    <script src="{{ '/assets/js/about-scroll.js' | relative_url }}"></script>
-    <script src="{{ '/assets/js/motion.js' | relative_url }}"></script>
   </body>
 </html>

@@ -13,7 +13,9 @@
       </div>
       <div class="post-tags-left">
         {% if entry.abstract %}
-          <span class="tag-link" onclick="toggleAbstract('{{ entry.key }}')" style="cursor: pointer;">Abstract</span>
+          <button type="button" class="tag-link disclosure-trigger" data-disclosure aria-controls="abstract-{{ entry.key }}" aria-expanded="true" hidden>
+            Abstract <svg class="disclosure-chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg>
+          </button>
         {% endif %}
         {% if entry.website %}
           {% assign venue_text = '' %}
@@ -137,11 +139,10 @@
         {% endfor %}
         
         {% if more_authors > 0 %}
-          <span class="more-authors-toggle" style="color: #999; cursor: pointer;" 
-                onclick="toggleMoreAuthors('{{ entry.key }}')">
+          <button type="button" class="more-authors-toggle" data-disclosure data-expanded-label="Fewer authors" aria-controls="more-authors-{{ entry.key }}" aria-expanded="true" hidden>
             {{ more_authors }} more author{% if more_authors > 1 %}s{% endif %}
-          </span>
-          <span id="more-authors-{{ entry.key }}" style="display: none;">
+          </button>
+          <span id="more-authors-{{ entry.key }}" class="additional-authors">
             {%- for author in entry.author_array offset: author_array_limit -%}
               {% if forloop.first %}{% else %}, {% endif %}{{ author.first }} {{ author.last }}
             {%- endfor -%}
@@ -196,7 +197,7 @@
   
   <!-- Abstract (hidden by default) -->
   {% if entry.abstract %}
-    <div id="abstract-{{ entry.key }}" class="publication-abstract" style="display: none;">
+    <div id="abstract-{{ entry.key }}" class="publication-abstract">
       <div class="abstract-content">
         {% if entry.tldr %}
           <h5 class="abstract-heading">TL;DR</h5>
@@ -212,24 +213,3 @@
     </div>
   {% endif %}
 </div>
-
-<script>
-function toggleAbstract(key) {
-  var abstract = document.getElementById('abstract-' + key);
-  if (abstract.style.display === 'none' || abstract.style.display === '') {
-    abstract.style.display = 'block';
-  } else {
-    abstract.style.display = 'none';
-  }
-}
-
-function toggleMoreAuthors(key) {
-  var moreAuthors = document.getElementById('more-authors-' + key);
-  var toggle = document.querySelector('[onclick="toggleMoreAuthors(\'' + key + '\')"]');
-  
-  if (moreAuthors.style.display === 'none') {
-    moreAuthors.style.display = 'inline';
-    toggle.style.display = 'none';
-  }
-}
-</script> 

@@ -1,7 +1,7 @@
 <div class="news">
   {% if site.news != blank %}
     {% assign news_size = site.news | size %}
-    <div class="news-container" {% if news_size > 5 %}style="max-height: 400px"{% endif %}>
+    <div class="news-container" id="news-list" data-compact-list data-visible-count="5" data-item-selector=".news-card" data-item-label="updates" role="region" aria-label="News updates">
       {% assign news = site.news | reverse %}
       {% for item in news %}
         <div class="news-card">

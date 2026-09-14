@@ -1,0 +1,16 @@
+const { test, expect } = require('@playwright/test')
+
+test('reading surfaces stay still and do not track the cursor', async ({ page }) => {
+  await page.goto('/', { waitUntil: 'domcontentloaded' })
+  await expect(page.locator('.wide-about-container')).toHaveCSS('animation-name', 'none')
+  const card = page.locator('.opensource-card').first()
+  await card.hover()
+  await expect(card).toHaveCSS('transform', 'none')
+  await expect(card).not.toHaveClass(/glow-active/)
+  const glow = await card.evaluate(el => getComputedStyle(el, '::before').backgroundImage)
+  expect(glow).toBe('none')
+  await page.goto('/research/', { waitUntil: 'domcontentloaded' })
+  const paper = page.locator('.bibliography > li').first()
+  await paper.hover()
+  await expect(paper).toHaveCSS('transform', 'none')
+})

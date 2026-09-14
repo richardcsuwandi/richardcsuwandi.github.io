@@ -1,66 +1,56 @@
-// Navbar scroll glass effect and mobile menu toggle
-document.addEventListener('DOMContentLoaded', function () {
-  var navbar = document.getElementById('navbar');
-  var menuToggle = document.querySelector('.navbar-toggler');
-  var menuContent = document.querySelector('#navbarNav');
-  var desktopMin = 992;
+// Native navigation feedback, independent of optional third-party scripts.
+(function () {
+  const navbar = document.getElementById('navbar')
+  const menuToggle = document.querySelector('.navbar-toggler')
+  const menuContent = document.getElementById('navbarNav')
+  const desktopMin = 992
 
   function closeMenu() {
-    if (!menuToggle || !menuContent) return;
-    menuContent.classList.remove('show');
-    menuToggle.classList.add('collapsed');
-    menuToggle.setAttribute('aria-expanded', 'false');
+    if (!menuToggle || !menuContent) return
+    menuContent.classList.remove('show')
+    menuToggle.classList.add('collapsed')
+    menuToggle.setAttribute('aria-expanded', 'false')
   }
 
-  function openMenu() {
-    menuContent.classList.add('show');
-    menuToggle.classList.remove('collapsed');
-    menuToggle.setAttribute('aria-expanded', 'true');
+  function syncScroll() {
+    if (navbar) navbar.classList.toggle('scrolled', window.scrollY > 50)
   }
+  window.addEventListener('scroll', syncScroll, { passive: true })
+  syncScroll()
 
-  if (navbar) {
-    window.addEventListener('scroll', function () {
-      if (window.scrollY > 50) {
-        navbar.classList.add('scrolled');
-      } else {
-        navbar.classList.remove('scrolled');
-      }
-    });
-  }
+  if (!menuToggle || !menuContent) return
+  menuToggle.addEventListener('click', function (event) {
+    event.preventDefault()
+    if (menuContent.classList.contains('show')) closeMenu()
+    else {
+      menuContent.classList.add('show')
+      menuToggle.classList.remove('collapsed')
+      menuToggle.setAttribute('aria-expanded', 'true')
+    }
+  })
 
-  if (menuToggle && menuContent) {
-    menuToggle.addEventListener('click', function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      if (menuContent.classList.contains('show')) {
-        closeMenu();
-      } else {
-        openMenu();
-      }
-    });
+  document.addEventListener('click', function (event) {
+    if (!navbar.contains(event.target)) closeMenu()
+  })
 
-    document.addEventListener('click', function (e) {
-      if (
-        !menuContent.contains(e.target) &&
-        !menuToggle.contains(e.target) &&
-        menuContent.classList.contains('show')
-      ) {
-        closeMenu();
-      }
-    });
+  navbar.addEventListener('keydown', function (event) {
+    if (event.key !== 'Escape' || !menuContent.classList.contains('show')) return
+    event.preventDefault()
+    closeMenu()
+    menuToggle.focus()
+  })
 
-    menuContent.querySelectorAll('a.nav-link').forEach(function (link) {
-      link.addEventListener('click', function () {
-        if (window.innerWidth < desktopMin) {
-          closeMenu();
-        }
-      });
-    });
+  navbar.addEventListener('focusout', function (event) {
+    if (event.relatedTarget && !navbar.contains(event.relatedTarget)) closeMenu()
+  })
 
-    window.addEventListener('resize', function () {
-      if (window.innerWidth >= desktopMin) {
-        closeMenu();
-      }
-    });
-  }
-});
+  menuContent.querySelectorAll('a.nav-link').forEach(function (link) {
+    link.addEventListener('click', function () {
+      if (window.innerWidth < desktopMin) closeMenu()
+    })
+  })
+
+  window.addEventListener('resize', function () {
+    if (window.innerWidth >= desktopMin) closeMenu()
+  })
+})()

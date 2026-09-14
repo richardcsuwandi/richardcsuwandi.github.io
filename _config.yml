@@ -220,6 +220,11 @@ exclude:
   - lighthouse_results/
   - package.json
   - package-lock.json
+  - playwright.config.cjs
+  - tests/
+  - test-results/
+  - playwright-report/
+  - UI_ENHANCEMENTS.md
   - _pages/about_einstein.md
   - purgecss.config.js
   - README.md

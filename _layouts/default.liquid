@@ -50,6 +50,11 @@
     <!-- Footer -->
     {% include footer.liquid %}
 
+    <!-- Native controls load before optional third-party scripts. -->
+    <script src="{{ '/assets/js/navbar-scroll.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/disclosures.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/motion.js' | relative_url }}"></script>
+
     <!-- JavaScripts -->
     {% include scripts/jquery.liquid %}
     {% include scripts/bootstrap.liquid %}
@@ -73,8 +78,6 @@
     {% include scripts/jekyll_tabs.liquid %}
     {% include scripts/back_to_top.liquid %}
     
-    <!-- Custom scripts -->
-    <script src="{{ '/assets/js/navbar-scroll.js' | relative_url }}"></script>
-    <script src="{{ '/assets/js/motion.js' | relative_url }}"></script>
+
   </body>
 </html>
