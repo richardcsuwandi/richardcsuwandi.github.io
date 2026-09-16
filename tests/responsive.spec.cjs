@@ -15,9 +15,14 @@ for (const width of [320, 390, 1280]) {
       await trigger.click()
       const panel = page.locator(`[id="${await trigger.getAttribute('aria-controls')}"]`)
       await expect(panel).toBeVisible()
-      await expect(page.locator('.opensource-card:visible')).toHaveCount(width < 601 ? 3 : 6)
-      await page.getByRole('button', { name: 'Show all projects' }).click()
       await expect(page.locator('.opensource-card:visible')).toHaveCount(await page.locator('.opensource-card').count())
+      for (const id of ['research-list', 'projects-list', 'news-list']) {
+        const region = page.locator('#' + id)
+        expect(await region.evaluate(el => el.clientHeight <= window.innerHeight * 0.75 + 24)).toBe(true)
+        expect(await region.evaluate(el => el.scrollWidth <= el.clientWidth)).toBe(true)
+        await region.evaluate(el => el.scrollTo({ top: el.scrollHeight, behavior: 'instant' }))
+        expect(await region.evaluate(el => Math.abs(el.scrollHeight - el.clientHeight - el.scrollTop))).toBeLessThan(2)
+      }
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true)
       await expect(page.locator('body')).toHaveCSS('font-family', 'Inter, sans-serif')
       if (theme === 'light') {
@@ -38,7 +43,7 @@ test('reduced motion settles disclosures immediately and suppresses effects', as
   await expect(panel).toBeVisible()
   await trigger.click()
   await expect(panel).toBeHidden()
-  await expect(page.locator('.collection-toggle').first()).toHaveCSS('transition-duration', '0s')
+  await expect(page.locator('#research-list')).toHaveCSS('scroll-behavior', 'auto')
   await expect(page.locator('html')).toHaveCSS('scroll-behavior', 'auto')
 })
 
@@ -51,6 +56,9 @@ test('all research content is readable with JavaScript disabled', async ({ brows
   await expect(page.locator('.publication-abstract').first()).toBeVisible()
   await expect(page.locator('.additional-authors').first()).toBeVisible()
   await expect(page.locator('.collection-toggle')).toHaveCount(0)
-  await expect(page.locator('#research-list')).toHaveCSS('max-height', 'none')
+  await expect(page.locator('#research-list')).toHaveCSS('overflow-y', 'auto')
+  const last = papers.last().locator('.publication-abstract')
+  await last.scrollIntoViewIfNeeded()
+  await expect(last).toBeInViewport()
   await context.close()
 })

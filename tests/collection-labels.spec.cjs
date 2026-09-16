@@ -1,15 +1,13 @@
 const { test, expect } = require('@playwright/test')
 
-test('all collection buttons use count-free labels', async ({ page }) => {
+test('collections have named keyboard-accessible scroll regions and no show-all controls', async ({ page }) => {
   await page.goto('/', { waitUntil: 'domcontentloaded' })
-  await expect(page.locator('.collection-toggle')).toHaveText([
-    'Show all papers', 'Show all projects', 'Show all updates'
-  ])
-  for (const label of ['papers', 'projects', 'updates']) {
-    await page.getByRole('button', { name: 'Show all ' + label, exact: true }).click()
-    const collapse = page.getByRole('button', { name: 'Show fewer ' + label, exact: true })
-    await expect(collapse).toHaveAttribute('aria-expanded', 'true')
-    await collapse.click()
-    await expect(page.getByRole('button', { name: 'Show all ' + label, exact: true })).toHaveAttribute('aria-expanded', 'false')
+  await expect(page.locator('.collection-toggle, .collection-footer')).toHaveCount(0)
+  for (const name of ['Selected research papers', 'Open source projects', 'News updates']) {
+    const region = page.getByRole('region', { name, exact: true })
+    await expect(region).toHaveAttribute('tabindex', '0')
+    await expect(region).toHaveCSS('overflow-y', 'auto')
+    await expect(region).toHaveCSS('scroll-behavior', 'smooth')
+    expect(await region.evaluate(el => el.scrollHeight > el.clientHeight)).toBe(true)
   }
 })

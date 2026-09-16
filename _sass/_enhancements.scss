@@ -249,56 +249,42 @@ body .wide-about-container {
   }
 }
 
-// Compact collections use document scrolling, never wheel interception.
-body .wide-about-container [data-compact-list] {
-  max-height: none;
-  overflow: visible;
-  scrollbar-gutter: auto;
-}
+// Let the browser handle wheel/touch momentum and scroll chaining. A stable
+// viewport avoids resize observers changing the height as abstracts open.
+body .wide-about-container {
+  .about-scroll,
+  .news-container {
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior-y: auto;
+    scroll-behavior: smooth;
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
+    scrollbar-color: var(--global-text-color-light) transparent;
+    scroll-padding-block: 0.6rem;
 
-.collection-item[hidden],
-.collection-footer[hidden] { display: none !important; }
+    &:focus-visible {
+      outline: 2px solid var(--global-theme-color);
+      outline-offset: 3px;
+    }
 
-.collection-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 0.4rem 0 0.6rem;
-  font-size: 0.85rem;
-}
-
-.collection-count { color: var(--global-text-color-light); }
-
-.collection-toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  min-height: 44px;
-  padding: 0.4rem 0.75rem;
-  border: 1px solid var(--global-divider-color);
-  border-radius: 8px;
-  font: inherit;
-  color: var(--global-link-color);
-  background: var(--global-bg-color);
-  cursor: pointer;
-  transition: background-color 160ms ease, border-color 160ms ease;
-
-  &::after {
-    content: '';
-    width: 6px;
-    height: 6px;
-    border-right: 1px solid currentColor;
-    border-bottom: 1px solid currentColor;
-    transform: rotate(45deg) translateY(-2px);
+    &::-webkit-scrollbar-thumb {
+      background: var(--global-text-color-light);
+    }
   }
 
-  &[aria-expanded='true']::after { transform: rotate(225deg); }
+  .about-research-scroll { max-height: min(44rem, 75vh); }
+  .about-projects-scroll { max-height: min(26rem, 75vh); }
+  .news-container { max-height: min(25rem, 75vh); }
+}
 
-  &:hover,
-  &:focus-visible {
-    background: color-mix(in srgb, var(--global-link-color) 4%, var(--global-bg-color));
-    border-color: var(--global-link-color);
+@media print {
+  body .wide-about-container {
+    .about-scroll,
+    .news-container {
+      max-height: none;
+      overflow: visible;
+    }
   }
 }
 
@@ -357,13 +343,14 @@ body .wide-about-container [data-compact-list] {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
+  html,
+  body .wide-about-container .about-scroll,
+  body .wide-about-container .news-container { scroll-behavior: auto; }
 
   body #navbar .navbar-nav > .nav-selector-highlight,
   .profile-actions > .nav-selector-highlight,
   .profile-actions::before,
   .disclosure-chevron,
-  .collection-toggle,
   .navbar { transition: none !important; }
 
   .profile-action,

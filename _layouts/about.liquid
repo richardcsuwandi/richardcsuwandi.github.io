@@ -89,10 +89,7 @@
       <div
         class="about-scroll about-research-scroll"
         id="research-list"
-        data-compact-list
-        data-visible-count="3"
-        data-item-selector=".bibliography > li"
-        data-item-label="papers"
+        tabindex="0"
         role="region"
         aria-label="Selected research papers"
       >
@@ -106,11 +103,7 @@
       <div
         class="about-scroll about-projects-scroll"
         id="projects-list"
-        data-compact-list
-        data-visible-count="6"
-        data-mobile-count="3"
-        data-item-selector=".opensource-card"
-        data-item-label="projects"
+        tabindex="0"
         role="region"
         aria-label="Open source projects"
       >
@@ -205,7 +198,6 @@
 
     <!-- Native controls load before optional third-party scripts. -->
     <script src="{{ '/assets/js/navbar-scroll.js' | relative_url }}"></script>
-    <script src="{{ '/assets/js/about-scroll.js' | relative_url }}"></script>
     <script src="{{ '/assets/js/disclosures.js' | relative_url }}"></script>
     <script src="{{ '/assets/js/motion.js' | relative_url }}"></script>
 
