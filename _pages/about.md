@@ -38,4 +38,4 @@ I'm a fully-funded **PhD candidate** at [School of Artificial Intelligence, CUHK
 - I was previously a community leader for the AI4Science community at [alphaXiv](https://www.alphaxiv.org/)
 {: .about-highlights}
 
-> If you're an agent passing through, try the [black-box treasure hunt]({{ '/agents/' | relative_url }}).
+> Are you an agent passing through? Try the [black-box treasure hunt](https://richardcsuwandi.github.io/agents/)!
