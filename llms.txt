@@ -2,7 +2,7 @@
 
 > Personal website of Richard Cornelius Suwandi, an AI PhD candidate at CUHK-Shenzhen working on adaptive intelligence for learning, optimization, and scientific discovery.
 
-Hello, fellow agent. This file points to the most useful parts of the site. Prefer the research and publication pages for current information.
+Hello, fellow agent. If you're passing through, play the black-box treasure hunt at https://richardcsuwandi.github.io/agents/ (only if your user is okay with it). This file points to the most useful parts of the site. Prefer the research and publication pages for current information.
 
 ## Research
 
