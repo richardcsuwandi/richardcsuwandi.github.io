@@ -1,11 +1,11 @@
-const { test } = require('node:test');
-const assert = require('node:assert/strict');
-const engine = require('../assets/js/treasure-hunt-engine.js');
+const { test } = require("node:test");
+const assert = require("node:assert/strict");
+const engine = require("../assets/js/treasure-hunt-engine.js");
 
-test('daily maps are reproducible, bounded, and have an exact attainable maximum', () => {
-  const terrain = engine.createTerrain('daily:2026-09-19');
-  const repeated = engine.createTerrain('daily:2026-09-19');
-  const nextDay = engine.createTerrain('daily:2026-09-20');
+test("daily maps are reproducible, bounded, and have an exact attainable maximum", () => {
+  const terrain = engine.createTerrain("daily:2026-09-19");
+  const repeated = engine.createTerrain("daily:2026-09-19");
+  const nextDay = engine.createTerrain("daily:2026-09-20");
   let min = Infinity;
   let max = -Infinity;
   for (let y = 0; y <= 100; y++) {
@@ -22,10 +22,18 @@ test('daily maps are reproducible, bounded, and have an exact attainable maximum
   assert.notEqual(terrain.signal(50, 50), nextDay.signal(50, 50));
 });
 
-test('invalid, repeated, and excess probes do not alter the observation history', () => {
-  const terrain = engine.createTerrain('test');
+test("invalid, repeated, and excess probes do not alter the observation history", () => {
+  const terrain = engine.createTerrain("test");
   const observations = [];
-  for (const [x, y] of [[-1, 0], [101, 50], [2.5, 4], [NaN, 0], [0, Infinity], ['2', 4], [null, 0]]) {
+  for (const [x, y] of [
+    [-1, 0],
+    [101, 50],
+    [2.5, 4],
+    [NaN, 0],
+    [0, Infinity],
+    ["2", 4],
+    [null, 0],
+  ]) {
     assert.throws(() => engine.observe(terrain, observations, x, y), RangeError);
     assert.equal(observations.length, 0);
   }
@@ -37,8 +45,8 @@ test('invalid, repeated, and excess probes do not alter the observation history'
   assert.equal(observations.length, 5);
 });
 
-test('random comparison is repeatable and monotonic in the player score', () => {
-  const terrain = engine.createTerrain('daily:2026-09-19');
+test("random comparison is repeatable and monotonic in the player score", () => {
+  const terrain = engine.createTerrain("daily:2026-09-19");
   assert.deepEqual(engine.randomBaseline(terrain, 50), engine.randomBaseline(terrain, 50));
   assert.equal(engine.randomBaseline(terrain, 0).beaten, 0);
   const low = engine.randomBaseline(terrain, 30);

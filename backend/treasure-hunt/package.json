@@ -7,5 +7,7 @@
     "deploy": "wrangler deploy",
     "test": "node --test test/*.test.mjs"
   },
-  "devDependencies": { "wrangler": "4.135.0" }
+  "devDependencies": {
+    "wrangler": "4.135.0"
+  }
 }

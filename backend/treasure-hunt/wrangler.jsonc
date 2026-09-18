@@ -9,11 +9,13 @@
     "SITE_ORIGIN": "https://richardcsuwandi.github.io",
     "SITE_PATH": "/agents/"
   },
-  "d1_databases": [{
-    "binding": "DB",
-    "database_name": "richard-treasure-hunt",
-    "database_id": "2eb36610-25bc-44d6-a595-59111a9cd3c5",
-    "migrations_dir": "migrations"
-  }],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "richard-treasure-hunt",
+      "database_id": "2eb36610-25bc-44d6-a595-59111a9cd3c5",
+      "migrations_dir": "migrations"
+    }
+  ],
   "triggers": { "crons": ["17 3 * * *"] }
 }
