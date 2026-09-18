@@ -206,6 +206,7 @@ kramdown:
 # Includes & excludes
 include: ["_pages"]
 exclude:
+  - backend/
   - bin/
   - CONTRIBUTING.md
   - CUSTOMIZE.md
@@ -632,3 +633,6 @@ jsonresume:
   - languages
   - interests
   - references
+
+# Shared daily game API. The website remains hosted on GitHub Pages.
+treasure_hunt_api_url: https://richard-treasure-hunt.richardcsuwandi.workers.dev
