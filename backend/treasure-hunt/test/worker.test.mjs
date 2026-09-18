@@ -160,3 +160,24 @@ test("origin policy, malformed input and throttling", async () => {
   for (let i = 0; i < 28; i++) await request("/v1/visits", {});
   assert.equal((await request("/v1/visits", {})).status, 429);
 });
+
+test("configured Jekyll preview origins receive CORS headers, including preflight", async () => {
+  const { request, env } = fixture();
+  env.ADDITIONAL_ORIGINS = "http://localhost:4000,http://127.0.0.1:4000";
+  for (const origin of env.ADDITIONAL_ORIGINS.split(",")) {
+    const read = await request("/v1/activity", undefined, undefined, { Origin: origin });
+    assert.equal(read.status, 200);
+    assert.equal(read.headers.get("Access-Control-Allow-Origin"), origin);
+    const preflight = await worker.fetch(
+      new Request("https://game.example/v1/visits", {
+        method: "OPTIONS",
+        headers: { Origin: origin, "Access-Control-Request-Method": "POST", "Access-Control-Request-Headers": "content-type,authorization" },
+      }),
+      env
+    );
+    assert.equal(preflight.status, 204);
+    assert.equal(preflight.headers.get("Access-Control-Allow-Origin"), origin);
+  }
+  assert.equal((await request("/v1/activity", undefined, undefined, { Origin: "http://localhost.evil.example:4000" })).status, 403);
+  assert.equal((await request("/v1/activity", undefined, undefined, { Origin: "http://localhost:9999" })).status, 403);
+});

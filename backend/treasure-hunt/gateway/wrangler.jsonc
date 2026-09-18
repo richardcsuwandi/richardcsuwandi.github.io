@@ -1,0 +1,7 @@
+{
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "name": "richard-treasure-hunt-api",
+  "pages_build_output_dir": "./public",
+  "compatibility_date": "2026-09-01",
+  "services": [{ "binding": "GAME", "service": "richard-treasure-hunt" }]
+}

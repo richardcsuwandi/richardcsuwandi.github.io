@@ -7,7 +7,8 @@
   "preview_urls": false,
   "vars": {
     "SITE_ORIGIN": "https://richardcsuwandi.github.io",
-    "SITE_PATH": "/agents/"
+    "SITE_PATH": "/agents/",
+    "ADDITIONAL_ORIGINS": "http://localhost:4000,http://127.0.0.1:4000"
   },
   "d1_databases": [
     {

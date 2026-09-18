@@ -356,7 +356,13 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     const origin = request.headers.get("Origin");
-    const allowed = new Set([env.SITE_ORIGIN]);
+    const allowed = new Set([
+      env.SITE_ORIGIN,
+      ...(env.ADDITIONAL_ORIGINS || "")
+        .split(",")
+        .map((value) => value.trim())
+        .filter(Boolean),
+    ]);
     if (env.LOCAL_DEV === "true") {
       allowed.add("http://127.0.0.1:4017");
       allowed.add("http://localhost:4000");

@@ -2,7 +2,9 @@
 
 The Jekyll page stays on GitHub Pages. A Cloudflare Worker validates the daily game and stores visits and scores in D1.
 
-Production API: https://richard-treasure-hunt.richardcsuwandi.workers.dev
+Production API: https://richard-treasure-hunt-api.pages.dev
+
+The Pages gateway forwards to the existing Worker through a service binding. This avoids the `workers.dev` DNS failure observed on the local network. It shares the same D1 database, secret, visitor tokens, and game state. The website itself remains on GitHub Pages.
 
 ## What is counted
 
@@ -22,7 +24,9 @@ Probe requests require an idempotency key. Atomic compare-and-swap updates enfor
 
 ## Local development
 
-From this directory:
+A regular `bundle exec jekyll serve` can use the production API from `http://localhost:4000` or `http://127.0.0.1:4000`. These visits and games are real and appear in the shared statistics.
+
+For isolated testing, run a separate local backend. From this directory:
 
 ```sh
 npm ci
@@ -44,7 +48,7 @@ Then, from the repository root:
 bundle exec jekyll serve --config _config.yml,/path/to/local-config.yml
 ```
 
-Allowed development origins are `http://localhost:4000`, `http://127.0.0.1:4000`, and `http://127.0.0.1:4017`. The production service accepts browser requests only from the public site origin. For local practice without a backend, set `treasure_hunt_api_url: ""` in the override.
+Allowed development origins are `http://localhost:4000`, `http://127.0.0.1:4000`, and `http://127.0.0.1:4017`. The production service accepts the public site origin and the two port-4000 loopback origins listed in `ADDITIONAL_ORIGINS`. For local practice without a backend, set `treasure_hunt_api_url: ""` in the override.
 
 ## Deploy
 
@@ -55,6 +59,15 @@ npm ci
 npx wrangler d1 migrations apply richard-treasure-hunt --remote
 npm run deploy
 ```
+
+To deploy gateway changes, run from this directory:
+
+```sh
+cd gateway
+npx wrangler pages deploy public --project-name richard-treasure-hunt-api --branch master
+```
+
+The gateway needs no separate secrets or database migrations.
 
 `GAME_SECRET` is already set as a Cloudflare secret. For a new environment, create the D1 database, update its ID in `wrangler.jsonc`, and set the secret with `npx wrangler secret put GAME_SECRET`. Do not rotate it during an active challenge. Rotation changes terrain derived for existing days.
 

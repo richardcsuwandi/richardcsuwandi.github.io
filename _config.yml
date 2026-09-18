@@ -635,4 +635,4 @@ jsonresume:
   - references
 
 # Shared daily game API. The website remains hosted on GitHub Pages.
-treasure_hunt_api_url: https://richard-treasure-hunt.richardcsuwandi.workers.dev
+treasure_hunt_api_url: https://richard-treasure-hunt-api.pages.dev
