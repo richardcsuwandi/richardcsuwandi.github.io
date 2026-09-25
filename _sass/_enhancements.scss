@@ -370,3 +370,18 @@ body .wide-about-container {
     transform: none !important;
   }
 }
+
+// Scroll hint: fade the bottom edge while more items sit below (toggled in about.liquid).
+body .wide-about-container {
+  .about-scroll.has-more,
+  .news-container.has-more {
+    -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 3rem), transparent);
+    mask-image: linear-gradient(to bottom, #000 calc(100% - 3rem), transparent);
+  }
+}
+
+.about-view-all {
+  margin: 0.5rem 0 0;
+  text-align: right;
+  font-size: 0.9rem;
+}

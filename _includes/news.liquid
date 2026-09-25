@@ -5,7 +5,7 @@
       {% assign news = site.news | reverse %}
       {% for item in news %}
         <div class="news-card">
-          <div class="news-date">{{ item.date | date: '%b %d, %Y' }}</div>
+          <div class="news-date">{{ item.date | date: '%b %-d, %Y' }}</div>
           <div class="news-content">
             {% if item.inline %}
               {{ item.content | remove: '<p>' | remove: '</p>' | emojify }}

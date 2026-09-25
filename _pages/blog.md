@@ -145,7 +145,7 @@ pagination:
           <div class="mt-auto">
             <p class="post-meta" style="font-size: 0.8 rem; color: #888; margin-bottom: 0.75rem;">
               {{ read_time }} min read &nbsp; &middot; &nbsp;
-              {{ post.date | date: '%b %d, %Y' }}
+              {{ post.date | date: '%b %-d, %Y' }}
               {% if post.external_source %}
               &nbsp; &middot; &nbsp; {{ post.external_source }}
               {% endif %}

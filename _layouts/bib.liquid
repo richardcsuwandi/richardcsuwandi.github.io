@@ -17,7 +17,7 @@
             Abstract <svg class="disclosure-chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg>
           </button>
         {% endif %}
-        {% if entry.website %}
+        {% if entry.paper %}
           {% assign venue_text = '' %}
           {% if entry.journal %}{% assign venue_text = venue_text | append: entry.journal | append: ' ' %}{% endif %}
           {% if entry.booktitle %}{% assign venue_text = venue_text | append: entry.booktitle | append: ' ' %}{% endif %}
@@ -36,7 +36,7 @@
             {% assign paper_venue = 'ieee' %}
           {% endif %}
           <a
-            href="{{ entry.website }}"
+            href="{{ entry.paper }}"
             target="_blank"
             rel="noopener noreferrer"
             class="view-paper-badge view-paper-badge-{{ paper_venue }}"
@@ -102,6 +102,11 @@
             <span>Thread</span>
           </a>
         {% endif %}
+        {% if entry.bibtex %}
+          <button type="button" class="tag-link disclosure-trigger" data-disclosure aria-controls="bibtex-{{ entry.key }}" aria-expanded="true" hidden>
+            Cite <svg class="disclosure-chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg>
+          </button>
+        {% endif %}
       </div>
     </div>
     
@@ -109,7 +114,7 @@
     <div class="col-md-6 post-middle-section">
       <h2 class="post-title-horizontal publication-title">
         {% if entry.website %}
-          <a href="{{ entry.website }}" target="_blank">{{ entry.title }}</a>
+          <a href="{{ entry.website }}" target="_blank" rel="noopener noreferrer">{{ entry.title }}</a>
         {% else %}
           {{ entry.title }}
         {% endif %}
@@ -210,6 +215,11 @@
           <p class="publication-open-question">{{ entry.open_question }}</p>
         {% endif %}
       </div>
+    </div>
+  {% endif %}
+  {% if entry.bibtex %}
+    <div id="bibtex-{{ entry.key }}" class="publication-bibtex">
+      <pre id="bibtex-code-{{ entry.key }}"><code>{{ entry.bibtex | hideCustomBibtex | strip | escape }}</code></pre>
     </div>
   {% endif %}
 </div>

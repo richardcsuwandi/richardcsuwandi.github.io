@@ -18,6 +18,7 @@
 - year: "2024"
   title: "Shenzhen Universiade International Scholarship Foundation"
   description: "A specially raised fund to support the eligible international students with a view to carrying forward the spirit of the Universiade Shenzhen and promoting cultural and educational exchanges among international young people."
+  logo: "/assets/img/venues/suisf.png"
 
 - year: "2023"
   title: "School of Science and Engineering Postgraduate Studentship, CUHK-Shenzhen"
@@ -37,7 +38,7 @@
 - year: "2020, 2021, 2025"
   title: "Guangdong Government Outstanding International Student Scholarship"
   description: "The scholarship is awarded to outstanding international students in colleges and universities across the Guangdong province."
-
+  logo: "/assets/img/venues/guangdong.png"
 - year: "2019"
   title: "Full Tuition and Accommodation Scholarship, CUHK-Shenzhen"
   description: "Full tuition and accommodation scholarship awarded upon admission and subject to annual renewal in line with outstanding academic achievement."

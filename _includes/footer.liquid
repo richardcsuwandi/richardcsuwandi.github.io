@@ -12,6 +12,22 @@
     color: #1a1a1a !important;
   }
   
+  /* One row of profile links above the copyright line */
+  .footer-social {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+  }
+
+  .footer-social .social-icon {
+    color: var(--global-text-color-light) !important;
+    margin: 0 0.45rem !important;
+  }
+
+  .footer-social .social-icon:hover,
+  .footer-social .social-icon:focus-visible {
+    color: var(--global-theme-color) !important;
+  }
+
   /* Back to top button styling */
   .back-to-top {
     background-color: #6c757d !important;
@@ -41,6 +57,7 @@
 {% if site.footer_fixed %}
   <footer class="fixed-bottom" role="contentinfo">
     <div class="container mt-0">
+      <div class="footer-social">{% include social.liquid %}</div>
       &copy; Copyright {{ site.time | date: '%Y' }}
       {{ site.first_name }}
       {{ site.middle_name }}
@@ -49,13 +66,14 @@
         <a href="{{ site.url }}{{ site.baseurl }}{{ site.impressum_path }}">Impressum</a>.
       {% endif %}
       {% if site.last_updated %}
-        Last updated: {{ 'now' | date: '%B %d, %Y' }}.
+        Last updated: {{ 'now' | date: '%b %-d, %Y' }}.
       {% endif %}
     </div>
   </footer>
 {% else %}
   <footer class="sticky-bottom mt-5" role="contentinfo">
     <div class="container">
+      <div class="footer-social">{% include social.liquid %}</div>
       &copy; Copyright {{ site.time | date: '%Y' }}
       {{ site.first_name }}
       {{ site.middle_name }}
@@ -64,7 +82,7 @@
         <a href="{{ site.url }}{{ site.baseurl }}{{ site.impressum_path }}">Impressum</a>.
       {% endif %}
       {% if site.last_updated %}
-        Last updated: {{ 'now' | date: '%B %d, %Y' }}.
+        Last updated: {{ 'now' | date: '%b %-d, %Y' }}.
       {% endif %}
     </div>
   </footer>

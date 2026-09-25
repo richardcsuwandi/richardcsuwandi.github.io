@@ -103,7 +103,7 @@ nav_order: 4
 {% assign talks_sorted = site.data.talks | sort: "sort_date" | reverse %}
 {% for talk in talks_sorted %}
 <div class="blog-post-card-horizontal talk-card mb-4"{% if talk.id %} id="{{ talk.id }}"{% endif %}>
-  <div class="post-date">{{ talk.date }}</div>
+  <div class="post-date">{{ talk.sort_date | date: '%b %-d, %Y' }}</div>
   <div class="talk-card-body">
     {% if talk.poster or talk.slides %}
     <div class="post-tags-left">

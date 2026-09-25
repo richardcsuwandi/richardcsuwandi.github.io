@@ -15,7 +15,7 @@
       {% endif %}
       {% for item in latest_posts limit: latest_posts_limit %}
         <div class="news-card">
-          <div class="news-date">{{ item.date | date: '%b %d, %Y' }}</div>
+          <div class="news-date">{{ item.date | date: '%b %-d, %Y' }}</div>
           <div class="news-content">
             {% if item.redirect == blank %}
               <a class="news-title" href="{{ item.url | relative_url }}">{{ item.title }}</a>

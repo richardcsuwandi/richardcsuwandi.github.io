@@ -81,6 +81,12 @@
 
     <div class="clearfix">{{ content }}</div>
 
+    <!-- News -->
+    {% if page.news and site.announcements.enabled %}
+      <h2>News</h2>
+      {% include news.liquid limit=true %}
+    {% endif %}
+
     <!-- Selected papers -->
     {% if page.selected_papers %}
       <h2>
@@ -95,11 +101,12 @@
       >
         {% include selected_papers.liquid %}
       </div>
+      <p class="about-view-all"><a href="{{ '/research/' | relative_url }}">View all research &rarr;</a></p>
     {% endif %}
 
     <!-- Open-Source Contributions Section -->
     {% if site.data.opensource %}
-      <h2>Open Source</h2>
+      <h2>Projects</h2>
       <div
         class="about-scroll about-projects-scroll"
         id="projects-list"
@@ -183,11 +190,6 @@
     </div> -->
     <!-- End Services Section -->
 
-    <!-- News -->
-    {% if page.news and site.announcements.enabled %}
-      <h2>News</h2>
-      {% include news.liquid limit=true %}
-    {% endif %}
 
   </article>
 </div>
@@ -200,6 +202,15 @@
     <script src="{{ '/assets/js/navbar-scroll.js' | relative_url }}"></script>
     <script src="{{ '/assets/js/disclosures.js' | relative_url }}"></script>
     <script src="{{ '/assets/js/motion.js' | relative_url }}"></script>
+    <script>
+      // Fade the bottom edge of scroll boxes while more content sits below.
+      document.querySelectorAll('.about-scroll, .news-container').forEach(function (box) {
+        function update() { box.classList.toggle('has-more', box.scrollTop + box.clientHeight < box.scrollHeight - 4) }
+        box.addEventListener('scroll', update, { passive: true })
+        window.addEventListener('resize', update)
+        update()
+      })
+    </script>
 
     <!-- JavaScripts -->
     {% include scripts/jquery.liquid %}

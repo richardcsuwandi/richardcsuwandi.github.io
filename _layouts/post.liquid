@@ -24,9 +24,9 @@ layout: default
         {{ page.title }}
       </h1>
       <p class="post-meta" style="font-size: 0.9em; color: #555; margin-bottom: 1rem;">
-        {{ page.date | date: '%B %d, %Y' }}
+        {{ page.date | date: '%b %-d, %Y' }}
         {% if page.author %}by {{ page.author }}{% endif %}
-        {% if page.last_updated %}, last updated in {{ page.last_updated | date: '%B %d, %Y' }}{% endif %}
+        {% if page.last_updated %}, last updated in {{ page.last_updated | date: '%b %-d, %Y' }}{% endif %}
         {% if page.meta %}• {{ page.meta }}{% endif %}
       </p>
 

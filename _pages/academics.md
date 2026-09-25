@@ -42,6 +42,11 @@ nav_order: 3
 }
 
 /* Education / Honors & Awards only: big logo as its own left column. */
+.service-card-logo-empty {
+    border-color: transparent !important;
+    background: none !important;
+}
+
 .service-card-with-logo {
     display: flex;
     align-items: center;
@@ -76,6 +81,10 @@ nav_order: 3
         height: 64px;
         flex-basis: 64px;
     }
+
+    .service-card-logo-empty {
+        display: none;
+    }
 }
 </style>
 
@@ -99,8 +108,8 @@ nav_order: 3
 <h2>Honors &amp; Awards</h2>
 <div class="services-col mb-4">
   {% for award in site.data.awards %}
-  <div class="service-card{% if award.logo %} service-card-with-logo{% endif %}">
-    {% if award.logo %}<img src="{{ award.logo }}" alt="" class="service-card-logo-col">{% endif %}
+  <div class="service-card service-card-with-logo">
+    {% if award.logo %}<img src="{{ award.logo }}" alt="" class="service-card-logo-col">{% else %}<span class="service-card-logo-col service-card-logo-empty" aria-hidden="true"></span>{% endif %}
     <div class="service-card-body">
       <div class="service-meta">{{ award.year }}</div>
       <div class="service-main">{{ award.title }}</div>
@@ -120,8 +129,7 @@ nav_order: 3
   <div class="news-content">
     {% if teaching.logo %}<img src="{{ teaching.logo }}" alt="" class="org-logo">{% endif %}
     {{ teaching.role | default: "Teaching Assistant" }},
-    {{ teaching.course }}
-    , {{ teaching.institution }}
+    {{ teaching.course }}, {{ teaching.institution }}
   </div>
 </div>
 {% endfor %}

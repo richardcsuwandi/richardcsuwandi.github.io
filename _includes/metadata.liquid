@@ -16,6 +16,8 @@
 
 {% capture author_name %}{{ site.first_name }}{% if site.middle_name %} {{ site.middle_name }}{% endif %} {{ site.last_name }}{% endcapture %}
 
+{% capture meta_description %}{% if page.description %}{{ page.description | markdownify | strip_html | normalize_whitespace | escape }}{% else %}{{ site.description | normalize_whitespace | escape }}{% endif %}{% endcapture %}
+
 <!-- Standard metadata -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -39,7 +41,7 @@
   {% endif %}
 </title>
 <meta name="author" content="{{ author_name }}">
-<meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+<meta name="description" content="{{ meta_description }}">
 {% if page.keywords or site.keywords %}
   <meta name="keywords" content="{% if page.keywords %}{{ page.keywords }}{% else %}{{ site.keywords }}{% endif %}">
 {% endif %}
@@ -55,9 +57,9 @@
   <!-- OpenGraph -->
   <meta property="og:site_name" content="{{ title }}">
   <meta property="og:type" content="{% if is_blog_post %}article{% else %}website{% endif %}">
-  <meta property="og:title" content="{% if page.title %}{{ title }} | {{ page.title }}{% else %}{{ title }}{% endif %}">
+  <meta property="og:title" content="{% if page.title and page.url != '/' %}{{ title }} | {{ page.title }}{% else %}{{ title }}{% endif %}">
   <meta property="og:url" content="{{ page.url | prepend: site.baseurl | prepend: site.url | remove_first: 'index.html' }}">
-  <meta property="og:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+  <meta property="og:description" content="{{ meta_description }}">
   {% if page.og_image or site.og_image %}
     <meta property="og:image" content="{% if page.og_image %}{{ page.og_image }}{% else %}{{ site.og_image }}{% endif %}">
   {% endif %}
@@ -65,8 +67,8 @@
 
   <!-- Twitter card -->
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="{% if page.title %}{{ page.title }}{% else %}{{ title }}{% endif %}">
-  <meta name="twitter:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+  <meta name="twitter:title" content="{% if page.title and page.url != '/' %}{{ page.title }}{% else %}{{ title }}{% endif %}">
+  <meta name="twitter:description" content="{{ meta_description }}">
   {% if page.og_image or site.og_image %}
     <meta name="twitter:image" content="{% if page.og_image %}{{ page.og_image }}{% else %}{{ site.og_image }}{% endif %}">
   {% endif %}
@@ -237,7 +239,7 @@
         },
         "url": "{{ page.url | prepend: site.baseurl | prepend: site.url }}",
         "@type": "{% if is_blog_post %}BlogPosting{% else %}WebSite{% endif %}",
-        "description": "{% if page.description %}{{ page.description }}{% else if site.description %}{{ site.description }}{% endif %}",
+        "description": "{{ meta_description }}",
         "headline": "{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}",
         {% if sameaslinks != blank %}
         "sameAs": {{ sameaslinks }},
