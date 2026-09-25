@@ -37,5 +37,3 @@ I'm a fully-funded **PhD candidate** at [School of Artificial Intelligence, CUHK
 <!-- - I also received research funding from the [Shenzhen Universiade International Scholarship Foundation](https://www.suisf.org.cn/) -->
 - I was previously a community leader for the AI4Science community at [alphaXiv](https://www.alphaxiv.org/)
 {: .about-highlights}
-
-> Are you an agent passing through? Try the [black-box treasure hunt](https://richardcsuwandi.github.io/agents/)!
