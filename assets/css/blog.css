@@ -929,3 +929,25 @@ object.paper-thumbnail-svg {
 .blog-post-card .post-tags .badge:hover {
   background-color: #e9ecef;
 } 
+/* BibTeX panel opened by the Cite button */
+.publication-bibtex {
+  position: relative;
+  box-sizing: border-box;
+  margin-top: 1rem;
+  border: 1px solid var(--global-divider-color, #ddd);
+  border-radius: 6px;
+  background: var(--global-code-bg-color, #f8fafc);
+}
+
+.publication-bibtex pre {
+  margin: 0;
+  padding: 0.9rem 1rem;
+  background: transparent;
+  border: 0;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.publication-bibtex[hidden] { display: none !important; }
