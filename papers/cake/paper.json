@@ -128,7 +128,7 @@
             "<strong>Crossover:</strong> five times per iteration, two parent kernels are sampled with probability proportional to fitness. The LLM combines them using addition or multiplication and explains the proposed structure.",
             "<strong>Mutation:</strong> with probability 0.7, the LLM modifies the fittest kernel by replacing one base component with another. The crossover and mutation candidates are evaluated together with the existing population.",
             "<strong>Survivor selection:</strong> CAKE retains the ten kernels with the highest normalized BIC fitness to form the next generation.",
-            "<strong>Rank and query:</strong> BAKER weights each surviving kernel in proportion to exp(−BIC), multiplies that weight by the normalized expected improvement at the kernel’s proposed query, and selects the highest-scoring kernel–query pair. The objective is evaluated and the new observation is added before the loop repeats."
+            "<strong>Rank and query:</strong> BAKER weights each surviving kernel in proportion to \\(\\exp(-\\mathrm{BIC})\\), multiplies that weight by the normalized expected improvement at the kernel’s proposed query, and selects the highest-scoring kernel–query pair. The objective is evaluated and the new observation is added before the loop repeats."
           ]
         },
         {

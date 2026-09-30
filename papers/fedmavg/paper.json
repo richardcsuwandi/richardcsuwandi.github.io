@@ -60,29 +60,29 @@
       "blocks": [
         {
           "type": "paragraph",
-          "text": "Federated matrix factorization (FedMF) partitions the observation matrix X across P clients, each holding a non-overlapping block. The shared factor W belongs to the server, and each client keeps its own local factor H<sub>p</sub>, so the global objective sums a weighted local cost over all clients subject to W and every H<sub>p</sub> lying in their constraint sets. This is harder than the federated learning objectives usually studied with model averaging{{cite:mcmahan2017communication}}: the FedMF objective is non-convex and non-smooth, and it couples two blocks of variables, W and H, rather than one, so algorithms designed for smooth, single-block federated objectives do not directly apply."
+          "text": "Federated matrix factorization (FedMF) partitions the observation matrix \\(X\\) across \\(P\\) clients, each holding a non-overlapping block. The shared factor \\(W\\) belongs to the server, and each client keeps its own local factor \\(H_p\\), so the global objective sums a weighted local cost over all clients subject to \\(W\\) and every \\(H_p\\) lying in their constraint sets. This is harder than the federated learning objectives usually studied with model averaging{{cite:mcmahan2017communication}}: the FedMF objective is non-convex and non-smooth, and it couples two blocks of variables, \\(W\\) and \\(H\\), rather than one, so algorithms designed for smooth, single-block federated objectives do not directly apply."
         },
         {
           "type": "paragraph",
-          "text": "FedMAvg addresses this by combining alternating minimization{{cite:udell2016generalized}} with model averaging{{cite:mcmahan2017communication}}. In communication round s, each client starts from the server's broadcast factor W<sup>s-1</sup>, updates its local factor H<sub>p</sub> first, then updates its own copy of W, before a sampled subset of clients uploads their updated W back to the server."
+          "text": "FedMAvg addresses this by combining alternating minimization{{cite:udell2016generalized}} with model averaging{{cite:mcmahan2017communication}}. In communication round \\(s\\), each client starts from the server's broadcast factor \\(W^{s-1}\\), updates its local factor \\(H_p\\) first, then updates its own copy of \\(W\\), before a sampled subset of clients uploads their updated \\(W\\) back to the server."
         },
         {
           "type": "list",
           "ordered": true,
           "items": [
-            "<strong>Broadcast:</strong> the server averages the W uploaded by the previous round's participating clients, projects the result onto the constraint set W, and broadcasts the new W<sup>s</sup> to every client.",
-            "<strong>Local factor update:</strong> each client runs Q<sub>1</sub> steps of projected gradient descent on its local factor H<sub>p</sub>, holding W fixed at W<sup>s</sup>{{fn:step-size}}.",
-            "<strong>Local shared-factor update:</strong> each client then runs Q<sub>2</sub><sup>s</sup> steps of gradient descent on its own copy of W, holding H<sub>p</sub> fixed, where Q<sub>2</sub><sup>s</sup> diminishes across rounds.",
+            "<strong>Broadcast:</strong> the server averages the \\(W\\) uploaded by the previous round's participating clients, projects the result onto the constraint set \\(\\mathcal{W}\\), and broadcasts the new \\(W^s\\) to every client.",
+            "<strong>Local factor update:</strong> each client runs \\(Q_1\\) steps of projected gradient descent on its local factor \\(H_p\\), holding \\(W\\) fixed at \\(W^s\\){{fn:step-size}}.",
+            "<strong>Local shared-factor update:</strong> each client then runs \\(Q_2^s\\) steps of gradient descent on its own copy of \\(W\\), holding \\(H_p\\) fixed, where \\(Q_2^s\\) diminishes across rounds.",
             "<strong>Partial client communication:</strong> only a sampled subset of m clients, drawn with replacement in proportion to each client's share of the data, uploads its updated W to the server; clients that are not selected keep updating their own local variables rather than sitting idle."
           ]
         },
         {
           "type": "paragraph",
-          "text": "The number of shared-factor steps Q<sub>2</sub><sup>s</sup> = &#8970;Q&#770;/s&#8971; + 1 shrinks across rounds: early on, clients take more gradient steps on W to explore their local data, while later rounds take smaller steps so that client copies of W do not drift far from the server average before the next synchronization. The paper's convergence analysis shows that this diminishing schedule keeps the extra error terms caused by non-i.i.d. data bounded as the number of rounds grows, whereas using a constant Q<sub>2</sub> greater than one lets those terms grow without bound, which slows convergence on heterogeneous data{{cite:li2020convergence}}."
+          "text": "The number of shared-factor steps \\(Q_2^s=\\lfloor \\widehat{Q}/s\\rfloor+1\\) shrinks across rounds: early on, clients take more gradient steps on \\(W\\) to explore their local data, while later rounds take smaller steps so that client copies of \\(W\\) do not drift far from the server average before the next synchronization. The paper's convergence analysis shows that this diminishing schedule keeps the extra error terms caused by non-i.i.d. data bounded as the number of rounds grows, whereas using a constant \\(Q_2>1\\) lets those terms grow without bound, which slows convergence on heterogeneous data{{cite:li2020convergence}}."
         },
         {
           "type": "paragraph",
-          "text": "Partial client communication (PCC) follows the same idea as FedAvg's partial client participation{{cite:mcmahan2017communication}}: only m clients, with m much smaller than P, upload their model in a given round. Unlike FedAvg, however, the clients that are not selected keep updating their local variables instead of staying inactive, because in FedMF the local factor H<sub>p</sub> stops improving if it is left stale for a full round. This distinction is why PCC can speed up convergence in FedMF even though sampling clients discards some of the information the server could otherwise use."
+          "text": "Partial client communication (PCC) follows the same idea as FedAvg's partial client participation{{cite:mcmahan2017communication}}: only \\(m\\) clients, with \\(m\\ll P\\), upload their model in a given round. Unlike FedAvg, however, the clients that are not selected keep updating their local variables instead of staying inactive, because in FedMF the local factor \\(H_p\\) stops improving if it is left stale for a full round. This distinction is why PCC can speed up convergence in FedMF even though sampling clients discards some of the information the server could otherwise use."
         }
       ]
     },
@@ -103,7 +103,7 @@
               "type": "figure",
               "src": "assets/figures/fig1-convergence.png",
               "alt": "Four line plots of FedMAvg's objective value against communication rounds on the synthetic dataset, comparing constant versus diminishing local update lengths and partial versus full client communication.",
-              "caption": "<strong>Figure 1.</strong> Convergence of FedMAvg's objective value on the synthetic dataset under Case 2, for different local update lengths Q<sub>1</sub> and Q<sub>2</sub>. (a)-(b) compare a constant Q<sub>2</sub> against a diminishing schedule with full (m = 100) and partial (m = 10) client communication; a larger constant Q<sub>2</sub> slows convergence, and the gap widens once communication is partial. (c) shows that increasing Q<sub>1</sub> speeds convergence, with diminishing returns past Q<sub>1</sub> = 10. (d) compares partial client communication (PCC), where non-selected clients keep updating, against partial client participation (PCP), where they do not; PCC converges faster because leaving a client's local factor stale for a full round hurts more in the two-block FedMF objective than in single-block federated learning.",
+              "caption": "<strong>Figure 1.</strong> Convergence of FedMAvg's objective value on the synthetic dataset under Case 2, for different local update lengths \\(Q_1\\) and \\(Q_2\\). (a)-(b) compare a constant \\(Q_2\\) against a diminishing schedule with full (\\(m=100\\)) and partial (\\(m=10\\)) client communication. A larger constant \\(Q_2\\) slows convergence, and the gap widens once communication is partial. (c) shows that increasing \\(Q_1\\) speeds convergence, with diminishing returns past \\(Q_1=10\\). (d) compares partial client communication (PCC), where non-selected clients keep updating, against partial client participation (PCP), where they do not. PCC converges faster because leaving a client's local factor stale for a full round hurts more in the two-block FedMF objective than in single-block federated learning.",
               "width": "wide"
             },
             {
@@ -160,7 +160,7 @@
   "footnotes": [
     {
       "id": "step-size",
-      "text": "The step sizes are set adaptively each round from the client's current factors: the step for H<sub>p</sub> uses half the largest eigenvalue of (W<sup>s,0</sup><sub>p</sub>)<sup>T</sup>W<sup>s,0</sup><sub>p</sub>, and the step for W uses five times the largest eigenvalue of H<sup>s,Q1</sup>(H<sup>s,Q1</sup>)<sup>T</sup>. Training stops once the relative change in the objective value falls below 10<sup>-8</sup>, or after 500 communication rounds, whichever comes first."
+      "text": "The step sizes are set adaptively each round from the client's current factors. The step for \\(H_p\\) uses half the largest eigenvalue of \\((W_p^{s,0})^T W_p^{s,0}\\), and the step for \\(W\\) uses five times the largest eigenvalue of \\(H^{s,Q_1}(H^{s,Q_1})^T\\). Training stops once the relative change in the objective value falls below \\(10^{-8}\\), or after 500 communication rounds, whichever comes first."
     }
   ],
   "references": [

@@ -62,7 +62,6 @@ body {
   font-weight: 300;
   line-height: 1.8;
 }
-*, *::before, *::after,
 p, h1, h2, h3, h4, h5, h6, em, div, li, span, strong, td, th, blockquote, figcaption, caption, button, a, code, pre, kbd, samp, small, sup, sub, nav, header, footer, section, article, ol, ul, table, input, textarea, select {
   font-family: var(--font);
 }

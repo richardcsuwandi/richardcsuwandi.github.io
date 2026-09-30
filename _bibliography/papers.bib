@@ -2,6 +2,23 @@
 ---
 
 
+@misc{suwandi2026qed,
+  title={Robust Bayesian Optimization with Q-Exponential Surrogates},
+  author={Suwandi, Richard Cornelius and Lin, Zhidi and Yin, Feng and Zoubir, Abdelhak M.},
+  year={2026},
+  presentation={preprint},
+  selected={true},
+  publisher={arXiv},
+  preview={qed-bo.png},
+  website={/papers/qed-bo/},
+  paper={https://arxiv.org/abs/2609.32775},
+  alphaxiv={https://www.alphaxiv.org/abs/2609.32775},
+  thread={https://x.com/richardcsuwandi/status/2104987820830167127},
+  tldr={Standard Bayesian optimization is brittle when a single corrupted evaluation can shift the Gaussian process posterior and send the search the wrong way. q-ED-BO keeps that posterior's closed-form mean and variance, and replaces the Gaussian predictive with a q-exponential whose shape q sets the tail, recovering the GP at q = 2. On beamformer and adaptive-filter tuning it matches the baselines on clean data, and under impulsive outliers it improves the strongest baseline by about 0.7 dB in output SINR and 1.1 to 1.2 dB in misalignment reduction.},
+  open_question={The shape q is fixed before the search, and q-EI is available in closed form but has no regret guarantee, so learning q from the data, and a convergence rate for q-EI, remain open.},
+  abstract={Bayesian optimization (BO) is a widely used framework for optimizing expensive black-box objectives, but standard BO methods often use Gaussian process (GP) surrogates whose Gaussian assumption is sensitive to outliers and heavy-tailed noise. We introduce q-ED-BO, a robust BO method whose surrogate follows a univariate q-exponential (q-ED) distribution, preserving GP-BO's closed-form posterior mean and variance while a shape parameter q controls the tail behavior, recovering the GP at q = 2 and growing heavier-tailed with wider confidence bounds as q decreases. This tractability yields a closed-form q-upper confidence bound (q-UCB) with sublinear regret, and an exact closed-form q-expected improvement (q-EI) that generalizes EI to the heavy-tailed predictive, recovering classical EI at q = 2. Experiments on beamformer and adaptive filter tuning with impulsive outliers show that q-ED-BO matches or exceeds existing baselines on clean data, and under corruption, improves the strongest baseline by approximately 0.7 dB in output SINR and 1.1 to 1.2 dB in misalignment reduction.}
+}
+
 @misc{suwandi-grape,
   title={GRAPE: Gradient Refinement and Progress-Aware Exploitation for Query-Efficient High-Dimensional Bayesian Optimization},
   author={Suwandi, Richard Cornelius and Yin, Feng},

@@ -79,11 +79,11 @@
       "blocks": [
         {
           "type": "paragraph",
-          "text": "Any stationary kernel k(τ) and its spectral density S(ω) are Fourier duals of each other {{cite:rasmussen2006gp}}. The spectral mixture (SM) kernel {{cite:wilson2013kernels}} exploits this duality by approximating S(ω) with a Gaussian mixture whose means, variances, and weights are all optimized from data, at the cost of a non-convex fit. The grid spectral mixture (GSM) kernel {{cite:yin2018sparse}}{{cite:yin2020linear}} instead fixes the mixture's means and variances to a preselected grid of points and optimizes only the mixture weights θ. Because the resulting kernel is linear in θ, fitting it becomes a difference-of-convex program that admits a global upper-bound surrogate, unlike the SM kernel's fully non-convex objective."
+          "text": "Any stationary kernel \\(k(\\tau)\\) and its spectral density \\(S(\\omega)\\) are Fourier duals of each other {{cite:rasmussen2006gp}}. The spectral mixture (SM) kernel {{cite:wilson2013kernels}} exploits this duality by approximating \\(S(\\omega)\\) with a Gaussian mixture whose means, variances, and weights are all optimized from data, at the cost of a non-convex fit. The grid spectral mixture (GSM) kernel {{cite:yin2018sparse}}{{cite:yin2020linear}} instead fixes the mixture's means and variances to a preselected grid of points and optimizes only the mixture weights \\(\\theta\\). Because the resulting kernel is linear in \\(\\theta\\), fitting it becomes a difference-of-convex program that admits a global upper-bound surrogate, unlike the SM kernel's fully non-convex objective."
         },
         {
           "type": "paragraph",
-          "text": "The original GSM kernel only handles one-dimensional inputs. This paper extends the construction to multidimensional inputs x ∈ R<sup>d<sub>x</sub></sup> by approximating the spectral density with Q isotropic multivariate Gaussians placed on a d<sub>x</sub>-dimensional grid, with frequencies sampled independently per dimension up to a Nyquist-derived cutoff. Taking the inverse Fourier transform of this spectral density gives a multidimensional GSM kernel that is still linear in its Q weights, so the convex surrogate used to fit the 1-D kernel carries over unchanged."
+          "text": "The original GSM kernel only handles one-dimensional inputs. This paper extends the construction to multidimensional inputs \\(x\\in\\mathbb{R}^{d_x}\\) by approximating the spectral density with \\(Q\\) isotropic multivariate Gaussians placed on a \\(d_x\\)-dimensional grid, with frequencies sampled independently per dimension up to a Nyquist-derived cutoff. Taking the inverse Fourier transform of this spectral density gives a multidimensional GSM kernel that is still linear in its \\(Q\\) weights, so the convex surrogate used to fit the 1-D kernel carries over unchanged."
         },
         {
           "type": "figure",
@@ -94,7 +94,7 @@
         },
         {
           "type": "paragraph",
-          "text": "The grid construction is also the paper's main practical problem: sampling Q&prime; frequencies per dimension yields Q = Q&prime;<sup>d<sub>x</sub></sup> grid points, so the number of weights grows exponentially with dimension. Other automatic kernel-design approaches sidestep hand-combined kernels differently, via compositional kernel search over a discrete grammar{{cite:duvenaud2013structure}}, functional kernel learning{{cite:benton2019function}}, or hyperkernel optimization{{cite:anjanapura2021kernel}}, but fixing the grid is what keeps GSM's fitting convex and a distributed solution possible."
+          "text": "The grid construction is also the paper's main practical problem: sampling \\(Q'\\) frequencies per dimension yields \\(Q=(Q')^{d_x}\\) grid points, so the number of weights grows exponentially with dimension. Other automatic kernel-design approaches sidestep hand-combined kernels differently, via compositional kernel search over a discrete grammar{{cite:duvenaud2013structure}}, functional kernel learning{{cite:benton2019function}}, or hyperkernel optimization{{cite:anjanapura2021kernel}}, but fixing the grid is what keeps GSM's fitting convex and a distributed solution possible."
         }
       ]
     },
@@ -108,7 +108,7 @@
           "blocks": [
             {
               "type": "paragraph",
-              "text": "Learning &theta; reduces to minimizing the negative marginal log-likelihood, a difference-of-convex objective. Successive convex approximation (SCA){{cite:scutari2018parallel}} solves this by linearizing the concave part and solving a sequence of convex surrogates, but a single surrogate over all Q weights still costs O(Qn<sup>3</sup>) per iteration. Distributed SCA (DSCA) partitions &theta; into s blocks with an additively separable surrogate, so each block updates in parallel on its own core at O((Q/s)n<sup>3</sup>) per iteration, followed by a global consensus step, converging under the same guarantee as vanilla SCA."
+              "text": "Learning \\(\\theta\\) reduces to minimizing the negative marginal log-likelihood, a difference-of-convex objective. Successive convex approximation (SCA){{cite:scutari2018parallel}} solves this by linearizing the concave part and solving a sequence of convex surrogates, but a single surrogate over all \\(Q\\) weights still costs \\(O(Qn^3)\\) per iteration. Distributed SCA (DSCA) partitions \\(\\theta\\) into \\(s\\) blocks with an additively separable surrogate, so each block updates in parallel on its own core at \\(O((Q/s)n^3)\\) per iteration, followed by a global consensus step, converging under the same guarantee as vanilla SCA."
             }
           ]
         },
@@ -118,15 +118,15 @@
           "blocks": [
             {
               "type": "paragraph",
-              "text": "DSCA alone still needs every training point on one machine. To also keep data local, the problem is posed as an ADMM consensus problem over N agents, each holding a private dataset D<sub>j</sub> and a local copy &zeta;<sub>j</sub> of the weights, tied to a shared global &theta; by the constraint &zeta;<sub>j</sub> = &theta;{{cite:boyd2011distributed}}. The doubly distributed SCA (D&sup2;SCA) algorithm combines this with DSCA: each agent solves its own now-convex local ADMM subproblem across its own cores, and the agents' local weights and scaled dual variables are averaged into the next global consensus &theta;. Only hyperparameters and dual variables cross agent boundaries, never the raw data D<sub>j</sub>, and complexity drops to O(Qn<sup>3</sup>/(sN<sup>3</sup>))."
+              "text": "DSCA alone still needs every training point on one machine. To also keep data local, the problem is posed as an ADMM consensus problem over \\(N\\) agents, each holding a private dataset \\(D_j\\) and a local copy \\(\\zeta_j\\) of the weights, tied to a shared global \\(\\theta\\) by the constraint \\(\\zeta_j=\\theta\\){{cite:boyd2011distributed}}. The doubly distributed SCA (D²SCA) algorithm combines this with DSCA: each agent solves its own now-convex local ADMM subproblem across its own cores, and the agents' local weights and scaled dual variables are averaged into the next global consensus \\(\\theta\\). Only hyperparameters and dual variables cross agent boundaries, never the raw data \\(D_j\\), and complexity drops to \\(O(Qn^3/(sN^3))\\)."
             },
             {
               "type": "list",
               "ordered": true,
               "items": [
-                "<strong>Global consensus:</strong> average the local weights ζ<sub>j</sub> and scaled dual variables λ<sub>j</sub> across all N agents to obtain the global weights θ.",
-                "<strong>Local update:</strong> in parallel, each agent refits its local weights ζ<sub>j</sub> by running DSCA across its own s cores to solve its local ADMM subproblem against the current global θ.",
-                "<strong>Dual update:</strong> each agent updates its dual variable λ<sub>j</sub> from the gap between its local weights and the global consensus.",
+                "<strong>Global consensus:</strong> average the local weights \\(\\zeta_j\\) and scaled dual variables \\(\\lambda_j\\) across all \\(N\\) agents to obtain the global weights \\(\\theta\\).",
+                "<strong>Local update:</strong> in parallel, each agent refits its local weights \\(\\zeta_j\\) by running DSCA across its own \\(s\\) cores to solve its local ADMM subproblem against the current global \\(\\theta\\).",
+                "<strong>Dual update:</strong> each agent updates its dual variable \\(\\lambda_j\\) from the gap between its local weights and the global consensus.",
                 "Repeat the three steps until the primal and dual residuals fall below the stopping criteria."
               ]
             },
@@ -147,7 +147,7 @@
       "blocks": [
         {
           "type": "paragraph",
-          "text": "All experiments fit the GSM kernel-based GP (GSMGP) with Q = 500 grid frequencies sampled uniformly from the normalized frequency band [0, 1/2), a fixed variance v<sub>q</sub> = 0.001&sup2; per component, and weights initialized to zero and optimized by DSCA or D&sup2;SCA (N = 2 agents, s = 4 cores each on the 1-D datasets). Baselines are the spectral mixture kernel GP (SMGP){{cite:wilson2013kernels}}, a squared-exponential kernel GP (SEGP){{cite:rasmussen2006gp}}, an LSTM{{cite:hochreiter1997long}}, and an ARIMA(5, 1, 2) model{{cite:benvenuto2020application}}, with SMGP and SEGP using the SM kernel authors' reference implementation and default optimizer{{fn:baseline-code}}."
+          "text": "All experiments fit the GSM kernel-based GP (GSMGP) with \\(Q=500\\) grid frequencies sampled uniformly from the normalized frequency band \\([0,1/2)\\), a fixed variance \\(v_q=0.001^2\\) per component, and weights initialized to zero and optimized by DSCA or D²SCA (\\(N=2\\) agents, \\(s=4\\) cores each on the 1-D datasets). Baselines are the spectral mixture kernel GP (SMGP){{cite:wilson2013kernels}}, a squared-exponential kernel GP (SEGP){{cite:rasmussen2006gp}}, an LSTM{{cite:hochreiter1997long}}, and an ARIMA(5, 1, 2) model{{cite:benvenuto2020application}}, with SMGP and SEGP using the SM kernel authors' reference implementation and default optimizer{{fn:baseline-code}}."
         }
       ],
       "subsections": [
@@ -250,7 +250,7 @@
               "type": "figure",
               "src": "assets/figures/gsmgp-1d-results.webp",
               "alt": "Eight training and prediction plots, one per one-dimensional dataset, each showing training data, a shaded predictive uncertainty region, test data, and the GSMGP-DSCA prediction tracking the test data closely.",
-              "caption": "<strong>Figure 3.</strong> Training and prediction performance of GSMGP with σ = 0.001 and Q = 500 uniformly generated grid points, with weights optimized by DSCA, on the eight one-dimensional datasets.",
+              "caption": "<strong>Figure 3.</strong> Training and prediction performance of GSMGP with \\(\\sigma=0.001\\) and \\(Q=500\\) uniformly generated grid points, with weights optimized by DSCA, on the eight one-dimensional datasets.",
               "width": "wide"
             },
             {
@@ -272,7 +272,7 @@
           "blocks": [
             {
               "type": "paragraph",
-              "text": "Four multidimensional regression tasks test the extended kernel: ALE (average localization error in wireless sensor node localization, d<sub>x</sub> = 4), CCCP (hourly electrical output of a combined-cycle power plant, d<sub>x</sub> = 4), Airfoil (self-noise at various wind-tunnel speeds and angles of attack, d<sub>x</sub> = 5), and Concrete (compressive strength from a mixture design, d<sub>x</sub> = 5). GSMGP uses Q = 1296 grid points for the two four-dimensional datasets and Q = 1024 for the two five-dimensional datasets, generated by the same per-dimension frequency sampling, and D²SCA splits training across N = 3 agents with s = 4 cores each."
+              "text": "Four multidimensional regression tasks test the extended kernel: ALE (average localization error in wireless sensor node localization, \\(d_x=4\\)), CCCP (hourly electrical output of a combined-cycle power plant, \\(d_x=4\\)), Airfoil (self-noise at various wind-tunnel speeds and angles of attack, \\(d_x=5\\)), and Concrete (compressive strength from a mixture design, \\(d_x=5\\)). GSMGP uses \\(Q=1296\\) grid points for the two four-dimensional datasets and \\(Q=1024\\) for the two five-dimensional datasets, generated by the same per-dimension frequency sampling, and D²SCA splits training across \\(N=3\\) agents with \\(s=4\\) cores each."
             },
             {
               "type": "paragraph",

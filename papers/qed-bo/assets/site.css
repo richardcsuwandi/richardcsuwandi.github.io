@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap");
 
 :root {
   --bg: #ffffff;
@@ -13,7 +13,7 @@
   --code-bg: #f1f5f9;
   --figure-wide: 760px;
   --figure-normal: 680px;
-  --font: 'Inter', sans-serif;
+  --font: 'Roboto', sans-serif;
 }
 
 html[data-theme="dark"] {
@@ -500,6 +500,77 @@ html[data-theme="dark"] .generic-badge {
 .prose th, .prose td { padding: 9px 11px; border-bottom: 1px solid var(--divider); text-align: left; vertical-align: top; }
 .prose th { font-weight: 600; }
 .table-scroll { overflow-x: auto; }
+
+/* ---------- Mathematical statements ---------- */
+.formal-statement {
+  position: relative;
+  margin: 20px 5px;
+  padding: 15px 15px 15px 10px;
+  border: 1px solid #f9f9f9;
+  border-left: 5px solid #a8c08a;
+  border-radius: 5px 3px 3px 5px;
+  background: #f9f9f9;
+}
+.formal-statement[title]::before {
+  content: attr(title);
+  display: block;
+  margin-bottom: 8px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 1.1em;
+  font-weight: 700;
+}
+.formal-statement p:last-child { margin-bottom: 0; }
+.display-equation {
+  max-width: 100%;
+  margin: 0.7em 0 1.35em;
+  padding: 0.35em 0;
+  overflow-x: auto;
+  color: var(--text);
+  background: transparent;
+  font-size: clamp(0.88rem, 2.3vw, 1rem);
+  line-height: 1.65;
+  text-align: center;
+}
+.formal-statement .display-equation {
+  margin: 0.4em 0 0;
+}
+.display-equation mjx-container[jax="CHTML"][display="true"] {
+  margin: 0 !important;
+}
+
+html[data-theme="dark"] .formal-statement {
+  border-color: #2f2f2f;
+  border-left-color: #a8c08a;
+  background: #2f2f2f;
+}
+html[data-theme="dark"] .formal-statement[title]::before {
+  border-bottom-color: #686868;
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) .formal-statement {
+    border-color: #2f2f2f;
+    border-left-color: #a8c08a;
+    background: #2f2f2f;
+  }
+  html:not([data-theme="light"]) .formal-statement[title]::before {
+    border-bottom-color: #686868;
+  }
+}
+
+@media (max-width: 520px) {
+  .formal-statement {
+    margin-inline: 0;
+    padding: 13px 12px 13px 9px;
+  }
+  .display-equation {
+    padding-inline: 0.45em;
+    text-align: left;
+  }
+}
 
 /* ---------- TL;DR ---------- */
 .tldr-block { margin: 0; padding-top: 0; }

@@ -60,11 +60,11 @@
       "blocks": [
         {
           "type": "paragraph",
-          "text": "A Gaussian process (GP) models an unknown function through a mean function and a covariance (kernel) function {{cite:rasmussen2006gp}}. Fitting a GP means minimizing the negative log-marginal likelihood (NLML) with respect to the full hyperparameter vector, which stacks the kernel hyperparameters and the noise variance into a vector of dimension p. Minimizing the NLML requires inverting an n × n kernel matrix at every iteration, an O(n<sup>3</sup>) operation that becomes prohibitive for large datasets {{cite:wang2019exact}}, and its gradient can become unreliable once the kernel matrix is close to ill-conditioned {{cite:marchildon2024}}. These costs and instabilities only get worse as the hyperparameter dimension p grows {{cite:suwandi2022gsmp}}, even under structural simplifications such as additive kernels {{cite:duvenaud2011additive}} or low-dimensional embeddings {{cite:garnett2013active}}."
+          "text": "A Gaussian process (GP) models an unknown function through a mean function and a covariance (kernel) function {{cite:rasmussen2006gp}}. Fitting a GP means minimizing the negative log-marginal likelihood (NLML) with respect to the full hyperparameter vector, which stacks the kernel hyperparameters and the noise variance into a vector of dimension \\(p\\). Minimizing the NLML requires inverting an \\(n\\times n\\) kernel matrix at every iteration, an \\(O(n^3)\\) operation that becomes prohibitive for large datasets {{cite:wang2019exact}}, and its gradient can become unreliable once the kernel matrix is close to ill-conditioned {{cite:marchildon2024}}. These costs and instabilities only get worse as the hyperparameter dimension \\(p\\) grows {{cite:suwandi2022gsmp}}, even under structural simplifications such as additive kernels {{cite:duvenaud2011additive}} or low-dimensional embeddings {{cite:garnett2013active}}."
         },
         {
           "type": "paragraph",
-          "text": "A standard gradient-free alternative is the finite-difference stochastic approximation estimator {{cite:kiefer1952stochastic}}{{cite:nesterov2017random}}, which perturbs one hyperparameter at a time along each coordinate direction. Approximating all p partial derivatives this way costs 2p loss evaluations per iteration, which is prohibitive once p is large and every evaluation already costs O(n<sup>3</sup>)."
+          "text": "A standard gradient-free alternative is the finite-difference stochastic approximation estimator {{cite:kiefer1952stochastic}}{{cite:nesterov2017random}}, which perturbs one hyperparameter at a time along each coordinate direction. Approximating all \\(p\\) partial derivatives this way costs \\(2p\\) loss evaluations per iteration, which is prohibitive once \\(p\\) is large and every evaluation already costs \\(O(n^3)\\)."
         },
         {
           "type": "paragraph",
@@ -74,9 +74,9 @@
           "type": "list",
           "ordered": true,
           "items": [
-            "<strong>Perturbation:</strong> draw a random vector Δ<sub>t</sub> whose p components are sampled independently and symmetrically from {−1, +1}.",
-            "<strong>Gradient estimation:</strong> evaluate the NLML at θ<sub>t</sub><sup>+</sup> = θ<sub>t</sub> + β<sub>t</sub>Δ<sub>t</sub> and θ<sub>t</sub><sup>−</sup> = θ<sub>t</sub> − β<sub>t</sub>Δ<sub>t</sub>, where β<sub>t</sub> is the perturbation step size, and form the estimate ĝ<sub>t</sub>(θ<sub>t</sub>) = [l(θ<sub>t</sub><sup>+</sup>) − l(θ<sub>t</sub><sup>−</sup>)] / (2β<sub>t</sub>) · Δ<sub>t</sub><sup>−1</sup>, where Δ<sub>t</sub><sup>−1</sup> inverts each entry of Δ<sub>t</sub>. This needs exactly two loss evaluations regardless of p{{fn:parallel}}.",
-            "<strong>Hyperparameter update:</strong> set θ<sub>t+1</sub> = θ<sub>t</sub> − α<sub>t</sub>ĝ<sub>t</sub>(θ<sub>t</sub>), with α<sub>t</sub> a learning-rate sequence, projecting back onto the feasible region when a hyperparameter has constraints such as non-negativity."
+            "<strong>Perturbation:</strong> draw a random vector \\(\\Delta_t\\) whose \\(p\\) components are sampled independently and symmetrically from \\(\\{-1,+1\\}\\).",
+            "<strong>Gradient estimation:</strong> evaluate the NLML at \\(\\theta_t^+=\\theta_t+\\beta_t\\Delta_t\\) and \\(\\theta_t^-=\\theta_t-\\beta_t\\Delta_t\\), where \\(\\beta_t\\) is the perturbation step size, and form the estimate \\(\\widehat{g}_t(\\theta_t)=[l(\\theta_t^+)-l(\\theta_t^-)]/(2\\beta_t)\\cdot\\Delta_t^{-1}\\), where \\(\\Delta_t^{-1}\\) inverts each entry of \\(\\Delta_t\\). This needs exactly two loss evaluations regardless of \\(p\\){{fn:parallel}}.",
+            "<strong>Hyperparameter update:</strong> set \\(\\theta_{t+1}=\\theta_t-\\alpha_t\\widehat{g}_t(\\theta_t)\\), with \\(\\alpha_t\\) a learning-rate sequence, projecting back onto the feasible region when a hyperparameter has constraints such as non-negativity."
           ]
         }
       ],
@@ -87,7 +87,7 @@
           "blocks": [
             {
               "type": "paragraph",
-              "text": "Setting the step-size sequences to α<sub>t</sub> = a/(A + t + 1)<sup>τ</sup> and β<sub>t</sub> = b/(t + 1)<sup>γ</sup>, with rule-of-thumb constants a = 0.16, A = 100, b = 0.1, τ = 0.602, and γ = 0.101 {{cite:spall2002implementation}}, satisfies the step-size conditions standard in the stochastic approximation literature {{cite:robbins1951stochastic}}{{cite:kushner2012stochastic}}. Under these conditions, plus mild boundedness and stability assumptions on the NLML, ZAP's gradient estimator is asymptotically unbiased, with bias shrinking at rate O(β<sub>t</sub><sup>2</sup>), and the hyperparameter iterates θ<sub>t</sub> converge almost surely to a stationary point θ<sup>*</sup> of the NLML as t → ∞."
+              "text": "Setting the step-size sequences to \\(\\alpha_t=a/(A+t+1)^\\tau\\) and \\(\\beta_t=b/(t+1)^\\gamma\\), with rule-of-thumb constants \\(a=0.16\\), \\(A=100\\), \\(b=0.1\\), \\(\\tau=0.602\\), and \\(\\gamma=0.101\\) {{cite:spall2002implementation}}, satisfies the step-size conditions standard in the stochastic approximation literature {{cite:robbins1951stochastic}}{{cite:kushner2012stochastic}}. Under these conditions, plus mild boundedness and stability assumptions on the NLML, ZAP's gradient estimator is asymptotically unbiased, with bias shrinking at rate \\(O(\\beta_t^2)\\), and the hyperparameter iterates \\(\\theta_t\\) converge almost surely to a stationary point \\(\\theta^*\\) of the NLML as \\(t\\to\\infty\\)."
             }
           ]
         }
@@ -198,7 +198,7 @@
   "footnotes": [
     {
       "id": "parallel",
-      "text": "The two evaluations l(θ<sub>t</sub><sup>+</sup>) and l(θ<sub>t</sub><sup>−</sup>) are independent, so they can also run in parallel on multi-core hardware, further reducing wall-clock time."
+      "text": "The two evaluations \\(l(\\theta_t^+)\\) and \\(l(\\theta_t^-)\\) are independent, so they can also run in parallel on multi-core hardware, further reducing wall-clock time."
     },
     {
       "id": "momentum",
