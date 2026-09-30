@@ -3,8 +3,7 @@ layout: page
 permalink: /research/
 title: Research
 description: >-
-  My research develops **adaptive intelligence for learning, optimization, and discovery**. Below, I highlight key 
-  contributions from my research, organized by topic.
+  My research focuses on **scalable and adaptive learning for optimization and discovery**: building models and decision rules that use limited data and computation effectively.
 nav: true
 nav_order: 0
 ---
@@ -52,6 +51,7 @@ nav_order: 0
 
 .post article .gp-separator {
     margin-top: 1.5rem;
+    margin-bottom: 2rem;
 }
 
 .post article .gp-separator + h2 {
@@ -139,34 +139,47 @@ nav_order: 0
 </div>
 <script src="{{ '/assets/js/gp-separator.js' | relative_url }}"></script>
 
-## AI-driven surrogate design and discovery
 
-Most Bayesian optimization (BO) methods fix a surrogate model before the search begins. When that choice is a poor match for the problem, performance suffers. [CAKE](#suwandi2025cake) uses a large language model to design the surrogate instead of selecting from a fixed catalog: the LLM proposes, mutates, and recombines model structures using the task description, the data collected so far, and the optimization history. A selection criterion then balances how well a candidate fits the data against how useful the experiments it would recommend are likely to be. CAKE improves results on hyperparameter tuning, controller tuning, and photonic chip design, and is an early example of a foundation model acting as a designer of interpretable models rather than only as a predictor.
+**How can a learning system use limited data and computation effectively when its modeling assumptions may need to change?**
+{: .no-readmore }
 
-<div class="publications research-pubs">
-{% bibliography --group_by none --query @*[key=suwandi2025cake]* %}
-</div>
+I study this question through **inductive bias**, the assumptions that make some patterns easier to learn than others. A kernel determines how observations inform predictions at unseen inputs, which relationships the model favors, and how uncertainty guides the next experiment. My work makes these choices [more affordable to learn](#scalable-learning), [adaptable to the task](#adaptive-optimization), and [open to discovery](#model-structure-and-discovery).
+{: .no-readmore }
 
-## Scalable surrogate learning and optimization
+## Scalable learning
 
-Gaussian processes (GPs) are a natural surrogate for unknown functions: they provide both predictions and calibrated uncertainty from small amounts of data, which is essential when every experiment is costly. The bottleneck is the kernel, the function that encodes assumptions about how the target behaves. As kernels become more expressive, choosing and tuning them becomes slow, high-dimensional, and numerically unstable. I address this in two ways. First, I design [grid spectral mixture (GSM) kernels](#suwandi2022gaussian) that scale to multidimensional data. Building on a sparse structure I identified in their training, I then develop [SLIM-KL](#suwandi2023gaussian), a distributed method that lets multiple parties jointly train expressive GPs without sharing raw data. Second, I develop [ZAP](#suwandi2026breaking), an optimizer that estimates a model's full gradient from only two evaluations of the training loss, independent of the number of hyperparameters. This makes tuning tractable even when computing gradients directly is impractical. Dimensionality is also a problem for BO itself: as the search space grows, GP surrogates and their acquisition functions become harder to fit and optimize. [GRAPE](#suwandi-grape) uses gradient information to refine the surrogate locally and to adjust the exploration-exploitation trade-off as the search proceeds, which improves query efficiency in high-dimensional black-box optimization. A corrupted evaluation is a different failure. [q-ED-BO](#suwandi2026qed) keeps the Gaussian process posterior mean and variance, then replaces the Gaussian predictive with a q-exponential so the tail, not only the fit, is robust. At q = 1.5 it matches the baselines on clean beamformer and adaptive-filter tuning, and under impulsive outliers it improves the strongest baseline by about 0.7 dB in output SINR and 1.1 to 1.2 dB in misalignment reduction.
+Useful models must be affordable to train. My [grid spectral mixture kernels](#suwandi2022gaussian) use structured representations for multidimensional covariance. [SLIM-KL](#suwandi2023gaussian) exploits sparse kernel weights to distribute fitting and reduce communication while keeping raw data local. [ZAP](#suwandi2026breaking) estimates a full hyperparameter gradient from two loss evaluations per iteration, making updates practical when direct gradients are expensive or unavailable.
+
+The same interest in computational structure extends beyond kernels. [FedMAvg](#wang2021demystifying) combines alternating minimization and model averaging for communication-efficient federated matrix factorization. [MIMOMamba](#li2026mimomamba) uses structured state-space dynamics to capture interactions across channels while limiting parameter and computation costs.
 
 <div class="publications research-pubs">
 {% bibliography --group_by none --query @*[key=suwandi2022gaussian]* %}
 {% bibliography --group_by none --query @*[key=suwandi2023gaussian]* %}
 {% bibliography --group_by none --query @*[key=suwandi2026breaking]* %}
-{% bibliography --group_by none --query @*[key=suwandi-grape]* %}
-{% bibliography --group_by none --query @*[key=suwandi2026qed]* %}
-</div>
-
-## Structured and communication-efficient learning
-
-I am also interested in how practical constraints, such as limited communication or a required model structure, should shape learning systems. [FedMAvg](#wang2021demystifying) is a federated method for matrix factorization, a standard building block of recommender systems. It combines alternating minimization with model averaging to reduce the number of communication rounds across participants with heterogeneous data. [MIMOMamba](#li2026mimomamba) extends Mamba, a class of efficient state-space models, from a single input-output stream to many streams at once, matching or exceeding Transformer performance with substantially fewer parameters.
-
-<div class="publications research-pubs">
 {% bibliography --group_by none --query @*[key=wang2021demystifying]* %}
 {% bibliography --group_by none --query @*[key=li2026mimomamba]* %}
 </div>
 
-Together, this line of work moves from optimizing inside a fixed, human-designed model class toward systems that can adapt their representations, hypotheses, and actions as they collect data. If any of this is your interest too, [email me](mailto:{{ site.email | encode_email }})!
+## Adaptive optimization
+
+When evaluations are expensive, uncertainty should help decide where to spend them. [GRAPE](#suwandi-grape) refines a local gradient posterior, then chooses a direction using expected progress conditional on descent. [Q-exponential Bayesian optimization](#suwandi2026qed) changes predictive tail shape while retaining tractable acquisition calculations. These methods address different parts of the decision process: allocating queries and adapting the predictive assumptions behind them.
+
+In ongoing work on **Multiverse Bayesian Optimization (MvBO)**, I study how a finite representation budget should be shared across complementary kernels whose features are fitted jointly. The question is which useful directions survive that budget and how the omitted structure affects optimization.
+
+<div class="publications research-pubs">
+{% bibliography --group_by none --query @*[key=suwandi-grape]* %}
+{% bibliography --group_by none --query @*[key=suwandi2026qed]* %}
+</div>
+
+## Model structure and discovery
+
+A useful modeling assumption may never be considered if it is difficult to express or find. [CAKE](#suwandi2025cake) makes kernel structure part of the optimization loop: a language model proposes and revises kernel compositions using task context and accumulated observations. Candidates are ranked through both statistical fit and the utility of the experiments they recommend.
+
+My ongoing work on **Kernel Autoresearch (Kernaut)** extends this search to executable features and input transformations assembled through trusted kernel constructions. I analyze what the resulting representations preserve, which relationships they favor, and whether they transfer to tasks withheld from search. The aim is to discover useful inductive biases and explain why they help.
+
+<div class="publications research-pubs">
+{% bibliography --group_by none --query @*[key=suwandi2025cake]* %}
+</div>
+
+Across these areas, I combine algorithm design, mathematical analysis, and empirical evaluation to make learning and optimization more effective under practical constraints. If this overlaps with your interests, [email me](mailto:{{ site.email | encode_email }})!
 {: .no-readmore }
