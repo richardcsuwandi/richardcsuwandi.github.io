@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Robust Bayesian Optimization with Q-Exponential Surrogates</title>
+  <meta name="description" content="q-ED-BO keeps the closed-form Gaussian process posterior and replaces the Gaussian predictive with a q-exponential, matching baselines on clean data and improving the strongest baseline under impulsive outliers.">
+  <meta name="theme-color" content="#0063c9">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Robust Bayesian Optimization with Q-Exponential Surrogates">
+  <meta property="og:description" content="q-ED-BO keeps the closed-form Gaussian process posterior and replaces the Gaussian predictive with a q-exponential, matching baselines on clean data and improving the strongest baseline under impulsive outliers.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="keywords" content="Bayesian optimization, q-exponential surrogates, heavy-tailed data, robust black-box optimization, beamforming, adaptive filtering">
+  <link rel="canonical" href="https://richardcsuwandi.github.io/papers/qed-bo/"><meta property="og:url" content="https://richardcsuwandi.github.io/papers/qed-bo/">
+
+  <link rel="icon" type="image/png" href="/assets/img/website-logo-black.PNG">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="assets/site.css">
+  <style>:root { --accent: #0063c9; }</style>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ScholarlyArticle", "headline": "Robust Bayesian Optimization with Q-Exponential Surrogates", "description": "q-ED-BO keeps the closed-form Gaussian process posterior and replaces the Gaussian predictive with a q-exponential, matching baselines on clean data and improving the strongest baseline under impulsive outliers.", "author": [{"@type": "Person", "name": "Richard C. Suwandi"}, {"@type": "Person", "name": "Zhidi Lin"}, {"@type": "Person", "name": "Feng Yin"}, {"@type": "Person", "name": "Abdelhak M. Zoubir"}], "url": "https://richardcsuwandi.github.io/papers/qed-bo/", "keywords": ["Bayesian optimization", "q-exponential surrogates", "heavy-tailed data", "robust black-box optimization", "beamforming", "adaptive filtering"]}</script>
+  <script>
+    window.MathJax = {
+      tex: { tags: 'ams' }
+    };
+  </script>
+  <script defer id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script>
+  <script defer src="assets/site.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch color theme"><span aria-hidden="true" data-theme-icon>☾</span></button>
+  <main id="main">
+  <article>
+    <header class="d-title">
+      <p class="d-kicker">Preprint, 2026</p>
+      <h1 class="d-headline">Robust Bayesian Optimization with Q-Exponential Surrogates</h1>
+      <div class="badge-row title-badges">
+        <a class="view-paper-badge view-paper-badge-arxiv" href="https://arxiv.org/abs/2609.32775" target="_blank" rel="noopener" aria-label="Paper"><img class="venue-mark" src="/assets/img/venues/arxiv.svg" alt="" width="18" height="18"><span>Paper</span></a>
+        <a class="alphaxiv-link-badge" href="https://www.alphaxiv.org/abs/2609.32775" target="_blank" rel="noopener" aria-label="alphaXiv"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 718.41 504.47" aria-hidden="true" focusable="false"><polygon fill="currentColor" points="591.15 258.54 718.41 385.73 663.72 440.28 536.57 313.62 591.15 258.54"></polygon><path fill="currentColor" d="M273.86.3c34.56-2.41,67.66 9.73,92.51 33.54l94.64 94.63-55.11 54.55-96.76-96.55c-16.02-12.7-37.67-12.1-53.19 1.11L54.62 288.82 0 234.23 204.76 29.57C223.12 13.31 249.27 2.02 273.86.3Z"></path><path fill="currentColor" d="M663.79 1.29l54.62 54.58-418.11 417.9c-114.43 95.94-263.57-53.49-167.05-167.52l160.46-160.33 54.62 54.58-157.88 157.77c-33.17 40.32 18.93 91.41 58.66 57.48L663.79 1.29Z"></path></svg><span>alphaXiv</span></a>
+        <a class="x-thread-badge" href="https://x.com/richardcsuwandi/status/2104987820830167127" target="_blank" rel="noopener" aria-label="Thread"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.727-8.835L1.254 2.25H8.08l4.253 5.622L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg><span>Thread</span></a>
+      </div>
+    </header>
+
+    <div class="d-byline">
+      <div class="byline-box">
+        <div class="byline-table">
+          <h3>Authors</h3>
+          <h3>Affiliations</h3>
+          <p class="byline-name"><span class="self-author">Richard C. Suwandi</span></p>
+            <p class="byline-aff">School of Artificial Intelligence, The Chinese University of Hong Kong, Shenzhen, China</p>
+            <p class="byline-name">Zhidi Lin</p>
+            <p class="byline-aff">School of Computing and Data Science, The University of Hong Kong, Hong Kong SAR, China</p>
+            <p class="byline-name">Feng Yin</p>
+            <p class="byline-aff">School of Artificial Intelligence, The Chinese University of Hong Kong, Shenzhen, China</p>
+            <p class="byline-name">Abdelhak M. Zoubir</p>
+            <p class="byline-aff">Signal Processing Group, Technische Universität Darmstadt, Germany</p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="d-article">
+      <nav class="paper-toc" aria-label="Table of contents">
+        <h3>Contents</h3>
+        <div><a href="#abstract">Abstract</a></div>
+        <div><a href="#method">q-ED Bayesian Optimization</a></div>
+        <ul><li><a href="#motivation">Why Robustness Must Reach the Predictive</a></li><li><a href="#surrogate">The q-Exponential Surrogate</a></li><li><a href="#tail-bound">From the Tail Lemma to a Confidence Width</a></li><li><a href="#q-ucb">q-UCB and Its Regret Guarantee</a></li><li><a href="#q-ei">Exact q-Expected Improvement</a></li><li><a href="#algorithm">The Optimization Loop</a></li></ul>
+        <div><a href="#experiments">Experiments</a></div>
+        <ul><li><a href="#beamformer">Beamformer Tuning</a></li><li><a href="#adaptive-filter">Adaptive Filter Tuning</a></li></ul>
+        <div><a href="#open-question">Open Question</a></div>
+        <div><a href="#citation">Citation</a></div>
+        <div><a href="#references">References</a></div>
+      </nav>
+
+      <div class="tldr-block">
+          <p class="tldr-text"><strong>TL;DR.</strong> Standard Bayesian optimization can chase a corrupted evaluation because its Gaussian predictive assigns too little probability to extreme outcomes. q-ED-BO keeps the usual closed-form GP location and scale, then reshapes the predictive tail with a single parameter \(q\). It recovers GP-BO at \(q=2\), retains a no-regret q-UCB rule, and improves the strongest baseline under impulsive corruption in both signal-processing tasks.</p>
+        </div>
+      <section id="abstract">
+        <h2>Abstract</h2>
+        <div class="abstract-copy"><p>Bayesian optimization (BO) is a widely used framework for optimizing expensive black-box objectives, but standard BO methods often use Gaussian process (GP) surrogates whose Gaussian assumption is sensitive to outliers and heavy-tailed noise. We introduce q-ED-BO, a robust BO method whose surrogate follows a univariate q-exponential (q-ED) distribution, preserving GP-BO's closed-form posterior mean and variance while a shape parameter q controls the tail behavior, recovering the GP at q = 2 and growing heavier-tailed with wider confidence bounds as q decreases. This tractability yields a closed-form q-upper confidence bound (q-UCB) with sublinear regret, and an exact closed-form q-expected improvement (q-EI) that generalizes EI to the heavy-tailed predictive, recovering classical EI at q = 2. Experiments on beamformer and adaptive filter tuning with impulsive outliers show that q-ED-BO matches or exceeds existing baselines on clean data, and under corruption, improves the strongest baseline by approximately 0.7 dB in output SINR and 1.1 to 1.2 dB in misalignment reduction.</p></div>
+      </section>
+
+      <section id="method">
+          <h2>q-ED Bayesian Optimization</h2>
+
+          <div class="content-block prose"><p>q-ED-BO separates two jobs that are coupled in ordinary GP-BO. The kernel posterior still says where the objective is likely to be high and where data are sparse. The q-exponential predictive says how strongly the optimizer should trust that local picture when evaluations can be corrupted. This separation preserves the computational structure of GP-BO while changing the uncertainty that drives the next query.</p></div>
+          <h3 id="motivation">Why Robustness Must Reach the Predictive</h3>
+          <div class="content-block prose"><p>Bayesian optimization searches for the optimum of an expensive black box with a probabilistic surrogate and an acquisition function<sup class="cite"><a href="#ref-garnett2023bayesian">1</a></sup>. Gaussian processes are attractive because their posterior location and scale are available in closed form<sup class="cite"><a href="#ref-rasmussen2006gaussian">2</a></sup>. The Gaussian assumption is also brittle. A single corrupted evaluation can move the posterior mean and inflate uncertainty around a spurious region<sup class="cite"><a href="#ref-zoubir2012robust">3</a></sup>. Because the acquisition reads that predictive distribution directly, the optimizer can spend later evaluations chasing the corruption.</p></div>
+          <div class="content-block prose"><ul><li><strong>Heavy-tailed likelihood.</strong> A Student-\(t\) likelihood can reduce the influence of an outlying observation, but the GP and Student-\(t\) pair is not conjugate, so inference is approximate<sup class="cite"><a href="#ref-jylanki2011robust">4</a></sup>.</li><li><strong>Heavy-tailed prior.</strong> A Student-\(t\) process gives an exact heavy-tailed predictive, but its polynomial tails do not provide the exponential concentration used by UCB regret analysis<sup class="cite"><a href="#ref-shah2014student">5</a></sup>.</li><li><strong>Truncated rewards.</strong> Truncation controls heavy-tailed observation noise, but it does not directly model a corrupted objective predictive<sup class="cite"><a href="#ref-chowdhury2019heavytailed">6</a></sup>.</li></ul></div>
+          <div class="content-block prose"><p>The design target is therefore specific. The predictive itself should be heavy-tailed, analytically tractable, and concentrated enough to calibrate a confidence bound. The q-exponential family supplies all three properties.</p></div>
+          <h3 id="surrogate">The q-Exponential Surrogate</h3>
+          <div class="content-block prose"><p>Let \(\mu_t(\mathbf{x})\) and \(\sigma_t^2(\mathbf{x})\) be the usual GP posterior quantities after \(t\) evaluations. q-ED-BO uses them as the location and scale of a univariate q-exponential distribution<sup class="cite"><a href="#ref-gomez1998multivariate">7</a></sup>.</p></div>
+          <div class="content-block prose"><div class="formal-statement" title="Definition 1. Univariate q-ED predictive"><div class="display-equation">\[ f(\mathbf{x}) \mid \mathcal{D}_t \sim q\text{-ED}_1\!\left(\mu_t(\mathbf{x}), \sigma_t^2(\mathbf{x})\right). \]</div></div></div>
+          <div class="content-block prose"><p>The distinction between scale and variance matters. The predictive mean is \(\mu_t(\mathbf{x})\), while its variance is \(c(q)\sigma_t^2(\mathbf{x})\), where</p></div>
+          <div class="content-block prose"><div class="display-equation">\[ c(q) = \frac{2^{2/q}\,\Gamma\!\left(\tfrac{1}{2}+\tfrac{2}{q}\right)}{\Gamma\!\left(\tfrac{1}{2}\right)}. \]</div></div>
+          <div class="content-block prose"><p>At \(q=2\), \(c(2)=1\) and the predictive is exactly Gaussian. For \(0\lt q\lt 2\), the density is more peaked at its mode and decays more slowly in the tails. Decreasing \(q\) therefore changes both the shape of uncertainty and its variance. It does not move the GP location, change the kernel, or require a new matrix inverse. This is stronger than merely inflating a Gaussian variance because variance inflation leaves the Gaussian tail shape unchanged.</p></div>
+          <div class="content-block prose"><p>A useful representation makes the construction intuitive. If \(U\sim q\text{-ED}_1(m,\sigma^2)\), then \(U=m+R\sigma S\), where \(S\) is equally likely to be \(-1\) or \(+1\) and \(R^q\) follows a chi-squared distribution with one degree of freedom. Equivalently, \(R\) has the same distribution as \(|N|^{2/q}\) for a standard normal \(N\). The parameter \(q\) acts only through this radial transformation.</p></div>
+          <h3 id="tail-bound">From the Tail Lemma to a Confidence Width</h3>
+          <div class="content-block prose"><div class="formal-statement" title="Lemma 3. Closed-form tail bound"><p>If \(U\sim q\text{-ED}_1(m,\sigma^2)\), then for every \(r\geq 0\),</p><div class="display-equation">\[ \Pr\!\left(|U-m|>r\sigma\right) \leq \exp\!\left(-\tfrac{1}{2}r^q\right). \]</div></div></div>
+          <div class="content-block prose"><p>The derivation is short because of the radial representation. The event \(|U-m|>r\sigma\) is the same as \(R>r\). Substituting \(R=|N|^{2/q}\) turns it into the Gaussian event \(|N|>r^{q/2}\). Applying the standard Gaussian tail bound gives the stretched-exponential decay above. No numerical integration is needed.</p></div>
+          <div class="content-block prose"><p>To make this guarantee hold for every candidate point and every round, the paper assigns failure probability \(\delta_t=6\delta/(\pi^2t^2)\) and applies a union bound. Inverting the lemma then gives</p></div>
+          <div class="content-block prose"><div class="display-equation">\[ \rho_t = \Lambda_t^{1/q}, \qquad \Lambda_t = 2\log\!\left(\frac{|\mathcal{X}|\,t^2\pi^2}{6\delta}\right). \]</div></div>
+          <div class="content-block prose"><p>This is the key bridge from distributional robustness to an acquisition rule. Smaller \(q\) means a larger width \(\rho_t\), so the optimizer explores more aggressively when the predictive assigns greater probability to extreme deviations.</p></div>
+          <h3 id="q-ucb">q-UCB and Its Regret Guarantee</h3>
+          <div class="content-block prose"><p>q-UCB inserts the new confidence width into the familiar GP-UCB score<sup class="cite"><a href="#ref-srinivas2012gaussian">8</a></sup>. At round \(t\), it selects the point maximizing</p></div>
+          <div class="content-block prose"><div class="display-equation">\[ \alpha_{q\text{-UCB}}(\mathbf{x} \mid \mathcal{D}_{t-1}) = \mu_{t-1}(\mathbf{x}) + \rho_t\,\sigma_{t-1}(\mathbf{x}). \]</div></div>
+          <div class="content-block prose"><div class="formal-statement" title="Theorem 4. Regret bound for q-UCB"><p>For a finite search domain, fixed kernel and noise variance, and valid q-ED tail probabilities, q-UCB satisfies with probability at least \(1-\delta\)</p><div class="display-equation">\[ R_T \leq 2\Lambda_T^{1/q}\sqrt{C_1T\gamma_T} = \widetilde{\mathcal{O}}\!\left((\log T)^{1/q}\sqrt{T\gamma_T}\right). \]</div></div></div>
+          <div class="content-block prose"><p>Here \(\gamma_T\) is the kernel's maximum information gain and \(C_1\) is the usual information-gain constant. The proof follows the standard UCB route. The tail lemma creates a simultaneous confidence event, instantaneous regret is at most \(2\rho_t\sigma_{t-1}(\mathbf{x}_t)\), information gain controls the sum of posterior variances, and Cauchy-Schwarz converts those per-round bounds into the cumulative result.</p></div>
+          <div class="content-block prose"><p>At \(q=2\), \(\rho_t=\Lambda_t^{1/2}\) and the classical GP-UCB rate is recovered. For \(q\lt 2\), the confidence width grows by \(\Lambda_t^{1/q-1/2}\). This is the precise price of a heavier predictive tail. The penalty is logarithmic, while the leading \(\sqrt{T\gamma_T}\) dependence is unchanged.</p></div>
+          <h3 id="q-ei">Exact q-Expected Improvement</h3>
+          <div class="content-block prose"><p>q-EI scores the expected positive improvement over the best observed value \(f^+\)<sup class="cite"><a href="#ref-jones1998efficient">9</a></sup>. Define the standardized gap \(d=(\mu_t(\mathbf{x})-f^+)/\sigma_t(\mathbf{x})\). Under the q-exponential predictive, the standardized CDF and upper partial first moment are</p></div>
+          <div class="content-block prose"><div class="display-equation">\[ \begin{aligned} F_q(z) &= \Phi\!\left(\operatorname{sgn}(z)|z|^{q/2}\right), \\ M_q(a) &= \frac{2^{1/q-1}}{\sqrt{\pi}}\,\Gamma\!\left(\tfrac{1}{2}+\tfrac{1}{q},\tfrac{a^q}{2}\right). \end{aligned} \]</div></div>
+          <div class="content-block prose"><p>Standardizing the improvement gives \(\mathrm{E}[(d+Z)_+]\). Symmetry splits this expectation into a location term, \(dF_q(d)\), and an upper-tail partial moment. The substitution \(v=z^q/2\) evaluates that remaining integral as \(M_q(|d|)\). The resulting acquisition is exact.</p></div>
+          <div class="content-block prose"><div class="formal-statement" title="q-Expected improvement"><div class="display-equation">\[ \alpha_{q\text{-EI}}(\mathbf{x}) = \sigma_t(\mathbf{x})\left[dF_q(d)+M_q(|d|)\right]. \]</div></div></div>
+          <div class="content-block prose"><p>When \(q=2\), \(F_2\) becomes the Gaussian CDF and \(M_2\) becomes the Gaussian density, exactly recovering classical EI. Unlike q-UCB, q-EI does not yet have a regret guarantee. Even Gaussian EI does not admit the same direct confidence-interval argument, so extending existing consistency results remains open<sup class="cite"><a href="#ref-bull2011convergence">10</a></sup>.</p></div>
+          <h3 id="algorithm">The Optimization Loop</h3>
+          <div class="content-block prose"><ol><li>Evaluate a small initial design and form the first dataset.</li><li>Refit kernel hyperparameters with \(q\) fixed, then compute the GP posterior location and scale<sup class="footnote-ref"><a href="#note-zap" id="note-zap-ref">a</a></sup>.</li><li>Choose the next query by maximizing q-UCB or q-EI.</li><li>Evaluate the black box and append the new observation.</li><li>Repeat until the budget is exhausted, then return the best observed point.</li></ol></div>
+          <div class="content-block prose"><p>Only the predictive tail and the acquisition score change. The method remains compatible with any valid kernel, including kernels adapted during the search<sup class="cite"><a href="#ref-suwandi2025adaptive">11</a></sup>. The experiments suggest \(q=1.5\) as a safe default. Smaller values create heavier tails and stronger exploration, which can help under severe corruption but can over-explore when the data are clean.</p></div>
+        </section>
+
+        <section id="experiments">
+          <h2>Experiments</h2>
+
+          <div class="content-block prose"><p>Both tasks treat a full signal-processing pipeline as the black box. The beamformer returns output SINR. The adaptive filter returns steady-state misalignment reduction. Higher is better in both cases. Every method uses 5 Sobol starts, a budget of 100 queries, a squared-exponential kernel, L-BFGS to maximize the acquisition, and 10 seeds. Baselines are GP-UCB, GP-EI, Student-\(t\)-process EI, and truncated-mean GP-UCB, each compared with \(q\)-UCB and \(q\)-EI at \(q\in\{1.5,1,0.5\}\).</p></div>
+          <h3 id="beamformer">Beamformer Tuning</h3>
+          <div class="content-block prose"><p>The objective is the output SINR of a robust minimum-variance distortionless-response beamformer<sup class="cite"><a href="#ref-capon1969highresolution">12</a></sup>, over four design parameters: diagonal loading, look direction, the robust Capon uncertainty radius, and covariance shrinkage. The array is a 16-element uniform linear array with 24 snapshots, a signal of interest at broadside (SNR 10 dB), and four interferers (INR 25 dB), one of them near the mainlobe. Clean snapshots are Gaussian. In the impulsive regime, burst and Cauchy outliers (peak rate 0.10 near the interferer directions, floor 0.05) corrupt both the sample covariance and the online SINR meter, together with meter noise of standard deviation 0.35 dB.</p></div>
+          <div class="content-block prose"><p>On clean data the methods largely agree. GP-UCB, Student-\(t\)-process EI, truncated-mean GP-UCB, and \(q\)-UCB at \(q=1.5\) finish within about 0.2 dB of each other, and \(q\)-EI at \(q=1\) is best overall, so a mildly heavy-tailed predictive is essentially free when there are no outliers. At \(q=0.5\), \(q\)-UCB loses about 1 dB to GP-UCB because the wider intervals explore too much. Under impulsive corruption, \(q\)-UCB and \(q\)-EI at \(q=1.5\) beat truncated-mean GP-UCB, the strongest baseline, by about 0.7 dB. Those gains are significant under a paired Wilcoxon signed-rank test across seeds (\(p\lt0.05\))<sup class="cite"><a href="#ref-wilcoxon1945individual">13</a></sup>. Truncation robustifies the fit and leaves a Gaussian predictive on the objective, so the search can still lock onto a corrupted region. The setting \(q=0.5\) again over-explores.</p></div>
+          <div class="content-block figure-normal"><figure class="media-figure"><div class="media-frame"><img src="assets/figures/sinr-curves.webp" alt="Two line plots of best true SINR in dB versus Bayesian optimization iteration, mean and standard error over 10 seeds. The top panel is clean Gaussian snapshots, where q-EI at q = 1 finishes highest and q-UCB at q = 0.5 lags near 6.8 dB. The bottom panel is impulsive corruption with rate 0.10, where q-UCB and q-EI at q = 1.5 finish near 8 dB, above truncated-mean GP-UCB and the Gaussian baselines." loading="lazy" decoding="async"></div></figure></div>
+<p class="l-gutter caption"><strong>Figure 1.</strong> Best true output SINR versus iteration (mean &plusmn; standard error over 10 seeds). Top: clean Gaussian snapshots. Bottom: impulsive corruption of the snapshots and the SINR meter.</p>
+          <div class="content-block prose"><div class="table-scroll"><table><thead><tr><th>Method</th><th>MVDR clean</th><th>MVDR impulsive</th><th>NLMS clean</th><th>NLMS impulsive</th></tr></thead><tbody><tr><td>GP-UCB</td><td>7.71 &plusmn; 0.12</td><td>6.96 &plusmn; 0.37</td><td>30.4 &plusmn; 0.22</td><td>13.9 &plusmn; 0.61</td></tr><tr><td>GP-EI</td><td>7.73 &plusmn; 0.17</td><td>7.00 &plusmn; 0.28</td><td>30.5 &plusmn; 0.19</td><td>14.2 &plusmn; 0.52</td></tr><tr><td>TP-EI</td><td>7.71 &plusmn; 0.17</td><td>6.87 &plusmn; 0.32</td><td>30.2 &plusmn; 0.26</td><td>13.6 &plusmn; 0.66</td></tr><tr><td>TruncMean</td><td>7.79 &plusmn; 0.11</td><td>7.28 &plusmn; 0.18</td><td>30.3 &plusmn; 0.21</td><td>14.7 &plusmn; 0.38</td></tr><tr><td>\(q\)-UCB (\(q=1.5\))</td><td>7.88 &plusmn; 0.15</td><td><strong>8.02 &plusmn; 0.53</strong></td><td><strong>30.6 &plusmn; 0.18</strong></td><td><strong>15.9 &plusmn; 0.44</strong></td></tr><tr><td>\(q\)-UCB (\(q=1\))</td><td>7.62 &plusmn; 0.28</td><td>7.71 &plusmn; 0.59</td><td>30.1 &plusmn; 0.31</td><td>15.4 &plusmn; 0.57</td></tr><tr><td>\(q\)-UCB (\(q=0.5\))</td><td>6.79 &plusmn; 0.70</td><td>7.01 &plusmn; 0.56</td><td>28.4 &plusmn; 0.74</td><td>13.8 &plusmn; 0.83</td></tr><tr><td>\(q\)-EI (\(q=1.5\))</td><td>7.80 &plusmn; 0.10</td><td>7.99 &plusmn; 0.40</td><td>30.5 &plusmn; 0.14</td><td>15.8 &plusmn; 0.38</td></tr><tr><td>\(q\)-EI (\(q=1\))</td><td><strong>7.92 &plusmn; 0.11</strong></td><td>7.80 &plusmn; 0.60</td><td>30.4 &plusmn; 0.20</td><td>15.4 &plusmn; 0.55</td></tr><tr><td>\(q\)-EI (\(q=0.5\))</td><td>7.68 &plusmn; 0.20</td><td>7.22 &plusmn; 0.55</td><td>29.9 &plusmn; 0.35</td><td>14.3 &plusmn; 0.55</td></tr></tbody></table></div></div>
+<p class="l-gutter caption"><strong>Table 1.</strong> Final objective (mean &plusmn; standard error over 10 seeds, higher is better). MVDR columns are output SINR in dB. NLMS columns are misalignment reduction in dB. The best entry in each column is bold.</p>
+          <h3 id="adaptive-filter">Adaptive Filter Tuning</h3>
+          <div class="content-block prose"><p>The second task tunes a leaky normalized least-mean-squares filter for system identification<sup class="cite"><a href="#ref-mayyas1997leaky">14</a></sup>. A length-16 plant is driven by white Gaussian input. The desired signal is observed in Gaussian noise, or in &epsilon;-contaminated Gaussian and Cauchy noise with contamination rate 0.10. A single spike enters the tap update directly, which is the usual failure mode of the LMS family. The black box has three parameters, the step size, the regularization, and the leakage, and it returns the steady-state misalignment reduction in dB from a single run, corrupted by meter noise and occasional Cauchy spikes.</p></div>
+          <div class="content-block prose"><p>On clean data every method except \(q\)-UCB at \(q=0.5\) finishes within about 0.5 dB of the others and within about 1 dB of the 31 dB grid optimum. The \(q\)-UCB method at \(q=1.5\) is slightly ahead, and \(q\)-EI at \(q=1.5\) matches GP-EI to the reported precision. Under impulsive noise every method loses roughly half of the attainable reduction. The \(q\)-UCB and \(q\)-EI methods at \(q=1.5\) still recover 1.1 to 1.2 dB more than truncated-mean GP-UCB (Table 1, right), and the same Wilcoxon test finds those \(q=1.5\) gains significant. The \(q\)-EI method at \(q=1.5\) finishes within 0.2 dB of \(q\)-UCB. The paper recommends \(q=1.5\) as a default, and a smaller \(q\) only when corruption is severe.</p></div>
+        </section>
+
+        <section id="open-question">
+          <h2>Open Question</h2>
+
+          <div class="content-block prose"><p>q-ED-BO puts the heavy tail in the predictive rather than only in the likelihood, and \(q\)-UCB keeps a sublinear regret bound, with only a logarithmic extra cost as \(q\) decreases. The shape \(q\) is fixed before the search, and \(q\)-EI is available in closed form but has no regret guarantee, so learning \(q\) from the data, and a convergence rate for \(q\)-EI, remain open.</p></div>
+
+        </section>
+
+      <section id="citation">
+          <div class="citation-head"><h2>Citation</h2><button class="copy-button" type="button" data-copy-bibtex>Copy BibTeX</button></div>
+          <pre><code data-bibtex>@misc{suwandi2026qed,
+  title         = {Robust Bayesian Optimization with Q-Exponential Surrogates},
+  author        = {Suwandi, Richard Cornelius and Lin, Zhidi and Yin, Feng and
+                   Zoubir, Abdelhak M.},
+  year          = {2026},
+  eprint        = {2609.32775},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.LG}
+}</code></pre>
+        </section>
+    </div>
+
+    <section class="appendix-section">
+      <h3 class="appendix-label">Footnotes</h3>
+      <ol class="notes-list">
+        <li id="note-zap">Kernel hyperparameters are refit at every iteration by zeroth-order adaptive perturbation (ZAP), with \(q\) held fixed during that fit<sup class="cite"><a href="#ref-suwandi2026breaking">15</a></sup>. Baselines use the same optimizer with a Gaussian likelihood, and Student-\(t\)-process EI uses a Student-\(t\) likelihood with \(\nu=10\). <a href="#note-zap-ref" class="footnote-back" aria-label="Back to text">[↩]</a></li>
+      </ol>
+      <h3 id="references" class="appendix-label">References</h3>
+      <ol class="references-list">
+        <li id="ref-garnett2023bayesian"><span class="title">Bayesian Optimization</span><br>Garnett, R., 2023. Cambridge University Press.</li><li id="ref-rasmussen2006gaussian"><span class="title">Gaussian Processes for Machine Learning</span>&ensp;<a href="https://gaussianprocess.org/gpml/chapters/RW.pdf">[PDF]</a><br>Rasmussen, C.E. and Williams, C.K.I., 2006. MIT Press.</li><li id="ref-zoubir2012robust"><span class="title">Robust Estimation in Signal Processing: A Tutorial-Style Treatment of Fundamental Concepts</span><br>Zoubir, A.M., Koivunen, V., Chakhchoukh, Y. and Muma, M., 2012. IEEE Signal Processing Magazine.</li><li id="ref-jylanki2011robust"><span class="title">Robust Gaussian Process Regression with a Student-t Likelihood</span><br>Jylänki, P., Vanhatalo, J. and Vehtari, A., 2011. Journal of Machine Learning Research.</li><li id="ref-shah2014student"><span class="title">Student-t Processes as Alternatives to Gaussian Processes</span><br>Shah, A., Wilson, A.G. and Ghahramani, Z., 2014. International Conference on Artificial Intelligence and Statistics.</li><li id="ref-chowdhury2019heavytailed"><span class="title">Bayesian Optimization under Heavy-Tailed Payoffs</span><br>Chowdhury, S.R. and Gopalan, A., 2019. Advances in Neural Information Processing Systems.</li><li id="ref-gomez1998multivariate"><span class="title">A Multivariate Generalization of the Power Exponential Family of Distributions</span><br>Gómez, E., Gómez-Villegas, M.A. and Marín, J.M., 1998. Communications in Statistics, Theory and Methods.</li><li id="ref-srinivas2012gaussian"><span class="title">Information-Theoretic Regret Bounds for Gaussian Process Optimization in the Bandit Setting</span><br>Srinivas, N., Krause, A., Kakade, S.M. and Seeger, M.W., 2012. IEEE Transactions on Information Theory.</li><li id="ref-jones1998efficient"><span class="title">Efficient Global Optimization of Expensive Black-Box Functions</span><br>Jones, D.R., Schonlau, M. and Welch, W.J., 1998. Journal of Global Optimization.</li><li id="ref-bull2011convergence"><span class="title">Convergence Rates of Efficient Global Optimization Algorithms</span><br>Bull, A.D., 2011. Journal of Machine Learning Research.</li><li id="ref-suwandi2025adaptive"><span class="title">Adaptive Kernel Design for Bayesian Optimization Is a Piece of CAKE with LLMs</span>&ensp;<a href="https://richardcsuwandi.github.io/papers/cake/">[Page]</a><br>Suwandi, R.C., Yin, F., Wang, J., Li, R., Chang, T.-H. and Theodoridis, S., 2025. Advances in Neural Information Processing Systems.</li><li id="ref-capon1969highresolution"><span class="title">High-Resolution Frequency-Wavenumber Spectrum Analysis</span><br>Capon, J., 1969. Proceedings of the IEEE.</li><li id="ref-wilcoxon1945individual"><span class="title">Individual Comparisons by Ranking Methods</span><br>Wilcoxon, F., 1945. Biometrics Bulletin. <a href="https://doi.org/10.2307/3001968">DOI: 10.2307/3001968</a></li><li id="ref-mayyas1997leaky"><span class="title">Leaky LMS Algorithm: MSE Analysis for Gaussian Data</span><br>Mayyas, K. and Aboulnasr, T., 1997. IEEE Transactions on Signal Processing.</li><li id="ref-suwandi2026breaking"><span class="title">Breaking the Curse of Dimensionality in Gaussian Process Training with Zeroth-Order Adaptive Perturbation</span>&ensp;<a href="https://richardcsuwandi.github.io/papers/zap/">[Page]</a><br>Suwandi, R.C., Yin, F. and Chang, T.-H., 2026. IEEE International Conference on Acoustics, Speech and Signal Processing.</li>
+      </ol>
+    </section>
+  </article>
+  </main>
+  <footer class="site-footer"><div class="container"><p>© 2026 <a href="https://richardcsuwandi.github.io">Richard Cornelius Suwandi</a></p></div></footer>
+</body>
+</html>
