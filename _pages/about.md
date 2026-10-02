@@ -31,7 +31,7 @@ I'm a fully-funded **PhD candidate** at [School of Artificial Intelligence, CUHK
 {: .about-lead}
 
 - I co-founded the [Institute for AI-Driven Discovery of Algorithms (AIDDA)](https://algorithmdiscovery.org/)
-- I am a member of the [Universal Algorithmic Intelligence community](https://uaiasi.com/)
 - I am a dev ambassador at [Qwen](https://qwen.ai/ambassador) (Alibaba Cloud)
+- I am a community member at [AIXI Labs](https://www.aixi.uk/)
 - I was previously a community leader for the AI4Science community at [alphaXiv](https://www.alphaxiv.org/)
 {: .about-highlights}

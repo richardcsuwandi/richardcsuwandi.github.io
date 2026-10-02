@@ -62,6 +62,24 @@ organizations:
     years: "2026 – Present"
     logo: "/assets/img/logos/aidda.jpg"
 
+  - role: "Community Member"
+    name: "AIXI Labs"
+    url: "https://www.aixi.uk/"
+    years: "2026 – Present"
+    logo: "/assets/img/logos/aixi.png"
+
+  - role: "Community Member"
+    name: "Open Science Community, Cohere Labs"
+    url: "https://cohere.com/research/open-science"
+    years: "2026 – Present"
+    logo: "/assets/img/logos/cohere.png"
+
+  - role: "Community Member"
+    name: "Adaption Labs"
+    url: "https://adaptionlabs.ai/"
+    years: "2026 – Present"
+    logo: "/assets/img/logos/adaption.svg"
+
   - role: "Community Leader"
     name: "AI4Science Community, alphaXiv"
     url: "https://www.alphaxiv.org/"
