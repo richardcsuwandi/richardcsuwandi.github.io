@@ -1,5 +1,5 @@
 const savedTheme = localStorage.getItem("theme");
-const systemDark = window.matchMedia?.("(prefers-color-scheme: dark)").matches;
+const systemDark = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
 const initialTheme = savedTheme === "dark" || savedTheme === "light"
   ? savedTheme
   : (systemDark ? "dark" : "light");
@@ -35,7 +35,7 @@ if (copyButton && bibtex && navigator.clipboard) {
     try {
       await navigator.clipboard.writeText(bibtex.textContent.trim());
       copyButton.textContent = "Copied";
-    } catch {
+    } catch (err) {
       copyButton.textContent = "Select to copy";
     }
     window.setTimeout(() => { copyButton.textContent = original; }, 1600);
