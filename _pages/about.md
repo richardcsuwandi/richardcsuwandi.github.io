@@ -25,4 +25,4 @@ My research focuses on [scalable and adaptive learning for optimization and disc
 
 If you want to talk about research or collaborations, feel free to [reach out](mailto:richardcsuwandi@link.cuhk.edu.cn). 
 
-Besides research, I'm also a dev ambassador at [Qwen](https://qwen.ai/ambassador) (Alibaba Cloud) and a community member at [AIXI Labs](https://www.aixi.uk/). I also previously led the AI4Science community at [alphaXiv](https://www.alphaxiv.org/).
+Besides research, I'm also a dev ambassador at [Qwen](https://qwen.ai/) (Alibaba Cloud) and a community member at [AIXI Labs](https://www.aixi.uk/). I also previously led the AI4Science community at [alphaXiv](https://www.alphaxiv.org/).
