@@ -673,17 +673,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#gaussian-processes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Gaussian processes
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#probabilistic-scoring" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -781,17 +770,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#gaussian-processes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Gaussian processes
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#probabilistic-scoring" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -870,7 +848,7 @@ The package adapts these tasks to kernel evaluation. Its metrics and protocols c
 <a href="https://arxiv.org/abs/2603.17863">arXiv:2603.17863</a>.</p>
 <p>DiscoGen provides procedural tasks for algorithm discovery and an evaluation framework that separates discovery from generalization assessment.
 Kernaut adopts this meta-evaluation perspective. Its adapters define the specific partitions documented in the <a href="../meta-evaluation/">protocol guide</a>.
-The <a href="https://github.com/AlexGoldie/discogen">DiscoGen repository</a> also informed the organization of this documentation.</p>
+See the <a href="https://github.com/AlexGoldie/discogen">DiscoGen repository</a> for its task-generation code.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nc">@misc</span><span class="p">{</span><span class="nl">goldie2026discogen</span><span class="p">,</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="na">title</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{{DiscoGen}: Procedural Generation of Algorithm Discovery Tasks in Machine Learning}</span><span class="p">,</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="na">author</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{Goldie, Alexander D. and Wang, Zilin and Hayler, Adrian and</span>
@@ -887,18 +865,13 @@ The <a href="https://github.com/AlexGoldie/discogen">DiscoGen repository</a> als
 <a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">  </span><span class="na">url</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{https://arxiv.org/abs/2603.17863}</span>
 <a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="p">}</span>
 </code></pre></div>
-<h2 id="gaussian-processes">Gaussian processes<a class="headerlink" href="#gaussian-processes" title="Permanent link">&para;</a></h2>
-<p>Rasmussen, Carl Edward, and Williams, Christopher K. I. (2006).
-<em>Gaussian Processes for Machine Learning.</em> MIT Press.
-<a href="https://gaussianprocess.org/gpml/">Book and online text</a>.</p>
-<p>This reference describes Gaussian process regression, covariance functions, and marginal-likelihood-based parameter fitting.</p>
 <h2 id="probabilistic-scoring">Probabilistic scoring<a class="headerlink" href="#probabilistic-scoring" title="Permanent link">&para;</a></h2>
 <p>Gneiting, Tilmann, and Raftery, Adrian E. (2007).
 “Strictly Proper Scoring Rules, Prediction, and Estimation.”
 <em>Journal of the American Statistical Association</em>, 102(477), 359–378.
 <a href="https://doi.org/10.1198/016214506000001437">DOI: 10.1198/016214506000001437</a>.</p>
-<p>This reference provides the scoring-rule background for CRPS.
-Kernaut reports CRPS as a loss and uses its negative in predictive search scores.</p>
+<p>The continuous ranked probability score (CRPS) measures predictive-distribution error. Lower values are better.
+Kernaut uses negative CRPS in predictive search scores.</p>
 <h2 id="chembench">ChemBench<a class="headerlink" href="#chembench" title="Permanent link">&para;</a></h2>
 <p>Kabra, Sanchit, Abhyankar, Nikhil, Desai, Saaketh, Iyer, Prasad, and Reddy, Chandan K. (2026).
 <em>LLM-AutoSciLab: Closed-Loop Scientific Discovery via Active Experimentation with LLMs.</em>
