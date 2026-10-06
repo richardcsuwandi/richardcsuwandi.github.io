@@ -6,6 +6,7 @@ on:
       - master
       - main
     paths:
+      - "kernaut/**"
       - "assets/**"
       - "**/*.css"
       - "**/*.svg"
@@ -35,6 +36,7 @@ on:
       - master
       - main
     paths:
+      - "kernaut/**"
       - "assets/**"
       - "**/*.css"
       - "**/*.svg"
@@ -102,6 +104,8 @@ jobs:
         run: |
           npm install -g purgecss
           purgecss -c purgecss.config.js
+      - name: Copy Kernaut documentation
+        run: cp -R kernaut _site/kernaut
       - name: Deploy 🚀
         if: github.event_name != 'pull_request'
         uses: JamesIves/github-pages-deploy-action@v4
