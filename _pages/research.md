@@ -175,10 +175,11 @@ In ongoing work on **Multiverse Bayesian Optimization (MvBO)**, I study how a fi
 
 A useful modeling assumption may never be considered if it is difficult to express or find. [CAKE](#suwandi2025cake) makes kernel structure part of the optimization loop: a language model proposes and revises kernel compositions using task context and accumulated observations. Candidates are ranked through both statistical fit and the utility of the experiments they recommend.
 
-My ongoing work on **Kernel Autoresearch (Kernaut)** extends this search to executable features and input transformations assembled through trusted kernel constructions. I analyze what the resulting representations preserve, which relationships they favor, and whether they transfer to tasks withheld from search. The aim is to discover useful inductive biases and explain why they help.
+[Kernel Autoresearch (Kernaut)](#suwandi2026kernaut) extends this search to executable features and input transformations assembled through trusted kernel constructions. I analyze what the resulting representations preserve, which relationships they favor, and whether they transfer to tasks withheld from search. The aim is to discover useful inductive biases and explain why they help.
 
 <div class="publications research-pubs">
 {% bibliography --group_by none --query @*[key=suwandi2025cake]* %}
+{% bibliography --group_by none --query @*[key=suwandi2026kernaut]* %}
 </div>
 
 Across these areas, I combine algorithm design, mathematical analysis, and empirical evaluation to make learning and optimization more effective under practical constraints. If this overlaps with your interests, [email me](mailto:{{ site.email | encode_email }})!
