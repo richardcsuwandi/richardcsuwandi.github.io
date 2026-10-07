@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kernel Autoresearch for Open-Ended Model Discovery</title>
+    <meta
+      name="description"
+      content="Kernaut discovers reusable kernel programs through coding agents, PSD-preserving construction contracts, and a quality-diversity archive."
+    />
+    <meta name="theme-color" content="#0063c9" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Kernel Autoresearch for Open-Ended Model Discovery" />
+    <meta
+      property="og:description"
+      content="Kernaut discovers reusable kernel programs through coding agents, PSD-preserving construction contracts, and a quality-diversity archive."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="keywords" content="Kernaut, kernel learning, program synthesis, Gaussian processes, model discovery, coding agents" />
+    <link rel="canonical" href="https://richardcsuwandi.github.io/papers/kernaut/" />
+    <meta property="og:url" content="https://richardcsuwandi.github.io/papers/kernaut/" />
+    <meta property="og:image" content="https://richardcsuwandi.github.io/papers/kernaut/assets/figures/pipeline_refinement.webp" />
+    <meta name="twitter:image" content="https://richardcsuwandi.github.io/papers/kernaut/assets/figures/pipeline_refinement.webp" />
+    <link rel="icon" type="image/png" href="/assets/img/website-logo-black.PNG" />
+    <link rel="stylesheet" href="assets/site.css" />
+    <style>
+      :root {
+        --accent: #0063c9;
+      }
+    </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ScholarlyArticle",
+        "headline": "Kernel Autoresearch for Open-Ended Model Discovery",
+        "description": "Kernaut discovers reusable kernel programs through coding agents, PSD-preserving construction contracts, and a quality-diversity archive.",
+        "author": [
+          { "@type": "Person", "name": "Richard C. Suwandi" },
+          { "@type": "Person", "name": "Feng Yin" },
+          { "@type": "Person", "name": "Kevin Murphy" }
+        ],
+        "url": "https://richardcsuwandi.github.io/papers/kernaut/",
+        "keywords": ["Kernaut", "kernel learning", "program synthesis", "Gaussian processes", "model discovery", "coding agents"]
+      }
+    </script>
+    <script defer src="assets/site.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch color theme">
+      <span aria-hidden="true" data-theme-icon>☾</span>
+    </button>
+    <main id="main">
+      <article>
+        <header class="d-title">
+          <p class="d-kicker">Preprint · 2026</p>
+          <h1 class="d-headline">Kernel Autoresearch for Open-Ended Model Discovery</h1>
+          <div class="badge-row title-badges">
+            <a class="github-code-badge" href="https://github.com/richardcsuwandi/kernaut" target="_blank" rel="noopener" aria-label="Code"
+              ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path
+                  fill="currentColor"
+                  d="M12 .297c-6.63 0-12 5.37-12 12 0 5.303 3.438 9.8 8.205 10.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
+                ></path></svg
+              ><span>Code</span></a
+            >
+            <a class="alphaxiv-link-badge" href="https://www.alphaxiv.org/abs/2610.kernel-autoresearch" target="_blank" rel="noopener" aria-label="alphaXiv"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 718.41 504.47" aria-hidden="true" focusable="false"><polygon fill="currentColor" points="591.15 258.54 718.41 385.73 663.72 440.28 536.57 313.62 591.15 258.54"></polygon><path fill="currentColor" d="M273.86.3c34.56-2.41,67.66 9.73,92.51 33.54l94.64 94.63-55.11 54.55-96.76-96.55c-16.02-12.7-37.67-12.1-53.19 1.11L54.62 288.82 0 234.23 204.76 29.57C223.12 13.31 249.27 2.02 273.86.3Z"></path><path fill="currentColor" d="M663.79 1.29l54.62 54.58-418.11 417.9c-114.43 95.94-263.57-53.49-167.05-167.52l160.46-160.33 54.62 54.58-157.88 157.77c-33.17 40.32 18.93 91.41 58.66 57.48L663.79 1.29Z"></path></svg><span>alphaXiv</span></a>
+            <a class="generic-badge" href="https://richardcsuwandi.github.io/kernaut/" target="_blank" rel="noopener" aria-label="Documentation"
+              ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  d="M10 14 21 3m0 0h-6m6 0v6M12 5H6a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-6"
+                /></svg
+              ><span>Documentation</span></a
+            >
+          </div>
+        </header>
+
+        <div class="d-byline">
+          <div class="byline-box">
+            <div class="byline-table">
+              <h3>Authors</h3>
+              <h3>Affiliations</h3>
+              <p class="byline-name"><span class="self-author">Richard C. Suwandi</span></p>
+              <p class="byline-aff">School of Artificial Intelligence, The Chinese University of Hong Kong, Shenzhen</p>
+              <p class="byline-name">Feng Yin</p>
+              <p class="byline-aff">School of Artificial Intelligence, The Chinese University of Hong Kong, Shenzhen</p>
+              <p class="byline-name">Kevin Murphy</p>
+              <p class="byline-aff">Department of Computer Science, University of British Columbia</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-article">
+          <nav class="paper-toc" aria-label="Table of contents">
+            <h3>Contents</h3>
+            <div><a href="#abstract">Abstract</a></div>
+            <div><a href="#framework">Kernel Autoresearch</a></div>
+            <ul>
+              <li><a href="#validity">Why numerical checks are not enough</a></li>
+            </ul>
+            <div><a href="#experiments">Experiments</a></div>
+            <ul>
+              <li><a href="#bbo">Black-box optimization</a></li>
+              <li><a href="#search-ablation">Does open-ended synthesis matter?</a></li>
+              <li><a href="#forecasting">Forecasting unseen greenhouse-gas records</a></li>
+              <li><a href="#science">Transfer to unseen mechanisms and patients</a></li>
+            </ul>
+            <div><a href="#dwf">From Discovery to Human Refinement</a></div>
+            <div><a href="#scope">Scope and Open Questions</a></div>
+            <div><a href="#citation">Citation</a></div>
+            <div><a href="#references">References</a></div>
+          </nav>
+
+          <div class="tldr-block">
+            <p class="tldr-text">
+              <strong>TL;DR.</strong> A fixed kernel library limits which models a search can discover. Kernaut uses coding agents and
+              validity-preserving contracts to discover reusable kernel programs that transfer to unseen tasks without further LLM calls.
+            </p>
+          </div>
+          <section id="abstract">
+            <h2>Abstract</h2>
+            <div class="abstract-copy">
+              <p>
+                Kernels encode the inductive bias of a wide range of machine learning models, yet automated kernel design faces a fundamental dilemma.
+                A fixed grammar of base kernels and operators guarantees validity but limits the search to structures expressible by those building
+                blocks. Conversely, unrestricted programs remove this limitation but no longer guarantee validity. In our stress tests, 22–58% of
+                LLM-generated kernels that pass numerical checks on random inputs fail when evaluated at different scales or dimensions. We propose
+                Kernel Autoresearch (Kernaut), which treats kernel design as open-ended model discovery. Coding agents write kernels as programs,
+                while construction contracts ensure that every accepted kernel is valid. A quality-diversity archive retains high-performing kernels
+                with distinct behaviors, and novelty screening steers agents toward functionally new candidates. Our experiments demonstrate that the
+                discovered kernels encode reusable inductive biases that generalize to unseen tasks. On held-out black-box optimization families, a
+                discovered kernel outperforms a meta-learned deep kernel trained on the same episodes. Furthermore, kernels discovered from ten
+                enzyme-kinetic rate laws achieve lower error than tuned ARD and deep kernel baselines on five unseen mechanisms. The discovered
+                kernels are also interpretable programs that human researchers can refine: a human-refined version of one further reduces the held-out
+                predictive error by 5.7% and optimization regret by 7.8%.
+              </p>
+            </div>
+          </section>
+
+          <section id="framework">
+            <h2>Kernel Autoresearch</h2>
+
+            <div class="content-block prose">
+              <p>
+                A kernel defines which inputs a model treats as similar. Kernaut searches for that similarity rule as a short Python program. The
+                agent writes a component, and trusted backend code assembles the kernel through a construction contract.
+              </p>
+            </div>
+            <div class="content-block figure-wide">
+              <figure class="media-figure">
+                <div class="media-frame">
+                  <a class="figure-link" href="assets/figures/pipeline_refinement.webp" title="Open full-size figure"
+                    ><img
+                      width="1827"
+                      height="632"
+                      src="assets/figures/pipeline_refinement.webp"
+                      alt="Kernaut pipeline: a coding agent proposes components, the backend checks and tunes them, and accepted kernels enter an archive that guides later proposals."
+                      loading="lazy"
+                      decoding="async"
+                  /></a>
+                </div>
+                <figcaption class="caption">
+                  <strong>Figure 1.</strong> The agent proposes, revises, and interprets kernel components. The backend executes, checks, tunes, and
+                  scores each proposal. Only programs that pass Tier 2 enter the archive.
+                </figcaption>
+              </figure>
+            </div>
+            <div class="content-block prose">
+              <p>The four contracts let agents write new feature maps and input transformations, as well as combine existing kernels:</p>
+            </div>
+            <div class="content-block prose">
+              <ul>
+                <li><strong>Feature map.</strong> Map each input to a vector. The interpreter takes the inner product of two vectors.</li>
+                <li>
+                  <strong>Spectral.</strong> Propose frequencies and raw weights. The interpreter squares the weights and combines cosine components.
+                </li>
+                <li><strong>Pullback.</strong> Transform each input, then apply a trusted library kernel to the transformed inputs.</li>
+                <li>
+                  <strong>Closure.</strong> Combine trusted or accepted kernels through sums, products, nonnegative scaling, and input
+                  transformations.
+                </li>
+              </ul>
+            </div>
+            <div class="content-block prose">
+              <p>
+                These constructions preserve positive semidefiniteness (PSD), the matrix property required of a kernel. Kernel validity also requires
+                finite outputs, correct dimensions, and pure components. A pure component depends only on its input and parameters, without batch
+                dependence, randomness, or state from earlier calls.
+              </p>
+            </div>
+            <div class="content-block prose">
+              <p>
+                Each discovery campaign runs a sequence of fresh agent sessions. A session either creates a program or revises an archived program. A
+                MAP-Elites archive retains strong candidates with distinct kernel behavior
+                <sup class="cite"><a href="#ref-mouret2015mapelites">1</a></sup
+                >. Archived examples and structured rejection reasons guide later proposals. Numerical fingerprints discourage candidates that behave
+                like known kernels.
+              </p>
+            </div>
+            <div class="content-block prose">
+              <p>
+                Search and parameter tuning use meta-training data only. Validation then selects one frozen program, which transfers to held-out tasks
+                without structural changes or further LLM calls. Each new Gaussian process (GP) fits only covariance amplitude and observation noise.
+              </p>
+            </div>
+            <h3 id="validity">Why numerical checks are not enough</h3>
+            <div class="content-block prose">
+              <p>
+                A covariance matrix can pass a numerical PSD test on one set of inputs and fail on another. In three unrestricted-program cohorts,
+                additional checks falsified 22–58% of the programs that passed the initial screen.
+              </p>
+            </div>
+            <div class="content-block figure-wide">
+              <figure class="media-figure">
+                <div class="media-frame">
+                  <a class="figure-link" href="assets/figures/stress_funnel.webp" title="Open full-size figure"
+                    ><img
+                      width="1359"
+                      height="432"
+                      src="assets/figures/stress_funnel.webp"
+                      alt="Stacked bars show 12 of 35, 18 of 31, and 8 of 37 initially passing unrestricted programs failing hidden checks. All five diagnostic canaries fail the hidden suite."
+                      loading="lazy"
+                      decoding="async"
+                  /></a>
+                </div>
+                <figcaption class="caption">
+                  <strong>Figure 2.</strong> Additional checks change input scales and dimensions. Green marks programs that survive those checks, not
+                  a proof of kernel validity. The four contract-based controls pass Tier 2.
+                </figcaption>
+              </figure>
+            </div>
+            <div class="content-block prose">
+              <p>
+                Kernaut checks execution and output shapes at Tier 0, sampled PSD at Tier 1, and construction plus consistency at Tier 2. The validity
+                argument comes from trusted assembly under the contract assumptions. Source inspection and behavioral checks test conformance, but do
+                not prove arbitrary Python programs pure over every input.
+              </p>
+            </div>
+          </section>
+
+          <section id="experiments">
+            <h2>Experiments</h2>
+
+            <div class="content-block prose">
+              <p>
+                The experiments test whether one frozen kernel structure transfers beyond the tasks used during search. We report the continuous
+                ranked probability score (CRPS), which evaluates a predictive distribution against the observed value
+                <sup class="cite"><a href="#ref-gneiting2007strictly">2</a></sup
+                >. Lower CRPS is better. Optimization uses regret AUC, the mean normalized simple regret over BO steps, where lower is also better.
+              </p>
+            </div>
+            <h3 id="bbo">Black-box optimization</h3>
+            <div class="content-block prose">
+              <p>
+                Search and validation use five function families. Testing uses 60 tasks from six other families, with dimensions up to eight. Each
+                predictive episode fits on 8 + 2d observations and scores 32 held-out points, where d is the input dimension. Each discovery campaign
+                has 12 runs.
+              </p>
+            </div>
+            <div class="content-block prose">
+              <p>
+                Validation selected the dual warp–fold (DWF) kernel in the first ensemble campaign. DWF combines a mild coordinate warp with a
+                triangular fold. Its test CRPS was 0.601, compared with 0.612 for fixed Matérn-5/2. Its regret AUC was 0.671, compared with 0.693.
+              </p>
+            </div>
+            <div class="content-block figure-wide">
+              <figure class="media-figure">
+                <div class="media-frame">
+                  <a class="figure-link" href="assets/figures/bbo_results.webp" title="Open full-size figure"
+                    ><img
+                      width="1361"
+                      height="605"
+                      src="assets/figures/bbo_results.webp"
+                      alt="Predictive CRPS and optimization regret AUC across kernels on 60 test tasks. DWF has mean CRPS 0.601 and regret AUC 0.671."
+                      loading="lazy"
+                      decoding="async"
+                  /></a>
+                </div>
+                <figcaption class="caption">
+                  <strong>Figure 3.</strong> Frozen kernels on 60 held-out BBO tasks. Lower is better on both axes. Bars show paired 95% bootstrap
+                  intervals for each method’s gap to DWF. Grid spectral mixture (GSM), input warping, and random Fourier feature (RFF) results average
+                  five fitted variants.
+                </figcaption>
+              </figure>
+            </div>
+            <div class="content-block prose">
+              <p>
+                Across seven ensemble campaigns, six selected kernels improved test CRPS over Matérn-5/2. All seven GPT-6 Astra campaigns improved
+                CRPS, with gains from 5.8% to 11.2%. These repeated campaigns measure discovery variability, whereas Figure 3 compares individual
+                frozen kernels.
+              </p>
+            </div>
+            <div class="content-block prose">
+              <p>
+                We also compared DWF with Few-Shot Bayesian Optimization (FSBO), which meta-learns a deep kernel
+                <sup class="cite"><a href="#ref-wistuba2021fsbo">3</a></sup
+                >. At the matched budget of 518 meta-training points, DWF had lower CRPS and regret AUC in both FSBO evaluation modes. At 64,000
+                points, neither FSBO mode differed significantly from DWF on either metric.
+              </p>
+            </div>
+            <div class="content-block figure-wide">
+              <figure class="media-figure">
+                <div class="media-frame">
+                  <a class="figure-link" href="assets/figures/fsbo_data_efficiency.webp" title="Open full-size figure"
+                    ><img
+                      width="1359"
+                      height="452"
+                      src="assets/figures/fsbo_data_efficiency.webp"
+                      alt="FSBO predictive CRPS and regret AUC at 518 and 64,000 meta-training points, compared with frozen DWF and Matérn-5/2."
+                      loading="lazy"
+                      decoding="async"
+                  /></a>
+                </div>
+                <figcaption class="caption">
+                  <strong>Figure 4.</strong> Two measured FSBO data budgets, evaluated on the same 60 test tasks. Native FSBO fine-tunes on each
+                  episode. Frozen FSBO refits only amplitude and noise. Lines connect measured budgets and do not establish a scaling law.
+                </figcaption>
+              </figure>
+            </div>
+            <h3 id="search-ablation">Does open-ended synthesis matter?</h3>
+            <div class="content-block prose">
+              <p>
+                The matched ablation keeps the proposer ensemble, run budget, and evaluation protocol fixed. Restricting agents to compositions of
+                library kernels raises test CRPS from 0.571 to 0.618. Full search wins 11 of 12 paired campaigns against this closure-only arm.
+              </p>
+            </div>
+            <div class="content-block prose">
+              <div class="table-scroll">
+                <table>
+                  <caption class="caption">
+                    <strong>Table 1.</strong>
+                    The first three rows report 12 seeded campaigns per arm. CRPS shows mean ± sample standard deviation. Greedy compositional search
+                    is one deterministic run. This ablation optimizes CRPS alone and uses different campaigns from Figure 3.
+                  </caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Search</th>
+                      <th scope="col">Test CRPS ↓</th>
+                      <th scope="col">Regret AUC ↓</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>Full archive</strong></td>
+                      <td><strong>0.571 ± 0.031</strong></td>
+                      <td>0.681</td>
+                    </tr>
+                    <tr>
+                      <td>Independent proposals</td>
+                      <td>0.617 ± 0.037</td>
+                      <td>0.695</td>
+                    </tr>
+                    <tr>
+                      <td>Closure grammar</td>
+                      <td>0.618 ± 0.021</td>
+                      <td>0.706</td>
+                    </tr>
+                    <tr>
+                      <td>Greedy compositional search</td>
+                      <td>0.625</td>
+                      <td>0.684</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="content-block prose">
+              <p>
+                Independent proposals also perform worse, but that arm changes feedback, novelty screening across runs, and candidate retention
+                together. The comparison measures their combined contribution, rather than isolating archive sharing.
+              </p>
+            </div>
+            <h3 id="forecasting">Forecasting unseen greenhouse-gas records</h3>
+            <div class="content-block prose">
+              <p>
+                Search uses monthly CO<sub>2</sub>, CH<sub>4</sub>, and N<sub>2</sub>O records. Testing uses SF<sub>6</sub>, CFC-12, and CFC-11, with
+                30 windows per record and a 48-month horizon. Some windows reverse time, so the benchmark includes both forecasting and backcasting.
+              </p>
+            </div>
+            <div class="content-block prose">
+              <p>
+                Validation selected a residual period-bank kernel. It combines a Matérn component, a smooth residual component, and low-frequency
+                sinusoids that act as slow trends. The selected kernel ranks first among 58 frozen candidates on both CFC records.
+              </p>
+            </div>
+            <div class="content-block figure-wide">
+              <figure class="media-figure">
+                <div class="media-frame">
+                  <a class="figure-link" href="assets/figures/ts_forecasts_main.webp" title="Open full-size figure"
+                    ><img
+                      width="1363"
+                      height="514"
+                      src="assets/figures/ts_forecasts_main.webp"
+                      alt="Median-CRPS windows for SF6, CFC-12, and CFC-11. The period-bank kernel tracks CFC turning behavior more closely than RBF. Both CFC panels run backward in time."
+                      loading="lazy"
+                      decoding="async"
+                  /></a>
+                </div>
+                <figcaption class="caption">
+                  <strong>Figure 5.</strong> The median-CRPS window for each held-out record. SF<sub>6</sub> is forecast forward. Both CFC panels are
+                  backcasts, with held-out observations before the dotted origin. Bands show 95% predictive intervals, and concentrations are in parts
+                  per trillion.
+                </figcaption>
+              </figure>
+            </div>
+            <div class="content-block prose">
+              <p>
+                Across all three records, the selected kernel has mean CRPS 0.091, compared with 0.120 for AutoGP, which infers a structure for each
+                window <sup class="cite"><a href="#ref-saad2023sequential">4</a></sup
+                >. The overall gain comes mainly from reversed windows. On forward windows, its CRPS is 0.034, behind CAKE at 0.022. Windows overlap
+                within each record, so these are not independent record-level replications.
+              </p>
+            </div>
+            <h3 id="science">Transfer to unseen mechanisms and patients</h3>
+            <div class="content-block prose">
+              <p>
+                <strong>Enzyme kinetics.</strong> ChemBench maps seven experimental variables to a reaction rate. Search uses ten rate-law families.
+                Testing uses 75 episodes from five unseen mechanisms, with 20 observations for fitting and 20 for scoring in each episode.
+              </p>
+            </div>
+            <div class="content-block prose">
+              <p>
+                The validation-selected frontier kernel reaches CRPS 0.312, compared with 0.567 for optimized automatic relevance determination (ARD).
+                ARD learns a separate lengthscale for each input. The selected kernel improves over all six learned references in paired tests with
+                Holm correction. The selected ensemble kernel is competitive with the strongest learned references.
+              </p>
+            </div>
+            <div class="content-block prose">
+              <p>
+                The frontier program combines substrate-response shapes inspired by the training mechanisms, local sensitivities, and modulation by
+                enzyme loading. These features provide an inspectable biochemical prior. Predictive transfer does not establish recovery of the true
+                mechanism.
+              </p>
+            </div>
+            <div class="content-block figure-wide">
+              <figure class="media-figure">
+                <div class="media-frame">
+                  <a class="figure-link" href="assets/figures/science_transfer.webp" title="Open full-size figure"
+                    ><img
+                      width="1392"
+                      height="575"
+                      src="assets/figures/science_transfer.webp"
+                      alt="Left: CRPS improvement across five held-out enzyme mechanisms for ensemble and frontier campaigns. Right: adult glucose prediction error falls as training episodes increase."
+                      loading="lazy"
+                      decoding="async"
+                  /></a>
+                </div>
+                <figcaption class="caption">
+                  <strong>Figure 6.</strong> Transfer beyond the search data. Left: positive CRPS reductions favor discovered kernels over fixed
+                  Matérn-5/2. Validation selects ensemble E1 and frontier F2. Right: adult glucose prediction after a 45-minute prefix. Lower
+                  normalized MSE is better.
+                </figcaption>
+              </figure>
+            </div>
+            <div class="content-block prose">
+              <p>
+                <strong>Glucose dynamics.</strong> GlucoseBench uses simulated patients. Search uses ten children, validation uses ten adolescents,
+                and testing uses ten adults. Each forecast uses only training episodes from its target patient, so the experiment tests transfer of
+                kernel structure.
+              </p>
+            </div>
+            <div class="content-block prose">
+              <p>
+                With two training episodes, the five discovered kernels reduce geometric-mean normalized MSE by 38–67% against relative-time
+                ARD-Matérn. With six episodes and a 45-minute prefix, the reductions narrow to 0–23%. The selected ensemble kernel encodes a delayed
+                meal response and a fading insulin effect.
+              </p>
+            </div>
+            <div class="content-block prose">
+              <p>
+                These glucose results describe ten simulated adults. Across 35 paired patient-level comparisons, no adjusted p-value falls below 0.05
+                after Holm correction. The reported percentage reductions therefore describe the observed benchmark means.
+              </p>
+            </div>
+          </section>
+
+          <section id="dwf">
+            <h2>From Discovery to Human Refinement</h2>
+
+            <div class="content-block prose">
+              <p>
+                DWF makes the discovered inductive bias visible. Its warp stays near the identity, while its fold bends the input geometry around a
+                peak at 0.513. The original program applies a Matérn kernel jointly to the warped and folded coordinates.
+              </p>
+            </div>
+            <div class="content-block figure-wide">
+              <figure class="media-figure">
+                <div class="media-frame">
+                  <a class="figure-link" href="assets/figures/dwf_geometry.webp" title="Open full-size figure"
+                    ><img
+                      width="1315"
+                      height="468"
+                      src="assets/figures/dwf_geometry.webp"
+                      alt="Left: near-identity warp and triangular fold peaking at 0.513. Right: covariance with an input at 0.2, comparing joint DWF and the additive refinement near the fold mirror at 0.825."
+                      loading="lazy"
+                      decoding="async"
+                  /></a>
+                </div>
+                <figcaption class="caption">
+                  <strong>Figure 7.</strong> The frozen DWF geometry. Joint DWF remains close to Matérn-5/2 at the fold mirror. The human-defined
+                  additive split increases covariance there to about 0.70, expressing a stronger preference for similar values at mirrored inputs.
+                </figcaption>
+              </figure>
+            </div>
+            <div class="content-block prose">
+              <p>
+                A human refinement gives the warp and fold separate kernels, then averages their covariances. This additive construction preserves PSD
+                and strengthens the reflection preference.
+              </p>
+            </div>
+            <div class="content-block prose">
+              <div class="table-scroll">
+                <table>
+                  <caption class="caption">
+                    <strong>Table 2.</strong>
+                    Validation-selected refinement on the same 60 held-out BBO tasks. CRPS decreases by 5.7%, and mean regret AUC decreases by 7.8%.
+                    The additive construction is a human refinement, not an agent discovery. The archived kernel has a different historical search
+                    budget.
+                  </caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Construction</th>
+                      <th scope="col">Test CRPS ↓</th>
+                      <th scope="col">Regret AUC ↓</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Archived DWF</td>
+                      <td>0.6011</td>
+                      <td>0.6712</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Additive branches, human refinement</strong></td>
+                      <td><strong>0.5668</strong></td>
+                      <td><strong>0.6190</strong></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="content-block prose">
+              <p>
+                The CRPS gain has a paired 95% bootstrap interval excluding zero. The regret reduction remains descriptive because the
+                multiplicity-adjusted test does not cross 0.05. Smoothing the fold preserves the CRPS gain, so the sharp corner is unnecessary for
+                this improvement.
+              </p>
+            </div>
+          </section>
+
+          <section id="scope">
+            <h2>Scope and Open Questions</h2>
+
+            <div class="content-block prose">
+              <p>
+                The experiments test small-data Gaussian processes. The BBO benchmark has at most eight observed dimensions, and the scientific
+                benchmarks use simulated mechanisms or patients. Performance on larger datasets, higher-dimensional tasks, and clinical data remains
+                untested here.
+              </p>
+            </div>
+            <div class="content-block prose">
+              <p>
+                Construction contracts establish validity under stated assumptions. They do not guarantee predictive accuracy, scientific novelty, or
+                causal interpretation. Kernel fingerprints compare behavior on finite probe sets, and dimension-specific code can still fail outside
+                its tested interface.
+              </p>
+            </div>
+            <div class="content-block prose">
+              <p>
+                The short programs make further tests concrete: anonymize scientific variable names to measure the proposer’s use of domain knowledge,
+                or add contracts for state-space and multi-output kernels. The
+                <a href="https://richardcsuwandi.github.io/kernaut/">documentation</a> describes the implementation and workflow.
+              </p>
+            </div>
+          </section>
+
+          <section id="citation">
+            <div class="citation-head">
+              <h2>Citation</h2>
+              <button class="copy-button" type="button" data-copy-bibtex>Copy BibTeX</button>
+            </div>
+            <pre><code data-bibtex>@misc{suwandi2026kernaut,
+  title={Kernel Autoresearch for Open-Ended Model Discovery},
+  author={Suwandi, Richard Cornelius and Yin, Feng and Murphy, Kevin},
+  year={2026},
+  url={https://www.alphaxiv.org/abs/2610.kernel-autoresearch},
+  note={Preprint}
+}</code></pre>
+          </section>
+        </div>
+
+        <section class="appendix-section">
+          <h3 id="references" class="appendix-label">References</h3>
+          <ol class="references-list">
+            <li id="ref-mouret2015mapelites">
+              <span class="title">Illuminating Search Spaces by Mapping Elites</span><br />Mouret, J.-B. and Clune, J., 2015. arXiv:1504.04909.
+            </li>
+            <li id="ref-gneiting2007strictly">
+              <span class="title">Strictly Proper Scoring Rules, Prediction, and Estimation</span><br />Gneiting, T. and Raftery, A. E., 2007. Journal
+              of the American Statistical Association, 102(477), 359–378.
+            </li>
+            <li id="ref-wistuba2021fsbo">
+              <span class="title">Few-Shot Bayesian Optimization with Deep Kernel Surrogates</span><br />Wistuba, M. and Grabocka, J., 2021.
+              International Conference on Learning Representations.
+            </li>
+            <li id="ref-saad2023sequential">
+              <span class="title">Sequential Monte Carlo Learning for Time Series Structure Discovery</span><br />Saad, F. A., Patton, B. J., Hoffman,
+              M. D., Saurous, R. A. and Mansinghka, V. K., 2023. Proceedings of the 40th International Conference on Machine Learning, PMLR 202.
+            </li>
+          </ol>
+        </section>
+      </article>
+    </main>
+    <footer class="site-footer">
+      <div class="container">
+        <p>© 2026 <a href="https://richardcsuwandi.github.io/">Richard C. Suwandi</a></p>
+      </div>
+    </footer>
+  </body>
+</html>
