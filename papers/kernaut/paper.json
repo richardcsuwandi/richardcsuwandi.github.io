@@ -51,6 +51,28 @@
   "abstract": "Kernels encode the inductive bias of a wide range of machine learning models, yet automated kernel design faces a fundamental dilemma. A fixed grammar of base kernels and operators guarantees validity but limits the search to structures expressible by those building blocks. Conversely, unrestricted programs remove this limitation but no longer guarantee validity. In our stress tests, 22–58% of LLM-generated kernels that pass numerical checks on random inputs fail when evaluated at different scales or dimensions. We propose Kernel Autoresearch (Kernaut), which treats kernel design as open-ended model discovery. Coding agents write kernels as programs, while construction contracts ensure that every accepted kernel is valid. A quality-diversity archive retains high-performing kernels with distinct behaviors, and novelty screening steers agents toward functionally new candidates. Our experiments demonstrate that the discovered kernels encode reusable inductive biases that generalize to unseen tasks. On held-out black-box optimization families, a discovered kernel outperforms a meta-learned deep kernel trained on the same episodes. Furthermore, kernels discovered from ten enzyme-kinetic rate laws achieve lower error than tuned ARD and deep kernel baselines on five unseen mechanisms. The discovered kernels are also interpretable programs that human researchers can refine: a human-refined version of one further reduces the held-out predictive error by 5.7% and optimization regret by 7.8%.",
   "sections": [
     {
+      "id": "motivation",
+      "title": "Why Open-Ended Kernel Discovery",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Kernels decide which inputs a model treats as similar, so they set the inductive bias of Gaussian processes, support vector machines, and other kernel methods. The choice matters most when data are scarce. In Bayesian optimization, enzyme kinetics, and glucose forecasting, a handful of observations cannot wash out a poorly matched kernel, and the model is only as good as the assumptions it starts with."
+        },
+        {
+          "type": "paragraph",
+          "text": "Automated kernel design usually searches a fixed grammar. It starts from base kernels such as RBF and Matérn and combines them with sums and products, guided by greedy selection, Bayesian optimization, neural composition, or language models. A grammar guarantees that every candidate is valid, but it also limits the search to structures that the base kernels and operators can express."
+        },
+        {
+          "type": "paragraph",
+          "text": "The alternative is to let coding agents write kernels as programs, which removes that limit. It also removes the guarantee. An arbitrary program need not be symmetric and positive semidefinite, and a numerical check on sampled inputs cannot prove that it is. A kernel that fails on other scales or dimensions silently breaks the model built on it. The problem is to search an open space of kernel programs while keeping every accepted kernel valid."
+        },
+        {
+          "type": "paragraph",
+          "text": "Kernaut addresses this with construction contracts, described next. The agent writes only a component, and trusted backend code assembles the kernel with rules that preserve validity."
+        }
+      ]
+    },
+    {
       "id": "framework",
       "title": "Kernel Autoresearch",
       "blocks": [
@@ -136,6 +158,14 @@
             {
               "type": "paragraph",
               "text": "Validation selected the dual warp–fold (DWF) kernel in the first ensemble campaign. DWF combines a mild coordinate warp with a triangular fold. Its test CRPS was 0.601, compared with 0.612 for fixed Matérn-5/2. Its regret AUC was 0.671, compared with 0.693."
+            },
+            {
+              "type": "paragraph",
+              "text": "DWF is a representative discovery. It is not a sum or product of standard kernels. The agent wrote only the pointwise transform below, which warps each coordinate slightly and folds it around a mirror point, so values at mirrored inputs are encouraged to agree. The trusted interpreter applies a Matérn-5/2 kernel to the output, so validity follows from the pullback contract and not from the agent’s code. The section on human refinement analyzes its geometry."
+            },
+            {
+              "type": "html",
+              "html": "<pre><code>def transform_point(x, parameters):\n    x = np.asarray(x, dtype=float).ravel()\n    warp_rate = float(parameters[\"warp_rate\"])\n    fold_frequency = float(parameters[\"fold_frequency\"])\n    fold_phase = float(parameters[\"fold_phase\"])\n\n    # mild monotone warp of each coordinate\n    warp = (1.0 - np.exp(-warp_rate * x)) / (1.0 - np.exp(-warp_rate))\n\n    # triangular fold: mirrored inputs get similar values\n    fold = (1.0 / np.pi) * np.arcsin(\n        np.sin(np.pi * fold_frequency * x)\n    ) * np.sin(fold_phase)\n\n    return np.concatenate([warp, fold])</code></pre>"
             },
             {
               "type": "figure",
