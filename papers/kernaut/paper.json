@@ -56,7 +56,11 @@
       "blocks": [
         {
           "type": "paragraph",
-          "text": "Kernels decide which inputs a model treats as similar, so they set the inductive bias of Gaussian processes, support vector machines, and other kernel methods. The choice matters most when data are scarce. In Bayesian optimization, enzyme kinetics, and glucose forecasting, a handful of observations cannot wash out a poorly matched kernel, and the model is only as good as the assumptions it starts with."
+          "text": "Kernels encode the inductive bias of a wide range of machine learning (ML) models, from Gaussian processes (GPs) and support vector machines to kernel ridge regression and kernel two-sample tests. A kernel defines which inputs a model treats as similar, so it determines what the model can learn from data."
+        },
+        {
+          "type": "paragraph",
+          "text": "The choice of a kernel matters most when data are scarce. In Bayesian optimization (BO) and experimental design, where each evaluation is costly or time-consuming, we need models that predict well from only a few observations. With so little data, a poorly matched kernel cannot be corrected by more observations, and every later decision inherits its mistakes."
         },
         {
           "type": "paragraph",
@@ -64,11 +68,11 @@
         },
         {
           "type": "paragraph",
-          "text": "The alternative is to let coding agents write kernels as programs, which removes that limit. It also removes the guarantee. An arbitrary program need not be symmetric and positive semidefinite, and a numerical check on sampled inputs cannot prove that it is. A kernel that fails on other scales or dimensions silently breaks the model built on it. The problem is to search an open space of kernel programs while keeping every accepted kernel valid."
+          "text": "A natural alternative is to let coding agents write kernels as programs, which removes that limit. It also removes the guarantee. An arbitrary program need not be symmetric and positive semidefinite, and a numerical check on sampled inputs cannot prove that it is. A kernel that fails on other scales or dimensions silently breaks the model built on it. The problem is to search an open space of kernel programs while keeping every accepted kernel valid."
         },
         {
           "type": "paragraph",
-          "text": "Kernaut addresses this with construction contracts, described next. The agent writes only a component, and trusted backend code assembles the kernel with rules that preserve validity."
+          "text": "Kernaut (Kernel Autoresearch) addresses this with construction contracts. The agent writes only a component, and trusted backend code assembles the kernel with rules that preserve validity. The rest of this page describes the method, tests whether the discovered kernels transfer to tasks withheld from search, and examines what one of them encodes."
         }
       ]
     },
@@ -78,7 +82,7 @@
       "blocks": [
         {
           "type": "paragraph",
-          "text": "A kernel defines which inputs a model treats as similar. Kernaut searches for that similarity rule as a short Python program. The agent writes a component, and trusted backend code assembles the kernel through a construction contract."
+          "text": "Kernaut treats that similarity rule as a short Python program. The agent writes a component, and trusted backend code assembles the kernel through a construction contract."
         },
         {
           "type": "figure",
@@ -110,7 +114,7 @@
         },
         {
           "type": "paragraph",
-          "text": "Search and parameter tuning use meta-training data only. Validation then selects one frozen program, which transfers to held-out tasks without structural changes or further LLM calls. Each new Gaussian process (GP) fits only covariance amplitude and observation noise."
+          "text": "Search and parameter tuning use meta-training data only. Validation then selects one frozen program, which transfers to held-out tasks without structural changes or further LLM calls. Each new GP fits only covariance amplitude and observation noise."
         }
       ],
       "subsections": [
@@ -120,7 +124,7 @@
           "blocks": [
             {
               "type": "paragraph",
-              "text": "A covariance matrix can pass a numerical PSD test on one set of inputs and fail on another. In three unrestricted-program cohorts, additional checks falsified 22–58% of the programs that passed the initial screen."
+              "text": "Contracts are needed because numerical checks alone cannot certify an unrestricted program. A covariance matrix can pass a PSD test on one set of inputs and fail on another. In three unrestricted-program cohorts, additional checks falsified 22–58% of the programs that passed the initial screen."
             },
             {
               "type": "figure",
@@ -143,7 +147,7 @@
       "blocks": [
         {
           "type": "paragraph",
-          "text": "The experiments test whether one frozen kernel structure transfers beyond the tasks used during search. We report the continuous ranked probability score (CRPS), which evaluates a predictive distribution against the observed value {{cite:gneiting2007strictly}}. Lower CRPS is better. Optimization uses regret AUC, the mean normalized simple regret over BO steps, where lower is also better."
+          "text": "The experiments ask three questions. Does one frozen kernel structure transfer beyond the tasks used during search? Does open-ended synthesis matter? What do the discovered kernels encode? We test transfer on black-box optimization, greenhouse-gas forecasting, enzyme kinetics, and glucose dynamics. We report the continuous ranked probability score (CRPS), which evaluates a predictive distribution against the observed value {{cite:gneiting2007strictly}}. Lower CRPS is better. Optimization uses regret AUC, the mean normalized simple regret over BO steps, where lower is also better."
         }
       ],
       "subsections": [
@@ -153,7 +157,7 @@
           "blocks": [
             {
               "type": "paragraph",
-              "text": "Search and validation use five function families. Testing uses 60 tasks from six other families, with dimensions up to eight. Each predictive episode fits on 8 + 2d observations and scores 32 held-out points, where d is the input dimension. Each discovery campaign has 12 runs."
+              "text": "We start with black-box optimization (BBO), the setting that motivated this work. Search and validation use five function families. Testing uses 60 tasks from six other families, with dimensions up to eight. Each predictive episode fits on 8 + 2d observations and scores 32 held-out points, where d is the input dimension. Each discovery campaign has 12 runs."
             },
             {
               "type": "paragraph",
@@ -197,7 +201,7 @@
           "blocks": [
             {
               "type": "paragraph",
-              "text": "The matched ablation keeps the proposer ensemble, run budget, and evaluation protocol fixed. Restricting agents to compositions of library kernels raises test CRPS from 0.571 to 0.618. Full search wins 11 of 12 paired campaigns against this closure-only arm."
+              "text": "Transfer alone does not show that open-ended programs are necessary. The matched ablation keeps the proposer ensemble, run budget, and evaluation protocol fixed. Restricting agents to compositions of library kernels raises test CRPS from 0.571 to 0.618. Full search wins 11 of 12 paired campaigns against this closure-only arm."
             },
             {
               "type": "table",
@@ -222,7 +226,7 @@
           "blocks": [
             {
               "type": "paragraph",
-              "text": "Search uses monthly CO<sub>2</sub>, CH<sub>4</sub>, and N<sub>2</sub>O records. Testing uses SF<sub>6</sub>, CFC-12, and CFC-11, with 30 windows per record and a 48-month horizon. Some windows reverse time, so the benchmark includes both forecasting and backcasting."
+              "text": "To move beyond optimization benchmarks, we forecast real greenhouse-gas records. Search uses monthly CO<sub>2</sub>, CH<sub>4</sub>, and N<sub>2</sub>O records. Testing uses SF<sub>6</sub>, CFC-12, and CFC-11, with 30 windows per record and a 48-month horizon. Some windows reverse time, so the benchmark includes both forecasting and backcasting."
             },
             {
               "type": "paragraph",
@@ -286,7 +290,7 @@
       "blocks": [
         {
           "type": "paragraph",
-          "text": "DWF makes the discovered inductive bias visible. Its warp stays near the identity, while its fold bends the input geometry around a peak at 0.513. The original program applies a Matérn kernel jointly to the warped and folded coordinates."
+          "text": "Across the four domains, frozen discovered kernels transfer to tasks withheld from search, although the glucose gains are descriptive and forward forecasting windows favor CAKE. Because the kernels are short programs, we can also read and refine them. We examine DWF, introduced in the black-box optimization results. Its warp stays near the identity, while its fold bends the input geometry around a peak at 0.513. The original program applies a Matérn kernel jointly to the warped and folded coordinates."
         },
         {
           "type": "figure",
