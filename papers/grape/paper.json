@@ -323,7 +323,7 @@
       "citation": "Kusupati, A., Bhatt, G., Rege, A., Wallingford, M., Sinha, A., Ramanujan, V., Howard-Snyder, W., Chen, K., Kakade, S., Jain, P. and Farhadi, A., 2022. Advances in Neural Information Processing Systems."
     }
   ],
-  "bibtex": "@article{suwandi2026grape,\n  title   = {GRAPE: Gradient Refinement and Progress-Aware Exploitation for\n             Query-Efficient High-Dimensional Bayesian Optimization},\n  author  = {Suwandi, Richard Cornelius and Yin, Feng},\n  journal = {Preprint},\n  year    = {2026}\n}",
+  "bibtex": "@misc{suwandi2026grape,\n  title         = {GRAPE: Gradient Refinement and Progress-Aware Exploitation for\n                   Query-Efficient High-Dimensional Bayesian Optimization},\n  author        = {Suwandi, Richard Cornelius and Yin, Feng},\n  year          = {2026},\n  eprint        = {2608.25116},\n  archivePrefix = {arXiv},\n  primaryClass  = {cs.LG}\n}",
   "credit": {
     "year": "2026",
     "name": "Richard Cornelius Suwandi",

@@ -219,7 +219,7 @@
   {% endif %}
   {% if entry.bibtex %}
     <div id="bibtex-{{ entry.key }}" class="publication-bibtex">
-      <pre id="bibtex-code-{{ entry.key }}"><code>{{ entry.bibtex | hideCustomBibtex | strip | escape }}</code></pre>
+      <pre id="bibtex-code-{{ entry.key }}"><code>{{ entry.bibtex | hideCustomBibtex | replace: "archiveprefix", "archivePrefix" | replace: "primaryclass", "primaryClass" | strip | escape }}</code></pre>
     </div>
   {% endif %}
 </div>

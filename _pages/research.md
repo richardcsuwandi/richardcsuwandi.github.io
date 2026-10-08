@@ -162,12 +162,12 @@ The same interest in computational structure extends beyond kernels. [FedMAvg](#
 
 ## Adaptive optimization
 
-When evaluations are expensive, uncertainty should help decide where to spend them. [GRAPE](#suwandi-grape) refines a local gradient posterior, then chooses a direction using expected progress conditional on descent. [Q-exponential Bayesian optimization](#suwandi2026qed) changes predictive tail shape while retaining tractable acquisition calculations. These methods address different parts of the decision process: allocating queries and adapting the predictive assumptions behind them.
+When evaluations are expensive, uncertainty should help decide where to spend them. [GRAPE](#suwandi2026grape) refines a local gradient posterior, then chooses a direction using expected progress conditional on descent. [Q-exponential Bayesian optimization](#suwandi2026qed) changes predictive tail shape while retaining tractable acquisition calculations. These methods address different parts of the decision process: allocating queries and adapting the predictive assumptions behind them.
 
 In ongoing work on **Multiverse Bayesian Optimization (MvBO)**, I study how a finite representation budget should be shared across complementary kernels whose features are fitted jointly. The question is which useful directions survive that budget and how the omitted structure affects optimization.
 
 <div class="publications research-pubs">
-{% bibliography --group_by none --query @*[key=suwandi-grape]* %}
+{% bibliography --group_by none --query @*[key=suwandi2026grape]* %}
 {% bibliography --group_by none --query @*[key=suwandi2026qed]* %}
 </div>
 

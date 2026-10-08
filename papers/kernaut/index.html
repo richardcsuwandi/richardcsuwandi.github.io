@@ -56,6 +56,7 @@
           <p class="d-kicker">Preprint · 2026</p>
           <h1 class="d-headline">Kernel Autoresearch for Open-Ended Model Discovery</h1>
           <div class="badge-row title-badges">
+            <a class="view-paper-badge view-paper-badge-arxiv" href="https://arxiv.org/abs/2610.10394" target="_blank" rel="noopener" aria-label="Paper"><svg class="venue-mark" aria-hidden="true" focusable="false" width="18" height="18" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.732 24.269"><g id="tiny"><path d="M573.549,280.916l2.266,2.738,6.674-7.84c.353-.47.52-.717.353-1.117a1.218,1.218,0,0,0-1.061-.748h0a.953.953,0,0,0-.712.262Z" transform="translate(-566.984 -271.548)" fill="#bdb9b4"/><path d="M579.525,282.225l-10.606-10.174a1.413,1.413,0,0,0-.834-.5,1.09,1.09,0,0,0-1.027.66c-.167.4-.047.681.319,1.206l8.44,10.242h0l-6.282,7.716a1.336,1.336,0,0,0-.323,1.3,1.114,1.114,0,0,0,1.04.69A.992.992,0,0,0,571,293l8.519-7.92A1.924,1.924,0,0,0,579.525,282.225Z" transform="translate(-566.984 -271.548)" fill="#b31b1b"/><path d="M584.32,293.912l-8.525-10.275,0,0L573.53,280.9l-1.389,1.254a2.063,2.063,0,0,0,0,2.965l10.812,10.419a.925.925,0,0,0,.742.282,1.039,1.039,0,0,0,.953-.667A1.261,1.261,0,0,0,584.32,293.912Z" transform="translate(-566.984 -271.548)" fill="#bdb9b4"/></g></svg><span>Paper</span></a>
             <a class="github-code-badge" href="https://github.com/richardcsuwandi/kernaut" target="_blank" rel="noopener" aria-label="Code"
               ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <path
@@ -64,7 +65,7 @@
                 ></path></svg
               ><span>Code</span></a
             >
-            <a class="alphaxiv-link-badge" href="https://www.alphaxiv.org/abs/2610.kernel-autoresearch" target="_blank" rel="noopener" aria-label="alphaXiv"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 718.41 504.47" aria-hidden="true" focusable="false"><polygon fill="currentColor" points="591.15 258.54 718.41 385.73 663.72 440.28 536.57 313.62 591.15 258.54"></polygon><path fill="currentColor" d="M273.86.3c34.56-2.41,67.66 9.73,92.51 33.54l94.64 94.63-55.11 54.55-96.76-96.55c-16.02-12.7-37.67-12.1-53.19 1.11L54.62 288.82 0 234.23 204.76 29.57C223.12 13.31 249.27 2.02 273.86.3Z"></path><path fill="currentColor" d="M663.79 1.29l54.62 54.58-418.11 417.9c-114.43 95.94-263.57-53.49-167.05-167.52l160.46-160.33 54.62 54.58-157.88 157.77c-33.17 40.32 18.93 91.41 58.66 57.48L663.79 1.29Z"></path></svg><span>alphaXiv</span></a>
+            <a class="alphaxiv-link-badge" href="https://www.alphaxiv.org/abs/2610.10394" target="_blank" rel="noopener" aria-label="alphaXiv"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 718.41 504.47" aria-hidden="true" focusable="false"><polygon fill="currentColor" points="591.15 258.54 718.41 385.73 663.72 440.28 536.57 313.62 591.15 258.54"></polygon><path fill="currentColor" d="M273.86.3c34.56-2.41,67.66 9.73,92.51 33.54l94.64 94.63-55.11 54.55-96.76-96.55c-16.02-12.7-37.67-12.1-53.19 1.11L54.62 288.82 0 234.23 204.76 29.57C223.12 13.31 249.27 2.02 273.86.3Z"></path><path fill="currentColor" d="M663.79 1.29l54.62 54.58-418.11 417.9c-114.43 95.94-263.57-53.49-167.05-167.52l160.46-160.33 54.62 54.58-157.88 157.77c-33.17 40.32 18.93 91.41 58.66 57.48L663.79 1.29Z"></path></svg><span>alphaXiv</span></a>
             <a class="generic-badge" href="https://richardcsuwandi.github.io/kernaut/" target="_blank" rel="noopener" aria-label="Documentation"
               ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <path
@@ -109,7 +110,7 @@
               <li><a href="#science">Transfer to unseen mechanisms and patients</a></li>
             </ul>
             <div><a href="#dwf">From Discovery to Human Refinement</a></div>
-            <div><a href="#scope">Scope and Open Questions</a></div>
+            <div><a href="#scope">Scope and Future Work</a></div>
             <div><a href="#citation">Citation</a></div>
             <div><a href="#references">References</a></div>
           </nav>
@@ -552,27 +553,21 @@
           </section>
 
           <section id="scope">
-            <h2>Scope and Open Questions</h2>
+            <h2>Scope and Future Work</h2>
 
             <div class="content-block prose">
               <p>
-                The experiments test small-data Gaussian processes. The BBO benchmark has at most eight observed dimensions, and the scientific
-                benchmarks use simulated mechanisms or patients. Performance on larger datasets, higher-dimensional tasks, and clinical data remains
-                untested here.
+                The experiments test small-data Gaussian processes. The BBO benchmark has at most eight observed dimensions, and the scientific benchmarks use simulated mechanisms or patients. Natural next benchmarks include higher-dimensional, constrained, and mixed categorical and continuous optimization. Larger datasets are also within reach, because feature-map and spectral contracts produce explicit finite features that reduce exact inference from cubic to linear cost in the number of observations.
               </p>
             </div>
             <div class="content-block prose">
               <p>
-                Construction contracts establish validity under stated assumptions. They do not guarantee predictive accuracy, scientific novelty, or
-                causal interpretation. Kernel fingerprints compare behavior on finite probe sets, and dimension-specific code can still fail outside
-                its tested interface.
+                Each construction contract pairs a component interface with an assembly rule and a proof of validity, so new contracts widen the program space without changing the search loop. Candidates include multi-output kernels through intrinsic coregionalization, feature maps for sequences and graphs, continuous spectral measures, state-space kernels from linear ODEs, and recurrent feature maps over event histories such as meals and insulin doses. The last two would let the agent propose mechanistic structure for glucose and enzyme data directly.
               </p>
             </div>
             <div class="content-block prose">
               <p>
-                The short programs make further tests concrete: anonymize scientific variable names to measure the proposer’s use of domain knowledge,
-                or add contracts for state-space and multi-output kernels. The
-                <a href="https://richardcsuwandi.github.io/kernaut/">documentation</a> describes the implementation and workflow.
+                Two further tests would sharpen what the agent contributes. Anonymizing scientific variable names measures how much the proposer relies on domain knowledge, and an adversarial proposer probes whether search-time fitness and held-out performance can diverge. Discovered kernels also apply beyond Gaussian processes, for example to kernel ridge regression or to semantic kernels for language model uncertainty. The <a href="https://richardcsuwandi.github.io/kernaut/">documentation</a> describes the implementation and workflow.
               </p>
             </div>
           </section>
@@ -583,11 +578,12 @@
               <button class="copy-button" type="button" data-copy-bibtex>Copy BibTeX</button>
             </div>
             <pre><code data-bibtex>@misc{suwandi2026kernaut,
-  title={Kernel Autoresearch for Open-Ended Model Discovery},
-  author={Suwandi, Richard Cornelius and Yin, Feng and Murphy, Kevin},
-  year={2026},
-  url={https://www.alphaxiv.org/abs/2610.kernel-autoresearch},
-  note={Preprint}
+  title         = {Kernel Autoresearch for Open-Ended Model Discovery},
+  author        = {Suwandi, Richard Cornelius and Yin, Feng and Murphy, Kevin},
+  year          = {2026},
+  eprint        = {2610.10394},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.LG}
 }</code></pre>
           </section>
         </div>

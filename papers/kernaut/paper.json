@@ -25,6 +25,13 @@
   ],
   "badges": [
     {
+      "kind": "paper",
+      "label": "Paper",
+      "url": "https://arxiv.org/abs/2610.10394",
+      "venue_style": "arxiv",
+      "icon": "/assets/img/venues/arxiv.svg"
+    },
+    {
       "kind": "code",
       "label": "Code",
       "url": "https://github.com/richardcsuwandi/kernaut"
@@ -32,7 +39,7 @@
     {
       "kind": "alphaxiv",
       "label": "alphaXiv",
-      "url": "https://www.alphaxiv.org/abs/2610.kernel-autoresearch"
+      "url": "https://www.alphaxiv.org/abs/2610.10394"
     },
     {
       "kind": "other",
@@ -279,19 +286,19 @@
     },
     {
       "id": "scope",
-      "title": "Scope and Open Questions",
+      "title": "Scope and Future Work",
       "blocks": [
         {
           "type": "paragraph",
-          "text": "The experiments test small-data Gaussian processes. The BBO benchmark has at most eight observed dimensions, and the scientific benchmarks use simulated mechanisms or patients. Performance on larger datasets, higher-dimensional tasks, and clinical data remains untested here."
+          "text": "The experiments test small-data Gaussian processes. The BBO benchmark has at most eight observed dimensions, and the scientific benchmarks use simulated mechanisms or patients. Natural next benchmarks include higher-dimensional, constrained, and mixed categorical and continuous optimization. Larger datasets are also within reach, because feature-map and spectral contracts produce explicit finite features that reduce exact inference from cubic to linear cost in the number of observations."
         },
         {
           "type": "paragraph",
-          "text": "Construction contracts establish validity under stated assumptions. They do not guarantee predictive accuracy, scientific novelty, or causal interpretation. Kernel fingerprints compare behavior on finite probe sets, and dimension-specific code can still fail outside its tested interface."
+          "text": "Each construction contract pairs a component interface with an assembly rule and a proof of validity, so new contracts widen the program space without changing the search loop. Candidates include multi-output kernels through intrinsic coregionalization, feature maps for sequences and graphs, continuous spectral measures, state-space kernels from linear ODEs, and recurrent feature maps over event histories such as meals and insulin doses. The last two would let the agent propose mechanistic structure for glucose and enzyme data directly."
         },
         {
           "type": "paragraph",
-          "text": "The short programs make further tests concrete: anonymize scientific variable names to measure the proposer’s use of domain knowledge, or add contracts for state-space and multi-output kernels. The <a href=\"https://richardcsuwandi.github.io/kernaut/\">documentation</a> describes the implementation and workflow."
+          "text": "Two further tests would sharpen what the agent contributes. Anonymizing scientific variable names measures how much the proposer relies on domain knowledge, and an adversarial proposer probes whether search-time fitness and held-out performance can diverge. Discovered kernels also apply beyond Gaussian processes, for example to kernel ridge regression or to semantic kernels for language model uncertainty. The <a href=\"https://richardcsuwandi.github.io/kernaut/\">documentation</a> describes the implementation and workflow."
         }
       ]
     }
@@ -318,7 +325,7 @@
       "citation": "Saad, F. A., Patton, B. J., Hoffman, M. D., Saurous, R. A. and Mansinghka, V. K., 2023. Proceedings of the 40th International Conference on Machine Learning, PMLR 202."
     }
   ],
-  "bibtex": "@misc{suwandi2026kernaut,\n  title={Kernel Autoresearch for Open-Ended Model Discovery},\n  author={Suwandi, Richard Cornelius and Yin, Feng and Murphy, Kevin},\n  year={2026},\n  note={Preprint}\n}",
+  "bibtex": "@misc{suwandi2026kernaut,\n  title         = {Kernel Autoresearch for Open-Ended Model Discovery},\n  author        = {Suwandi, Richard Cornelius and Yin, Feng and Murphy, Kevin},\n  year          = {2026},\n  eprint        = {2610.10394},\n  archivePrefix = {arXiv},\n  primaryClass  = {cs.LG}\n}",
   "credit": {
     "year": "2026",
     "name": "Richard C. Suwandi",
