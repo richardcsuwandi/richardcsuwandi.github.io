@@ -17,6 +17,15 @@
   forks: 3
   category: "Bayesian Optimization"
 
+- name: "Kernaut"
+  repo: "richardcsuwandi/kernaut"
+  url: "https://github.com/richardcsuwandi/kernaut"
+  description: "Kernel autoresearch for open-ended model discovery"
+  language: "Python"
+  stars: 6
+  forks: 0
+  category: "Bayesian Optimization"
+
 - name: "PlugBO"
   repo: "richardcsuwandi/plugbo"
   url: "https://github.com/richardcsuwandi/plugbo"
