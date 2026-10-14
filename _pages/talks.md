@@ -105,7 +105,7 @@ nav_order: 4
 <div class="blog-post-card-horizontal talk-card mb-4"{% if talk.id %} id="{{ talk.id }}"{% endif %}>
   <div class="post-date">{{ talk.sort_date | date: '%b %-d, %Y' }}</div>
   <div class="talk-card-body">
-    {% if talk.poster or talk.slides %}
+    {% if talk.poster or talk.slides or talk.recording %}
     <div class="post-tags-left">
       {% if talk.slides %}
         {% if talk.slides_kind == "image" %}
@@ -119,6 +119,9 @@ nav_order: 4
       {% endif %}
       {% if talk.poster %}
         <a href="{{ '/assets/pdf/' | append: talk.poster | relative_url }}" target="_blank" rel="noopener noreferrer" class="tag-link">Poster</a>
+      {% endif %}
+      {% if talk.recording %}
+        <a href="{{ talk.recording }}" target="_blank" rel="noopener noreferrer" class="tag-link">Recording</a>
       {% endif %}
     </div>
     {% endif %}

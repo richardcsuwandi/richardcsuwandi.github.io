@@ -1,6 +1,13 @@
 # Talks, posters, and slides
 # Used by: _pages/talks.md
 
+- date: "October 14, 2026"
+  sort_date: 2026-10-14
+  title: "Kernel Autoresearch for Open-Ended Model Discovery"
+  venue: '<a href="https://sites.google.com/view/oneworldml" target="_blank" rel="noopener noreferrer">One World Seminar on Mathematics of Machine Learning</a> (Virtual)'
+  slides: oneworldml2026_slides.pdf
+  recording: https://youtu.be/bqBzxbpH97s
+
 - date: "September 1, 2026"
   sort_date: 2026-09-01
   title: "Sift: A Private Local AI Copilot for Searching, Understanding, and Organizing Your Files"
