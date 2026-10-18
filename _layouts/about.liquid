@@ -20,48 +20,31 @@
   </head>
 
   <!-- Body -->
-  <body class="{% if site.navbar_fixed %}fixed-top-nav{% endif %} {% unless site.footer_fixed %}sticky-bottom-footer{% endunless %}">
+  <body class="profile-page {% if site.navbar_fixed %}fixed-top-nav{% endif %} {% unless site.footer_fixed %}sticky-bottom-footer{% endunless %}">
     <!-- Header -->
     {% include header.liquid %}
 
-    <!-- Wide Content Container -->
-    <div class="wide-about-container mt-5" role="main">
-      <div class="post">
-  <header class="post-header">
-    <h1 class="post-title">
-      {% if site.title == 'blank' %}
-        <span class="font-weight-black">{{ site.first_name }}</span> {{ site.middle_name }}
-        {{ site.last_name }}
-      {% else %}
-        {{ site.title }}
-      {% endif %}
-    </h1>
-    <p class="desc">{{ page.subtitle }}</p>
-  </header>
-
-  <article>
-    {% if page.profile %}
-      <div class="profile float-{% if page.profile.align == 'left' %}left{% else %}right{% endif %}">
+    <!-- Profile layout: sticky sidebar on the left, sections on the right -->
+    <div class="wide-about-container profile-layout mt-5" role="main">
+      <aside class="profile-sidebar" aria-label="Profile">
         {% if page.profile.image %}
           {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
-          {% if page.profile.image_circular %}
-            {% assign profile_image_class = 'img-fluid z-depth-1 rounded-circle profile-photo' %}
-          {% else %}
-            {% assign profile_image_class = 'img-fluid z-depth-1
-      rounded profile-photo' %}
-          {% endif %}
-          {% capture sizes %}(min-width: {{site.max_width}}) {{ site.max_width | minus: 30 | times: 0.3}}px, (min-width: 576px)
-      30vw, 95vw"{% endcapture %}
           <div class="profile-photo-wrap">
-          {%
-            include figure.liquid loading="eager" path=profile_image_path class=profile_image_class sizes=sizes alt=page.profile.image
-            cache_bust=true
-          %}
+            {%
+              include figure.liquid loading="eager" path=profile_image_path class="img-fluid profile-photo" sizes="(min-width: 992px) 240px, 220px"
+              alt=site.title cache_bust=true
+            %}
           </div>
         {% endif %}
-        {% if page.profile.more_info %}
-          <div class="more-info">{{ page.profile.more_info }}</div>
-        {% endif %}
+
+        <div class="profile-id">
+          <h1 class="profile-name">{{ site.first_name }} {{ site.middle_name }} {{ site.last_name }}</h1>
+          <p class="profile-role">
+            {{ page.profile.role }}
+            {% if page.profile.affiliation %}<br>{{ page.profile.affiliation }}{% endif %}
+          </p>
+        </div>
+
         <div class="about-contact">
           <div class="profile-actions" role="group" aria-label="Contact and curriculum vitae">
             <a class="profile-action" href="mailto:{{ site.email }}">
@@ -76,123 +59,155 @@
             </a>
           </div>
         </div>
-      </div>
-    {% endif %}
 
-    <div class="clearfix">{{ content }}</div>
+        {% if page.social %}
+          <div class="profile-social">{% include social.liquid hide_email=true %}</div>
+        {% endif %}
 
-    <!-- News -->
-    {% if page.news and site.announcements.enabled %}
-      <h2>News</h2>
-      {% include news.liquid limit=true %}
-    {% endif %}
+        {% if page.profile.location %}
+          <ul class="profile-meta">
+            <li>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.1-7-11.5a7 7 0 0 1 14 0C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+              <span>{{ page.profile.location }}</span>
+            </li>
+          </ul>
+        {% endif %}
 
-    <!-- Selected papers -->
-    {% if page.selected_papers %}
-      <h2>
-        <a href="{{ '/research/' | relative_url }}" style="color: inherit">Research</a>
-      </h2>
-      <div
-        class="about-scroll about-research-scroll"
-        id="research-list"
-        tabindex="0"
-        role="region"
-        aria-label="Selected research papers"
-      >
-        {% include selected_papers.liquid %}
-      </div>
-      <p class="about-view-all"><a href="{{ '/research/' | relative_url }}">View all research &rarr;</a></p>
-    {% endif %}
+        <nav class="profile-toc" aria-label="On this page">
+          <a href="#about">About</a>
+          {% if page.news and site.announcements.enabled %}<a href="#news">News</a>{% endif %}
+          {% if page.selected_papers %}<a href="#research">Research</a>{% endif %}
+          {% if site.data.opensource %}<a href="#projects">Projects</a>{% endif %}
+          {% if site.latest_posts.enabled %}<a href="#writing">Writing</a>{% endif %}
+        </nav>
+      </aside>
 
-    <!-- Open-Source Contributions Section -->
-    {% if site.data.opensource %}
-      <h2>Projects</h2>
-      <div
-        class="about-scroll about-projects-scroll"
-        id="projects-list"
-        tabindex="0"
-        role="region"
-        aria-label="Open source projects"
-      >
-        <div class="opensource-grid">
-          {% for item in site.data.opensource %}
-            {% include opensource_repo.liquid item=item %}
-          {% endfor %}
-        </div>
-      </div>
-    {% endif %}
-    <!-- End Open-Source Contributions Section -->
+      <article class="profile-main">
+        <!-- About -->
+        <section id="about" class="profile-section">
+          <div class="profile-lead">{{ content }}</div>
 
-    <!-- Latest posts -->
-    {% if site.latest_posts.enabled %}
-      <h2>
-        <a href="{{ '/blog/' | relative_url }}" style="color: inherit">Latest Blog Posts</a>
-      </h2>
-      {% include latest_posts.liquid %}
-    {% endif %}
+          {% if page.background %}
+            <h3 class="profile-subhead">Background</h3>
+            <ul class="background-list">
+              {% for item in page.background %}
+                <li>
+                  <span class="background-logo">
+                    {% if item.logo %}<img src="{{ '/assets/img/logos/' | append: item.logo | relative_url }}" alt="" width="40" height="40" loading="lazy">{% endif %}
+                  </span>
+                  <div class="background-body">
+                    <div class="background-head">
+                      {% if item.url %}<a class="background-org" href="{{ item.url }}" target="_blank" rel="noopener noreferrer">{{ item.org }}</a>{% else %}<span class="background-org">{{ item.org }}</span>{% endif %}
+                      <span class="background-role">{{ item.role }}</span>
+                    </div>
+                    <div class="background-what">{{ item.what }}</div>
+                  </div>
+                  <span class="background-when">{{ item.when }}</span>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
 
-    <!-- Media Coverage Section -->
-    {% comment %}
-    {% if site.data.media %}
-      <h2>Media Coverage</h2>
-      <div class="media-grid">
-        {% for item in site.data.media %}
-        <a href="{{ item.url }}" class="media-card" target="_blank" rel="noopener noreferrer">
-          <img src="{{ '/assets/img/media/' | append: item.logo | relative_url }}" alt="{{ item.alt }}" class="media-logo">
-        </a>
-        {% endfor %}
-      </div>
-    {% endif %}
-    {% endcomment %}
-    <!-- End Media Coverage Section -->
+          {% if page.questions %}
+            <h3 class="profile-subhead">Questions I'm thinking about</h3>
+            <div class="question-cards">
+              {% for q in page.questions %}
+                <div class="question-card">
+                  {% if q.glyph == 'adapt' %}
+                    <svg viewBox="0 0 44 22" aria-hidden="true"><path class="q-accent" d="M2 16 C10 4,18 4,22 11 S34 20,42 6"/><path class="q-faint q-dash" d="M2 16 C10 10,18 12,22 14 S34 14,42 12"/></svg>
+                  {% elsif q.glyph == 'discover' %}
+                    <svg viewBox="0 0 44 22" aria-hidden="true"><circle class="q-fill" cx="8" cy="11" r="4"/><circle class="q-accent" cx="24" cy="5" r="3.5"/><circle class="q-accent" cx="24" cy="17" r="3.5"/><circle class="q-faint" cx="38" cy="11" r="3.5"/><path class="q-faint" d="M12 9.5 20.5 6M12 12.5l8.5 3.5M27.5 6l7 3.5"/></svg>
+                  {% else %}
+                    <svg viewBox="0 0 44 22" aria-hidden="true"><rect class="q-bar" x="6" y="11" width="6" height="7" rx="1.5"/><rect class="q-bar" x="16" y="7" width="6" height="11" rx="1.5"/><rect class="q-bar" x="26" y="9" width="6" height="9" rx="1.5"/><rect class="q-fill" x="36" y="3" width="6" height="15" rx="1.5"/></svg>
+                  {% endif %}
+                  <p>{{ q.text }}</p>
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
 
-    <!-- Honors & Awards Section -->
-    <!-- <h2>Honors & Awards</h2>
-    <div class="services-flex">
-      <div class="services-col awards-scrollable">
-        {% for award in site.data.awards %}
-        <div class="service-card">
-          <div class="service-meta">{{ award.year }}</div>
-          <button class="service-main award-expand-btn">{{ award.title }}</button>
-          <div class="award-description">{{ award.description }}</div>
-        </div>
-        {% endfor %}
-      </div>
-    </div> -->
-    <!-- End Honors & Awards Section -->
+          {% if page.closing %}
+            <p class="profile-closing">{{ page.closing | markdownify | remove: '<p>' | remove: '</p>' | strip }}</p>
+          {% endif %}
+        </section>
 
-    <!-- Services Section -->
-    <!-- <h2>Services</h2>
-    <div class="services-flex">
-      Teaching Assistant Column
-      <div class="services-col">
-        <div class="services-header">
-          <span class="services-title">Teaching Assistant</span>
-        </div>
-        {% for teaching in site.data.services.teaching %}
-        <div class="service-card">
-          <div class="service-meta">{{ teaching.semester }}, {{ teaching.institution }}</div>
-          <div class="service-main"><a class="service-link" href="{{ teaching.url }}" target="_blank">{{ teaching.course }}</a></div>
-        </div>
-        {% endfor %}
-      </div>
-      Reviewer Column
-      <div class="services-col">
-        <div class="services-header">
-          <span class="services-title">Reviewer</span>
-        </div>
-        {% for review in site.data.services.reviewing %}
-        <div class="service-card">
-          <div class="service-main"><a class="service-link" href="{{ review.url }}" target="_blank">{{ review.name }}</a></div>
-        </div>
-        {% endfor %}
-      </div>
-    </div> -->
-    <!-- End Services Section -->
+        <!-- News -->
+        {% if page.news and site.announcements.enabled %}
+          <section id="news" class="profile-section">
+            <div class="section-head">
+              <h2>News</h2>
+              <a href="{{ '/news/' | relative_url }}">All news &rarr;</a>
+            </div>
+            <div class="news-highlights">
+              {% assign news_items = site.news | reverse %}
+              {% for item in news_items limit: page.news_limit %}
+                <div class="news-highlight">
+                  {% if item.tag %}<span class="news-highlight-tag">{{ item.tag }}</span>{% endif %}
+                  <div class="news-highlight-body">
+                    {% if item.inline %}
+                      {{ item.content | remove: '<p>' | remove: '</p>' | emojify }}
+                    {% else %}
+                      <a href="{{ item.url | relative_url }}">{{ item.title }}</a>
+                    {% endif %}
+                  </div>
+                  <time datetime="{{ item.date | date_to_xmlschema }}">{{ item.date | date: '%b %-d, %Y' }}</time>
+                </div>
+              {% endfor %}
+            </div>
+          </section>
+        {% endif %}
 
+        <!-- Selected research (reuses the paper cards from bib.liquid) -->
+        {% if page.selected_papers %}
+          <section id="research" class="profile-section">
+            <div class="section-head">
+              <h2>Selected research</h2>
+              <a href="{{ '/research/' | relative_url }}">All research &rarr;</a>
+            </div>
+            {% include selected_papers.liquid %}
+          </section>
+        {% endif %}
 
-  </article>
-</div>
+        <!-- Projects -->
+        {% if site.data.opensource %}
+          <section id="projects" class="profile-section">
+            <div class="section-head">
+              <h2>Projects</h2>
+              <a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener noreferrer">GitHub &rarr;</a>
+            </div>
+            <div class="opensource-grid">
+              {% for item in site.data.opensource limit: page.projects_limit %}
+                {% include opensource_repo.liquid item=item %}
+              {% endfor %}
+            </div>
+          </section>
+        {% endif %}
+
+        <!-- Writing -->
+        {% if site.latest_posts.enabled %}
+          <section id="writing" class="profile-section">
+            <div class="section-head">
+              <h2>Writing</h2>
+              <a href="{{ '/blog/' | relative_url }}">All posts &rarr;</a>
+            </div>
+            <div class="writing-list">
+              {% for post in site.posts limit: page.posts_limit %}
+                {% if post.redirect == blank %}{% assign post_href = post.url | relative_url %}{% elsif post.redirect contains '://' %}{% assign post_href = post.redirect %}{% else %}{% assign post_href = post.redirect | relative_url %}{% endif %}
+                <a class="writing-item" href="{{ post_href }}">
+                  <span class="writing-thumb">
+                    {% if post.thumbnail %}<img src="{{ post.thumbnail | relative_url }}" alt="" loading="lazy">{% endif %}
+                  </span>
+                  <span class="writing-text">
+                    <span class="writing-title">{{ post.title }}</span>
+                    {% if post.description %}<span class="writing-desc">{{ post.description }}</span>{% endif %}
+                  </span>
+                  <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%b %-d, %Y' }}</time>
+                </a>
+              {% endfor %}
+            </div>
+          </section>
+        {% endif %}
+      </article>
     </div>
 
     <!-- Footer -->
@@ -202,15 +217,7 @@
     <script src="{{ '/assets/js/navbar-scroll.js' | relative_url }}"></script>
     <script src="{{ '/assets/js/disclosures.js' | relative_url }}"></script>
     <script src="{{ '/assets/js/motion.js' | relative_url }}"></script>
-    <script>
-      // Fade the bottom edge of scroll boxes while more content sits below.
-      document.querySelectorAll('.about-scroll, .news-container').forEach(function (box) {
-        function update() { box.classList.toggle('has-more', box.scrollTop + box.clientHeight < box.scrollHeight - 4) }
-        box.addEventListener('scroll', update, { passive: true })
-        window.addEventListener('resize', update)
-        update()
-      })
-    </script>
+    <script src="{{ '/assets/js/profile-toc.js' | relative_url }}" defer></script>
 
     <!-- JavaScripts -->
     {% include scripts/jquery.liquid %}

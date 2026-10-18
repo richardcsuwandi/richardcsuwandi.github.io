@@ -6,7 +6,7 @@ title: Richard Cornelius Suwandi # the website title (if blank, full name will b
 first_name: Richard
 middle_name: Cornelius
 last_name: Suwandi
-email: richardsuwandi@link.cuhk.edu.cn
+email:
 description: >- # the ">" symbol means to ignore newlines until "footer_text:"
   PhD candidate at CUHK-Shenzhen working on scalable and adaptive learning for optimization and discovery.
 footer_text: >
@@ -331,6 +331,7 @@ enable_publication_badges:
 # Filter out certain bibtex entry keywords used internally from the bib output
 filtered_bibtex_keywords:
   [
+    home,
     abbr,
     abstract,
     additional_info,
@@ -423,7 +424,7 @@ enable_masonry: true # enables automatic project cards arrangement
 enable_math: true # enables math typesetting (uses MathJax)
 enable_tooltips: false # enables automatic tooltip links generated for each section titles on pages and posts
 enable_darkmode: true # enables switching between light/dark modes
-enable_navbar_social: true # enables displaying social links in the navbar on the about page
+enable_navbar_social: false # social links now sit in the homepage sidebar and the footer
 enable_project_categories: true # enables categorization of projects into multiple categories
 enable_medium_zoom: true # enables image zoom feature (as on medium.com)
 enable_progressbar: true # enables a horizontal progress bar linked to the vertical scroll position

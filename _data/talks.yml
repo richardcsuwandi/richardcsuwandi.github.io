@@ -1,11 +1,13 @@
 # Talks, posters, and slides
 # Used by: _pages/talks.md
+# thumbnail: a file in assets/img/talks/thumbs/, made with scripts/talk_thumbnail.sh
 
 - date: "October 14, 2026"
   sort_date: 2026-10-14
   title: "Kernel Autoresearch for Open-Ended Model Discovery"
   venue: '<a href="https://sites.google.com/view/oneworldml" target="_blank" rel="noopener noreferrer">One World Seminar on Mathematics of Machine Learning</a> (Virtual)'
   slides: oneworldml2026_slides.pdf
+  thumbnail: oneworldml2026.jpg
   recording: https://youtu.be/bqBzxbpH97s
 
 - date: "September 1, 2026"
@@ -13,6 +15,7 @@
   title: "Sift: A Private Local AI Copilot for Searching, Understanding, and Organizing Your Files"
   venue: "Qwen3.8 Show and Tell, co-organized by Qwen and Alibaba Cloud"
   slides: /talks/sift/
+  thumbnail: sift.jpg
   slides_kind: url
 
 - date: "May 7, 2026"
@@ -20,6 +23,7 @@
   title: "Breaking the Curse of Dimensionality in Gaussian Process Training With Zeroth-Order Adaptive Perturbation"
   venue: "51th IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP), Barcelona, Spain"
   slides: icassp2026_slides.pdf
+  thumbnail: icassp2026.jpg
   presentation: oral
 
 - date: "December 5, 2025"
@@ -27,6 +31,7 @@
   title: "Adaptive Kernel Design for Bayesian Optimization Is a Piece of CAKE with LLMs"
   venue: "39th Conference on Neural Information Processing Systems (NeurIPS), San Diego, United States"
   slides: neurips2025_slides.pdf
+  thumbnail: neurips2025.jpg
   poster: neurips2025_poster.pdf
 
 - date: "November 1, 2025"
@@ -35,6 +40,7 @@
   title: "Adaptive Kernel Design for Bayesian Optimization Is a Piece of CAKE with LLMs"
   venue: "Greater Bay Area Graduate Research Forum, Shenzhen, China"
   slides: gba2025_slides.pdf
+  thumbnail: gba2025.jpg
   presentation: oral
 
 - date: "July 20, 2025"
@@ -42,8 +48,8 @@
   id: doctoral-conference-2025
   title: "Sparsity-Aware Distributed Learning for Gaussian Processes with Linear Multiple Kernel"
   venue: "Doctoral Research and AI Innovation Conference, CUHK-Shenzhen, China"
-  slides: doctoral2025_slides.png
-  slides_kind: image
+  slides: doctoral2025_slides.pdf
+  thumbnail: doctoral2025.jpg
   award: "2ND PRIZE"
 
 - date: "July 5, 2022"
@@ -51,9 +57,11 @@
   title: "Gaussian Process Regression with Grid Spectral Mixture Kernel: Distributed Learning for Multidimensional Data"
   venue: "25th International Conference on Information Fusion (FUSION), Linköping, Sweden"
   slides: fusion2022_slides.pdf
+  thumbnail: fusion2022.jpg
 
 - date: "June 8, 2021"
   sort_date: 2021-06-08
   title: "Demystifying Model Averaging for Communication-Efficient Federated Matrix Factorization"
   venue: "46th IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP), Toronto, Canada (Virtual)"
   poster: poster_fedmf.pdf
+  thumbnail: icassp2021-poster.jpg

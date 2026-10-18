@@ -15,17 +15,9 @@
   aria-label="{{ include.item.name | default: include.item.repo }}"
   data-repo="{{ include.item.repo }}"
 >
-  <img
-    class="opensource-avatar"
-    src="https://github.com/{{ owner }}.png?size=80"
-    alt=""
-    width="40"
-    height="40"
-    loading="lazy"
-  >
   <div class="opensource-meta">
     <div class="opensource-title">
-      <span class="opensource-owner">{{ owner }}</span>/<span class="opensource-name">{{ repo_name }}</span>
+      <span class="opensource-owner">{{ owner }}/</span><wbr><span class="opensource-name">{{ repo_name }}</span>
     </div>
     {% if include.item.description %}
       <p class="opensource-description">{{ include.item.description }}</p>

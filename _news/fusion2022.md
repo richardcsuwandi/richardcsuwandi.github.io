@@ -1,6 +1,7 @@
 ---
 layout: post
 date: 2022-05-04 00:00:00-0000
+tag: Paper
 inline: true
 related_posts: false
 ---

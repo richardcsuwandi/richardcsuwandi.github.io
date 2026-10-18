@@ -1,0 +1,219 @@
+// ============================================================================
+// Paper cards (_layouts/bib.liquid), used on the homepage, research, and
+// publications pages. Text column next to the figure, buttons in one row,
+// so the card is only as tall as its content. Buttons keep their styles
+// from assets/css/blog.css.
+// ============================================================================
+
+.blog-post-card-horizontal.paper-card {
+  padding: 1.25rem 1.4rem;
+  min-height: 0;
+}
+
+.paper-card-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(170px, 30%, 270px);
+  gap: 1.75rem;
+  align-items: center;
+}
+
+.paper-card-main:not(:has(.paper-card-figure)) {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.paper-card-text {
+  display: grid;
+  gap: 0.45rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.blog-post-card-horizontal.paper-card .post-title-horizontal {
+  margin: 0 !important;
+  padding: 0;
+  border: 0 !important;
+  font-size: 1.35rem !important;
+  line-height: 1.3 !important;
+  letter-spacing: -0.01em;
+  text-wrap: pretty;
+}
+
+.blog-post-card-horizontal.paper-card .publication-authors {
+  margin: 0;
+  font-size: 0.97rem;
+  line-height: 1.5;
+}
+
+// Inline flow so the badge, venue, and year wrap like one sentence.
+.blog-post-card-horizontal.paper-card .paper-card-venue {
+  display: block;
+  margin: 0;
+  color: var(--global-text-color-light);
+  font-size: 0.92rem;
+  font-style: normal;
+  line-height: 1.5;
+
+  em {
+    color: inherit;
+    font-style: italic;
+  }
+
+  .presentation-badge {
+    margin-right: 0.4em;
+  }
+}
+
+.paper-card-sep {
+  margin: 0 0.1em 0 0.25em;
+  opacity: 0.6;
+}
+
+.paper-card-year {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+// One wrapping row of buttons instead of the old side column.
+.blog-post-card-horizontal.paper-card .paper-actions.post-tags-left {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  width: auto;
+  margin-top: 0.35rem;
+
+  .view-paper-badge,
+  .alphaxiv-link-badge,
+  .github-code-badge,
+  .x-thread-badge {
+    margin-top: 0;
+  }
+}
+
+.paper-card-figure {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+
+  .paper-thumbnail {
+    width: 100%;
+    max-height: 170px;
+    object-fit: contain;
+  }
+}
+
+.blog-post-card-horizontal.paper-card .publication-abstract,
+.blog-post-card-horizontal.paper-card .publication-bibtex {
+  margin-top: 1rem;
+}
+
+// Phones and narrow columns: figure on top, then the text.
+@media (max-width: 767.98px) {
+  .blog-post-card-horizontal.paper-card {
+    padding: 1rem 1.05rem;
+  }
+
+  .paper-card-main {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.9rem;
+  }
+
+  .paper-card-figure {
+    order: -1;
+
+    .paper-thumbnail {
+      max-height: 150px;
+    }
+  }
+
+  .blog-post-card-horizontal.paper-card .post-title-horizontal {
+    font-size: 1.15rem !important;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Talk cards (_pages/talks.md) use the same layout with a slide thumbnail.
+// ---------------------------------------------------------------------------
+
+.talk-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.35rem;
+}
+
+.talk-link-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.32rem 0.78rem;
+  border: 1px solid #d8d8d8;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #222222 !important;
+  font-size: 0.76rem;
+  font-weight: 500;
+  line-height: 1.2;
+  text-decoration: none !important;
+  white-space: nowrap;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+
+  svg {
+    width: 0.9rem;
+    height: 0.9rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .talk-play {
+    fill: currentColor;
+    stroke: none;
+  }
+
+  &:hover {
+    border-color: var(--global-theme-color);
+    transform: translateY(-1px);
+  }
+}
+
+.talk-link-badge-recording {
+  color: #c4302b !important;
+}
+
+html[data-theme='dark'] .talk-link-badge {
+  border-color: #3a3a3a;
+  background: #222222;
+  color: #f0f0f0 !important;
+}
+
+html[data-theme='dark'] .talk-link-badge-recording {
+  color: #ff7b72 !important;
+}
+
+// Slides are 16:9 (posters are taller), so the thumbnail sits in a fixed 16:9 frame.
+a.paper-card-figure.talk-thumb {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 1px solid var(--global-divider-color);
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.06);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+
+  .paper-thumbnail {
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    border-radius: 0;
+    object-fit: contain;
+  }
+
+  &:hover {
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.12);
+    transform: translateY(-1px);
+  }
+}

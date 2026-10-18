@@ -1,5 +1,14 @@
 <div class="publications selected-papers-list">
-  {% bibliography --group_by none --query @*[selected=true]* --sort_by year --order descending %}
+  {% comment %}
+    Homepage papers are the entries with home={n} in papers.bib, shown in order of n (1 to 6).
+    jekyll-scholar ignores a per-call sort, so each slot is its own query.
+  {% endcomment %}
+  {% bibliography --group_by none --query @*[home=1] %}
+  {% bibliography --group_by none --query @*[home=2] %}
+  {% bibliography --group_by none --query @*[home=3] %}
+  {% bibliography --group_by none --query @*[home=4] %}
+  {% bibliography --group_by none --query @*[home=5] %}
+  {% bibliography --group_by none --query @*[home=6] %}
 </div>
 
 <style>

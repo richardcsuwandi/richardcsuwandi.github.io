@@ -51,7 +51,11 @@ d-article {
   d-contents {
     align-self: start;
     grid-column: 1 / 4;
-    grid-row: auto / span 4;
+    /* Span the article so the sticky TOC can travel with the page.
+       min-height: 0 keeps that span from stretching the text rows. */
+    grid-row: 1 / span 1000;
+    min-height: 0;
+    height: fit-content;
     justify-self: end;
     margin-top: 0em;
     padding-left: 2em;

@@ -138,6 +138,41 @@ d-article {
     margin-bottom: 1.25rem;
   }
 
+  // MathJax wraps display math in a span that still holds the source
+  // newlines. At the article line-height those newlines become empty
+  // lines above and below the equation.
+  p:has(+ span > mjx-container[display="true"]) {
+    margin-bottom: 0;
+  }
+
+  span:has(> mjx-container[display="true"]) {
+    display: block;
+    line-height: 0;
+    margin: 0.65rem 0 0.85rem;
+  }
+
+  mjx-container[jax="CHTML"] {
+    line-height: 0;
+  }
+
+  mjx-container[display="true"] {
+    display: block;
+    margin: 0 !important;
+    overflow: visible;
+  }
+
+  mjx-container mjx-assistive-mml {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    width: 1px !important;
+    height: 1px !important;
+    overflow: hidden !important;
+    clip: rect(1px, 1px, 1px, 1px) !important;
+    padding: 0 !important;
+    border: 0 !important;
+  }
+
   blockquote {
     margin-top: 1.25rem;
     margin-bottom: 1.25rem;

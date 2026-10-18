@@ -1,126 +1,18 @@
 <header>
-  <!-- Compact navbar styles -->
-  <style>
-    #navbar {
-      padding: 0.25rem 0 !important;
-      min-height: auto !important;
-    }
-    
-    /* Override container max-width within navbar to match content width */
-    #navbar .container {
-      max-width: 75% !important;
-      padding: 0 2rem !important;
-    }
-
-    @media (max-width: 1199.98px) {
-      #navbar .container {
-        max-width: 95% !important;
-        padding: 0 1rem !important;
-      }
-    }
-
-    #navbar .navbar-nav .nav-link {
-      padding: 0.25rem 0.75rem !important;
-      margin: 0 !important;
-      font-weight: normal !important;
-    }
-
-    #navbar .navbar-brand.social {
-      margin: 0 !important;
-      padding: 0.25rem 0 !important;
-      min-width: 0;
-    }
-
-    #navbar .navbar-brand.social a {
-      margin: 0 0.25rem !important;
-    }
-
-    #navbar .toggle-container {
-      margin: 0 !important;
-      padding: 0.25rem 0 !important;
-      margin-top: -0.5rem !important;
-    }
-
-    #navbar .navbar-toggler {
-      padding: 0.5rem !important;
-      border: none !important;
-      min-width: 44px;
-      min-height: 44px;
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-
-    /* Collapse to hamburger before social icons + links overflow */
-    @media (max-width: 991.98px) {
-      #navbar .navbar-toggler {
-        display: flex !important;
-      }
-
-      #navbar {
-        background-color: var(--global-bg-color) !important;
-      }
-
-      #navbar .navbar-collapse {
-        width: 100%;
-        flex-basis: 100%;
-        padding: 0.35rem 0 0.6rem;
-        background-color: var(--global-bg-color);
-      }
-
-      #navbar .navbar-collapse.show {
-        border-top: 1px solid var(--global-divider-color);
-      }
-
-      #navbar .navbar-nav {
-        align-items: flex-end;
-        padding-top: 0.15rem;
-      }
-
-      #navbar .navbar-nav .nav-item {
-        width: 100%;
-      }
-
-      #navbar .navbar-nav .nav-link {
-        display: block;
-        padding: 0.7rem 0.5rem !important;
-      }
-
-      #navbar .toggle-container {
-        margin-top: 0 !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: flex-end;
-        width: 100%;
-        height: auto !important;
-      }
-
-      #navbar .toggle-container button {
-        margin: 0 !important;
-        padding: 0.5rem !important;
-      }
-    }
-
-    @media (max-width: 400px) {
-      #navbar .navbar-brand.social {
-        font-size: 1.35rem;
-      }
-
-      #navbar .navbar-brand.social a {
-        margin: 0 0.15rem !important;
-      }
-    }
-  </style>
   
   <!-- Nav Bar -->
   <nav id="navbar" class="navbar navbar-light navbar-expand-lg {% if site.navbar_fixed %}fixed-top{% else %}sticky-top{% endif %}" role="navigation">
     <div class="container">
   
-      {% if site.enable_navbar_social %}
-        <!-- Social Icons -->
-        <div class="navbar-brand social">{% include social.liquid primary_only=true %}</div>
-      {% endif %}
+      <!-- Wordmark (social icons now live in the homepage sidebar and the footer) -->
+      <a class="navbar-brand navbar-wordmark" href="{{ '/' | relative_url }}">
+        <svg class="navbar-wordmark-mark" viewBox="0 0 40 24" aria-hidden="true" focusable="false">
+          <path d="M1 15 C8 4,14 2,20 9 S32 20,39 7 L39 15 C32 26,26 20,20 16 S8 8,1 21 Z" fill="currentColor" opacity=".18"/>
+          <path d="M1 18 C8 6,14 5,20 12.5 S32 23,39 11" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+          <circle cx="10" cy="8.6" r="2.3" fill="currentColor"/><circle cx="20" cy="12.5" r="2.3" fill="currentColor"/><circle cx="31" cy="15.4" r="2.3" fill="currentColor"/>
+        </svg>
+        <span>{{ site.first_name }} {{ site.middle_name | slice: 0 }}. {{ site.last_name }}</span>
+      </a>
       <!-- Navbar Toggle -->
       <button
         class="navbar-toggler collapsed ml-auto"

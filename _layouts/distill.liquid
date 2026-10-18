@@ -2,12 +2,6 @@
 <html>
   <head>
     {% include head.liquid %}
-    {% if page.generalization_viz %}
-      <link rel="stylesheet" href="{{ '/assets/css/generalization-viz.css' | relative_url | bust_file_cache }}">
-    {% endif %}
-    {% if page.bayesian_viz %}
-      <link rel="stylesheet" href="{{ '/assets/css/bayesian-viz.css' | relative_url | bust_file_cache }}">
-    {% endif %}
     {% if site.enable_medium_zoom %}
       <!-- Medium Zoom JS -->
       <script
@@ -159,8 +153,8 @@
   <d-front-matter>
     <script async type="text/json">
       {
-            "title": "{{ page.title }}",
-            "description": "{{ page.description }}",
+            "title": {{ page.title | jsonify }},
+            "description": {{ page.description | jsonify }},
             "published": "{{ page.date | date: '%B %d, %Y' }}",
             "authors": [
               {% for author in page.authors %}
@@ -256,12 +250,6 @@
     {% endif %}
     {% if page.exploration_viz %}
       <script defer src="{{ '/assets/js/coherent-exploration-viz.js' | relative_url | bust_file_cache }}"></script>
-    {% endif %}
-    {% if page.generalization_viz %}
-      <script defer src="{{ '/assets/js/generalization-viz.js' | relative_url | bust_file_cache }}"></script>
-    {% endif %}
-    {% if page.bayesian_viz %}
-      <script defer src="{{ '/assets/js/bayesian-viz.js' | relative_url | bust_file_cache }}"></script>
     {% endif %}
   </body>
 </html>

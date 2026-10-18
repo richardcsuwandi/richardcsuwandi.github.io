@@ -36,6 +36,9 @@ $max-content-width: {{ site.max_width }};
 @import "discovery-separator";
 @import "coherent-exploration-viz";
 @import "blog-search";
+@import "navbar";
+@import "profile-sidebar";
+@import "paper-card";
 
 /* Landing section styles */
 .landing-section {
