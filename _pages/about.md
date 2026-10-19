@@ -41,7 +41,8 @@ background:
     logo: cuhk.png
     url: https://www.cuhk.edu.cn/en
     role: B.Sc. in Statistics
-    what: First-class honors, and where I got into ML/AI research
+    when: 2019
+    what: Graduated with first-class honors, and got into ML/AI research
 
 # Small cards under "Questions I'm thinking about". glyph is adapt, discover, or evaluate.
 questions:
