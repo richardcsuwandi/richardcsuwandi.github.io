@@ -16,25 +16,25 @@ background:
   - org: ByteDance (Douyin)
     logo: bytedance.png
     url: https://www.bytedance.com/en/
-    role: Research Intern
+    role: Research Scientist Intern
     when: 2026
     what: Generative recommendation and LLM4Rec
   - org: Dria
     logo: dria.jpg
     url: https://dria.co/
-    role: Research Intern
+    role: Research Scientist Intern
     when: 2025
     what: <a href="/projects/openevolve/">Evolutionary coding agents</a> for algorithm discovery and <a href="/projects/kai/">codebase optimization</a>
   - org: Huawei
     logo: huawei.png
     url: https://www.huawei.com/en
-    role: Research Intern
+    role: Research Engineer Intern
     when: 2025
     what: <a href="/papers/zap/">Scalable black-box optimization</a> for 5G systems
   - org: Shenzhen Research Institute of Big Data (SRIBD)
     logo: sribd.png
     url: https://www.sribd.cn/en
-    role: Research Assistant
+    role: Undergraduate Research Assistant
     when: 2021
     what: <a href="/papers/fedmavg/">Federated matrix factorization</a> for large-scale recommender systems
   - org: CUHK-Shenzhen
