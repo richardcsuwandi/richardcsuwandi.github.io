@@ -57,7 +57,7 @@ questions:
 closing: >-
   Besides research, I'm a dev ambassador at [Qwen](https://qwen.ai/) (Alibaba Cloud) and a community member at
   [AIXI Labs](https://www.aixi.uk/), and I previously led the AI4Science community at [alphaXiv](https://www.alphaxiv.org/).
-  If you want to talk about research or collaborations, feel free to [reach out](mailto:richardsuwandi@link.cuhk.edu.cn).
+  If you want to talk about research or collaborations, feel free to [reach out](mailto:rcsuwandi@gmail.com).
 
 news: true # latest news as cards
 news_limit: 3
