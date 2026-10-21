@@ -8,9 +8,9 @@ middle_name: Cornelius
 last_name: Suwandi
 email: rcsuwandi@gmail.com
 description: >- # the ">" symbol means to ignore newlines until "footer_text:"
-  PhD candidate at CUHK-Shenzhen working on scalable and adaptive learning for optimization and discovery.
+  PhD candidate at CUHK-Shenzhen working on adaptive inductive biases for data-efficient optimization and discovery.
 footer_text: >
-keywords: academic, personal, phd, richard cornelius suwandi, cuhk, cuhksz, machine learning, artificial intelligence, data science, bayesian optimization # add your own keywords or leave empty
+keywords: academic, personal, phd, richard cornelius suwandi, cuhk, cuhksz, machine learning, artificial intelligence, data science, bayesian optimization, inductive bias, open-ended model discovery, LLM-driven search # add your own keywords or leave empty
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
 icon: website-logo-black.PNG # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
 

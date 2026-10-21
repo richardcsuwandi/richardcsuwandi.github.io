@@ -3,7 +3,7 @@ layout: page
 permalink: /research/
 title: Research
 description: >-
-  My research focuses on **scalable and adaptive learning for optimization and discovery**: building models and decision rules that use limited data and computation effectively.
+  I develop **adaptive inductive biases for data-efficient optimization and discovery**: assumptions that can be learned from limited data, revised during search, and proposed by open-ended search.
 nav: true
 nav_order: 0
 ---
@@ -143,14 +143,14 @@ nav_order: 0
 **How can a learning system use limited data and computation effectively when its modeling assumptions may need to change?**
 {: .no-readmore }
 
-I study this question through **inductive bias**, the assumptions that make some patterns easier to learn than others. A kernel determines how observations inform predictions at unseen inputs, which relationships the model favors, and how uncertainty guides the next experiment. My work makes these choices [more affordable to learn](#scalable-learning), [adaptable to the task](#adaptive-optimization), and [open to discovery](#model-structure-and-discovery).
+I study this through **inductive bias**, the assumptions that make some patterns easier to learn than others. A kernel sets which inputs count as similar, how observations constrain unseen points, and where uncertainty sends the next experiment. Two flexible models can still disagree about a small dataset, because one makes the useful pattern cheap and the other makes it expensive. My PhD thesis makes these choices [efficient to fit](#efficient-learning), [revisable during optimization](#adaptive-optimization), and [open to discovery](#open-ended-model-discovery).
 {: .no-readmore }
 
-## Scalable learning
+## Efficient learning
 
-Useful models must be affordable to train. My [grid spectral mixture kernels](#suwandi2022gaussian) use structured representations for multidimensional covariance. [SLIM-KL](#suwandi2023gaussian) exploits sparse kernel weights to distribute fitting and reduce communication while keeping raw data local. [ZAP](#suwandi2026breaking) estimates a full hyperparameter gradient from two loss evaluations per iteration, making updates practical when direct gradients are expensive or unavailable.
+Fitting the bias has to stay cheap enough to leave budget for experiments. [Grid spectral mixture kernels](#suwandi2022gaussian) give multidimensional covariance a structured spectrum. [SLIM-KL](#suwandi2023gaussian) uses the sparsity of those weights so agents can fit a kernel while raw data stays local. [ZAP](#suwandi2026breaking) estimates a full hyperparameter gradient from two loss evaluations, however many parameters there are.
 
-The same interest in computational structure extends beyond kernels. [FedMAvg](#wang2021demystifying) combines alternating minimization and model averaging for communication-efficient federated matrix factorization. [MIMOMamba](#li2026mimomamba) uses structured state-space dynamics to capture interactions across channels while limiting parameter and computation costs.
+The same interest in computational structure shows up outside kernels. [FedMAvg](#wang2021demystifying) pairs alternating minimization with model averaging for communication-efficient federated matrix factorization. [MIMOMamba](#li2026mimomamba) uses a matrix polynomial so a state-space model can mix channels and still train in linear time.
 
 <div class="publications research-pubs">
 {% bibliography --group_by none --query @*[key=suwandi2022gaussian]* %}
@@ -162,25 +162,31 @@ The same interest in computational structure extends beyond kernels. [FedMAvg](#
 
 ## Adaptive optimization
 
-When evaluations are expensive, uncertainty should help decide where to spend them. [GRAPE](#suwandi2026grape) refines a local gradient posterior, then chooses a direction using expected progress conditional on descent. [Q-exponential Bayesian optimization](#suwandi2026qed) changes predictive tail shape while retaining tractable acquisition calculations. These methods address different parts of the decision process: allocating queries and adapting the predictive assumptions behind them.
+When each evaluation is expensive, the bias also chooses the next query. [GRAPE](#suwandi2026grape) first reduces uncertainty about a local gradient, then picks the direction with the largest expected decrease conditional on descent. The target is high-dimensional black-box search, including adversarial attacks and LLM prompt optimization, where a step that is almost sure to descend can still be too small to justify the query.
 
-In ongoing work on **Multiverse Bayesian Optimization (MvBO)**, I study how a finite representation budget should be shared across complementary kernels whose features are fitted jointly. The question is which useful directions survive that budget and how the omitted structure affects optimization.
+[Q-exponential Bayesian optimization](#suwandi2026qed) keeps a closed-form acquisition and uses a shape parameter to set how heavily large deviations are weighted. On beamformer and adaptive-filter tuning, the heavier tail improves the search under impulsive outliers.
+
+In ongoing work on **Multiverse Bayesian Optimization (MvBO)**, I study how a finite representation budget should be shared across complementary kernels whose features are fitted jointly. The question is which useful directions survive that budget, and how the structure left out changes later optimization.
 
 <div class="publications research-pubs">
 {% bibliography --group_by none --query @*[key=suwandi2026grape]* %}
 {% bibliography --group_by none --query @*[key=suwandi2026qed]* %}
 </div>
 
-## Model structure and discovery
+## Open-ended model discovery
 
-A useful modeling assumption may never be considered if it is difficult to express or find. [CAKE](#suwandi2025cake) makes kernel structure part of the optimization loop: a language model proposes and revises kernel compositions using task context and accumulated observations. Candidates are ranked through both statistical fit and the utility of the experiments they recommend.
+A search can only use an assumption it is able to propose. [CAKE](#suwandi2025cake) puts kernel structure inside the optimization loop. A language model proposes and revises compositions from the task and the data so far, and each candidate is ranked by fit and by the experiments it would recommend.
 
-[Kernel Autoresearch (Kernaut)](#suwandi2026kernaut) extends this an open-ended space by allowing coding agents to propose kernels as programs. I analyze what the resulting representations preserve, which relationships they favor, and whether they transfer to tasks withheld from search. The aim is to discover useful inductive biases and explain why they help.
+[Kernel Autoresearch (Kernaut)](#suwandi2026kernaut) treats kernel design as open-ended model discovery. Coding agents write kernels as programs. Construction contracts keep every accepted program a valid kernel, and a quality-diversity archive retains high-performing kernels whose behavior differs.
+
+Kernels found this way transfer to optimization, forecasting, and scientific tasks withheld from search, with no further language-model calls. I study what those programs preserve, which symmetries they favor, and when a bias found on one family of tasks still helps on another.
+
+Kernaut is the kernel case of a broader question I work on with the [AIDDA Institute](https://algorithmdiscovery.org/): open-ended algorithm and model discovery, where agents propose candidates and the result has to hold on problems the search did not see.
 
 <div class="publications research-pubs">
 {% bibliography --group_by none --query @*[key=suwandi2025cake]* %}
 {% bibliography --group_by none --query @*[key=suwandi2026kernaut]* %}
 </div>
 
-Across these areas, I combine algorithm design, mathematical analysis, and empirical evaluation to make learning and optimization more effective under practical constraints. If this overlaps with your interests, [email me](mailto:{{ site.email | encode_email }})!
+What a model treats as cheap to learn, how fast that preference can be fitted, and which alternatives search can propose, decide what limited data can teach. I combine algorithm design, mathematical analysis, and empirical evaluation. If this overlaps with your interests, [email me](mailto:{{ site.email | encode_email }})!
 {: .no-readmore }

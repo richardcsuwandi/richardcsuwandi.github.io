@@ -66,4 +66,4 @@ projects_limit: 6
 posts_limit: 4
 social: true
 ---
-I'm a **PhD candidate** at the [School of Artificial Intelligence, CUHK-Shenzhen](https://sai.cuhk.edu.cn/en/), advised by [Prof. Feng Yin](https://sai.cuhk.edu.cn/en/teacher/97) and [Prof. Tsung-Hui Chang](https://sai.cuhk.edu.cn/en/teacher/83). My research focuses on [scalable and adaptive learning for optimization and discovery](/research/). I also co-founded the [Institute for AI-Driven Discovery of Algorithms (AIDDA)](https://algorithmdiscovery.org/), a community and research network for AI-driven research systems.
+I'm a **PhD candidate** at the [School of Artificial Intelligence, CUHK-Shenzhen](https://sai.cuhk.edu.cn/en/), advised by [Prof. Feng Yin](https://sai.cuhk.edu.cn/en/teacher/97) and [Prof. Tsung-Hui Chang](https://sai.cuhk.edu.cn/en/teacher/83). My research develops [adaptive inductive biases for data-efficient optimization and discovery](/research/). I also co-founded the [Institute for AI-Driven Discovery of Algorithms (AIDDA)](https://algorithmdiscovery.org/), a community and research network for AI-driven research systems.
