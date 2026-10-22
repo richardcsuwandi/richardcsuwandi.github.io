@@ -4,12 +4,11 @@ title: About
 permalink: /
 subtitle: AI PhD Candidate at CUHK-Shenzhen, Co-founder of AIDDA Institute
 
-# Sidebar. Name, email, and social links come from _config.yml.
 profile:
+  align: right
   image: profile_headshot.jpg
-  role: PhD Candidate, CUHK-Shenzhen
-  affiliation: Co-founder, AIDDA Institute
-  location:
+  image_circular: false # crops the image to make it circular
+  more_info:
 
 # "Background" list under the intro, newest first. `what` may contain HTML links. Logos live in assets/img/logos.
 background:
@@ -40,8 +39,8 @@ background:
   - org: CUHK-Shenzhen
     logo: cuhk.png
     url: https://www.cuhk.edu.cn/en
-    role: B.Sc. in Statistics
-    when: 2019
+    role: B.Sc. in Statistics (with concentration in Data-Science)
+    when: 2019-2023
     what: Graduated with first-class honors, and got into ML/AI research
 
 # Small cards under "Questions I'm thinking about". glyph is adapt, discover, or evaluate.
@@ -53,17 +52,27 @@ questions:
   - glyph: evaluate
     text: How do we evaluate AI research systems on real problems and improve them from feedback?
 
+# Small card under the photo. Community roles outside the PhD. Logos live in assets/img/logos.
+community:
+  - org: Qwen (Alibaba Cloud)
+    logo: qwen.png
+    url: https://qwen.ai/
+    role: Dev ambassador
+  - org: AIXI Labs
+    logo: aixi.png
+    url: https://www.aixi.uk/
+    role: Community member
+  - org: alphaXiv
+    logo: alphaxiv.svg
+    url: https://www.alphaxiv.org/
+    role: Former AI4Science community lead
+
 # One line under the question cards (Markdown).
 closing: >-
-  Besides research, I'm a dev ambassador at [Qwen](https://qwen.ai/) (Alibaba Cloud) and a community member at
-  [AIXI Labs](https://www.aixi.uk/), and I previously led the AI4Science community at [alphaXiv](https://www.alphaxiv.org/).
   If you want to talk about research or collaborations, feel free to [reach out](mailto:rcsuwandi@gmail.com).
 
-news: true # latest news as cards
-news_limit: 3
-selected_papers: true # papers with home={n} in papers.bib, in order of n
-projects_limit: 6
-posts_limit: 4
-social: true
+news: true # includes a list of news items
+selected_papers: true # includes a list of papers marked as "selected={true}"
+social: true # includes social icons at the bottom of the page
 ---
 I'm a **PhD candidate** at the [School of Artificial Intelligence, CUHK-Shenzhen](https://sai.cuhk.edu.cn/en/), advised by [Prof. Feng Yin](https://sai.cuhk.edu.cn/en/teacher/97) and [Prof. Tsung-Hui Chang](https://sai.cuhk.edu.cn/en/teacher/83). My research develops [adaptive inductive biases for data-efficient optimization and discovery](/research/). I also co-founded the [Institute for AI-Driven Discovery of Algorithms (AIDDA)](https://algorithmdiscovery.org/), a community and research network for AI-driven research systems.

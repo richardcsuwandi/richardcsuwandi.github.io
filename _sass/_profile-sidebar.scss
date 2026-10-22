@@ -233,6 +233,11 @@
   text-transform: uppercase;
 }
 
+// Sits beside the floated photo on the one-panel layout instead of running under it.
+.background-section {
+  display: flow-root;
+}
+
 .background-list {
   display: grid;
   margin: 0;
@@ -337,8 +342,8 @@ a.background-org:hover {
 
   p {
     margin: 0;
-    font-size: 0.9rem;
-    line-height: 1.5;
+    font-size: 1.05rem;
+    line-height: 1.55;
   }
 
   svg {
@@ -375,8 +380,8 @@ a.background-org:hover {
 
 .profile-closing {
   margin: 1.4rem 0 0;
-  color: var(--global-text-color-light);
-  font-size: 0.95rem;
+  font-size: 1.1rem;
+  line-height: 1.65;
 }
 
 // News highlights
