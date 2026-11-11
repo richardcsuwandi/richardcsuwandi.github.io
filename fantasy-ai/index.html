@@ -264,6 +264,25 @@
         position: absolute;
         transform: translate(-50%, -50%);
         width: clamp(80px, 23%, 145px);
+        border-radius: 12px;
+      }
+      .position.drop-target {
+        outline: 2px dashed var(--mint);
+        outline-offset: 6px;
+      }
+      .position.drop-over {
+        outline-style: solid;
+        background: #b6ffcc30;
+      }
+      .position.drop-blocked {
+        outline: 2px solid #ffcead;
+        outline-offset: 6px;
+      }
+      [draggable="true"] .avatar {
+        cursor: grab;
+      }
+      .drag-source {
+        opacity: 0.55;
       }
       .pick {
         position: relative;
@@ -349,9 +368,6 @@
         font-size: 13px;
         font-weight: 950;
       }
-      .pick.empty {
-        cursor: default;
-      }
       .pick.empty .avatar {
         border: 1.5px dashed #fff;
         background: #00482c50;
@@ -362,6 +378,12 @@
       }
       .pick.empty .caption {
         background: #00482cc7;
+      }
+      .pick.empty:hover .avatar,
+      .pick.empty:focus-visible .avatar {
+        background: var(--mint);
+        border-color: var(--mint);
+        color: var(--plum);
       }
       .pitch-footer {
         display: flex;
@@ -376,6 +398,14 @@
       }
       .pitch-footer .actions {
         justify-content: flex-end;
+      }
+      .drag-hint {
+        display: none;
+      }
+      @media (any-pointer: fine) {
+        .drag-hint {
+          display: inline;
+        }
       }
       .pool-head {
         padding: 18px 17px 12px;
@@ -579,6 +609,40 @@
         font-size: 22px;
         line-height: 1.2;
       }
+      #lineup-picker {
+        max-height: min(660px, 92dvh);
+        overflow: hidden;
+      }
+      #lineup-picker[open] {
+        display: flex;
+        flex-direction: column;
+      }
+      #picker-budget {
+        margin-bottom: 12px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+      #picker-search {
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--paper);
+        padding: 8px 10px;
+        color: var(--ink);
+      }
+      #picker-results {
+        min-height: 0;
+        margin-top: 10px;
+        padding: 4px;
+        overflow: auto;
+      }
+      #picker-results .person + .person {
+        margin-top: 4px;
+      }
+      #picker-results .person:hover {
+        background: #e7f8eb;
+        border-color: #b6e6c4;
+      }
       #export-canvas {
         display: block;
         width: 100%;
@@ -677,7 +741,10 @@
             <div id="positions"></div>
           </div>
           <div class="pitch-footer">
-            <p id="hint" aria-live="polite">Pick five people to export your lineup.</p>
+            <div>
+              <p>Click a slot to add or change a pick.<span class="drag-hint"> Drag people to move or swap them.</span></p>
+              <p id="hint" aria-live="polite"></p>
+            </div>
             <div class="actions"><button class="btn primary" id="share" disabled>Share lineup</button></div>
           </div>
         </section>
@@ -718,8 +785,21 @@
       </div>
       <a class="profile-link" id="pick-profile" target="_blank" rel="noopener noreferrer"></a>
       <div id="pick-actions" hidden>
-        <div class="actions"><button class="btn primary" id="captain">Make captain</button><button class="btn" id="remove">Remove pick</button></div>
+        <div class="actions">
+          <button class="btn primary" id="change-pick">Replace or swap</button>
+          <button class="btn" id="captain">Make captain</button>
+          <button class="btn" id="remove">Remove pick</button>
+        </div>
       </div>
+    </dialog>
+    <dialog id="lineup-picker" aria-labelledby="picker-title" aria-describedby="picker-budget">
+      <div class="dialog-head">
+        <h2 id="picker-title"></h2>
+        <form method="dialog"><button class="btn" aria-label="Close">×</button></form>
+      </div>
+      <p id="picker-budget"></p>
+      <input type="search" id="picker-search" placeholder="Search by name or handle" aria-label="Search picks" />
+      <div id="picker-results"></div>
     </dialog>
     <dialog id="share-dialog" aria-labelledby="share-title">
       <div class="dialog-head">
@@ -770,6 +850,12 @@
           "pick-organization",
           "pick-profile",
           "pick-actions",
+          "change-pick",
+          "lineup-picker",
+          "picker-title",
+          "picker-budget",
+          "picker-search",
+          "picker-results",
           "captain",
           "remove",
           "share-dialog",
@@ -786,6 +872,8 @@
       let picks = Array(size).fill(null);
       let captain = null;
       let active = null;
+      let pickerIndex = null;
+      let draggedId = null;
 
       function avatar(person) {
         const face = document.createElement("span");
@@ -793,6 +881,7 @@
         face.setAttribute("aria-hidden", "true");
         const image = document.createElement("img");
         image.alt = "";
+        image.draggable = false;
         image.className = "profile-photo";
         image.src = person.photo;
         face.append(image);
@@ -811,6 +900,122 @@
       }
       function spent() {
         return picks.reduce((total, id) => total + (id === null ? 0 : people[id].price), 0);
+      }
+      function slotBudget(index) {
+        const current = picks[index];
+        const otherOpenSlots = picks.filter((id, slot) => id === null && slot !== index).length;
+        return budget - spent() + (current === null ? 0 : people[current].price) - 2 * otherOpenSlots;
+      }
+      function canPlace(id, index) {
+        return index >= 0 && picks[index] !== id && (picks.includes(id) || people[id].price <= slotBudget(index));
+      }
+      function placePick(id, index) {
+        if (!canPlace(id, index)) return false;
+        const from = picks.indexOf(id);
+        const previous = picks[index];
+        if (from !== -1) picks[from] = previous;
+        else if (captain === previous) captain = null;
+        picks[index] = id;
+        return true;
+      }
+      function matchesSearch(person, query) {
+        return person.name.toLowerCase().includes(query) || person.handle.toLowerCase().includes(query);
+      }
+      function showPicker(index) {
+        pickerIndex = index;
+        const current = picks[index];
+        elements["picker-title"].textContent = current === null ? "Add a pick" : `Replace ${people[current].name}`;
+        elements["picker-budget"].textContent = `Up to $${slotBudget(index)} for a new pick. You can also ${current === null ? "move" : "swap in"} someone from your lineup.`;
+        elements["picker-search"].value = "";
+        renderPicker();
+        elements["lineup-picker"].showModal();
+        elements["picker-search"].focus();
+      }
+      function renderPicker() {
+        const query = elements["picker-search"].value.trim().toLowerCase().replace(/^@/, "");
+        const candidates = people.filter((person) => matchesSearch(person, query) && canPlace(person.id, pickerIndex));
+        const results = elements["picker-results"];
+        results.replaceChildren();
+        for (const drafted of [true, false]) {
+          const group = candidates.filter((person) => picks.includes(person.id) === drafted);
+          if (!group.length) continue;
+          const heading = document.createElement("h3");
+          heading.className = "tier";
+          heading.textContent = drafted ? "Your lineup" : "Available in the draft pool";
+          results.append(heading);
+          for (const person of group) {
+            const choice = document.createElement("button");
+            choice.className = "person";
+            const name = document.createElement("span");
+            name.className = "person-name";
+            name.textContent = person.name;
+            const handle = document.createElement("small");
+            handle.className = "handle";
+            handle.textContent = `@${person.handle}`;
+            name.append(handle);
+            const action = document.createElement("span");
+            action.className = "price";
+            action.textContent = drafted ? (picks[pickerIndex] === null ? "Move" : "Swap") : `$${person.price}`;
+            choice.append(avatar(person), name, action);
+            choice.addEventListener("click", () => {
+              const index = pickerIndex;
+              if (!placePick(person.id, index)) return;
+              elements["lineup-picker"].close();
+              render({ focusIndex: index });
+            });
+            results.append(choice);
+          }
+        }
+        if (!candidates.length) {
+          const message = document.createElement("p");
+          message.className = "no-results";
+          message.textContent = "No available picks match your search.";
+          results.append(message);
+        }
+        results.scrollTop = 0;
+      }
+      function clearDrag() {
+        draggedId = null;
+        document.querySelector(".drag-source")?.classList.remove("drag-source");
+        for (const position of elements.positions.children) {
+          position.classList.remove("drop-target", "drop-over", "drop-blocked");
+        }
+      }
+      function enableDrag(node, id) {
+        node.draggable = true;
+        node.addEventListener("dragstart", (event) => {
+          if (event.target !== node) return;
+          draggedId = id;
+          event.dataTransfer.setData("text/plain", people[id].name);
+          event.dataTransfer.effectAllowed = "move";
+          node.classList.add("drag-source");
+          for (const [index, position] of [...elements.positions.children].entries()) {
+            position.classList.toggle("drop-target", canPlace(id, index));
+          }
+        });
+        node.addEventListener("dragend", clearDrag);
+      }
+      function enableDrop(position, index) {
+        position.addEventListener("dragover", (event) => {
+          if (draggedId === null || picks[index] === draggedId) return;
+          event.preventDefault();
+          event.dataTransfer.dropEffect = "move";
+          const allowed = canPlace(draggedId, index);
+          position.classList.toggle("drop-over", allowed);
+          position.classList.toggle("drop-blocked", !allowed);
+        });
+        position.addEventListener("dragleave", (event) => {
+          if (!position.contains(event.relatedTarget)) position.classList.remove("drop-over", "drop-blocked");
+        });
+        position.addEventListener("drop", (event) => {
+          if (draggedId === null) return;
+          event.preventDefault();
+          const id = draggedId;
+          clearDrag();
+          if (picks[index] === id) return;
+          if (placePick(id, index)) render({ focusIndex: index });
+          else elements.hint.textContent = `This slot has up to $${slotBudget(index)} for a new pick.`;
+        });
       }
       function showProfile(person) {
         active = person.id;
@@ -832,15 +1037,21 @@
             const pos = document.createElement("div");
             pos.className = "position";
             Object.assign(pos.style, { left: `${x}%`, top: `${y}%` });
-            if (id === null) {
-              pos.innerHTML = '<div class="pick empty"><span class="avatar" aria-hidden="true">+</span><span class="caption">Open slot</span></div>';
-              return pos;
-            }
-            const person = people[id];
+            enableDrop(pos, index);
             const pick = document.createElement("button");
             pick.className = "pick";
             pick.id = `slot-${index}`;
             pick.setAttribute("aria-haspopup", "dialog");
+            pos.append(pick);
+            if (id === null) {
+              pick.classList.add("empty");
+              pick.setAttribute("aria-label", `Add a pick to slot ${index + 1}`);
+              pick.innerHTML = '<span class="avatar" aria-hidden="true">+</span><span class="caption">Add pick</span>';
+              pick.addEventListener("click", () => showPicker(index));
+              return pos;
+            }
+            const person = people[id];
+            enableDrag(pick, id);
             pick.setAttribute("aria-label", `${person.name}, $${person.price}${captain === id ? ", captain" : ""}. Manage pick`);
             pick.append(avatar(person));
             if (captain === id) {
@@ -860,7 +1071,6 @@
             caption.append(person.name, price, handle);
             pick.append(caption);
             pick.addEventListener("click", () => showProfile(person));
-            pos.append(pick);
             return pos;
           })
         );
@@ -868,11 +1078,11 @@
       }
       function renderPool(focusId) {
         const query = elements.search.value.trim().toLowerCase().replace(/^@/, "");
-        const open = picks.filter((id) => id === null).length;
+        const openIndex = picks.indexOf(null);
         const nodes = [];
         for (const price of [5, 4, 3, 2]) {
           if (elements.tier.value && +elements.tier.value !== price) continue;
-          const group = people.filter((p) => p.price === price && (p.name.toLowerCase().includes(query) || p.handle.toLowerCase().includes(query)));
+          const group = people.filter((p) => p.price === price && matchesSearch(p, query));
           if (!group.length) continue;
           const header = document.createElement("div");
           header.className = "tier";
@@ -882,6 +1092,7 @@
             const selected = picks.includes(person.id);
             const row = document.createElement("div");
             row.className = selected ? "person selected" : "person";
+            enableDrag(row, person.id);
             const profile = document.createElement("button");
             profile.className = "person-profile";
             profile.id = `profile-${person.id}`;
@@ -901,13 +1112,13 @@
             const button = document.createElement("button");
             button.className = "add";
             button.id = `person-${person.id}`;
-            button.disabled = !selected && (open === 0 || spent() + person.price + 2 * (open - 1) > budget);
+            button.disabled = !selected && !canPlace(person.id, openIndex);
             button.setAttribute("aria-label", selected ? `Remove ${person.name}` : `Draft ${person.name} for $${person.price}`);
             button.title = selected ? "Remove pick" : "Draft pick";
             button.textContent = selected ? "✓" : "+";
             button.addEventListener("click", () => {
               if (selected) remove(person.id);
-              else picks[picks.indexOf(null)] = person.id;
+              else placePick(person.id, openIndex);
               render({ focusId: person.id });
             });
             profile.append(avatar(person), name);
@@ -940,18 +1151,12 @@
         elements.remaining.textContent = `$${budget - spent()}`;
         elements.clear.disabled = count === 0;
         elements.share.disabled = count !== size;
-        elements.hint.textContent =
-          count === 0
-            ? "Pick five people to export your lineup."
-            : count < size
-              ? `Pick ${size - count} more to export your lineup.`
-              : captain === null
-                ? "Select a pick on the pitch to name a captain."
-                : `Captain · ${people[captain].name}`;
+        elements.hint.textContent = captain === null ? "" : `Captain · ${people[captain].name}`;
         renderPitch(focusIndex);
         renderPool(focusId);
       }
       elements.search.addEventListener("input", () => renderPool());
+      elements["picker-search"].addEventListener("input", renderPicker);
       elements.tier.addEventListener("change", () => renderPool());
       elements.example.addEventListener("click", () => {
         picks = example.handles.map((handle) => people.find((person) => person.handle === handle).id);
@@ -970,6 +1175,12 @@
         captain = captain === active ? null : active;
         elements["pick-dialog"].close();
         render({ focusIndex: index });
+      });
+      elements["change-pick"].addEventListener("click", () => {
+        const index = picks.indexOf(active);
+        elements["pick-dialog"].close();
+        byId(`slot-${index}`).focus();
+        showPicker(index);
       });
       elements.remove.addEventListener("click", () => {
         const id = active;
