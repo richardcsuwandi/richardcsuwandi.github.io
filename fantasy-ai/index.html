@@ -433,15 +433,28 @@
       .person .avatar {
         --size: 32px;
       }
-      .person:hover:not(:disabled) {
+      .person:hover {
         background: var(--paper);
         border-color: var(--line);
       }
-      .person[aria-pressed="true"] {
+      .person.selected {
         background: #e7f8eb;
       }
-      .person:disabled {
-        opacity: 0.55;
+      .person-profile {
+        display: flex;
+        flex: 1;
+        align-items: center;
+        gap: 10px;
+        min-width: 0;
+        padding: 0;
+        border: 0;
+        border-radius: 4px;
+        background: transparent;
+        color: inherit;
+        text-align: left;
+      }
+      .person-profile:hover .person-name {
+        text-decoration: underline;
       }
       .person-name {
         font-size: 13px;
@@ -464,13 +477,44 @@
         place-items: center;
         background: #f0e7f4;
         border-radius: 50%;
-        width: 23px;
-        height: 23px;
+        flex: none;
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        border: 1px solid transparent;
         color: var(--plum);
         font-size: 16px;
       }
-      .person[aria-pressed="true"] .add {
+      .add:not(:disabled):hover {
+        border-color: var(--purple);
+      }
+      .add:disabled {
+        opacity: 0.45;
+      }
+      .person.selected .add {
         background: var(--mint);
+      }
+      .profile-summary {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin: 0 0 12px;
+      }
+      .profile-summary .avatar {
+        --size: 56px;
+      }
+      .profile-details {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 5px 12px;
+        margin: 0;
+      }
+      .profile-details dt {
+        color: var(--muted);
+      }
+      .profile-details dd {
+        margin: 0;
+        font-weight: 750;
       }
       .no-results {
         padding: 16px;
@@ -488,6 +532,23 @@
         margin-bottom: 14px;
         color: var(--purple);
         font-weight: 700;
+      }
+      .share-status {
+        margin-top: 12px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .share-status:empty {
+        display: none;
+      }
+      .composer-link {
+        display: inline-block;
+        margin-top: 6px;
+        color: var(--purple);
+        font-weight: 750;
+      }
+      .composer-link[hidden] {
+        display: none;
       }
       dialog {
         border: 1px solid var(--line);
@@ -639,19 +700,26 @@
           <div class="pool" id="pool"></div>
         </section>
       </div>
-      <p class="credit">
-        Original draft pool from the “Build Your AI Lab” graphic shared by @ChrisGPT. Photos and handles come from public X profiles. Prices use a
-        follower-count snapshot checked November 11, 2026. The 11 most-followed accounts cost $5. The next three groups of 11 cost $4, $3, and $2.
-        Ties go in alphabetical order by handle.
-      </p>
+      <p class="credit">Prices use a follower-count snapshot checked November 11, 2026.</p>
     </main>
     <dialog id="pick-dialog" aria-labelledby="pick-title">
       <div class="dialog-head">
         <h2 id="pick-title"></h2>
         <form method="dialog"><button class="btn" aria-label="Close">×</button></form>
       </div>
+      <div class="profile-summary">
+        <div id="pick-avatar"></div>
+        <dl class="profile-details">
+          <dt>Role</dt>
+          <dd id="pick-role"></dd>
+          <dt>Organization</dt>
+          <dd id="pick-organization"></dd>
+        </dl>
+      </div>
       <a class="profile-link" id="pick-profile" target="_blank" rel="noopener noreferrer"></a>
-      <div class="actions"><button class="btn primary" id="captain">Make captain</button><button class="btn" id="remove">Remove pick</button></div>
+      <div id="pick-actions" hidden>
+        <div class="actions"><button class="btn primary" id="captain">Make captain</button><button class="btn" id="remove">Remove pick</button></div>
+      </div>
     </dialog>
     <dialog id="share-dialog" aria-labelledby="share-title">
       <div class="dialog-head">
@@ -659,55 +727,107 @@
         <form method="dialog"><button class="btn" aria-label="Close">×</button></form>
       </div>
       <canvas id="export-canvas" width="1200" height="1200" role="img" aria-label="Lineup image preview"></canvas>
-      <button class="btn primary" id="download">Download PNG</button>
-      <p id="export-error" aria-live="polite"></p>
+      <div class="actions">
+        <button class="btn primary" id="share-x">Share on X</button>
+        <button class="btn" id="download">Download PNG</button>
+      </div>
+      <p class="share-status" id="share-status" aria-live="polite"></p>
+      <a class="composer-link" id="x-composer" target="_blank" rel="noopener noreferrer" hidden>Open X composer</a>
     </dialog>
     <script>
       const roster = [
-        { name: "Sam Altman", handle: "sama", followers: 6435194 },
-        { name: "Andrej Karpathy", handle: "karpathy", followers: 4442906 },
-        { name: "Demis Hassabis", handle: "demishassabis", followers: 1957470 },
-        { name: "Yann LeCun", handle: "ylecun", followers: 1363085 },
-        { name: "Fei-Fei Li", handle: "drfeifei", followers: 1096512 },
-        { name: "Greg Brockman", handle: "gdb", followers: 1089678 },
-        { name: "Mira Murati", handle: "miramurati", followers: 1033180 },
-        { name: "Thibault Sottiaux", handle: "thsottiaux", followers: 998335 },
-        { name: "Ilya Sutskever", handle: "ilyasut", followers: 939331 },
-        { name: "Dario Amodei", handle: "DarioAmodei", followers: 868981 },
-        { name: "Boris Cherny", handle: "bcherny", followers: 638930 },
-        { name: "Peter Steinberger", handle: "steipete", followers: 615342 },
-        { name: "Jim Fan", handle: "DrJimFan", followers: 604709 },
-        { name: "roon", handle: "tszzl", followers: 509399 },
-        { name: "Thariq Shihipar", handle: "trq212", followers: 402949 },
-        { name: "Logan Kilpatrick", handle: "OfficialLoganK", followers: 387742 },
-        { name: "Jeremy Howard", handle: "jeremyphoward", followers: 332763 },
-        { name: "poteto", handle: "poteto", followers: 280297 },
-        { name: "Simon Willison", handle: "simonw", followers: 252745 },
-        { name: "Riley Goodside", handle: "goodside", followers: 239656 },
-        { name: "swyx", handle: "swyx", followers: 212420 },
-        { name: "Cat Wu", handle: "_catwu", followers: 194672 },
-        { name: "Noam Brown", handle: "polynoamial", followers: 184517 },
-        { name: "Lydia Hallie", handle: "lydiahallie", followers: 181473 },
-        { name: "Chris Olah", handle: "ch402", followers: 165332 },
-        { name: "Alex Albert", handle: "alexalbert__", followers: 159236 },
-        { name: "Jack Clark", handle: "jackclarkSF", followers: 156518 },
-        { name: "Dan Shipper", handle: "danshipper", followers: 145523 },
-        { name: "Harrison Chase", handle: "hwchase17", followers: 139069 },
-        { name: "Percy Liang", handle: "percyliang", followers: 128996 },
-        { name: "Amanda Askell", handle: "AmandaAskell", followers: 115284 },
-        { name: "Nathan Lambert", handle: "natolambert", followers: 109589 },
-        { name: "Armin Ronacher", handle: "mitsuhiko", followers: 100230 },
-        { name: "Geoffrey Huntley", handle: "GeoffreyHuntley", followers: 91430 },
-        { name: "Arthur Mensch", handle: "arthurmensch", followers: 91163 },
-        { name: "John Schulman", handle: "johnschulman2", followers: 83804 },
-        { name: "Mario Zechner", handle: "badlogicgames", followers: 80663 },
-        { name: "Hamel Husain", handle: "HamelHusain", followers: 65608 },
-        { name: "Sholto Douglas", handle: "_sholtodouglas", followers: 65115 },
-        { name: "Aidan McLaughlin", handle: "aidan_mclau", followers: 49063 },
-        { name: "Tri Dao", handle: "tri_dao", followers: 46709 },
-        { name: "Linus Lee", handle: "thesephist", followers: 42848 },
-        { name: "Geoffrey Litt", handle: "geoffreylitt", followers: 26358 },
-        { name: "Erik Schluntz", handle: "ErikSchluntz", followers: 10556 },
+        { name: "Sam Altman", handle: "sama", followers: 6435194, role: "Co-founder and CEO", organization: "OpenAI" },
+        { name: "Andrej Karpathy", handle: "karpathy", followers: 4442906, role: "Pretraining researcher", organization: "Anthropic" },
+        { name: "Demis Hassabis", handle: "demishassabis", followers: 1957470, role: "Co-founder and Chair", organization: "Google DeepMind" },
+        { name: "Yann LeCun", handle: "ylecun", followers: 1363085, role: "Founder and Chair", organization: "AMI Labs" },
+        { name: "Fei-Fei Li", handle: "drfeifei", followers: 1096512, role: "Co-founder and CEO", organization: "World Labs" },
+        { name: "Greg Brockman", handle: "gdb", followers: 1089678, role: "Co-founder and President", organization: "OpenAI" },
+        { name: "Mira Murati", handle: "miramurati", followers: 1033180, role: "Founder and CEO", organization: "Thinking Machines Lab" },
+        { name: "Thibault Sottiaux", handle: "thsottiaux", followers: 998335, role: "Head of Core Products", organization: "OpenAI" },
+        { name: "Ilya Sutskever", handle: "ilyasut", followers: 939331, role: "Co-founder and CEO", organization: "Safe Superintelligence" },
+        { name: "Dario Amodei", handle: "DarioAmodei", followers: 868981, role: "Co-founder and CEO", organization: "Anthropic" },
+        { name: "Boris Cherny", handle: "bcherny", followers: 638930, role: "Claude Code creator", organization: "Anthropic" },
+        { name: "Peter Steinberger", handle: "steipete", followers: 615342, role: "OpenClaw creator", organization: "OpenAI" },
+        { name: "Jim Fan", handle: "DrJimFan", followers: 604709, role: "Robotics and AI researcher", organization: "NVIDIA" },
+        { name: "roon", handle: "tszzl", followers: 509399, role: "Member of technical staff", organization: "OpenAI" },
+        { name: "Thariq Shihipar", handle: "trq212", followers: 402949, role: "Claude Code engineer", organization: "Anthropic (former)" },
+        {
+          name: "Logan Kilpatrick",
+          handle: "OfficialLoganK",
+          followers: 387742,
+          role: "Product lead, AI Studio and Gemini API",
+          organization: "Google DeepMind",
+        },
+        { name: "Jeremy Howard", handle: "jeremyphoward", followers: 332763, role: "Founding CEO", organization: "Answer.AI" },
+        { name: "poteto", handle: "poteto", followers: 280297, role: "Principal engineer, Grok Bot", organization: "SpaceX" },
+        {
+          name: "Simon Willison",
+          handle: "simonw",
+          followers: 252745,
+          role: "Datasette creator and independent developer",
+          organization: "Datasette",
+        },
+        {
+          name: "Riley Goodside",
+          handle: "goodside",
+          followers: 239656,
+          role: "Staff prompt engineer",
+          organization: "Google DeepMind (former)",
+        },
+        {
+          name: "swyx",
+          handle: "swyx",
+          followers: 212420,
+          role: "Co-founder of AI Engineer and co-host of Latent Space",
+          organization: "AI Engineer and Latent Space",
+        },
+        { name: "Cat Wu", handle: "_catwu", followers: 194672, role: "Product manager, Core Products", organization: "OpenAI" },
+        { name: "Noam Brown", handle: "polynoamial", followers: 184517, role: "Reasoning researcher", organization: "OpenAI" },
+        { name: "Lydia Hallie", handle: "lydiahallie", followers: 181473, role: "Claude Code engineer", organization: "Anthropic" },
+        { name: "Chris Olah", handle: "ch402", followers: 165332, role: "Co-founder and interpretability researcher", organization: "Anthropic" },
+        { name: "Alex Albert", handle: "alexalbert__", followers: 159236, role: "Research team", organization: "Anthropic" },
+        {
+          name: "Jack Clark",
+          handle: "jackclarkSF",
+          followers: 156518,
+          role: "Co-founder and head of the Anthropic Institute",
+          organization: "Anthropic",
+        },
+        { name: "Dan Shipper", handle: "danshipper", followers: 145523, role: "Co-founder and CEO", organization: "Every" },
+        { name: "Harrison Chase", handle: "hwchase17", followers: 139069, role: "Co-founder and CEO", organization: "LangChain" },
+        { name: "Percy Liang", handle: "percyliang", followers: 128996, role: "Professor of computer science", organization: "Stanford University" },
+        { name: "Amanda Askell", handle: "AmandaAskell", followers: 115284, role: "Claude Character lead", organization: "Anthropic" },
+        { name: "Nathan Lambert", handle: "natolambert", followers: 109589, role: "Founder and director", organization: "Trillium Labs" },
+        { name: "Armin Ronacher", handle: "mitsuhiko", followers: 100230, role: "Co-founder", organization: "Earendil" },
+        {
+          name: "Geoffrey Huntley",
+          handle: "GeoffreyHuntley",
+          followers: 91430,
+          role: "Software developer and creator of the Ralph loop",
+          organization: "Independent",
+        },
+        { name: "Arthur Mensch", handle: "arthurmensch", followers: 91163, role: "Co-founder and CEO", organization: "Mistral AI" },
+        { name: "John Schulman", handle: "johnschulman2", followers: 83804, role: "Chief scientist", organization: "Thinking Machines Lab" },
+        { name: "Mario Zechner", handle: "badlogicgames", followers: 80663, role: "Pi creator", organization: "Earendil" },
+        { name: "Hamel Husain", handle: "HamelHusain", followers: 65608, role: "AI evaluation consultant", organization: "Independent" },
+        { name: "Sholto Douglas", handle: "_sholtodouglas", followers: 65115, role: "Reinforcement learning researcher", organization: "Anthropic" },
+        { name: "Aidan McLaughlin", handle: "aidan_mclau", followers: 49063, role: "Post-training researcher", organization: "OpenAI" },
+        {
+          name: "Tri Dao",
+          handle: "tri_dao",
+          followers: 46709,
+          role: "Chief scientist and assistant professor",
+          organization: "Together AI and Princeton University",
+        },
+        { name: "Linus Lee", handle: "thesephist", followers: 42848, role: "AI researcher and advisor", organization: "Thrive Capital" },
+        { name: "Geoffrey Litt", handle: "geoffreylitt", followers: 26358, role: "Software designer and researcher", organization: "Notion" },
+        {
+          name: "Erik Schluntz",
+          handle: "ErikSchluntz",
+          followers: 10556,
+          role: "Member of technical staff",
+          organization: "Anthropic",
+        },
       ];
       const profilePhotos = {
         _catwu:
@@ -824,13 +944,19 @@
           "pool",
           "pick-dialog",
           "pick-title",
+          "pick-avatar",
+          "pick-role",
+          "pick-organization",
           "pick-profile",
+          "pick-actions",
           "captain",
           "remove",
           "share-dialog",
+          "share-x",
+          "share-status",
+          "x-composer",
           "export-canvas",
           "download",
-          "export-error",
           "example",
           "clear",
         ].map((id) => [id, byId(id)])
@@ -864,6 +990,19 @@
       }
       function spent() {
         return picks.reduce((total, id) => total + (id === null ? 0 : people[id].price), 0);
+      }
+      function showProfile(person) {
+        active = person.id;
+        elements["pick-title"].textContent = person.name;
+        elements["pick-avatar"].replaceChildren(avatar(person));
+        elements["pick-role"].textContent = person.role;
+        elements["pick-organization"].textContent = person.organization;
+        const link = elements["pick-profile"];
+        link.href = `https://x.com/${person.handle}`;
+        link.textContent = `@${person.handle} on X`;
+        elements["pick-actions"].hidden = !picks.includes(person.id);
+        elements.captain.textContent = captain === person.id ? "Remove captain badge" : "Make captain";
+        elements["pick-dialog"].showModal();
       }
       function renderPitch(focusIndex) {
         elements.positions.replaceChildren(
@@ -899,15 +1038,7 @@
             handle.textContent = `@${person.handle}`;
             caption.append(person.name, price, handle);
             pick.append(caption);
-            pick.addEventListener("click", () => {
-              active = id;
-              elements["pick-title"].textContent = person.name;
-              const profile = elements["pick-profile"];
-              profile.href = `https://x.com/${person.handle}`;
-              profile.textContent = `@${person.handle} on X`;
-              elements.captain.textContent = captain === id ? "Remove captain badge" : "Make captain";
-              elements["pick-dialog"].showModal();
-            });
+            pick.addEventListener("click", () => showProfile(person));
             pos.append(pick);
             return pos;
           })
@@ -928,12 +1059,13 @@
           nodes.push(header);
           for (const person of group) {
             const selected = picks.includes(person.id);
-            const button = document.createElement("button");
-            button.className = "person";
-            button.id = `person-${person.id}`;
-            button.disabled = !selected && (open === 0 || spent() + person.price + 2 * (open - 1) > budget);
-            button.setAttribute("aria-pressed", String(selected));
-            button.setAttribute("aria-label", `${person.name}, $${person.price}`);
+            const row = document.createElement("div");
+            row.className = selected ? "person selected" : "person";
+            const profile = document.createElement("button");
+            profile.className = "person-profile";
+            profile.id = `profile-${person.id}`;
+            profile.setAttribute("aria-haspopup", "dialog");
+            profile.addEventListener("click", () => showProfile(person));
             const name = document.createElement("span");
             name.className = "person-name";
             name.textContent = person.name;
@@ -945,17 +1077,21 @@
             const priceTag = document.createElement("span");
             priceTag.className = "price";
             priceTag.textContent = `$${person.price}`;
-            const icon = document.createElement("span");
-            icon.className = "add";
-            icon.setAttribute("aria-hidden", "true");
-            icon.textContent = selected ? "✓" : "+";
-            button.append(avatar(person), name, priceTag, icon);
+            const button = document.createElement("button");
+            button.className = "add";
+            button.id = `person-${person.id}`;
+            button.disabled = !selected && (open === 0 || spent() + person.price + 2 * (open - 1) > budget);
+            button.setAttribute("aria-label", selected ? `Remove ${person.name}` : `Draft ${person.name} for $${person.price}`);
+            button.title = selected ? "Remove pick" : "Draft pick";
+            button.textContent = selected ? "✓" : "+";
             button.addEventListener("click", () => {
               if (selected) remove(person.id);
               else picks[picks.indexOf(null)] = person.id;
               render({ focusId: person.id });
             });
-            nodes.push(button);
+            profile.append(avatar(person), name);
+            row.append(profile, priceTag, button);
+            nodes.push(row);
           }
         }
         if (!nodes.length) {
@@ -967,7 +1103,11 @@
         const scroll = elements.pool.scrollTop;
         elements.pool.replaceChildren(...nodes);
         elements.pool.scrollTop = scroll;
-        if (focusId !== undefined) byId(`person-${focusId}`)?.focus({ preventScroll: true });
+        if (focusId !== undefined) {
+          const draft = byId(`person-${focusId}`);
+          const next = draft && !draft.disabled ? draft : byId(`profile-${focusId}`) || elements.search;
+          next.focus({ preventScroll: true });
+        }
       }
       function remove(id) {
         picks[picks.indexOf(id)] = null;
@@ -1037,7 +1177,7 @@
         ctx.beginPath();
         ctx.arc(x, y, r, 0, Math.PI * 2);
       }
-      function drawImageCard(lineupPhotos) {
+      function drawImageCard(lineupPhotos, labName) {
         const width = canvas.width;
         const height = canvas.height;
         ctx.fillStyle = plum;
@@ -1045,7 +1185,6 @@
         rect(57, 48, 46, 46, 10, mint);
         label("✦", 80, 82, 31, plum, "center");
         label("FANTASY AI LABS", 121, 81, 28, mint);
-        const labName = elements["lab-name"].value.trim() || "My AI Lab";
         label(labName, 56, 170, 65, "#fff", "left", 1088);
 
         const field = { x: 55, y: 207, w: 1090, h: 850 };
@@ -1112,14 +1251,30 @@
         label(`$${spent()} / $${budget} SPENT`, 1145, 1139, 26, mint, "right");
       }
 
+      let lineupFile;
       elements.share.addEventListener("click", async () => {
         elements.share.disabled = true;
-        elements["export-error"].textContent = "";
+        elements["share-status"].textContent = "";
+        elements["x-composer"].hidden = true;
         try {
           const lineup = picks.slice();
           const lineupPhotos = await Promise.all(lineup.map((id) => loadPhoto(people[id].photo)));
           if (lineup.some((id, index) => picks[index] !== id)) return;
-          drawImageCard(lineupPhotos);
+          const name = elements["lab-name"].value.trim() || "My AI Lab";
+          drawImageCard(lineupPhotos, name);
+          const png = await new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
+          if (!png) throw new Error("PNG export failed");
+          if (lineup.some((id, index) => picks[index] !== id)) return;
+          const filename =
+            name
+              .toLowerCase()
+              .replace(/[^\p{L}\p{N}]+/gu, "-")
+              .replace(/^-+|-+$/g, "") || "my-ai-lab";
+          lineupFile = new File([png], `${filename}-lineup.png`, { type: "image/png" });
+          const composer = new URL("https://x.com/intent/tweet");
+          composer.searchParams.set("text", `Meet ${name}, my Fantasy AI Labs lineup.`);
+          composer.searchParams.set("url", "https://richardcsuwandi.github.io/fantasy-ai/");
+          elements["x-composer"].href = composer.href;
           elements["share-dialog"].showModal();
         } catch {
           elements.hint.textContent = "Could not create the image. Please try again.";
@@ -1128,24 +1283,44 @@
         }
       });
       elements.download.addEventListener("click", () => {
-        const filename =
-          elements["lab-name"].value
-            .trim()
-            .toLowerCase()
-            .replace(/[^\p{L}\p{N}]+/gu, "-")
-            .replace(/^-+|-+$/g, "") || "my-ai-lab";
-        canvas.toBlob((blob) => {
-          if (!blob) {
-            elements["export-error"].textContent = "Could not save the PNG. Please try again.";
-            return;
+        const url = URL.createObjectURL(lineupFile);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = lineupFile.name;
+        link.click();
+        setTimeout(() => URL.revokeObjectURL(url), 10000);
+      });
+      elements["share-x"].addEventListener("click", async () => {
+        const button = elements["share-x"];
+        const status = elements["share-status"];
+        const composer = elements["x-composer"];
+        button.disabled = true;
+        status.textContent = "";
+        composer.hidden = true;
+        try {
+          const shareData = { files: [lineupFile] };
+          if (navigator.canShare?.(shareData)) {
+            status.textContent = "Choose X from your device’s share menu.";
+            try {
+              await navigator.share(shareData);
+              return;
+            } catch {
+              // Opening the share sheet may consume the activation required by the clipboard.
+              status.textContent = "If X is unavailable in the share menu, download the PNG and attach it in the composer.";
+              composer.hidden = false;
+              return;
+            }
           }
-          const url = URL.createObjectURL(blob);
-          const link = document.createElement("a");
-          link.href = url;
-          link.download = `${filename}-lineup.png`;
-          link.click();
-          setTimeout(() => URL.revokeObjectURL(url), 10000);
-        }, "image/png");
+          try {
+            await navigator.clipboard.write([new ClipboardItem({ "image/png": lineupFile })]);
+            status.textContent = "Image copied. Open the X composer and paste it into your post.";
+          } catch {
+            status.textContent = "Download the PNG, then open the X composer and attach it to your post.";
+          }
+          composer.hidden = false;
+        } finally {
+          button.disabled = false;
+        }
       });
       render();
     </script>
