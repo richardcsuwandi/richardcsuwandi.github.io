@@ -1213,7 +1213,7 @@
         elements.remaining.textContent = `$${budget - spent()}`;
         elements.clear.disabled = count === 0;
         elements.share.disabled = count !== size;
-        elements.hint.textContent = captain === null ? "" : `Captain · ${people[captain].name}`;
+        elements.hint.textContent = "";
         renderPitch(focusIndex);
         renderPool(focusId);
       }
