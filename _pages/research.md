@@ -188,5 +188,13 @@ Kernaut is the kernel case of a broader question I work on with the [AIDDA Insti
 {% bibliography --group_by none --query @*[key=suwandi2026kernaut]* %}
 </div>
 
+## Prediction under interaction
+
+An approximate universal predictor is trained under one policy and then used to plan under another. [Approximate Universal Prediction under Interaction](#suwandi2026universal) asks which error guarantees survive that change. The transfer coefficient factors into a policy likelihood ratio and the task evidence available before each prediction, so a rare task and a rarely visited action branch can compound. Inside one fixed universal mixture, excess prediction error of order κη 2^K(μ) is sharp, and for bounded returns the value error is the probability of a poorly covered branch plus a square-root term in the training KL budget.
+
+<div class="publications research-pubs">
+{% bibliography --group_by none --query @*[key=suwandi2026universal]* %}
+</div>
+
 What a model treats as cheap to learn, how fast that preference can be fitted, and which alternatives search can propose, decide what limited data can teach. I combine algorithm design, mathematical analysis, and empirical evaluation. If this overlaps with your interests, [email me](mailto:{{ site.email | encode_email }})!
 {: .no-readmore }

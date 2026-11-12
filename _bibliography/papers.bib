@@ -1,8 +1,27 @@
 ---
 ---
 
-@misc{suwandi2026kernaut,
+@misc{suwandi2026universal,
   home={1},
+  title={Approximate Universal Prediction under Interaction},
+  author={Suwandi, Richard Cornelius},
+  year={2026},
+  eprint={2610.33842},
+  archivePrefix={arXiv},
+  primaryClass={cs.LG},
+  presentation={preprint},
+  selected={true},
+  publisher={arXiv},
+  preview={universal-prediction.gif},
+  website={https://arxiv.org/abs/2610.33842},
+  paper={https://arxiv.org/abs/2610.33842},
+  alphaxiv={https://www.alphaxiv.org/abs/2610.33842},
+  tldr={An agent that plans with an approximate universal predictor chooses where that predictor is tested, and can be drawn toward branches where the model is optimistic. Inside one fixed universal mixture, excess prediction error of order κη 2^K(μ) is sharp, and for bounded returns the value error is the probability of a poorly covered branch plus a square-root term in the training KL budget.},
+  abstract={Bayesian mixtures, and Solomonoff induction in particular, provide an idealized model of prediction learned by minimizing population log loss, and they underlie universal agents such as AIXI. An agent that plans with an approximation of such a predictor decides where that predictor is evaluated, and a planner can be drawn toward branches on which its model is optimistic. We study which approximation guarantees survive this feedback. For normalized finite-horizon causal mixtures, the transfer coefficient factors into a policy likelihood ratio and task evidence available before each prediction, so task rarity and action-branch rarity can compound. Within one fixed universal mixture, infinitely many computable environments admit excess prediction error of order κη 2^K(μ), where η is the training KL budget and κ measures policy coverage. This order is sharp, and for each target a computable predictor attains it at a suitable finite horizon, so computability alone does not remove the penalty. For bounded returns, value error is controlled by the probability of entering a poorly covered branch plus a square-root term in η. Both terms are necessary, and finite maximum coverage ratios are not required. Motivated by the mentor override of Golden Handcuffs, we derive margins for preserving deferral decisions and conditional KL budgets with an unavoidable inverse-history-probability penalty, and a counterexample separates agreement of deferral decisions from task-wise event avoidance. The guarantees apply to any predictor architecture that meets explicit population approximation and coverage conditions, which gives concrete targets for implementing idealized universal agents.}
+}
+
+@misc{suwandi2026kernaut,
+  home={2},
   title={Kernel Autoresearch for Open-Ended Model Discovery},
   author={Suwandi, Richard Cornelius and Yin, Feng and Murphy, Kevin},
   year={2026},
@@ -25,7 +44,7 @@
 
 
 @misc{suwandi2026qed,
-  home={5},
+  home={6},
   title={Robust Bayesian Optimization with Q-Exponential Surrogates},
   author={Suwandi, Richard Cornelius and Lin, Zhidi and Yin, Feng and Zoubir, Abdelhak M.},
   year={2026},
@@ -46,7 +65,7 @@
 }
 
 @misc{suwandi2026grape,
-  home={4},
+  home={5},
   title={GRAPE: Gradient Refinement and Progress-Aware Exploitation for Query-Efficient High-Dimensional Bayesian Optimization},
   author={Suwandi, Richard Cornelius and Yin, Feng},
   year={2026},
@@ -85,7 +104,7 @@
 
 
 @inproceedings{suwandi2026breaking,
-  home={3},
+  home={4},
   title={Breaking the Curse of Dimensionality in Gaussian Process Training With Zeroth-Order Adaptive Perturbation},
   author={Suwandi, Richard Cornelius and Yin, Feng and Chang, Tsung-Hui},
   booktitle={51th IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)},
@@ -142,7 +161,7 @@
 }
 
 @article{suwandi2025cake,
-  home={2},
+  home={3},
   title={Adaptive Kernel Design for Bayesian Optimization Is a Piece of CAKE with LLMs},
   author={Richard Cornelius Suwandi and Feng Yin and Juntao Wang and Renjie Li and Tsung-Hui Chang and Sergios Theodoridis},
   journal={39th Conference on Neural Information Processing Systems (NeurIPS)}, 
