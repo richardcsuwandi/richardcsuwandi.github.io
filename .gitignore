@@ -17,3 +17,19 @@ tmp/
 .codex
 .agents
 scripts/
+
+# LaTeX build artifacts
+*.aux
+*.fls
+*.log
+*.fdb_latexmk
+*.synctex.gz
+*.out
+*.toc
+*.lof
+*.lot
+*.bbl
+*.blg
+*.nav
+*.snm
+*.vrb
