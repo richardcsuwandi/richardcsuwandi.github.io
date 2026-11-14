@@ -2,6 +2,14 @@
 # Used by: _pages/talks.md
 # thumbnail: a file in assets/img/talks/thumbs/, made with scripts/talk_thumbnail.sh
 
+- date: "November 14, 2026"
+  sort_date: 2026-11-14
+  title: "Kernel Autoresearch for Open-Ended Model Discovery"
+  venue: '<a href="https://mlcollective.org/dlct/" target="_blank" rel="noopener noreferrer">ML Collective DLCT</a>'
+  slides: dlct_slides.pdf
+  thumbnail: dlct.jpg
+  recording:
+
 - date: "November 10, 2026"
   sort_date: 2026-11-10
   title: "Kernel Autoresearch for Open-Ended Model Discovery"
